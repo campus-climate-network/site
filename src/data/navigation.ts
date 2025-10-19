@@ -100,11 +100,6 @@ export const navEntries: NavEntry[] = [
             description:
               'Partner on trainings, research collaborations, or events.',
           },
-          {
-            label: 'Resource Library',
-            href: '/resources',
-            description: 'Toolkits and guides for student campaigners.',
-          },
         ],
       },
     ],
@@ -141,6 +136,26 @@ export const navEntries: NavEntry[] = [
             label: 'Campus Toolkit',
             href: '/ffr-toolkit',
             description: 'Step-by-step guidance to launch FFR on your campus.',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: 'Resources',
+    columns: [
+      {
+        title: 'Explore',
+        items: [
+          {
+            label: 'Resource Library',
+            href: '/resources/library',
+            description: 'Toolkits and guides for student campaigners.',
+          },
+          {
+            label: 'Blog',
+            href: '/resources/blog',
+            description: 'News, wins, and stories from across the network.',
           },
         ],
       },

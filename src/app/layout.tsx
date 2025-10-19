@@ -1,10 +1,6 @@
 import type { Metadata } from 'next'
-import { draftMode } from 'next/headers'
 import { Bungee, Poppins } from 'next/font/google'
-import './globals.css'
-import { SiteFooter } from '@/components/site-footer'
-import { SiteHeader } from '@/components/site-header'
-// import { useDraftOverlay } from '@/sanity.config'
+import './(site)/globals.css'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -34,21 +30,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  // const { isEnabled } = draftMode()
-
   return (
-    <html
-      lang="en"
-      // data-sanity-drafts={useDraftOverlay && isEnabled ? 'true' : 'false'}
-    >
+    <html lang="en">
       <body
         className={`${poppins.variable} ${bungee.variable} antialiased bg-background text-foreground`}
       >
-        <div className="flex min-h-screen flex-col">
-          <SiteHeader />
-          <main className="flex-1">{children}</main>
-          <SiteFooter />
-        </div>
+        {children}
       </body>
     </html>
   )

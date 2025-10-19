@@ -124,11 +124,168 @@ function DesktopMenuTrigger({
   )
 }
 
+function MegaPanelColumns({
+  menu,
+  state,
+  assignRefs,
+  direction,
+  itemRefs,
+  onItemKeyDown,
+  onNavigate,
+  onItemEnter,
+}: {
+  menu: NavMenu
+  state: 'idle' | 'enter' | 'exit'
+  assignRefs: boolean
+  direction: 'left' | 'right' | 'none'
+  itemRefs: React.MutableRefObject<ItemRefsMap>
+  onItemKeyDown: (
+    event: React.KeyboardEvent<HTMLAnchorElement>,
+    menuLabel: string,
+    index: number,
+    total: number
+  ) => void
+  onNavigate: () => void
+  onItemEnter?: () => void
+}) {
+  const [phase, setPhase] = useState<'from' | 'to' | 'exit'>(() =>
+    state === 'enter' ? 'from' : 'to'
+  )
+
+  useEffect(() => {
+    let frame: number | null = null
+    if (state === 'enter') {
+      setPhase('from')
+      frame = requestAnimationFrame(() => setPhase('to'))
+    } else if (state === 'exit') {
+      setPhase('to')
+      frame = requestAnimationFrame(() => setPhase('exit'))
+    } else {
+      setPhase('to')
+    }
+
+    return () => {
+      if (frame !== null) {
+        cancelAnimationFrame(frame)
+      }
+    }
+  }, [state])
+
+  const columnCount = Math.max(menu.columns.length, 1)
+  const totalItems = menu.columns.reduce(
+    (count, column) => count + column.items.length,
+    0
+  )
+
+  useEffect(() => {
+    const refs = itemRefs.current.get(menu.label) ?? []
+    if (refs.length !== totalItems) {
+      refs.length = totalItems
+      itemRefs.current.set(menu.label, refs)
+    }
+  }, [assignRefs, itemRefs, menu.label, totalItems])
+
+  let itemCursor = -1
+
+  const transform = (() => {
+    if (phase === 'from') {
+      if (direction === 'right') return 'translate3d(1.5rem, 0, 0)'
+      if (direction === 'left') return 'translate3d(-1.5rem, 0, 0)'
+      return 'translate3d(0, 0, 0)'
+    }
+    if (phase === 'exit') {
+      if (direction === 'right') return 'translate3d(-1.5rem, 0, 0)'
+      if (direction === 'left') return 'translate3d(1.5rem, 0, 0)'
+      return 'translate3d(0, 0, 0)'
+    }
+    return 'translate3d(0, 0, 0)'
+  })()
+
+  return (
+    <div
+      className={classNames(
+        'grid w-full gap-5 transition-all duration-200 ease-out',
+        phase === 'from' && 'opacity-0',
+        phase === 'to' && 'opacity-100',
+        phase === 'exit' && 'opacity-0',
+        state === 'exit' && 'pointer-events-none absolute inset-0'
+      )}
+      style={{
+        gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
+        transform,
+      }}
+    >
+      {menu.columns.map((column) => (
+        <div key={`${menu.label}-${column.title}`} className="space-y-3">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-secondary/90">
+            {column.title}
+          </p>
+          <ul className="space-y-1.5">
+            {column.items.map((item) => {
+              itemCursor += 1
+              const currentIndex = itemCursor
+              return (
+                <li key={item.href}>
+                  <Link
+                    ref={
+                      assignRefs
+                        ? (el) => {
+                            const refs = itemRefs.current.get(menu.label)
+                            if (refs) {
+                              refs[currentIndex] = el
+                            }
+                          }
+                        : undefined
+                    }
+                    role="menuitem"
+                    href={item.href}
+                    onClick={onNavigate}
+                    onMouseEnter={onItemEnter}
+                    onKeyDown={(event) =>
+                      onItemKeyDown(event, menu.label, currentIndex, totalItems)
+                    }
+                    className="group flex items-start justify-between gap-3 rounded-xl p-3 transition hover:bg-brand-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30"
+                  >
+                    <span>
+                      <span className="block text-sm font-semibold text-slate-900 group-hover:text-brand-primary">
+                        {item.label}
+                      </span>
+                      {item.description ? (
+                        <span className="mt-1 block text-xs text-slate-500 group-hover:text-brand-primary/70">
+                          {item.description}
+                        </span>
+                      ) : null}
+                    </span>
+                    <svg
+                      className="mt-1 h-4 w-4 text-slate-300 transition group-hover:translate-x-1 group-hover:text-brand-primary"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 4L10 8L6 12"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+      ))}
+    </div>
+  )
+}
+
 function DesktopMegaPanel({
   panelId,
   menu,
   isOpen,
-  left,
   onMouseEnter,
   onSafeLeave,
   onNavigate,
@@ -143,7 +300,6 @@ function DesktopMegaPanel({
   panelId: string
   menu: NavMenu | null
   isOpen: boolean
-  left: number | null
   onMouseEnter: () => void
   onSafeLeave: (event: React.MouseEvent<HTMLDivElement>) => void
   onNavigate: () => void
@@ -161,18 +317,107 @@ function DesktopMegaPanel({
   onItemEnter?: () => void
 }) {
   const panelRef = useRef<HTMLDivElement>(null)
+  type TransitionMenu = {
+    menu: NavMenu
+    id: string
+    state: 'enter' | 'exit' | 'idle'
+    direction: 'left' | 'right' | 'none'
+  }
+
+  const TRANSITION_MS = 200
+  const [transitionMenus, setTransitionMenus] = useState<TransitionMenu[]>([])
+  const previousMenuLabelRef = useRef<string | null>(null)
+
+  const getDirection = useCallback((nextLabel: string) => {
+    const previousLabel = previousMenuLabelRef.current
+    if (!previousLabel || previousLabel === nextLabel) {
+      return 'none'
+    }
+
+    const orderedMenus = navEntries.filter((entry): entry is NavMenu =>
+      isNavMenu(entry)
+    )
+
+    const previousIndex = orderedMenus.findIndex(
+      (entry) => entry.label === previousLabel
+    )
+    const nextIndex = orderedMenus.findIndex(
+      (entry) => entry.label === nextLabel
+    )
+
+    if (previousIndex === -1 || nextIndex === -1) {
+      return 'none'
+    }
+
+    return nextIndex > previousIndex ? 'right' : 'left'
+  }, [])
 
   useEffect(() => {
-    if (!menu) return
-    const refs = itemRefs.current.get(menu.label) ?? []
-    refs.length = menu.columns.reduce(
-      (count, column) => count + column.items.length,
-      0
-    )
-    itemRefs.current.set(menu.label, refs)
-  }, [itemRefs, menu])
+    if (!menu) {
+      setTransitionMenus([])
+      return
+    }
 
-  let itemCursor = -1
+    setTransitionMenus((prev) => {
+      const direction = getDirection(menu.label)
+      const existing = prev.find((entry) => entry.menu.label === menu.label)
+
+      if (existing) {
+        return prev.map((entry) =>
+          entry.menu.label === menu.label
+            ? {
+                ...entry,
+                state: entry.state === 'exit' ? 'enter' : entry.state,
+                direction,
+              }
+            : entry
+        )
+      }
+
+      const exiting = prev.map((entry) => ({
+        ...entry,
+        state: 'exit',
+        direction,
+      }))
+
+      return [
+        ...exiting,
+        {
+          menu,
+          id: `${menu.label}-${Date.now()}`,
+          state: 'enter',
+          direction,
+        },
+      ]
+    })
+
+    previousMenuLabelRef.current = menu.label
+  }, [menu])
+
+  useEffect(() => {
+    if (!transitionMenus.some((entry) => entry.state === 'exit')) return
+    const timeout = setTimeout(() => {
+      setTransitionMenus((prev) =>
+        prev.filter((entry) => entry.state !== 'exit')
+      )
+    }, TRANSITION_MS)
+
+    return () => clearTimeout(timeout)
+  }, [transitionMenus])
+
+  useEffect(() => {
+    if (!transitionMenus.some((entry) => entry.state === 'enter')) return
+    const timeout = setTimeout(() => {
+      setTransitionMenus((prev) =>
+        prev.map((entry) =>
+          entry.state === 'enter' ? { ...entry, state: 'idle' } : entry
+        )
+      )
+    }, TRANSITION_MS)
+
+    return () => clearTimeout(timeout)
+  }, [transitionMenus])
+
   const activeLabel = menu?.label ?? ''
 
   useEffect(() => {
@@ -190,12 +435,11 @@ function DesktopMegaPanel({
       role="menu"
       aria-hidden={!isOpen}
       className={classNames(
-        'absolute top-full z-[60] mt-3 w-screen max-w-3xl -translate-x-1/2 transition-all duration-150 ease-out',
+        'absolute top-full z-[60] mt-3 w-full transition-all duration-150 ease-out',
         isOpen
           ? 'pointer-events-auto translate-y-0 opacity-100'
           : 'pointer-events-none translate-y-2 opacity-0'
       )}
-      style={{ left: left !== null ? `${left}px` : '50%' }}
       onMouseEnter={() => {
         onMouseEnter()
         onPanelEnter()
@@ -203,76 +447,21 @@ function DesktopMegaPanel({
       onMouseLeave={onSafeLeave}
     >
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-[0_24px_80px_-60px_rgba(15,23,42,0.55)] backdrop-blur">
-        <div
-          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 transition-opacity duration-150"
-          data-active-menu={activeMenuLabel}
-        >
-          {menu?.columns.map((column) => (
-            <div key={`${activeLabel}-${column.title}`} className="space-y-3">
-              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-secondary/90">
-                {column.title}
-              </p>
-              <ul className="space-y-1.5">
-                {column.items.map((item) => {
-                  itemCursor += 1
-                  const currentIndex = itemCursor
-                  return (
-                    <li key={item.href}>
-                      <Link
-                        ref={(el) => {
-                          const refs = menu
-                            ? itemRefs.current.get(menu.label)
-                            : null
-                          if (refs) {
-                            refs[currentIndex] = el
-                          }
-                        }}
-                        role="menuitem"
-                        href={item.href}
-                        onClick={onNavigate}
-                        onMouseEnter={onItemEnter}
-                        onKeyDown={(event) =>
-                          menu &&
-                          onItemKeyDown(
-                            event,
-                            menu.label,
-                            currentIndex,
-                            totalItems
-                          )
-                        }
-                        className="group flex items-start justify-between gap-3 rounded-xl p-3 transition hover:bg-brand-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30"
-                      >
-                        <span>
-                          <span className="block text-sm font-semibold text-slate-900 group-hover:text-brand-primary">
-                            {item.label}
-                          </span>
-                          {item.description ? (
-                            <span className="mt-1 block text-xs text-slate-500 group-hover:text-brand-primary/70">
-                              {item.description}
-                            </span>
-                          ) : null}
-                        </span>
-                        <svg
-                          className="mt-1 h-4 w-4 text-slate-300 transition group-hover:translate-x-1 group-hover:text-brand-primary"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M6 4L10 8L6 12"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
+        <div className="relative" data-active-menu={activeMenuLabel}>
+          {transitionMenus.map((entry) => (
+            <MegaPanelColumns
+              key={entry.id}
+              menu={entry.menu}
+              state={entry.state}
+              assignRefs={
+                entry.menu.label === activeLabel && entry.state !== 'exit'
+              }
+              direction={entry.direction}
+              itemRefs={itemRefs}
+              onItemKeyDown={onItemKeyDown}
+              onNavigate={onNavigate}
+              onItemEnter={onItemEnter}
+            />
           ))}
         </div>
       </div>
@@ -284,7 +473,6 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [activeMenu, setActiveMenu] = useState<NavMenu | null>(null)
   const [isOpen, setIsOpen] = useState(false)
-  const [panelLeft, setPanelLeft] = useState<number | null>(null)
   const closeTimer = useRef<NodeJS.Timeout | null>(null)
   const pendingFocusIndex = useRef<number | null>(null)
   const panelRef = useRef<HTMLDivElement | null>(null)
@@ -397,18 +585,6 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
     [cancelClose, isEventTargetWithinNav, scheduleClose]
   )
 
-  const updatePanelPosition = useCallback(
-    (trigger: HTMLButtonElement | null) => {
-      if (!trigger || !containerRef.current) return
-      const triggerRect = trigger.getBoundingClientRect()
-      const containerRect = containerRef.current.getBoundingClientRect()
-      const center =
-        triggerRect.left - containerRect.left + triggerRect.width / 2
-      setPanelLeft(center)
-    },
-    []
-  )
-
   const openMenu = useCallback(
     (
       menu: NavMenu,
@@ -416,14 +592,13 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
       options?: MenuFocusOptions
     ) => {
       cancelClose()
-      updatePanelPosition(trigger)
       setActiveMenu(menu)
       setIsOpen(true)
       if (options?.focusIndex !== undefined) {
         pendingFocusIndex.current = options.focusIndex
       }
     },
-    [cancelClose, updatePanelPosition]
+    [cancelClose]
   )
 
   useEffect(() => {
@@ -565,7 +740,6 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
         panelId={panelId}
         menu={activeMenu}
         isOpen={isOpen && !!activeMenu}
-        left={panelLeft}
         onMouseEnter={cancelClose}
         onSafeLeave={handleSafePointerLeave}
         onNavigate={closeMenu}
