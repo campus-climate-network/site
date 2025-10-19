@@ -1,0 +1,885 @@
+'use client'
+
+import Link from 'next/link'
+import Image from 'next/image'
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
+
+import {
+  navEntries,
+  type NavEntry,
+  type NavMenu,
+  type NavLink,
+  isNavMenu,
+} from '@/data/navigation'
+
+type FocusableItem = NavLink
+
+type TriggerRefsMap = Map<string, HTMLButtonElement | null>
+type ItemRefsMap = Map<string, Array<HTMLAnchorElement | null>>
+
+type MenuFocusOptions = {
+  focusIndex?: number
+}
+
+function classNames(...classes: Array<string | false | null | undefined>) {
+  return classes.filter(Boolean).join(' ')
+}
+
+function DesktopMenuTrigger({
+  menu,
+  isActive,
+  onOpen,
+  onTriggerEnter,
+  onTriggerLeave,
+  onScheduleClose,
+  onKeyDown,
+  onSafeLeave,
+  triggerRefs,
+  panelId,
+}: {
+  menu: NavMenu
+  isActive: boolean
+  onOpen: (
+    menu: NavMenu,
+    trigger: HTMLButtonElement | null,
+    options?: MenuFocusOptions
+  ) => void
+  onTriggerEnter: () => void
+  onTriggerLeave: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onScheduleClose: () => void
+  onKeyDown: (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    menu: NavMenu,
+    trigger: HTMLButtonElement | null
+  ) => void
+  onSafeLeave: (event: React.MouseEvent<HTMLButtonElement>) => void
+  triggerRefs: React.MutableRefObject<TriggerRefsMap>
+  panelId: string
+}) {
+  const triggerRef = useRef<HTMLButtonElement>(null)
+
+  useEffect(() => {
+    const map = triggerRefs.current
+    map.set(menu.label, triggerRef.current)
+    return () => {
+      map.delete(menu.label)
+    }
+  }, [menu.label, triggerRefs])
+
+  return (
+    <div className="relative">
+      <button
+        type="button"
+        ref={triggerRef}
+        id={`${panelId}-${menu.label}-trigger`}
+        aria-expanded={isActive}
+        aria-haspopup="true"
+        aria-controls={panelId}
+        onMouseEnter={() => {
+          onTriggerEnter()
+          onOpen(menu, triggerRef.current)
+        }}
+        onMouseLeave={(event) => {
+          onTriggerLeave(event)
+          onSafeLeave(event)
+        }}
+        onFocus={() => onOpen(menu, triggerRef.current)}
+        onClick={() => {
+          if (isActive) {
+            onScheduleClose()
+          } else {
+            onOpen(menu, triggerRef.current)
+          }
+        }}
+        onKeyDown={(event) => onKeyDown(event, menu, triggerRef.current)}
+        className={classNames(
+          'inline-flex items-center gap-1 px-3 py-2 text-[0.95rem] font-medium transition-colors',
+          isActive
+            ? 'text-brand-primary'
+            : 'text-slate-700 hover:text-brand-primary'
+        )}
+      >
+        {menu.label}
+        <svg
+          className={classNames(
+            'h-3 w-3 transition-transform',
+            isActive && 'rotate-180 text-brand-primary'
+          )}
+          viewBox="0 0 8 6"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M1 1.5L4 4.5L7 1.5"
+            stroke="currentColor"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+    </div>
+  )
+}
+
+function DesktopMegaPanel({
+  panelId,
+  menu,
+  isOpen,
+  left,
+  onMouseEnter,
+  onSafeLeave,
+  onNavigate,
+  itemRefs,
+  onItemKeyDown,
+  activeMenuLabel,
+  totalItems,
+  onPanelRef,
+  onPanelEnter,
+  onItemEnter,
+}: {
+  panelId: string
+  menu: NavMenu | null
+  isOpen: boolean
+  left: number | null
+  onMouseEnter: () => void
+  onSafeLeave: (event: React.MouseEvent<HTMLDivElement>) => void
+  onNavigate: () => void
+  itemRefs: React.MutableRefObject<ItemRefsMap>
+  onItemKeyDown: (
+    event: React.KeyboardEvent<HTMLAnchorElement>,
+    menuLabel: string,
+    index: number,
+    total: number
+  ) => void
+  activeMenuLabel: string | null
+  totalItems: number
+  onPanelRef: (element: HTMLDivElement | null) => void
+  onPanelEnter: () => void
+  onItemEnter?: () => void
+}) {
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!menu) return
+    const refs = itemRefs.current.get(menu.label) ?? []
+    refs.length = menu.columns.reduce(
+      (count, column) => count + column.items.length,
+      0
+    )
+    itemRefs.current.set(menu.label, refs)
+  }, [itemRefs, menu])
+
+  let itemCursor = -1
+  const activeLabel = menu?.label ?? ''
+
+  useEffect(() => {
+    const node = panelRef.current
+    onPanelRef(node)
+    return () => {
+      onPanelRef(null)
+    }
+  }, [onPanelRef])
+
+  return (
+    <div
+      ref={panelRef}
+      id={panelId}
+      role="menu"
+      aria-hidden={!isOpen}
+      className={classNames(
+        'absolute top-full z-[60] mt-3 w-screen max-w-3xl -translate-x-1/2 transition-all duration-150 ease-out',
+        isOpen
+          ? 'pointer-events-auto translate-y-0 opacity-100'
+          : 'pointer-events-none translate-y-2 opacity-0'
+      )}
+      style={{ left: left !== null ? `${left}px` : '50%' }}
+      onMouseEnter={() => {
+        onMouseEnter()
+        onPanelEnter()
+      }}
+      onMouseLeave={onSafeLeave}
+    >
+      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-[0_24px_80px_-60px_rgba(15,23,42,0.55)] backdrop-blur">
+        <div
+          className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 transition-opacity duration-150"
+          data-active-menu={activeMenuLabel}
+        >
+          {menu?.columns.map((column) => (
+            <div key={`${activeLabel}-${column.title}`} className="space-y-3">
+              <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-secondary/90">
+                {column.title}
+              </p>
+              <ul className="space-y-1.5">
+                {column.items.map((item) => {
+                  itemCursor += 1
+                  const currentIndex = itemCursor
+                  return (
+                    <li key={item.href}>
+                      <Link
+                        ref={(el) => {
+                          const refs = menu
+                            ? itemRefs.current.get(menu.label)
+                            : null
+                          if (refs) {
+                            refs[currentIndex] = el
+                          }
+                        }}
+                        role="menuitem"
+                        href={item.href}
+                        onClick={onNavigate}
+                        onMouseEnter={onItemEnter}
+                        onKeyDown={(event) =>
+                          menu &&
+                          onItemKeyDown(
+                            event,
+                            menu.label,
+                            currentIndex,
+                            totalItems
+                          )
+                        }
+                        className="group flex items-start justify-between gap-3 rounded-xl p-3 transition hover:bg-brand-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/30"
+                      >
+                        <span>
+                          <span className="block text-sm font-semibold text-slate-900 group-hover:text-brand-primary">
+                            {item.label}
+                          </span>
+                          {item.description ? (
+                            <span className="mt-1 block text-xs text-slate-500 group-hover:text-brand-primary/70">
+                              {item.description}
+                            </span>
+                          ) : null}
+                        </span>
+                        <svg
+                          className="mt-1 h-4 w-4 text-slate-300 transition group-hover:translate-x-1 group-hover:text-brand-primary"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M6 4L10 8L6 12"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function DesktopNav({ entries }: { entries: NavEntry[] }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [activeMenu, setActiveMenu] = useState<NavMenu | null>(null)
+  const [isOpen, setIsOpen] = useState(false)
+  const [panelLeft, setPanelLeft] = useState<number | null>(null)
+  const closeTimer = useRef<NodeJS.Timeout | null>(null)
+  const pendingFocusIndex = useRef<number | null>(null)
+  const panelRef = useRef<HTMLDivElement | null>(null)
+  const triggerRefs = useRef<TriggerRefsMap>(new Map())
+  const itemRefs = useRef<ItemRefsMap>(new Map())
+  const panelId = useId()
+
+  const focusableItems: FocusableItem[] = useMemo(() => {
+    if (!activeMenu) return []
+    return activeMenu.columns.flatMap((column) => column.items)
+  }, [activeMenu])
+
+  useEffect(() => {
+    return () => {
+      if (closeTimer.current) {
+        clearTimeout(closeTimer.current)
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isOpen && pendingFocusIndex.current !== null) {
+      pendingFocusIndex.current = null
+    }
+  }, [isOpen])
+
+  const focusItem = useCallback((menuLabel: string, index: number) => {
+    const refs = itemRefs.current.get(menuLabel)
+    if (!refs) return
+    const target = refs[index]
+    if (target) {
+      target.focus()
+    }
+  }, [])
+
+  const focusTrigger = useCallback((menuLabel: string) => {
+    const trigger = triggerRefs.current.get(menuLabel)
+    trigger?.focus()
+  }, [])
+
+  const cancelClose = useCallback(() => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current)
+    }
+  }, [])
+
+  const closeMenu = useCallback(() => {
+    setIsOpen(false)
+    setActiveMenu(null)
+  }, [])
+
+  const scheduleClose = useCallback(() => {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current)
+    }
+    closeTimer.current = setTimeout(() => {
+      closeMenu()
+    }, 90)
+  }, [closeMenu])
+
+  const isEventTargetWithinNav = useCallback((target: EventTarget | null) => {
+    if (!target) return false
+    if (!(target instanceof Node)) return false
+
+    const container = containerRef.current
+    const panel = panelRef.current
+
+    return (
+      (!!container && container.contains(target)) ||
+      (!!panel && panel.contains(target))
+    )
+  }, [])
+
+  const handleSafePointerLeave = useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      if (isEventTargetWithinNav(event.relatedTarget)) {
+        cancelClose()
+        return
+      }
+
+      scheduleClose()
+    },
+    [cancelClose, isEventTargetWithinNav, scheduleClose]
+  )
+
+  const handleItemEnter = useCallback(() => {
+    cancelClose()
+  }, [cancelClose])
+
+  const setPanelElement = useCallback((element: HTMLDivElement | null) => {
+    panelRef.current = element
+  }, [])
+
+  const handlePanelEnter = useCallback(() => {
+    cancelClose()
+  }, [cancelClose])
+
+  const handleTriggerEnter = useCallback(() => {
+    cancelClose()
+  }, [cancelClose])
+
+  const handleTriggerLeave = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (isEventTargetWithinNav(event.relatedTarget)) {
+        cancelClose()
+      } else {
+        scheduleClose()
+      }
+    },
+    [cancelClose, isEventTargetWithinNav, scheduleClose]
+  )
+
+  const updatePanelPosition = useCallback(
+    (trigger: HTMLButtonElement | null) => {
+      if (!trigger || !containerRef.current) return
+      const triggerRect = trigger.getBoundingClientRect()
+      const containerRect = containerRef.current.getBoundingClientRect()
+      const center =
+        triggerRect.left - containerRect.left + triggerRect.width / 2
+      setPanelLeft(center)
+    },
+    []
+  )
+
+  const openMenu = useCallback(
+    (
+      menu: NavMenu,
+      trigger: HTMLButtonElement | null,
+      options?: MenuFocusOptions
+    ) => {
+      cancelClose()
+      updatePanelPosition(trigger)
+      setActiveMenu(menu)
+      setIsOpen(true)
+      if (options?.focusIndex !== undefined) {
+        pendingFocusIndex.current = options.focusIndex
+      }
+    },
+    [cancelClose, updatePanelPosition]
+  )
+
+  useEffect(() => {
+    if (pendingFocusIndex.current !== null && activeMenu) {
+      const index = pendingFocusIndex.current
+      pendingFocusIndex.current = null
+      requestAnimationFrame(() => {
+        focusItem(activeMenu.label, index)
+      })
+    }
+  }, [activeMenu, focusItem])
+
+  const handleTriggerKeyDown = useCallback(
+    (
+      event: React.KeyboardEvent<HTMLButtonElement>,
+      menu: NavMenu,
+      trigger: HTMLButtonElement | null
+    ) => {
+      const totalItems = menu.columns.reduce(
+        (count, column) => count + column.items.length,
+        0
+      )
+
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        closeMenu()
+        focusTrigger(menu.label)
+        return
+      }
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        openMenu(menu, trigger, { focusIndex: 0 })
+        return
+      }
+
+      if (event.key === 'ArrowUp') {
+        event.preventDefault()
+        openMenu(menu, trigger, { focusIndex: totalItems - 1 })
+        return
+      }
+
+      if (event.key === 'Home') {
+        event.preventDefault()
+        openMenu(menu, trigger, { focusIndex: 0 })
+        return
+      }
+
+      if (event.key === 'End') {
+        event.preventDefault()
+        openMenu(menu, trigger, { focusIndex: totalItems - 1 })
+      }
+    },
+    [closeMenu, focusTrigger, openMenu]
+  )
+
+  const handleItemKeyDown = useCallback(
+    (
+      event: React.KeyboardEvent<HTMLAnchorElement>,
+      menuLabel: string,
+      index: number,
+      total: number
+    ) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        closeMenu()
+        focusTrigger(menuLabel)
+        return
+      }
+
+      if (event.key === 'ArrowDown') {
+        event.preventDefault()
+        const next = (index + 1) % total
+        focusItem(menuLabel, next)
+        return
+      }
+
+      if (event.key === 'ArrowUp') {
+        event.preventDefault()
+        const prev = (index - 1 + total) % total
+        focusItem(menuLabel, prev)
+        return
+      }
+
+      if (event.key === 'Home') {
+        event.preventDefault()
+        focusItem(menuLabel, 0)
+        return
+      }
+
+      if (event.key === 'End') {
+        event.preventDefault()
+        focusItem(menuLabel, total - 1)
+      }
+    },
+    [closeMenu, focusItem, focusTrigger]
+  )
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative flex items-center gap-4"
+      onMouseEnter={cancelClose}
+      onMouseLeave={handleSafePointerLeave}
+    >
+      {entries.map((entry) => {
+        if (isNavMenu(entry)) {
+          return (
+            <DesktopMenuTrigger
+              key={entry.label}
+              menu={entry}
+              isActive={isOpen && activeMenu?.label === entry.label}
+              onOpen={openMenu}
+              onScheduleClose={() => {
+                cancelClose()
+                scheduleClose()
+              }}
+              onTriggerEnter={handleTriggerEnter}
+              onTriggerLeave={handleTriggerLeave}
+              onKeyDown={handleTriggerKeyDown}
+              onSafeLeave={handleSafePointerLeave}
+              triggerRefs={triggerRefs}
+              panelId={panelId}
+            />
+          )
+        }
+
+        return (
+          <Link
+            key={entry.label}
+            href={entry.href}
+            className="px-3 py-2 text-[0.95rem] font-medium text-slate-700 transition-colors hover:text-brand-primary"
+          >
+            {entry.label}
+          </Link>
+        )
+      })}
+      <DesktopMegaPanel
+        panelId={panelId}
+        menu={activeMenu}
+        isOpen={isOpen && !!activeMenu}
+        left={panelLeft}
+        onMouseEnter={cancelClose}
+        onSafeLeave={handleSafePointerLeave}
+        onNavigate={closeMenu}
+        itemRefs={itemRefs}
+        onItemKeyDown={handleItemKeyDown}
+        activeMenuLabel={activeMenu?.label ?? null}
+        totalItems={focusableItems.length}
+        onPanelRef={setPanelElement}
+        onPanelEnter={handlePanelEnter}
+        onItemEnter={handleItemEnter}
+      />
+    </div>
+  )
+}
+
+function MobileMenuSection({
+  menu,
+  expanded,
+  onToggle,
+  onNavigate,
+}: {
+  menu: NavMenu
+  expanded: boolean
+  onToggle: () => void
+  onNavigate: () => void
+}) {
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={onToggle}
+        className="flex w-full items-center justify-between gap-3 text-left text-base font-semibold text-slate-800"
+        aria-expanded={expanded}
+      >
+        {menu.label}
+        <svg
+          className={classNames(
+            'h-4 w-4 transition-transform',
+            expanded && 'rotate-180 text-brand-primary'
+          )}
+          viewBox="0 0 16 16"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path
+            d="M4.5 6L8 9.5L11.5 6"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </button>
+      <div
+        className={classNames(
+          'mt-3 space-y-4 border-l border-slate-200 pl-4 text-sm text-slate-600 transition-all duration-200',
+          expanded
+            ? 'max-h-96 opacity-100'
+            : 'max-h-0 overflow-hidden opacity-0'
+        )}
+      >
+        {menu.columns.map((column) => (
+          <div key={`${menu.label}-${column.title}`} className="space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-secondary/80">
+              {column.title}
+            </p>
+            <div className="space-y-2">
+              {column.items.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={onNavigate}
+                  className="block rounded-lg bg-slate-50/60 px-3 py-2 text-slate-700 transition hover:bg-brand-primary/10 hover:text-brand-primary"
+                >
+                  <span className="block text-sm font-medium">
+                    {item.label}
+                  </span>
+                  {item.description ? (
+                    <span className="mt-1 block text-xs text-slate-500">
+                      {item.description}
+                    </span>
+                  ) : null}
+                </Link>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function MobileNav({
+  entries,
+  open,
+  onClose,
+}: {
+  entries: NavEntry[]
+  open: boolean
+  onClose: () => void
+}) {
+  const [expandedSection, setExpandedSection] = useState<string | null>(null)
+
+  useEffect(() => {
+    if (!open) {
+      setExpandedSection(null)
+    }
+  }, [open])
+
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow
+    if (open) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = originalOverflow
+    }
+    return () => {
+      document.body.style.overflow = originalOverflow
+    }
+  }, [open])
+
+  return (
+    <div
+      aria-hidden={!open}
+      className={classNames(
+        'fixed inset-0 z-[70] transition duration-200 ease-out lg:hidden',
+        open
+          ? 'pointer-events-auto bg-slate-900/40 opacity-100'
+          : 'pointer-events-none opacity-0'
+      )}
+    >
+      <div
+        className={classNames(
+          'ml-auto flex h-full w-full max-w-sm flex-col bg-white shadow-2xl transition-transform duration-200 ease-out',
+          open ? 'translate-x-0' : 'translate-x-full'
+        )}
+      >
+        <div className="flex items-center justify-between border-b border-slate-200 px-6 py-5">
+          <span className="text-xs font-semibold uppercase tracking-[0.4em] text-brand-secondary">
+            Menu
+          </span>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-full p-2 text-slate-500 transition hover:text-brand-primary focus-visible:outline-none"
+            aria-label="Close navigation"
+          >
+            <svg
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M6 6L14 14M6 14L14 6"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <nav className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+          {entries.map((entry) => {
+            if (isNavMenu(entry)) {
+              const expanded = expandedSection === entry.label
+              return (
+                <MobileMenuSection
+                  key={entry.label}
+                  menu={entry}
+                  expanded={expanded}
+                  onToggle={() =>
+                    setExpandedSection((prev) =>
+                      prev === entry.label ? null : entry.label
+                    )
+                  }
+                  onNavigate={onClose}
+                />
+              )
+            }
+
+            return (
+              <Link
+                key={entry.label}
+                href={entry.href}
+                onClick={onClose}
+                className="block text-base font-semibold text-slate-800 transition hover:text-brand-primary"
+              >
+                {entry.label}
+              </Link>
+            )
+          })}
+        </nav>
+        <div className="border-t border-slate-200 px-6 py-6">
+          <Link
+            href="/donate"
+            onClick={onClose}
+            className="inline-flex w-full items-center justify-center rounded-full bg-brand-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+          >
+            Donate
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export function SiteHeader() {
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileOpen, setMobileOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 12)
+    }
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setMobileOpen(false)
+      }
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  return (
+    <>
+      <header
+        className={classNames(
+          'sticky top-0 z-50 border-b border-slate-200/40 transition-all duration-200',
+          scrolled
+            ? 'bg-white/80 py-3 shadow-[0_12px_40px_-24px_rgba(15,23,42,0.35)] backdrop-blur supports-[backdrop-filter]:bg-white/70'
+            : 'bg-white/95 py-5 backdrop-blur'
+        )}
+      >
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+          <Link href="/" className="flex items-center gap-4">
+            <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-[0_12px_30px_-12px_rgba(96,55,157,0.6)]">
+              <Image
+                src="/purple-logo.png"
+                alt="Campus Climate Network logo"
+                fill
+                priority
+                sizes="44px"
+                className="object-contain"
+              />
+            </div>
+            <div className="hidden text-brand-primary sm:block">
+              <p className="font-display text-xs uppercase leading-tight tracking-[0.4em]">
+                Campus
+              </p>
+              <p className="font-display text-xs uppercase leading-tight tracking-[0.4em]">
+                Climate
+              </p>
+              <p className="font-display text-xs uppercase leading-tight tracking-[0.4em]">
+                Network
+              </p>
+            </div>
+          </Link>
+          <button
+            type="button"
+            onClick={() => setMobileOpen(true)}
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 shadow-sm transition hover:border-brand-primary/40 hover:text-brand-primary focus-visible:outline-none lg:hidden"
+            aria-label="Open navigation"
+          >
+            Menu
+            <svg
+              className="h-4 w-4"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3.5 6H16.5M3.5 10H16.5M3.5 14H16.5"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+          <nav className="hidden items-center gap-4 lg:flex">
+            <DesktopNav entries={navEntries} />
+          </nav>
+          <div className="hidden items-center gap-3 lg:flex">
+            <Link
+              href="/donate"
+              className="inline-flex items-center rounded-full bg-brand-primary px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_40px_-20px_rgba(96,55,157,0.8)] transition hover:bg-brand-secondary"
+            >
+              Donate
+            </Link>
+          </div>
+        </div>
+      </header>
+      {mounted
+        ? createPortal(
+            <MobileNav
+              entries={navEntries}
+              open={mobileOpen}
+              onClose={() => setMobileOpen(false)}
+            />,
+            document.body
+          )
+        : null}
+    </>
+  )
+}
