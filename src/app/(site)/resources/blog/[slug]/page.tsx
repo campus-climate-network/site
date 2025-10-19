@@ -40,11 +40,9 @@ const portableTextComponents: PortableTextReactComponents = {
 }
 
 export default async function PostPage({ params }: { params: Params }) {
-  const post = await client.fetch<PostDetail | null>(
-    POST_QUERY,
-    { slug: params.slug },
-    { next: { revalidate } }
-  )
+  const post = await client.fetch<PostDetail | null>(POST_QUERY, {
+    slug: params.slug,
+  })
 
   if (!post) {
     notFound()

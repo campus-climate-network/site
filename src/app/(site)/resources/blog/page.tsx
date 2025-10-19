@@ -4,7 +4,7 @@ import type { PostListItem } from '@/sanity/lib/types'
 import { client } from '@/sanity/lib/client'
 import { POSTS_QUERY } from '@/sanity/lib/queries'
 
-const options = { next: { revalidate: 60 } }
+export const revalidate = 60
 const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'long' })
 
 const formatDate = (input?: string | null) => {
@@ -15,7 +15,7 @@ const formatDate = (input?: string | null) => {
 }
 
 export default async function Page() {
-  const posts = await client.fetch<PostListItem[]>(POSTS_QUERY, {}, options)
+  const posts = await client.fetch<PostListItem[]>(POSTS_QUERY)
   const hasPosts = posts.length > 0
 
   return (
