@@ -4,7 +4,7 @@ import { Bungee, Poppins } from 'next/font/google'
 import './globals.css'
 import { SiteFooter } from '@/components/site-footer'
 import { SiteHeader } from '@/components/site-header'
-import { useDraftOverlay } from '@/sanity/config'
+import { useDraftOverlay } from '@/sanity.config'
 
 const poppins = Poppins({
   subsets: ['latin'],
