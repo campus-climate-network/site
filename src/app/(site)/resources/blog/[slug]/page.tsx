@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {
   PortableText,
-  type PortableTextReactComponents,
+  type PortableTextComponents,
 } from '@portabletext/react'
 
 import { client } from '@/sanity/lib/client'
@@ -85,7 +85,7 @@ export async function generateStaticParams() {
   return slugs.map(({ slug }) => ({ slug }))
 }
 
-const portableTextComponents: PortableTextReactComponents = {
+const portableTextComponents: PortableTextComponents = {
   types: {
     image: ({ value }) => {
       if (!value || typeof value !== 'object') {
