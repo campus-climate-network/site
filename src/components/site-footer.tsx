@@ -56,6 +56,15 @@ export function SiteFooter() {
               © Campus Climate Network 2025
             </p>
           </div>
+          <div className="text-sm text-slate-300">
+            Site built by{' '}
+            <a
+              className=" transition hover:text-white"
+              href="https://www.dylanwahbe.com"
+            >
+              Dylan Wahbe
+            </a>
+          </div>
         </div>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {footerColumns.map((column) => (
