@@ -2,18 +2,15 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 import {
   navEntries,
   type NavEntry,
   type NavMenu,
-  type NavLink,
   isNavMenu,
 } from '@/data/navigation'
-
-type FocusableItem = NavLink
 
 type TriggerRefsMap = Map<string, HTMLButtonElement | null>
 type ItemRefsMap = Map<string, Array<HTMLAnchorElement | null>>
@@ -292,7 +289,6 @@ function DesktopMegaPanel({
   itemRefs,
   onItemKeyDown,
   activeMenuLabel,
-  totalItems,
   onPanelRef,
   onPanelEnter,
   onItemEnter,
@@ -311,7 +307,6 @@ function DesktopMegaPanel({
     total: number
   ) => void
   activeMenuLabel: string | null
-  totalItems: number
   onPanelRef: (element: HTMLDivElement | null) => void
   onPanelEnter: () => void
   onItemEnter?: () => void
@@ -392,7 +387,7 @@ function DesktopMegaPanel({
     })
 
     previousMenuLabelRef.current = menu.label
-  }, [menu])
+  }, [getDirection, menu])
 
   useEffect(() => {
     if (!transitionMenus.some((entry) => entry.state === 'exit')) return
@@ -479,11 +474,6 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
   const triggerRefs = useRef<TriggerRefsMap>(new Map())
   const itemRefs = useRef<ItemRefsMap>(new Map())
   const panelId = useId()
-
-  const focusableItems: FocusableItem[] = useMemo(() => {
-    if (!activeMenu) return []
-    return activeMenu.columns.flatMap((column) => column.items)
-  }, [activeMenu])
 
   useEffect(() => {
     return () => {
@@ -746,7 +736,6 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
         itemRefs={itemRefs}
         onItemKeyDown={handleItemKeyDown}
         activeMenuLabel={activeMenu?.label ?? null}
-        totalItems={focusableItems.length}
         onPanelRef={setPanelElement}
         onPanelEnter={handlePanelEnter}
         onItemEnter={handleItemEnter}

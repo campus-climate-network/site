@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { draftMode } from 'next/headers'
 import { Bungee, Poppins } from 'next/font/google'
 import './globals.css'
 import { SiteFooter } from '@/components/site-footer'

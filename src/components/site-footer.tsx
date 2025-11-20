@@ -3,7 +3,6 @@ import Link from 'next/link'
 import {
   navEntries,
   type NavEntry,
-  type NavMenu,
   type NavColumn,
   type NavLink,
   isNavMenu,
