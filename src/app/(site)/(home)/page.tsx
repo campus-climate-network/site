@@ -191,14 +191,18 @@ export default function Home() {
               </a>
             </div>
           </div>
-          <div className="rounded-3xl border border-brand-secondary/30 bg-brand-sky/10 p-8">
-            <p className="text-brand-secondary font-semibold">
-              Interactive map coming soon
-            </p>
-            <p className="mt-2 text-sm text-slate-600">
-              We’re rebuilding our map experience. For now, explore the Google
-              Map linked on our current site for active member chapters.
-            </p>
+          <div className="rounded-3xl border border-brand-secondary/30 overflow-hidden">
+            <div className="relative h-[320px] sm:h-[420px] lg:h-[500px]">
+              <iframe
+                title="Campus Climate Network member map"
+                src="https://www.google.com/maps/d/embed?mid=1jL5D_L1471XrlrzwzSC-d3mWE_KyEJU&ehbc=2E312F&nopro&ll=10.14543330073012,-107.3738707&z=2"
+                className="absolute inset-x-0 -top-16 h-[calc(100%+4rem)] w-full"
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+                style={{ border: 0 }}
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -238,7 +242,7 @@ export default function Home() {
       <section className="mx-auto w-full max-w-6xl px-6">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-3xl bg-brand-primary/10 p-8 text-brand-primary">
-            <h2 className="text-2xl font-semibold">Join the movement</h2>
+            <h2 className="text-3xl font-semibold">Join the movement</h2>
             <p className="mt-3 text-sm text-brand-primary/80">
               Are you a university student, faculty, alumni, or community member
               ready to push your institution to cut ties with fossil fuels?
@@ -251,7 +255,7 @@ export default function Home() {
             </a>
           </div>
           <div className="rounded-3xl bg-brand-secondary/10 p-8 text-brand-secondary">
-            <h2 className="text-2xl font-semibold">Support the work</h2>
+            <h2 className="text-3xl font-semibold">Support the work</h2>
             <p className="mt-3 text-sm text-brand-secondary/80">
               Donations fuel campus-wide organizing, leadership development, and
               rapid-response actions to hold universities accountable.
