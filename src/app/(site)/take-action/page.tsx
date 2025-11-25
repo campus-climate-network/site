@@ -25,9 +25,9 @@ const steps = [
 
 export default function TakeActionPage() {
   return (
-    <div className="stack stack-giant pb-20">
-      <section className="bg-brand-cream/60">
-        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
+    <div className="page-wrapper">
+      <section className="bg-brand-cream/60 section-hero">
+        <div className="page-container stack stack-tight text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Take Action
           </p>
@@ -43,7 +43,7 @@ export default function TakeActionPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+      <section className="page-container stack stack-relaxed">
         <div className="text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             How onboarding works
@@ -64,15 +64,15 @@ export default function TakeActionPage() {
         </div>
       </section>
 
-      <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl px-6 text-left">
+      <section className="bg-slate-900 section-dark">
+        <div className="page-container text-left">
           <div className="rounded-3xl bg-white p-8 shadow-2xl">
             <ActionNetworkForm />
           </div>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6">
+      <section className="page-container">
         <div className="stack stack-dense rounded-3xl bg-brand-primary/10 p-8">
           <h2 className="text-3xl font-semibold text-brand-primary">
             Upcoming opportunities

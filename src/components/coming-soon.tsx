@@ -51,7 +51,7 @@ export function ComingSoon({
   children,
 }: ComingSoonProps) {
   return (
-    <div className="stack stack-tight mx-auto min-h-[60vh] w-full max-w-6xl justify-center px-6 py-20 text-left">
+    <div className="stack stack-tight page-container section-hero min-h-[60vh] justify-center text-left">
       <p className="text-xs font-semibold uppercase tracking-[0.35em] text-brand-secondary/80">
         Coming soon
       </p>

@@ -187,7 +187,7 @@ export default async function PostPage(
     null
 
   return (
-    <main className="mx-auto grid max-w-3xl gap-8 px-6 py-12 sm:py-16">
+    <main className="mx-auto grid max-w-3xl gap-8 px-[var(--spacing-container)] section-hero">
       <Link
         href="/resources/blog"
         className="inline-flex items-center gap-1 text-sm font-medium text-brand-primary transition hover:text-brand-secondary"

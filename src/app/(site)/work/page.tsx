@@ -8,9 +8,9 @@ export const metadata: Metadata = {
 
 export default function WorkWithCCNPage() {
   return (
-    <div className="stack stack-giant pb-20">
-      <section className="bg-brand-primary/10">
-        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
+    <div className="page-wrapper">
+      <section className="bg-brand-primary/10 section-hero">
+        <div className="page-container stack stack-tight text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Work with CCN
           </p>
@@ -25,7 +25,7 @@ export default function WorkWithCCNPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+      <section className="page-container stack stack-relaxed">
         <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             Ways to work with us
@@ -62,8 +62,8 @@ export default function WorkWithCCNPage() {
         </div>
       </section>
 
-      <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left text-white">
+      <section className="bg-slate-900 section-dark">
+        <div className="page-container stack stack-tight text-left text-white">
           <h2 className="text-3xl font-semibold">Get in touch</h2>
           <p className="text-sm text-slate-200">
             We tailor partnerships to your goals and our movement’s needs. Reach

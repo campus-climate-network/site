@@ -1023,7 +1023,7 @@ export function SiteHeader() {
             : 'bg-white/95 py-5 backdrop-blur'
         )}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+        <div className="page-container flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-4">
             <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-[0_12px_30px_-12px_rgba(96,55,157,0.6)]">
               <Image

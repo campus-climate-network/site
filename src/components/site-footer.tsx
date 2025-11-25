@@ -34,7 +34,7 @@ const footerColumns = navEntries.flatMap(extractFooterColumns)
 export function SiteFooter() {
   return (
     <footer className="bg-slate-900 text-slate-100">
-      <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 lg:grid-cols-[2fr_3fr]">
+      <div className="page-container section-dark grid gap-12 lg:grid-cols-[2fr_3fr]">
         <div className="stack stack-tight">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.65em] text-brand-accent">

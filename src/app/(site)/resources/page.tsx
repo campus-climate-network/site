@@ -56,9 +56,9 @@ const resourceSections = [
 
 export default function ResourcesPage() {
   return (
-    <div className="stack stack-giant pb-20">
-      <section className="bg-brand-primary/10">
-        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
+    <div className="page-wrapper">
+      <section className="bg-brand-primary/10 section-hero">
+        <div className="page-container stack stack-tight text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Resources
           </p>
@@ -72,7 +72,7 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+      <section className="page-container stack stack-relaxed">
         <div className="grid gap-6 md:grid-cols-2">
           {resourceSections.map((section) => (
             <Link
@@ -114,8 +114,8 @@ export default function ResourcesPage() {
         </div>
       </section>
 
-      <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left text-white">
+      <section className="bg-slate-900 section-dark">
+        <div className="page-container stack stack-tight text-left text-white">
           <h2 className="text-3xl font-semibold">Need something specific?</h2>
           <p className="text-sm text-slate-200">
             We&apos;re always building new resources based on what organizers need.

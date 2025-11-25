@@ -26,9 +26,9 @@ export default async function Page() {
   const hasPosts = posts.length > 0
 
   return (
-    <main className="stack stack-giant pb-20">
-      <section className="bg-brand-primary/10">
-        <div className="mx-auto w-full max-w-6xl px-6 py-16 text-brand-primary lg:px-8">
+    <main className="page-wrapper">
+      <section className="bg-brand-primary/10 section-hero">
+        <div className="page-container text-brand-primary">
           <div className="stack stack-tight max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.4em] text-brand-secondary">
               Latest Stories
@@ -44,7 +44,7 @@ export default async function Page() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6 text-left lg:px-8">
+      <section className="page-container stack stack-relaxed text-left">
         <header className="stack stack-compact">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             From the Network

@@ -95,9 +95,9 @@ const signReasons = [
 
 export default function OpenLetterPage() {
   return (
-    <div className="stack stack-giant pb-20">
-      <section className="bg-brand-primary/10">
-        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
+    <div className="page-wrapper">
+      <section className="bg-brand-primary/10 section-hero">
+        <div className="page-container stack stack-tight text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Open Letter
           </p>
@@ -113,7 +113,7 @@ export default function OpenLetterPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left">
+      <section className="page-container stack stack-tight text-left">
         <h2 className="text-3xl font-semibold text-slate-900">The letter</h2>
         <div className="stack text-base text-slate-700">
           <p>Dear University Presidents and Vice-Chancellors,</p>
@@ -243,7 +243,7 @@ export default function OpenLetterPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack px-6">
+      <section className="page-container stack">
         <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             Why sign on?
@@ -273,8 +273,8 @@ export default function OpenLetterPage() {
         </ul>
       </section>
 
-      <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl stack px-6 text-left text-white">
+      <section className="bg-slate-900 section-dark">
+        <div className="page-container stack text-left text-white">
           <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold">Who has signed so far</h2>
             <p className="text-sm text-slate-200">
@@ -295,7 +295,7 @@ export default function OpenLetterPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left">
+      <section className="page-container stack stack-tight text-left">
         <h2 className="text-3xl font-semibold text-slate-900">Add your name</h2>
         <p className="text-base text-slate-600">
           We’re finalizing the new signatory form. In the meantime, contact us

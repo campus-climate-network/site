@@ -39,9 +39,9 @@ const pillars = [
 
 export default function OurApproachPage() {
   return (
-    <div className="stack stack-giant pb-20">
-      <section className="bg-brand-cream/60">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 py-16 lg:flex-row lg:items-center">
+    <div className="page-wrapper">
+      <section className="bg-brand-cream/60 section-hero">
+        <div className="page-container flex flex-col gap-10 lg:flex-row lg:items-center">
           <div className="flex-1 stack stack-cozy">
             <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
               Our Approach
@@ -69,7 +69,7 @@ export default function OurApproachPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+      <section className="page-container stack stack-relaxed">
         <div className="stack stack-dense">
           <h2 className="text-3xl font-semibold text-slate-900">
             Vision & Mission
@@ -113,8 +113,8 @@ export default function OurApproachPage() {
         </div>
       </section>
 
-      <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-white">
+      <section className="bg-slate-900 section-dark">
+        <div className="page-container stack stack-tight text-white">
           <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold">What We’re Up Against</h2>
             <p className="text-sm text-slate-200">
@@ -137,8 +137,8 @@ export default function OurApproachPage() {
         </div>
       </section>
 
-      <section className="bg-brand-primary/10 py-16">
-        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6">
+      <section className="bg-brand-primary/10 section-dark">
+        <div className="page-container stack stack-tight">
           <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold text-brand-primary">
               How We Unite

@@ -91,9 +91,9 @@ const movementHighlights = [
 
 export default function Home() {
   return (
-    <div className="stack stack-giant pb-20">
+    <div className="page-wrapper">
       <section className="relative isolate overflow-hidden bg-gradient-to-br from-brand-secondary via-brand-tertiary to-brand-primary text-white">
-        <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-24 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div className="page-container section-hero grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div className="stack stack-mid">
             <p className="text-xs uppercase tracking-[0.4em] text-brand-cream/70">
               Campus Climate Network
@@ -149,7 +149,7 @@ export default function Home() {
           </div>
         </div>
         <div className="border-t border-white/15 bg-white/5">
-          <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-center gap-6 px-6 py-6 text-sm uppercase tracking-[0.3em] text-brand-cream/70">
+          <div className="page-container flex flex-wrap items-center justify-center gap-6 py-6 text-sm uppercase tracking-[0.3em] text-brand-cream/70">
             {pressLogos.map((logo) => (
               <div
                 key={logo.name}
@@ -171,7 +171,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6">
+      <section className="page-container">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <div className="stack stack-cozy">
             <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
@@ -217,8 +217,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-brand-cream/40 py-20">
-        <div className="mx-auto w-full max-w-6xl stack stack-relaxed px-6 text-left">
+      <section className="bg-brand-cream/40 section-hero">
+        <div className="page-container stack stack-relaxed text-left">
           <h2 className="text-3xl font-semibold text-slate-900">What We Do</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {[
@@ -249,7 +249,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6">
+      <section className="page-container">
         <div className="grid gap-8 lg:grid-cols-2">
           <div className="rounded-3xl bg-brand-primary/10 p-8 text-brand-primary">
             <h2 className="text-3xl font-semibold">Join the movement</h2>
@@ -280,7 +280,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl px-6">
+      <section className="page-container">
         <div className="stack stack-mid text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             We are the movement

@@ -32,9 +32,9 @@ const campaignHighlights = [
 
 export default function NetworkCampaignsPage() {
   return (
-    <div className="stack stack-giant pb-20">
-      <section className="bg-brand-primary/10">
-        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
+    <div className="page-wrapper">
+      <section className="bg-brand-primary/10 section-hero">
+        <div className="page-container stack stack-tight text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Campaigns
           </p>
@@ -49,7 +49,7 @@ export default function NetworkCampaignsPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+      <section className="page-container stack stack-relaxed">
         <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             Current priorities
@@ -74,8 +74,8 @@ export default function NetworkCampaignsPage() {
         </div>
       </section>
 
-      <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl stack px-6 text-left text-white">
+      <section className="bg-slate-900 section-dark">
+        <div className="page-container stack text-left text-white">
           <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold">
               What we offer campaign teams
@@ -114,7 +114,7 @@ export default function NetworkCampaignsPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left">
+      <section className="page-container stack stack-tight text-left">
         <h2 className="text-3xl font-semibold text-slate-900">
           Share your campaign
         </h2>

@@ -9,9 +9,9 @@ export const metadata: Metadata = {
 
 export default function ContactUsPage() {
   return (
-    <div className="stack stack-giant pb-20">
-      <section className="bg-brand-cream/60">
-        <div className="mx-auto w-full max-w-6xl stack stack-mid px-6 py-20 text-left">
+    <div className="page-wrapper">
+      <section className="bg-brand-cream/60 section-hero">
+        <div className="page-container stack stack-mid text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Contact
           </p>
@@ -25,7 +25,7 @@ export default function ContactUsPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl stack px-6">
+      <section className="page-container stack">
         <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-8 shadow-sm">
           <h2 className="text-3xl font-semibold text-brand-primary">
             General inquiries
@@ -69,8 +69,8 @@ export default function ContactUsPage() {
         </div>
       </section>
 
-      <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left text-white">
+      <section className="bg-slate-900 section-dark">
+        <div className="page-container stack stack-tight text-left text-white">
           <h2 className="text-3xl font-semibold">Stay in the loop</h2>
           <p className="text-sm text-slate-200">
             Newsletter signups and text alerts are coming soon. Email us now and
