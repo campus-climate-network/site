@@ -257,11 +257,14 @@ export default function Home() {
 
       <section className="page-container">
         <div className="stack stack-mid text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">What's Next?</h2>
+          <h2 className="text-3xl font-semibold text-slate-900">
+            What&apos;s Next?
+          </h2>
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="rounded-3xl bg-brand-primary/10 p-8 text-brand-primary">
               <p className="text-lg text-brand-primary/90">
-                Are you a university student, faculty, alumni, or community member?
+                Are you a university student, faculty, alumni, or community
+                member?
               </p>
               <Link
                 className="mt-6 inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
