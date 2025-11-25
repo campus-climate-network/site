@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 
 const reports = [
   {
-    title: 'A Year Just Like Any Other',
-    subtitle: 'Another £1.6 Million to Oxford University from the Fossil Industry in 2020-21',
-    image: '/reports/Aug 13 Screenshot from Notion.png',
-    organization: 'Oxford Climate Justice Campaign',
-    year: '2022',
+    title: 'Accountable Allies',
+    subtitle: 'The Undue Influence of Fossil Fuel Money in Academia',
+    image: '/reports/Aug 13 Screen Shot from Notion (2).png',
+    organization: 'Campus Climate Network',
+    year: '2024',
     link: '#',
   },
   {
@@ -26,19 +26,19 @@ const reports = [
     link: '#',
   },
   {
+    title: 'A Year Just Like Any Other',
+    subtitle: 'Another £1.6 Million to Oxford University from the Fossil Industry in 2020-21',
+    image: '/reports/Aug 13 Screenshot from Notion.png',
+    organization: 'Oxford Climate Justice Campaign',
+    year: '2022',
+    link: '#',
+  },
+  {
     title: 'Money, People, Reputation',
     subtitle: "Oxford's Ties with the Fossil Fuel Industry",
     image: '/reports/Aug 13 Screen Shot from Notion (1).png',
     organization: 'Oxford Climate Justice Campaign',
     year: '2021',
-    link: '#',
-  },
-  {
-    title: 'Accountable Allies',
-    subtitle: 'The Undue Influence of Fossil Fuel Money in Academia',
-    image: '/reports/Aug 13 Screen Shot from Notion (2).png',
-    organization: 'Campus Climate Network',
-    year: '2024',
     link: '#',
   },
 ]
@@ -62,32 +62,36 @@ export default function FfrReportsPage() {
       {/* Reports Grid */}
       <section className="pb-24 md:pb-32">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-8 sm:grid-cols-2">
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {reports.map((report) => (
               <Link
                 key={report.title}
                 href={report.link}
-                className="group relative overflow-hidden rounded-2xl bg-stone-900 transition-all hover:bg-stone-800"
+                className="group"
               >
-                <div className="aspect-[4/5] w-full overflow-hidden">
-                  <Image
-                    src={report.image}
-                    alt={report.title}
-                    width={600}
-                    height={750}
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
+                {/* Document card */}
+                <div className="relative overflow-hidden rounded-sm bg-stone-900 shadow-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-red-500/10">
+                    <div className="p-3">
+                      <Image
+                        src={report.image}
+                        alt={report.title}
+                        width={400}
+                        height={500}
+                        className="w-full rounded-sm"
+                      />
+                    </div>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-6">
-                  <p className="text-sm font-medium text-red-400">
-                    {report.organization} · {report.year}
-                  </p>
-                  <h3 className="mt-2 font-instrument text-2xl text-white">
+                
+                {/* Text below */}
+                <div className="mt-4">
+                  <h3 className="font-instrument text-lg text-white group-hover:text-red-400 transition-colors">
                     {report.title}
                   </h3>
-                  <p className="mt-1 text-sm text-stone-300">
-                    {report.subtitle}
+                  <p className="mt-1 text-sm text-stone-400">
+                    {report.organization}
+                  </p>
+                  <p className="text-sm text-stone-500">
+                    {report.year}
                   </p>
                 </div>
               </Link>
@@ -96,24 +100,6 @@ export default function FfrReportsPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="border-t border-stone-800 py-16">
-        <div className="mx-auto max-w-6xl px-6 text-center">
-          <h2 className="font-instrument text-2xl text-white md:text-3xl">
-            Have a report to share?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-stone-400">
-            We're building an archive of research exposing fossil fuel ties in academia. 
-            Send us your campaign's reports to be featured.
-          </p>
-          <a
-            href="mailto:info@campusclimatenetwork.org"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-red-600 px-6 py-3 font-medium text-white transition-colors hover:bg-red-700"
-          >
-            Submit a report
-          </a>
-        </div>
-      </section>
     </main>
   )
 }

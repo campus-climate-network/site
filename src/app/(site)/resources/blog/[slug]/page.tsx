@@ -2,10 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
-import {
-  PortableText,
-  type PortableTextComponents,
-} from '@portabletext/react'
+import { PortableText, type PortableTextComponents } from '@portabletext/react'
 
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
@@ -25,7 +22,12 @@ export async function generateMetadata(
   }
 
   const ogImage = post.mainImage
-    ? urlFor(post.mainImage).width(1200).height(630).fit('crop').auto('format').url()
+    ? urlFor(post.mainImage)
+        .width(1200)
+        .height(630)
+        .fit('crop')
+        .auto('format')
+        .url()
     : undefined
 
   const description = `Read ${post.title} on the Campus Climate Network blog.`
@@ -39,7 +41,9 @@ export async function generateMetadata(
       type: 'article',
       publishedTime: post.publishedAt,
       authors: post.author?.name ? [post.author.name] : undefined,
-      images: ogImage ? [{ url: ogImage, width: 1200, height: 630 }] : undefined,
+      images: ogImage
+        ? [{ url: ogImage, width: 1200, height: 630 }]
+        : undefined,
     },
     twitter: {
       card: 'summary_large_image',
@@ -240,9 +244,7 @@ export default async function PostPage(
           <Image
             src={mainImageSrc}
             alt={post.title}
-            width={
-              (mainImageDimensions ?? DEFAULT_MAIN_IMAGE_DIMENSIONS).width
-            }
+            width={(mainImageDimensions ?? DEFAULT_MAIN_IMAGE_DIMENSIONS).width}
             height={
               (mainImageDimensions ?? DEFAULT_MAIN_IMAGE_DIMENSIONS).height
             }

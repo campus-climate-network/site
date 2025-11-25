@@ -118,8 +118,8 @@ export default function ResourcesPage() {
         <div className="page-container stack stack-tight text-left text-white">
           <h2 className="text-3xl font-semibold">Need something specific?</h2>
           <p className="text-sm text-slate-200">
-            We&apos;re always building new resources based on what organizers need.
-            Reach out and let us know how we can support your campaign.
+            We&apos;re always building new resources based on what organizers
+            need. Reach out and let us know how we can support your campaign.
           </p>
           <a
             className="inline-flex items-center self-start rounded-full bg-brand-accent px-5 py-2 text-sm font-semibold text-slate-900 transition hover:bg-yellow-300"

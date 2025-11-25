@@ -327,8 +327,7 @@ function DesktopMegaPanel({
   const [transitionMenus, setTransitionMenus] = useState<TransitionMenu[]>([])
   const previousMenuLabelRef = useRef<string | null>(null)
 
-  const getDirection = useCallback(
-    (nextLabel: string): TransitionDirection => {
+  const getDirection = useCallback((nextLabel: string): TransitionDirection => {
     const previousLabel = previousMenuLabelRef.current
     if (!previousLabel || previousLabel === nextLabel) {
       return 'none'
@@ -350,9 +349,7 @@ function DesktopMegaPanel({
     }
 
     return nextIndex > previousIndex ? 'right' : 'left'
-    },
-    []
-  )
+  }, [])
 
   useEffect(() => {
     if (!menu) {
@@ -839,7 +836,10 @@ function MobileMenuSection({
           className="mt-3 stack stack-dense border-l border-slate-200 pl-4 text-sm text-slate-600"
         >
           {menu.columns.map((column) => (
-            <div key={`${menu.label}-${column.title}`} className="stack stack-compact">
+            <div
+              key={`${menu.label}-${column.title}`}
+              className="stack stack-compact"
+            >
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-secondary/80">
                 {column.title}
               </p>
