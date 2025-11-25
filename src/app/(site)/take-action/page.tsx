@@ -1,3 +1,13 @@
+import type { Metadata } from 'next'
+
+import { ActionNetworkForm } from '@/components/action-network-form'
+
+export const metadata: Metadata = {
+  title: 'Take Action | Campus Climate Network',
+  description:
+    'Plug into the Campus Climate Network, get organizer support, and access trainings, toolkits, and funding for your climate justice campaign.',
+}
+
 const steps = [
   {
     title: 'Share your campaign goals',
@@ -22,7 +32,7 @@ export default function TakeActionPage() {
             Take Action
           </p>
           <h1 className="text-4xl font-semibold text-brand-primary">
-            Join the Campus Climate Network.
+            Join Campus Climate Network.
           </h1>
           <p className="text-base text-slate-700">
             Ready to build power on your campus? Fill out the intake form below
@@ -55,19 +65,10 @@ export default function TakeActionPage() {
       </section>
 
       <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 text-left text-white">
-          <h2 className="text-3xl font-semibold">Fill out the interest form</h2>
-          <p className="text-sm text-slate-200">
-            We’re migrating our Squarespace form to the new site. For now, send
-            us an email with “Join CCN” in the subject line and we’ll send the
-            latest intake form.
-          </p>
-          <a
-            className="inline-flex items-center justify-center rounded-full bg-brand-primary px-6 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-            href="mailto:info@campusclimatenetwork.org"
-          >
-            Email info@campusclimatenetwork.org
-          </a>
+        <div className="mx-auto w-full max-w-6xl px-6 text-left">
+          <div className="rounded-3xl bg-white p-8 shadow-2xl">
+            <ActionNetworkForm />
+          </div>
         </div>
       </section>
 
