@@ -19,10 +19,10 @@ export default async function Page() {
   const hasPosts = posts.length > 0
 
   return (
-    <main className="space-y-20 pb-20">
+    <main className="stack stack-giant pb-20">
       <section className="bg-brand-primary/10">
         <div className="mx-auto w-full max-w-6xl px-6 py-16 text-brand-primary lg:px-8">
-          <div className="max-w-3xl space-y-6">
+          <div className="stack stack-tight max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.4em] text-brand-secondary">
               Latest Stories
             </p>
@@ -37,8 +37,8 @@ export default async function Page() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-10 px-6 text-left lg:px-8">
-        <header className="space-y-2">
+      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6 text-left lg:px-8">
+        <header className="stack stack-compact">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             From the Network
           </p>
@@ -62,7 +62,7 @@ export default async function Page() {
                     className="flex h-full flex-col justify-between gap-6"
                     href={`/resources/blog/${post.slug}`}
                   >
-                    <div className="space-y-4">
+                    <div className="stack stack-dense">
                       {publishedOn && (
                         <span className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-secondary">
                           {publishedOn}

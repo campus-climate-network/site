@@ -80,10 +80,10 @@ const movementHighlights = [
 
 export default function Home() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="relative isolate overflow-hidden bg-gradient-to-br from-brand-secondary via-brand-tertiary to-brand-primary text-white">
         <div className="mx-auto grid w-full max-w-6xl gap-10 px-6 py-24 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div className="space-y-6">
+          <div className="stack stack-tight">
             <p className="text-xs uppercase tracking-[0.4em] text-brand-cream/70">
               Campus Climate Network
             </p>
@@ -163,7 +163,7 @@ export default function Home() {
 
       <section className="mx-auto w-full max-w-6xl px-6">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
-          <div className="space-y-5">
+          <div className="stack stack-cozy">
             <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
               Our Network
             </p>
@@ -208,7 +208,7 @@ export default function Home() {
       </section>
 
       <section className="bg-brand-cream/40 py-20">
-        <div className="mx-auto w-full max-w-6xl space-y-10 px-6 text-left">
+        <div className="mx-auto w-full max-w-6xl stack stack-relaxed px-6 text-left">
           <h2 className="text-3xl font-semibold text-slate-900">What We Do</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {[
@@ -271,7 +271,7 @@ export default function Home() {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-6">
-        <div className="space-y-6 text-left">
+        <div className="stack stack-tight text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             We are the movement
           </p>

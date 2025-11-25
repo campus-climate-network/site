@@ -223,11 +223,11 @@ function MegaPanelColumns({
       }}
     >
       {menu.columns.map((column) => (
-        <div key={`${menu.label}-${column.title}`} className="space-y-3">
+        <div key={`${menu.label}-${column.title}`} className="stack stack-snug">
           <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-secondary/90">
             {column.title}
           </p>
-          <ul className="space-y-1.5">
+          <ul className="stack-list-compact">
             {column.items.map((item) => {
               itemCursor += 1
               const currentIndex = itemCursor
@@ -776,7 +776,10 @@ function MobileMenuSection({
     if (!node) return
 
     const updateHeight = () => {
-      setContentHeight(node.scrollHeight)
+      const styles = window.getComputedStyle(node)
+      const marginTop = parseFloat(styles.marginTop) || 0
+      const marginBottom = parseFloat(styles.marginBottom) || 0
+      setContentHeight(node.scrollHeight + marginTop + marginBottom)
     }
 
     updateHeight()
@@ -833,14 +836,14 @@ function MobileMenuSection({
       >
         <div
           ref={contentRef}
-          className="mt-3 space-y-4 border-l border-slate-200 pl-4 text-sm text-slate-600"
+          className="mt-3 stack stack-dense border-l border-slate-200 pl-4 text-sm text-slate-600"
         >
           {menu.columns.map((column) => (
-            <div key={`${menu.label}-${column.title}`} className="space-y-2">
+            <div key={`${menu.label}-${column.title}`} className="stack stack-compact">
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-brand-secondary/80">
                 {column.title}
               </p>
-              <div className="space-y-2">
+              <div className="stack stack-compact">
                 {column.items.map((item) => (
                   <Link
                     key={item.href}
@@ -937,7 +940,7 @@ function MobileNav({
             </svg>
           </button>
         </div>
-        <nav className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
+        <nav className="stack stack-tight flex-1 overflow-y-auto px-6 py-6">
           {entries.map((entry) => {
             if (isNavMenu(entry)) {
               const expanded = expandedSection === entry.label

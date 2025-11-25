@@ -23,9 +23,9 @@ const funders = [
 
 export default function OurFundersPage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="bg-brand-cream/60">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 py-20 text-left">
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Our Funders
           </p>
@@ -41,8 +41,8 @@ export default function OurFundersPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-10 px-6">
-        <div className="space-y-4 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+        <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             Featured Institutional Supporters
           </h2>
@@ -56,22 +56,20 @@ export default function OurFundersPage() {
           {funders.map((funder) => (
             <div
               key={funder.name}
-              className="rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
+              className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
             >
               <h3 className="text-lg font-semibold text-brand-primary">
                 {funder.name}
               </h3>
-              <p className="mt-3 text-sm text-slate-600">
-                {funder.description}
-              </p>
+              <p className="text-sm text-slate-600">{funder.description}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl space-y-8 px-6 text-left text-white">
-          <div className="space-y-3">
+        <div className="mx-auto w-full max-w-6xl stack px-6 text-left text-white">
+          <div className="stack stack-snug">
             <h2 className="text-3xl font-semibold">
               How funding moves through CCN
             </h2>
@@ -95,18 +93,21 @@ export default function OurFundersPage() {
                 body: 'Rapid-response mini-grants, communications support, and national coordination for strategic campus actions.',
               },
             ].map((item) => (
-              <div key={item.title} className="rounded-3xl bg-white/10 p-6">
+              <div
+                key={item.title}
+                className="stack stack-dense rounded-3xl bg-white/10 p-6"
+              >
                 <h3 className="text-lg font-semibold text-brand-accent">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm text-slate-100">{item.body}</p>
+                <p className="text-sm text-slate-100">{item.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-6 px-6 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left">
         <h2 className="text-3xl font-semibold text-slate-900">
           Partner with us
         </h2>

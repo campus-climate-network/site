@@ -22,9 +22,9 @@ const actions = [
 
 export default function FFRCampaignPage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="bg-brand-tertiary/10">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 py-20 text-left">
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Fossil Free Research
           </p>
@@ -40,8 +40,8 @@ export default function FFRCampaignPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-10 px-6">
-        <div className="space-y-4 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+        <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             Why Fossil Free Research matters
           </h2>
@@ -55,22 +55,22 @@ export default function FFRCampaignPage() {
           {talkingPoints.map((point) => (
             <div
               key={point.title}
-              className="rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
+              className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
             >
               <h3 className="text-lg font-semibold text-brand-primary">
                 {point.title}
               </h3>
-              <p className="mt-3 text-sm text-slate-600">{point.body}</p>
+              <p className="text-sm text-slate-600">{point.body}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl space-y-8 px-6 text-left text-white">
-          <div>
+        <div className="mx-auto w-full max-w-6xl stack px-6 text-left text-white">
+          <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold">How we organize</h2>
-            <p className="mt-2 text-sm text-slate-200">
+            <p className="text-sm text-slate-200">
               Students are escalating from research audits to mass
               mobilizations.
             </p>
@@ -85,7 +85,7 @@ export default function FFRCampaignPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-6 px-6 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left">
         <h2 className="text-3xl font-semibold text-slate-900">
           Plug into the campaign
         </h2>

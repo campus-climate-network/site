@@ -18,9 +18,9 @@ const positions = [
 
 export default function HiringPage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="bg-brand-secondary/10">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 py-20 text-left">
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             We’re Hiring
           </p>
@@ -35,8 +35,8 @@ export default function HiringPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-10 px-6">
-        <div className="space-y-4 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+        <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             Open and upcoming roles
           </h2>
@@ -49,13 +49,13 @@ export default function HiringPage() {
           {positions.map((position) => (
             <div
               key={position.title}
-              className="rounded-3xl border border-brand-primary/20 bg-white p-6 shadow-sm"
+              className="stack stack-dense rounded-3xl border border-brand-primary/20 bg-white p-6 shadow-sm"
             >
               <h3 className="text-lg font-semibold text-brand-primary">
                 {position.title}
               </h3>
-              <p className="mt-3 text-sm text-slate-600">{position.body}</p>
-              <p className="mt-4 text-xs font-semibold uppercase tracking-wide text-brand-secondary/80">
+              <p className="text-sm text-slate-600">{position.body}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-brand-secondary/80">
                 {position.status}
               </p>
             </div>
@@ -64,7 +64,7 @@ export default function HiringPage() {
       </section>
 
       <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 text-left text-white">
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left text-white">
           <h2 className="text-3xl font-semibold">Stay in the loop</h2>
           <p className="text-sm text-slate-200">
             Sign up for hiring alerts and we’ll email you when applications

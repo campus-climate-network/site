@@ -44,7 +44,7 @@ export function MovementCarousel({ highlights }: MovementCarouselProps) {
           priority
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/40 via-slate-900/10 to-transparent" />
-        <div className="absolute inset-x-6 bottom-6 space-y-3 text-white">
+        <div className="absolute inset-x-6 bottom-6 stack stack-snug text-white">
           <p className="text-xs uppercase tracking-[0.35em] text-white/70">
             Student wins
           </p>

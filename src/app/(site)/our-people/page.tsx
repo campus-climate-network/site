@@ -15,9 +15,9 @@ const teamSections = [
 
 export default function OurPeoplePage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="bg-brand-cream/60">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 py-20 text-left">
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Our People
           </p>
@@ -32,8 +32,8 @@ export default function OurPeoplePage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-10 px-6">
-        <div className="space-y-4 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+        <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">Our team</h2>
           <p className="text-base text-slate-600">
             Detailed bios are coming soon. Until then, this gives you a sense of
@@ -44,19 +44,19 @@ export default function OurPeoplePage() {
           {teamSections.map((section) => (
             <div
               key={section.title}
-              className="rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
+              className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
             >
               <h3 className="text-lg font-semibold text-brand-primary">
                 {section.title}
               </h3>
-              <p className="mt-3 text-sm text-slate-600">{section.body}</p>
+              <p className="text-sm text-slate-600">{section.body}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 text-left text-white">
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left text-white">
           <h2 className="text-3xl font-semibold">
             Interested in joining the team?
           </h2>

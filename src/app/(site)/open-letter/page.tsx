@@ -7,9 +7,9 @@ const supporters = [
 
 export default function OpenLetterPage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="bg-brand-primary/10">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 py-20 text-left">
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Open Letter
           </p>
@@ -25,8 +25,8 @@ export default function OpenLetterPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-8 px-6">
-        <div className="space-y-4 text-left">
+      <section className="mx-auto w-full max-w-6xl stack px-6">
+        <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             Why sign on?
           </h2>
@@ -55,10 +55,10 @@ export default function OpenLetterPage() {
       </section>
 
       <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl space-y-8 px-6 text-left text-white">
-          <div>
+        <div className="mx-auto w-full max-w-6xl stack px-6 text-left text-white">
+          <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold">Who has signed so far</h2>
-            <p className="mt-2 text-sm text-slate-200">
+            <p className="text-sm text-slate-200">
               Thousands of supporters have endorsed the letter, representing
               campuses and movements around the world.
             </p>
@@ -76,7 +76,7 @@ export default function OpenLetterPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-6 px-6 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left">
         <h2 className="text-3xl font-semibold text-slate-900">Add your name</h2>
         <p className="text-base text-slate-600">
           We’re finalizing the new signatory form. In the meantime, contact us

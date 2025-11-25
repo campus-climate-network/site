@@ -23,9 +23,9 @@ const campaignHighlights = [
 
 export default function NetworkCampaignsPage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="bg-brand-primary/10">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 py-20 text-left">
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Campaigns
           </p>
@@ -40,8 +40,8 @@ export default function NetworkCampaignsPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl space-y-10 px-6">
-        <div className="space-y-4 text-left">
+      <section className="mx-auto max-w-6xl stack stack-relaxed px-6">
+        <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             Current priorities
           </h2>
@@ -54,26 +54,24 @@ export default function NetworkCampaignsPage() {
           {campaignHighlights.map((campaign) => (
             <div
               key={campaign.title}
-              className="rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
+              className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
             >
               <h3 className="text-lg font-semibold text-brand-primary">
                 {campaign.title}
               </h3>
-              <p className="mt-3 text-sm text-slate-600">
-                {campaign.description}
-              </p>
+              <p className="text-sm text-slate-600">{campaign.description}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="bg-slate-900 py-16">
-        <div className="mx-auto max-w-6xl space-y-8 px-6 text-left text-white">
-          <div>
+        <div className="mx-auto max-w-6xl stack px-6 text-left text-white">
+          <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold">
               What we offer campaign teams
             </h2>
-            <p className="mt-2 text-sm text-slate-200">
+            <p className="text-sm text-slate-200">
               Infrastructure that helps student organizers move fast and stay
               connected.
             </p>
@@ -93,18 +91,21 @@ export default function NetworkCampaignsPage() {
                 body: 'Mini-grants and mobilization infrastructure for actions, digital storms, and high-impact escalations.',
               },
             ].map((item) => (
-              <div key={item.title} className="rounded-3xl bg-white/10 p-6">
+              <div
+                key={item.title}
+                className="stack stack-dense rounded-3xl bg-white/10 p-6"
+              >
                 <h3 className="text-lg font-semibold text-brand-accent">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm text-slate-100">{item.body}</p>
+                <p className="text-sm text-slate-100">{item.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-6 px-6 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-left">
         <h2 className="text-3xl font-semibold text-slate-900">
           Share your campaign
         </h2>

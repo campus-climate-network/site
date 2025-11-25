@@ -25,9 +25,9 @@ const steps = [
 
 export default function TakeActionPage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="bg-brand-cream/60">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 py-20 text-left">
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Take Action
           </p>
@@ -43,7 +43,7 @@ export default function TakeActionPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-10 px-6">
+      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
         <div className="text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             How onboarding works
@@ -53,12 +53,12 @@ export default function TakeActionPage() {
           {steps.map((step) => (
             <div
               key={step.title}
-              className="rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
+              className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
             >
               <h3 className="text-lg font-semibold text-brand-primary">
                 {step.title}
               </h3>
-              <p className="mt-3 text-sm text-slate-600">{step.body}</p>
+              <p className="text-sm text-slate-600">{step.body}</p>
             </div>
           ))}
         </div>
@@ -73,11 +73,11 @@ export default function TakeActionPage() {
       </section>
 
       <section className="mx-auto w-full max-w-6xl px-6">
-        <div className="rounded-3xl bg-brand-primary/10 p-8">
+        <div className="stack stack-dense rounded-3xl bg-brand-primary/10 p-8">
           <h2 className="text-3xl font-semibold text-brand-primary">
             Upcoming opportunities
           </h2>
-          <ul className="mt-4 space-y-3 text-sm text-slate-700">
+          <ul className="stack-list-snug text-sm text-slate-700">
             <li>
               • College Climate Gathering applications open this fall—check your
               email after you sign up.

@@ -32,10 +32,10 @@ const pillars = [
 
 export default function OurApproachPage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="bg-brand-cream/60">
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-6 py-16 lg:flex-row lg:items-center">
-          <div className="flex-1 space-y-5">
+          <div className="flex-1 stack stack-cozy">
             <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
               Our Approach
             </p>
@@ -62,8 +62,8 @@ export default function OurApproachPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-10 px-6">
-        <div className="space-y-4">
+      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+        <div className="stack stack-dense">
           <h2 className="text-3xl font-semibold text-slate-900">
             Vision & Mission
           </h2>
@@ -75,29 +75,29 @@ export default function OurApproachPage() {
           </p>
         </div>
         <div className="grid gap-6 lg:grid-cols-3">
-          <div className="rounded-3xl border border-brand-secondary/20 bg-white p-6 text-left shadow-sm">
+          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 text-left shadow-sm">
             <h3 className="text-xl font-semibold text-brand-primary">Vision</h3>
-            <p className="mt-3 text-sm text-slate-600">
+            <p className="text-sm text-slate-600">
               Universities should champion climate justice, free from fossil
               fuel money and influence. We’re building the student power to make
               that real.
             </p>
           </div>
-          <div className="rounded-3xl border border-brand-secondary/20 bg-white p-6 text-left shadow-sm">
+          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 text-left shadow-sm">
             <h3 className="text-xl font-semibold text-brand-primary">
               Mission
             </h3>
-            <p className="mt-3 text-sm text-slate-600">
+            <p className="text-sm text-slate-600">
               From trainings to rapid-response coordination, we help student
               groups run winning campaigns and develop as long-term climate
               justice leaders.
             </p>
           </div>
-          <div className="rounded-3xl border border-brand-secondary/20 bg-white p-6 text-left shadow-sm">
+          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 text-left shadow-sm">
             <h3 className="text-xl font-semibold text-brand-primary">
               Strategy
             </h3>
-            <p className="mt-3 text-sm text-slate-600">
+            <p className="text-sm text-slate-600">
               We root our work in community care, political education, and
               direct action—making sure every campus campaign contributes to a
               broader movement for a just energy transition.
@@ -107,20 +107,23 @@ export default function OurApproachPage() {
       </section>
 
       <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 text-white">
-          <div>
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 text-white">
+          <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold">What We’re Up Against</h2>
-            <p className="mt-2 text-sm text-slate-200">
+            <p className="text-sm text-slate-200">
               We’re honest about the landscape so we can strategize to win.
             </p>
           </div>
           <div className="grid gap-6 lg:grid-cols-3">
             {challenges.map((item) => (
-              <div key={item.title} className="rounded-3xl bg-white/10 p-6">
+              <div
+                key={item.title}
+                className="stack stack-dense rounded-3xl bg-white/10 p-6"
+              >
                 <h3 className="text-lg font-semibold text-brand-accent">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm text-slate-100">{item.body}</p>
+                <p className="text-sm text-slate-100">{item.body}</p>
               </div>
             ))}
           </div>
@@ -128,12 +131,12 @@ export default function OurApproachPage() {
       </section>
 
       <section className="bg-brand-primary/10 py-16">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6">
-          <div>
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6">
+          <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold text-brand-primary">
               How We Unite
             </h2>
-            <p className="mt-2 text-base text-slate-600">
+            <p className="text-base text-slate-600">
               We weave together decentralized grassroots campaigns into a
               powerful, coordinated movement.
             </p>
@@ -142,12 +145,12 @@ export default function OurApproachPage() {
             {pillars.map((pillar) => (
               <div
                 key={pillar.title}
-                className="rounded-3xl border border-brand-primary/30 bg-white p-6 shadow-sm"
+                className="stack stack-dense rounded-3xl border border-brand-primary/30 bg-white p-6 shadow-sm"
               >
                 <h3 className="text-lg font-semibold text-brand-primary">
                   {pillar.title}
                 </h3>
-                <p className="mt-3 text-sm text-slate-600">{pillar.body}</p>
+                <p className="text-sm text-slate-600">{pillar.body}</p>
               </div>
             ))}
           </div>

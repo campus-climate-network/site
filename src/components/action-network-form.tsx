@@ -100,20 +100,27 @@ export function ActionNetworkForm() {
 
         #can-form-area-join-the-ccn .can_btn,
         #can-form-area-join-the-ccn button[type='submit'] {
-          width: 100%;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.35rem;
+          width: auto;
+          align-self: flex-start;
           border: none;
-          background: #0b3d91;
-          color: #fff;
-          padding: 0.9rem 1.25rem;
           border-radius: 999px;
-          font-size: 1rem;
+          background: #60379d;
+          color: #fff;
+          padding: 0.75rem 1.75rem;
+          font-size: 0.95rem;
           font-weight: 600;
-          transition: background 150ms ease;
+          text-decoration: none;
+          cursor: pointer;
+          transition: background-color 150ms ease, transform 150ms ease;
         }
 
         #can-form-area-join-the-ccn .can_btn:hover,
         #can-form-area-join-the-ccn button[type='submit']:hover {
-          background: #0f4bb6;
+          background: #4f72ca;
         }
       `}</style>
     </>

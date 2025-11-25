@@ -1,23 +1,92 @@
-const featuredOrgs = [
-  'Climate Justice University of Toronto',
-  'Climate Justice UBC',
-  'Fossil Free Stanford',
-  'Institutional Climate Action (UW)',
-  'Students for Environmental Concerns (Illinois)',
-  'Duke Climate Coalition',
-  'Sunrise Brown',
-  'Fossil Free Dartmouth',
-  'Yale Endowment Justice Coalition',
-  'Sunrise Columbia',
-  'Sunrise UMass',
-  'Students Fighting Climate Change',
-]
+import Image from 'next/image'
+
+const memberOrgs = [
+  {
+    name: 'Cambridge Climate Justice',
+    logo: '/member-logos/cambridge-climate-justice.png',
+  },
+  {
+    name: 'Climate Crisis Coalition',
+    logo: '/member-logos/climate-crisis-coalition-logo.png',
+  },
+  {
+    name: 'Climate Justice UBC',
+    logo: '/member-logos/climate-justice-ubc.png',
+  },
+  {
+    name: 'Colorado Climate Reinvestment Coalition',
+    logo: '/member-logos/colorado-climate-reinvestment-coalition.jpeg',
+  },
+  { name: 'Cornell on Fire', logo: '/member-logos/cornell-on-fire.png' },
+  {
+    name: 'Divest Claremont Colleges',
+    logo: '/member-logos/divest-claremont-colleges.jpeg',
+  },
+  { name: 'Divest Princeton', logo: '/member-logos/divest-princeton-logo.png' },
+  { name: 'Divest CSU', logo: '/member-logos/divestcsu.png' },
+  {
+    name: 'Duke Climate Coalition',
+    logo: '/member-logos/duke-climate-coalition.png',
+  },
+  {
+    name: 'Fossil Free Divest Harvard',
+    logo: '/member-logos/fossil-free-divest-harvard.png',
+  },
+  {
+    name: 'Fossil Free Fordham',
+    logo: '/member-logos/fossil-free-fordham-logo.png',
+  },
+  { name: 'Fossil Free Penn', logo: '/member-logos/fossil-free-penn.png' },
+  {
+    name: 'GND at UC San Diego',
+    logo: '/member-logos/gnd-at-uc-san-diego.png',
+  },
+  {
+    name: 'High School Divestment Coalition',
+    logo: '/member-logos/high-school-divestment-coalition.png',
+  },
+  {
+    name: 'Imperial Climate Action',
+    logo: '/member-logos/imperial-climate-action.png',
+  },
+  { name: 'MIT Divest', logo: '/member-logos/mit-divest.png' },
+  { name: 'SPAC', logo: '/member-logos/spac.jpg' },
+  {
+    name: 'Students for Environmental Concerns',
+    logo: '/member-logos/students-for-environmental-concerns.png',
+  },
+  {
+    name: 'Sunrise American University',
+    logo: '/member-logos/sunrise-american-university.png',
+  },
+  { name: 'Sunrise Brown', logo: '/member-logos/sunrise-brown.png' },
+  { name: 'Sunrise Columbia', logo: '/member-logos/sunrise-columbia.png' },
+  {
+    name: 'Sunrise Movement Gainesville',
+    logo: '/member-logos/sunrise-movement-gainesville.jpg',
+  },
+  { name: 'Sunrise NYU', logo: '/member-logos/sunrise-nyu.png' },
+  {
+    name: 'The Coalition for a True Sustainability',
+    logo: '/member-logos/the-coalition-for-a-true-sustainability.png',
+  },
+  { name: 'Trinity Divests', logo: '/member-logos/trinity-divests.png' },
+  { name: 'UC Green New Deal', logo: '/member-logos/uc-green-new-deal.png' },
+  {
+    name: 'UCL Climate Action Society',
+    logo: '/member-logos/ucl-climate-action-society.jpeg',
+  },
+  {
+    name: 'Yale Student Environmental Coalition',
+    logo: '/member-logos/yale-student-environmental-coalition.png',
+  },
+] as const
 
 export default function OurNetworkPage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="bg-brand-secondary/10">
-        <div className="mx-auto w-full max-w-6xl space-y-6 px-6 py-20 text-left">
+        <div className="mx-auto w-full max-w-6xl stack stack-tight px-6 py-20 text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Member Organizations
           </p>
@@ -29,7 +98,7 @@ export default function OurNetworkPage() {
             fighting for climate justice on campus. There are three simple
             criteria for becoming a member of the Campus Climate Network:
           </p>
-          <ol className="list-decimal space-y-2 pl-6 text-base text-slate-700">
+          <ol className="stack-list-snug list-decimal pl-6 text-base text-slate-700">
             <li>
               Currently running or planning to run a campaign that involves
               cutting ties with the fossil fuel industry and its enablers.
@@ -47,7 +116,7 @@ export default function OurNetworkPage() {
             Does this sound like it could be your group?
           </p>
           <a
-            className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+            className="inline-flex items-center self-start rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
             href="/take-action"
           >
             Join us
@@ -55,23 +124,35 @@ export default function OurNetworkPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-10 px-6">
-        <div className="space-y-4 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-relaxed px-6">
+        <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             Who’s in the network
           </h2>
           <p className="text-base text-slate-600">
-            A sampling of organizations currently collaborating through CCN. We
-            continually onboard new partners—get in touch to join.
+            A sampling of organizations currently collaborating through CCN—get
+            to know the student power behind their logos. We continually onboard
+            new partners, so reach out if you want to join them.
           </p>
         </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {featuredOrgs.map((org) => (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {memberOrgs.map((org) => (
             <div
-              key={org}
-              className="rounded-3xl border border-brand-primary/20 bg-white p-6 shadow-sm"
+              key={org.name}
+              className="flex flex-col rounded-3xl border border-brand-primary/10 bg-white p-6 shadow-sm"
             >
-              <p className="text-sm font-semibold text-brand-primary">{org}</p>
+              <div className="relative h-28 w-full">
+                <Image
+                  src={org.logo}
+                  alt={`${org.name} logo`}
+                  fill
+                  className="object-contain"
+                  sizes="(min-width: 1280px) 240px, (min-width: 1024px) 25vw, (min-width: 640px) 33vw, 80vw"
+                />
+              </div>
+              <p className="mt-4 text-sm font-semibold text-slate-900">
+                {org.name}
+              </p>
             </div>
           ))}
         </div>
@@ -89,10 +170,10 @@ export default function OurNetworkPage() {
       </section>
 
       <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl space-y-8 px-6 text-left text-white">
-          <div>
+        <div className="mx-auto w-full max-w-6xl stack px-6 text-left text-white">
+          <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold">Membership benefits</h2>
-            <p className="mt-2 text-sm text-slate-200">
+            <p className="text-sm text-slate-200">
               Tools and support to help campus organizers win faster.
             </p>
           </div>
@@ -111,18 +192,21 @@ export default function OurNetworkPage() {
                 body: 'Funding, communications support, and national amplification to scale bold campus campaigns.',
               },
             ].map((item) => (
-              <div key={item.title} className="rounded-3xl bg-white/10 p-6">
+              <div
+                key={item.title}
+                className="stack stack-dense rounded-3xl bg-white/10 p-6"
+              >
                 <h3 className="text-lg font-semibold text-brand-accent">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm text-slate-100">{item.body}</p>
+                <p className="text-sm text-slate-100">{item.body}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-6 px-6 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-dense px-6 text-left">
         <h2 className="text-3xl font-semibold text-slate-900">
           Join the network
         </h2>

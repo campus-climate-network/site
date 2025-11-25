@@ -35,7 +35,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-slate-900 text-slate-100">
       <div className="mx-auto grid max-w-6xl gap-12 px-6 py-16 lg:grid-cols-[2fr_3fr]">
-        <div className="space-y-6">
+        <div className="stack stack-tight">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.65em] text-brand-accent">
               Campus Climate Network
@@ -72,7 +72,7 @@ export function SiteFooter() {
               <h3 className="text-xs font-semibold uppercase tracking-[0.35em] text-brand-accent">
                 {column.title}
               </h3>
-              <ul className="mt-4 space-y-2 text-sm text-slate-300">
+              <ul className="stack-list-compact mt-4 text-sm text-slate-300">
                 {column.links.map((link) => (
                   <li key={link.href}>
                     <Link

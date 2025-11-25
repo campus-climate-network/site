@@ -35,10 +35,10 @@ const values = [
 
 export default function OurStoryPage() {
   return (
-    <div className="space-y-20 pb-20">
+    <div className="stack stack-giant pb-20">
       <section className="bg-brand-primary/10">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-6 py-20 lg:flex-row lg:items-center">
-          <div className="flex-1 space-y-5">
+          <div className="flex-1 stack stack-cozy">
             <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
               Our Story
             </p>
@@ -66,8 +66,8 @@ export default function OurStoryPage() {
         </div>
       </section>
 
-      <section className="mx-auto w-full max-w-6xl space-y-12 px-6">
-        <div className="space-y-4 text-left">
+      <section className="mx-auto w-full max-w-6xl stack stack-loose px-6">
+        <div className="stack stack-dense text-left">
           <h2 className="text-3xl font-semibold text-slate-900">
             How we got here
           </h2>
@@ -81,35 +81,36 @@ export default function OurStoryPage() {
           {timeline.map((moment) => (
             <div
               key={moment.title}
-              className="rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
+              className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
             >
               <h3 className="text-xl font-semibold text-brand-primary">
                 {moment.title}
               </h3>
-              <p className="mt-3 text-sm text-slate-600">{moment.body}</p>
+              <p className="text-sm text-slate-600">{moment.body}</p>
             </div>
           ))}
         </div>
       </section>
 
       <section className="bg-slate-900 py-16">
-        <div className="mx-auto w-full max-w-6xl space-y-8 px-6 text-left text-white">
-          <div>
+        <div className="mx-auto w-full max-w-6xl stack px-6 text-left text-white">
+          <div className="stack stack-dense">
             <h2 className="text-3xl font-semibold">Our pillars</h2>
-            <p className="mt-2 text-sm text-slate-200">
+            <p className="text-sm text-slate-200">
               The student climate movement wins when we care for our people and
               fight together.
             </p>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             {values.map((value) => (
-              <div key={value.title} className="rounded-3xl bg-white/10 p-6">
+              <div
+                key={value.title}
+                className="stack stack-dense rounded-3xl bg-white/10 p-6"
+              >
                 <h3 className="text-lg font-semibold text-brand-accent">
                   {value.title}
                 </h3>
-                <p className="mt-3 text-sm text-slate-100">
-                  {value.description}
-                </p>
+                <p className="text-sm text-slate-100">{value.description}</p>
               </div>
             ))}
           </div>
@@ -118,7 +119,7 @@ export default function OurStoryPage() {
 
       <section className="mx-auto max-w-6xl px-6">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div className="space-y-5">
+          <div className="stack stack-cozy">
             <h2 className="text-3xl font-semibold text-slate-900">
               What’s next
             </h2>
