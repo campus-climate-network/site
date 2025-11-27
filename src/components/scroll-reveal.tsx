@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type ReactNode, type JSX } from 'react'
+import { useEffect, useRef, useState, type ReactNode, type ElementType } from 'react'
 
 type RevealVariant = 'blossom' | 'fade-up' | 'fade' | 'scale'
 
@@ -11,7 +11,7 @@ interface ScrollRevealProps {
   duration?: number
   threshold?: number
   className?: string
-  as?: keyof JSX.IntrinsicElements
+  as?: ElementType
 }
 
 export function ScrollReveal({
@@ -23,7 +23,7 @@ export function ScrollReveal({
   className = '',
   as: Component = 'div',
 }: ScrollRevealProps) {
-  const ref = useRef<HTMLElement>(null)
+  const ref = useRef<HTMLDivElement>(null)
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -48,7 +48,7 @@ export function ScrollReveal({
 
   return (
     <Component
-      ref={ref as React.RefObject<HTMLDivElement>}
+      ref={ref as React.Ref<unknown>}
       className={`${variantClass} ${isVisible ? 'is-visible' : ''} ${className}`}
       style={{
         '--reveal-delay': `${delay}ms`,
