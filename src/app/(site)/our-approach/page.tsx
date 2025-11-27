@@ -111,9 +111,9 @@ export default function OurApproachPage() {
         <div className="page-container stack stack-tight text-white">
           <ScrollReveal variant="fade-up">
             <div className="stack stack-dense">
-              <h2 className="text-3xl font-semibold">What we're up against</h2>
+              <h2 className="text-3xl font-semibold">What we&apos;re up against</h2>
               <p className="text-sm text-slate-200">
-                We're honest about the landscape so we can strategize to win.
+                We&apos;re honest about the landscape so we can strategize to win.
               </p>
             </div>
           </ScrollReveal>

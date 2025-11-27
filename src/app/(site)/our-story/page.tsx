@@ -51,14 +51,14 @@ export default function OurStoryPage() {
             Our Story
           </p>
           <h1 className="text-4xl font-semibold text-brand-primary">
-            Students have always changed what's possible.
+            Students have always changed what&apos;s possible.
           </h1>
           <p className="text-base text-slate-700">
             Campus Climate Network was created by student organizers who saw a
             need for shared infrastructure, deeper political alignment, and a
-            home for campaigns that expose fossil fuel influence. We're building
-            a future where universities act for climate justice because their
-            students demanded nothing less.
+            home for campaigns that expose fossil fuel influence. We&apos;re
+            building a future where universities act for climate justice because
+            their students demanded nothing less.
           </p>
         </div>
       </section>
@@ -131,10 +131,10 @@ export default function OurStoryPage() {
           <ScrollReveal variant="fade-up">
             <div className="stack stack-cozy">
               <h2 className="text-3xl font-semibold text-slate-900">
-                What's next
+                What&apos;s next
               </h2>
               <p className="text-base text-slate-600">
-                We're expanding training programs, supporting regional
+                We&apos;re expanding training programs, supporting regional
                 gatherings, and launching new campaigns that tackle fossil fuel
                 influence in research, procurement, and campus finances. We know
                 none of this happens alone, and we are excited to build with

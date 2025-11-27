@@ -107,7 +107,7 @@ export default async function Page() {
                 No stories yet. Check back soon.
               </p>
               <p className="mt-2 text-sm text-slate-600">
-                We're gathering reflections from organizers across the movement.
+                We&apos;re gathering reflections from organizers across the movement.
               </p>
             </div>
           </ScrollReveal>

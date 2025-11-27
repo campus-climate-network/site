@@ -137,7 +137,7 @@ export default function OurNetworkPage() {
         <ScrollReveal variant="fade-up">
           <div className="stack stack-dense text-left">
             <h2 className="text-3xl font-semibold text-slate-900">
-              Who's in the network
+              Who&apos;s in the network
             </h2>
             <p className="text-base text-slate-600">
               A sampling of organizations currently collaborating through

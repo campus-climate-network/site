@@ -46,8 +46,8 @@ export default function OurFundersPage() {
             </h2>
             <p className="text-base text-slate-600">
               A snapshot of the partners who have resourced our work to date.
-              We're building a diversified funding base to sustain the long-haul
-              fight for climate justice.
+              We&apos;re building a diversified funding base to sustain the
+              long-haul fight for climate justice.
             </p>
           </div>
         </ScrollReveal>
