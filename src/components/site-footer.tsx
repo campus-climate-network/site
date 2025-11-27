@@ -41,30 +41,34 @@ export function SiteFooter() {
               Campus Climate Network
             </p>
             <p className="mt-3 max-w-xs text-sm text-slate-300">
-              Organizing students to win fossil-free research and climate
-              justice on campuses nationwide.
+              We provide students with the skills, resources, and connections
+              they need to run winning campaigns on campus.
             </p>
           </div>
-          <div className="flex flex-col gap-2 text-sm text-slate-300">
+          <p className="max-w-xs text-xs text-slate-400">
+            Campus Climate Network is a fiscally sponsored project of{' '}
             <a
-              className="transition hover:text-white"
-              href="mailto:info@campusclimatenetwork.org"
+              className="underline transition hover:text-slate-300"
+              href="https://hackfoundation.org"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              info@campusclimatenetwork.org
+              The Hack Foundation
             </a>
-            <p className="text-sm text-slate-400">
-              © Campus Climate Network {new Date().getFullYear()}
-            </p>
-          </div>
-          <div className="text-sm text-slate-300">
+            .
+          </p>
+          <p className="text-xs text-slate-400">
             Site built by{' '}
             <a
-              className="transition hover:text-white"
+              className="underline transition hover:text-slate-300"
               href="https://www.dylanwahbe.com"
             >
               Dylan Wahbe
             </a>
-          </div>
+          </p>
+          <p className="text-xs text-slate-400">
+            © Campus Climate Network {new Date().getFullYear()}
+          </p>
         </div>
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {footerColumns.map((column) => (

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Network Campaigns',
@@ -11,22 +12,27 @@ const campaignHighlights = [
   {
     title: 'Fossil Free Research',
     description:
-      'Students push universities to cut fossil fuel funding from research labs and centers, exposing conflicts of interest and demanding transparency.',
+      "For decades, the fossil fuel industry has sought to mislead the public on the realities of climate change and obstruct climate action. Fossil fuel funded research provides Big Oil with undue legitimacy, bolsters industry greenwashing, and skews the research we need to inform a just energy transition. It's time to end fossil fuel-funded research at our schools.",
   },
   {
-    title: 'Invest in Real Climate Solutions',
+    title: 'Campus Decarbonization',
     description:
-      'Organizers win commitments to fund community-centered climate solutions, frontline partnerships, and regenerative campus operations.',
+      'Universities cannot be true climate leaders while continuing to rely on oil and gas for energy. We are fighting back against performative carbon neutrality plans that lack transparency and rely on greenwashing solutions such as carbon offsets. We demand genuine campus decarbonization.',
   },
   {
-    title: 'End Fossil Fuel Sponsorships',
+    title: 'Green New Deal for Campuses',
     description:
-      'Campaigns to remove fossil fuel sponsorships from athletics, cultural programs, and career offices so campuses no longer normalize extraction.',
+      "To achieve a just energy transition, we will have to change everything. Let's start with our universities.",
   },
   {
-    title: 'Divest & Reinvest',
+    title: 'Fossil Free Careers',
     description:
-      'Coordinated divestment efforts across regions continue to move billions out of coal, oil, and gas, and into climate justice initiatives.',
+      'We envision a future with just, green, good jobs for all. Fossil fuel industry recruitment on our campuses must stop.',
+  },
+  {
+    title: 'Fossil Fuel Divestment',
+    description:
+      'Our planet is burning and our schools are investing in the fire. Our endowments must not be used to fuel the climate crisis.',
   },
 ]
 
@@ -50,16 +56,22 @@ export default function NetworkCampaignsPage() {
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <div className="stack stack-dense text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            Current priorities
-          </h2>
-          <p className="text-base text-slate-600">
-            Each campus adapts these pillars to their local context, sharing
-            playbooks, messaging, and wins through CCN.
-          </p>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Current priorities
+            </h2>
+            <p className="text-base text-slate-600">
+              Each campus adapts these pillars to their local context, sharing
+              playbooks, messaging, and wins through CCN.
+            </p>
+          </div>
+        </ScrollReveal>
+        <StaggerReveal
+          staggerDelay={100}
+          variant="blossom"
+          className="grid gap-6 md:grid-cols-2"
+        >
           {campaignHighlights.map((campaign) => (
             <div
               key={campaign.title}
@@ -71,21 +83,27 @@ export default function NetworkCampaignsPage() {
               <p className="text-sm text-slate-600">{campaign.description}</p>
             </div>
           ))}
-        </div>
+        </StaggerReveal>
       </section>
 
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack text-left text-white">
-          <div className="stack stack-dense">
-            <h2 className="text-3xl font-semibold">
-              What we offer campaign teams
-            </h2>
-            <p className="text-sm text-slate-200">
-              Infrastructure that helps student organizers move fast and stay
-              connected.
-            </p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-dense">
+              <h2 className="text-3xl font-semibold">
+                What we offer campaign teams
+              </h2>
+              <p className="text-sm text-slate-200">
+                Infrastructure that helps student organizers move fast and stay
+                connected.
+              </p>
+            </div>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={120}
+            variant="blossom"
+            className="grid gap-6 md:grid-cols-3"
+          >
             {[
               {
                 title: 'Strategy Labs',
@@ -93,7 +111,7 @@ export default function NetworkCampaignsPage() {
               },
               {
                 title: 'Messaging & Media',
-                body: 'Shared talking points, media trainings, and amplification through CCN’s communications channels.',
+                body: "Shared talking points, media trainings, and amplification through CCN's communications channels.",
               },
               {
                 title: 'Rapid-Response Support',
@@ -110,32 +128,34 @@ export default function NetworkCampaignsPage() {
                 <p className="text-sm text-slate-100">{item.body}</p>
               </div>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
 
       <section className="page-container stack stack-tight text-left">
-        <h2 className="text-3xl font-semibold text-slate-900">
-          Share your campaign
-        </h2>
-        <p className="text-base text-slate-600">
-          We uplift stories from across the network and coordinate national
-          actions. Submit your campaign or reach out for support.
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <Link
-            className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-            href="/take-action"
-          >
-            Join coordination calls
-          </Link>
-          <a
-            className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-            href="mailto:info@campusclimatenetwork.org"
-          >
-            Submit an update
-          </a>
-        </div>
+        <ScrollReveal variant="fade-up">
+          <h2 className="text-3xl font-semibold text-slate-900">
+            Share your campaign
+          </h2>
+          <p className="mt-4 text-base text-slate-600">
+            We uplift stories from across the network and coordinate national
+            actions. Submit your campaign or reach out for support.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <Link
+              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+              href="/take-action"
+            >
+              Join Coordination Calls
+            </Link>
+            <a
+              className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
+              href="mailto:info@campusclimatenetwork.org"
+            >
+              Submit an Update
+            </a>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   )

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Our Story',
@@ -45,47 +46,41 @@ export default function OurStoryPage() {
   return (
     <div className="page-wrapper">
       <section className="bg-brand-primary/10 section-hero">
-        <div className="page-container flex flex-col gap-10 lg:flex-row lg:items-center">
-          <div className="flex-1 stack stack-cozy">
-            <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
-              Our Story
-            </p>
-            <h1 className="text-4xl font-semibold text-brand-primary">
-              Students have always changed what’s possible.
-            </h1>
-            <p className="text-base text-slate-700">
-              Campus Climate Network was created by student organizers who saw a
-              need for shared infrastructure, deeper political alignment, and a
-              home for campaigns that expose fossil fuel influence. We’re
-              building a future where universities act for climate justice
-              because their students demanded nothing less.
-            </p>
-          </div>
-          <div className="flex-1 overflow-hidden rounded-3xl shadow-xl ring-1 ring-brand-primary/10">
-            <Image
-              src="/images/organizers-marching.png"
-              alt="Campus organizers marching together"
-              width={1280}
-              height={853}
-              className="h-full w-full object-cover"
-              priority
-            />
-          </div>
+        <div className="page-container stack stack-tight max-w-3xl">
+          <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
+            Our Story
+          </p>
+          <h1 className="text-4xl font-semibold text-brand-primary">
+            Students have always changed what's possible.
+          </h1>
+          <p className="text-base text-slate-700">
+            Campus Climate Network was created by student organizers who saw a
+            need for shared infrastructure, deeper political alignment, and a
+            home for campaigns that expose fossil fuel influence. We're building
+            a future where universities act for climate justice because their
+            students demanded nothing less.
+          </p>
         </div>
       </section>
 
       <section className="page-container stack stack-loose">
-        <div className="stack stack-dense text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            How we got here
-          </h2>
-          <p className="text-base text-slate-600">
-            Our coalition stands on the shoulders of divestment campaigns,
-            Fossil Free Research organizers, and countless campus coalitions
-            demanding climate justice.
-          </p>
-        </div>
-        <div className="grid gap-6 lg:grid-cols-3">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              How we got here
+            </h2>
+            <p className="text-base text-slate-600">
+              Our coalition stands on the shoulders of divestment campaigns,
+              Fossil Free Research organizers, and countless campus coalitions
+              demanding climate justice.
+            </p>
+          </div>
+        </ScrollReveal>
+        <StaggerReveal
+          staggerDelay={120}
+          variant="blossom"
+          className="grid gap-6 lg:grid-cols-3"
+        >
           {timeline.map((moment) => (
             <div
               key={moment.title}
@@ -97,19 +92,25 @@ export default function OurStoryPage() {
               <p className="text-sm text-slate-600">{moment.body}</p>
             </div>
           ))}
-        </div>
+        </StaggerReveal>
       </section>
 
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack text-left text-white">
-          <div className="stack stack-dense">
-            <h2 className="text-3xl font-semibold">Our pillars</h2>
-            <p className="text-sm text-slate-200">
-              The student climate movement wins when we care for our people and
-              fight together.
-            </p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-dense">
+              <h2 className="text-3xl font-semibold">Our pillars</h2>
+              <p className="text-sm text-slate-200">
+                The student climate movement wins when we care for our people
+                and fight together.
+              </p>
+            </div>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={120}
+            variant="blossom"
+            className="grid gap-6 md:grid-cols-3"
+          >
             {values.map((value) => (
               <div
                 key={value.title}
@@ -121,46 +122,51 @@ export default function OurStoryPage() {
                 <p className="text-sm text-slate-100">{value.description}</p>
               </div>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
 
       <section className="page-container">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div className="stack stack-cozy">
-            <h2 className="text-3xl font-semibold text-slate-900">
-              What’s next
-            </h2>
-            <p className="text-base text-slate-600">
-              We’re expanding training programs, supporting regional gatherings,
-              and launching new campaigns that tackle fossil fuel influence in
-              research, procurement, and campus finances. We know none of this
-              happens alone, and we are excited to build with you.
-            </p>
-            <div className="flex flex-wrap gap-3 text-sm font-semibold">
-              <Link
-                className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-white transition hover:bg-brand-secondary"
-                href="/take-action"
-              >
-                Join the network
-              </Link>
-              <Link
-                className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-brand-primary transition hover:bg-brand-primary hover:text-white"
-                href="/donate"
-              >
-                Invest in students
-              </Link>
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-cozy">
+              <h2 className="text-3xl font-semibold text-slate-900">
+                What's next
+              </h2>
+              <p className="text-base text-slate-600">
+                We're expanding training programs, supporting regional
+                gatherings, and launching new campaigns that tackle fossil fuel
+                influence in research, procurement, and campus finances. We know
+                none of this happens alone, and we are excited to build with
+                you.
+              </p>
+              <div className="flex flex-wrap gap-3 text-sm font-semibold">
+                <Link
+                  className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-white transition hover:bg-brand-secondary"
+                  href="/take-action"
+                >
+                  Join the Network
+                </Link>
+                <Link
+                  className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-brand-primary transition hover:bg-brand-primary hover:text-white"
+                  href="/donate"
+                >
+                  Invest in Students
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-brand-primary/10">
-            <Image
-              src="/images/students-rally.jpg"
-              alt="Students holding a banner during a campus action"
-              width={1200}
-              height={800}
-              className="h-full w-full object-cover"
-            />
-          </div>
+          </ScrollReveal>
+          <ScrollReveal variant="blossom" delay={150}>
+            <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-brand-primary/10">
+              <Image
+                src="/images/students-rally.jpg"
+                alt="Students holding a banner during a campus action"
+                width={1200}
+                height={800}
+                className="h-full w-full object-cover"
+              />
+            </div>
+          </ScrollReveal>
         </div>
       </section>
     </div>

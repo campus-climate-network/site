@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Our Approach',
@@ -42,7 +43,7 @@ export default function OurApproachPage() {
     <div className="page-wrapper">
       <section className="bg-brand-cream/60 section-hero">
         <div className="page-container flex flex-col gap-10 lg:flex-row lg:items-center">
-          <div className="flex-1 stack stack-cozy">
+          <div className="flex-1 stack stack-tight">
             <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
               Our Approach
             </p>
@@ -70,12 +71,18 @@ export default function OurApproachPage() {
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <div className="stack stack-dense">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            Vision & Mission
-          </h2>
-        </div>
-        <div className="grid gap-6 lg:grid-cols-2">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Vision & mission
+            </h2>
+          </div>
+        </ScrollReveal>
+        <StaggerReveal
+          staggerDelay={150}
+          variant="blossom"
+          className="grid gap-6 lg:grid-cols-2"
+        >
           <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 text-left shadow-sm">
             <h3 className="text-xl font-semibold text-brand-primary">Vision</h3>
             <p className="text-sm text-slate-600">
@@ -97,18 +104,24 @@ export default function OurApproachPage() {
               campus and become the next generation of climate justice leaders.
             </p>
           </div>
-        </div>
+        </StaggerReveal>
       </section>
 
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack stack-tight text-white">
-          <div className="stack stack-dense">
-            <h2 className="text-3xl font-semibold">What We’re Up Against</h2>
-            <p className="text-sm text-slate-200">
-              We’re honest about the landscape so we can strategize to win.
-            </p>
-          </div>
-          <div className="grid gap-6 lg:grid-cols-3">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-dense">
+              <h2 className="text-3xl font-semibold">What we're up against</h2>
+              <p className="text-sm text-slate-200">
+                We're honest about the landscape so we can strategize to win.
+              </p>
+            </div>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={120}
+            variant="blossom"
+            className="grid gap-6 lg:grid-cols-3"
+          >
             {challenges.map((item) => (
               <div
                 key={item.title}
@@ -120,22 +133,28 @@ export default function OurApproachPage() {
                 <p className="text-sm text-slate-100">{item.body}</p>
               </div>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
 
       <section className="bg-brand-primary/10 section-dark">
         <div className="page-container stack stack-tight">
-          <div className="stack stack-dense">
-            <h2 className="text-3xl font-semibold text-brand-primary">
-              How We Unite
-            </h2>
-            <p className="text-base text-slate-600">
-              We weave together decentralized grassroots campaigns into a
-              powerful, coordinated movement.
-            </p>
-          </div>
-          <div className="grid gap-6 lg:grid-cols-3">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-dense">
+              <h2 className="text-3xl font-semibold text-brand-primary">
+                How we unite
+              </h2>
+              <p className="text-base text-slate-600">
+                We weave together decentralized grassroots campaigns into a
+                powerful, coordinated movement.
+              </p>
+            </div>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={120}
+            variant="blossom"
+            className="grid gap-6 lg:grid-cols-3"
+          >
             {pillars.map((pillar) => (
               <div
                 key={pillar.title}
@@ -147,7 +166,7 @@ export default function OurApproachPage() {
                 <p className="text-sm text-slate-600">{pillar.body}</p>
               </div>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
     </div>

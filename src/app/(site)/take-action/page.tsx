@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
 import { ActionNetworkForm } from '@/components/action-network-form'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Take Action',
@@ -44,12 +45,18 @@ export default function TakeActionPage() {
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <div className="text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            How onboarding works
-          </h2>
-        </div>
-        <div className="grid gap-6 md:grid-cols-3">
+        <ScrollReveal variant="fade-up">
+          <div className="text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              How onboarding works
+            </h2>
+          </div>
+        </ScrollReveal>
+        <StaggerReveal
+          staggerDelay={120}
+          variant="blossom"
+          className="grid gap-6 md:grid-cols-3"
+        >
           {steps.map((step) => (
             <div
               key={step.title}
@@ -61,37 +68,41 @@ export default function TakeActionPage() {
               <p className="text-sm text-slate-600">{step.body}</p>
             </div>
           ))}
-        </div>
+        </StaggerReveal>
       </section>
 
       <section className="bg-slate-900 section-dark">
         <div className="page-container text-left">
-          <div className="rounded-3xl bg-white p-8 shadow-2xl">
-            <ActionNetworkForm />
-          </div>
+          <ScrollReveal variant="blossom">
+            <div className="rounded-3xl bg-white p-8 shadow-2xl">
+              <ActionNetworkForm />
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
       <section className="page-container">
-        <div className="stack stack-dense rounded-3xl bg-brand-primary/10 p-8">
-          <h2 className="text-3xl font-semibold text-brand-primary">
-            Upcoming opportunities
-          </h2>
-          <ul className="stack-list-snug text-sm text-slate-700">
-            <li>
-              • College Climate Gathering applications open this fall—check your
-              email after you sign up.
-            </li>
-            <li>
-              • New organizer trainings launch monthly, covering campaign
-              strategy, base building, and media skills.
-            </li>
-            <li>
-              • Fellowships and stipends available for select campuses each
-              semester.
-            </li>
-          </ul>
-        </div>
+        <ScrollReveal variant="blossom">
+          <div className="stack stack-dense rounded-3xl bg-brand-primary/10 p-8">
+            <h2 className="text-3xl font-semibold text-brand-primary">
+              Upcoming opportunities
+            </h2>
+            <ul className="stack-list-snug text-sm text-slate-700">
+              <li>
+                • College Climate Gathering applications open this fall—check your
+                email after you sign up.
+              </li>
+              <li>
+                • New organizer trainings launch monthly, covering campaign
+                strategy, base building, and media skills.
+              </li>
+              <li>
+                • Fellowships and stipends available for select campuses each
+                semester.
+              </li>
+            </ul>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   )

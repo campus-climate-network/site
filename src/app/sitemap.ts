@@ -9,10 +9,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '',
     '/our-network',
     '/our-story',
-    '/our-people',
     '/our-approach',
     '/our-funders',
-    '/work',
     '/ffr-campaign',
     '/ffr-toolkit',
     '/ffr-archive',
@@ -50,5 +48,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [...staticEntries, ...blogEntries]
 }
+
 
 

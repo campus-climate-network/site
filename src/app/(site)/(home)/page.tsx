@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { MovementCarousel } from '@/components/movement-carousel'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: {
@@ -18,18 +19,21 @@ const pressLogos = [
     image: '/press-logos/guardian.png',
     width: 300,
     height: 99,
+    href: 'https://www.theguardian.com/us-news/2023/aug/04/harvard-professor-resigns-conocophillips-board',
   },
   {
     name: 'The New York Times',
     image: '/press-logos/new-york-times.png',
     width: 300,
     height: 41,
+    href: 'https://www.nytimes.com/2022/05/24/climate/fossil-fuel-divestment.html',
   },
   {
     name: 'The Nation',
     image: '/press-logos/the-nation.png',
     width: 300,
     height: 90,
+    href: 'https://www.thenation.com/article/environment/climate-change-cop27-fossil-fuel-university-research/',
   },
   {
     name: 'The Boston Globe',
@@ -48,6 +52,7 @@ const pressLogos = [
     image: '/press-logos/mother-jones-2025.png',
     width: 1024,
     height: 209,
+    href: 'https://www.motherjones.com/environment/2024/09/fossil-fuel-funding-colleges-universities-clean-energy-transition-study-conflicts-interest/',
   },
 ]
 
@@ -94,8 +99,8 @@ export default function Home() {
     <div className="page-wrapper">
       <section className="relative isolate overflow-hidden bg-gradient-to-br from-brand-secondary via-brand-tertiary to-brand-primary text-white">
         <div className="page-container section-hero grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div className="stack stack-mid">
-            <p className="text-xs uppercase tracking-[0.4em] text-brand-cream/70">
+          <div className="stack stack-tight">
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-cream/70">
               Campus Climate Network
             </p>
             <h1 className="text-4xl font-semibold leading-tight sm:text-5xl">
@@ -150,11 +155,8 @@ export default function Home() {
         </div>
         <div className="border-t border-white/15 bg-white/5">
           <div className="page-container flex flex-wrap items-center justify-center gap-6 py-6 text-sm uppercase tracking-[0.3em] text-brand-cream/70">
-            {pressLogos.map((logo) => (
-              <div
-                key={logo.name}
-                className="flex h-20 w-40 items-center justify-center rounded-xl bg-brand-cream/70 px-4 py-3 shadow-sm"
-              >
+            {pressLogos.map((logo) => {
+              const content = (
                 <div className="flex h-full w-full items-center justify-center">
                   <Image
                     src={logo.image}
@@ -165,62 +167,92 @@ export default function Home() {
                     sizes="160px"
                   />
                 </div>
-              </div>
-            ))}
+              )
+              return logo.href ? (
+                <a
+                  key={logo.name}
+                  href={logo.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-20 w-40 items-center justify-center rounded-xl bg-brand-cream/70 px-4 py-3 shadow-sm transition hover:bg-brand-cream hover:shadow-md"
+                >
+                  {content}
+                </a>
+              ) : (
+                <div
+                  key={logo.name}
+                  className="flex h-20 w-40 items-center justify-center rounded-xl bg-brand-cream/70 px-4 py-3 shadow-sm"
+                >
+                  {content}
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
 
       <section className="page-container">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
-          <div className="stack stack-cozy">
-            <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
-              Our Network
-            </p>
-            <h2 className="text-3xl font-semibold text-slate-900">
-              Around the world, students just like you are kicking Big Oil off
-              campus.
-            </h2>
-            <p className="text-lg text-slate-600">
-              Our members share organizing playbooks, tactical trainings, and
-              cross-campus solidarity so every institution can move faster
-              toward fossil-free research.
-            </p>
-            <div className="flex flex-wrap gap-3 text-sm font-semibold">
-              <Link
-                className="inline-flex items-center rounded-full bg-brand-primary px-4 py-2 text-white transition hover:bg-brand-secondary"
-                href="/our-network"
-              >
-                Member Organizations
-              </Link>
-              <Link
-                className="inline-flex items-center rounded-full border border-brand-primary px-4 py-2 text-brand-primary transition hover:bg-brand-primary hover:text-white"
-                href="/network-campaigns"
-              >
-                Campaigns
-              </Link>
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-cozy">
+              <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
+                Our Network
+              </p>
+              <h2 className="text-3xl font-semibold text-slate-900">
+                Around the world, students just like you are kicking Big Oil off
+                campus.
+              </h2>
+              <p className="text-lg text-slate-600">
+                Our members share organizing playbooks, tactical trainings, and
+                cross-campus solidarity so every institution can move faster
+                toward fossil-free research.
+              </p>
+              <div className="flex flex-wrap gap-3 text-sm font-semibold">
+                <Link
+                  className="inline-flex items-center rounded-full bg-brand-primary px-4 py-2 text-white transition hover:bg-brand-secondary"
+                  href="/our-network"
+                >
+                  Member Organizations
+                </Link>
+                <Link
+                  className="inline-flex items-center rounded-full border border-brand-primary px-4 py-2 text-brand-primary transition hover:bg-brand-primary hover:text-white"
+                  href="/network-campaigns"
+                >
+                  Campaigns
+                </Link>
+              </div>
             </div>
-          </div>
-          <div className="rounded-3xl border border-brand-secondary/30 overflow-hidden">
-            <div className="relative h-[320px] sm:h-[420px] lg:h-[500px]">
-              <iframe
-                title="Campus Climate Network member map"
-                src="https://www.google.com/maps/d/embed?mid=1jL5D_L1471XrlrzwzSC-d3mWE_KyEJU&ehbc=2E312F&nopro&ll=10.14543330073012,-107.3738707&z=2"
-                className="absolute inset-x-0 -top-16 h-[calc(100%+4rem)] w-full"
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-                style={{ border: 0 }}
-              />
+          </ScrollReveal>
+          <ScrollReveal variant="blossom" delay={150}>
+            <div className="rounded-3xl border border-brand-secondary/30 overflow-hidden">
+              <div className="relative h-[320px] sm:h-[420px] lg:h-[500px]">
+                <iframe
+                  title="Campus Climate Network member map"
+                  src="https://www.google.com/maps/d/embed?mid=1jL5D_L1471XrlrzwzSC-d3mWE_KyEJU&ehbc=2E312F&nopro&ll=10.14543330073012,-107.3738707&z=2"
+                  className="absolute inset-x-0 -top-16 h-[calc(100%+4rem)] w-full"
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                  style={{ border: 0 }}
+                />
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
       <section className="bg-brand-cream/40 section-hero">
         <div className="page-container stack stack-relaxed text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">What We Do</h2>
-          <div className="grid gap-6 md:grid-cols-3">
+          <ScrollReveal variant="fade-up">
+              <h2 className="text-3xl font-semibold text-slate-900">
+                What we do
+              </h2>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={120}
+            variant="blossom"
+            className="grid gap-6 md:grid-cols-3"
+          >
             {[
               {
                 title: 'Train',
@@ -251,16 +283,22 @@ export default function Home() {
                 <p className="mt-3 text-sm text-slate-600">{item.body}</p>
               </div>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
 
       <section className="page-container">
         <div className="stack stack-mid text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            What&apos;s Next?
-          </h2>
-          <div className="grid gap-8 lg:grid-cols-2">
+          <ScrollReveal variant="fade-up">
+              <h2 className="text-3xl font-semibold text-slate-900">
+                What&apos;s next?
+              </h2>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={150}
+            variant="blossom"
+            className="grid gap-8 lg:grid-cols-2"
+          >
             <div className="rounded-3xl bg-brand-primary/10 p-8 text-brand-primary">
               <p className="text-lg text-brand-primary/90">
                 Are you a university student, faculty, alumni, or community
@@ -284,19 +322,23 @@ export default function Home() {
                 Donate
               </Link>
             </div>
-          </div>
+          </StaggerReveal>
         </div>
       </section>
 
       <section className="page-container">
         <div className="stack stack-mid text-left">
-          <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
-            We are the movement
-          </p>
-          <h2 className="text-3xl font-semibold text-slate-900">
-            Scenes from campuses taking bold climate action
-          </h2>
-          <MovementCarousel highlights={movementHighlights} />
+          <ScrollReveal variant="fade-up">
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
+              We are the movement
+            </p>
+            <h2 className="mt-2 text-3xl font-semibold text-slate-900">
+              Scenes from campuses taking bold climate action
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal variant="blossom" delay={100}>
+            <MovementCarousel highlights={movementHighlights} />
+          </ScrollReveal>
         </div>
       </section>
     </div>

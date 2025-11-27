@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Open Letter',
@@ -114,8 +115,11 @@ export default function OpenLetterPage() {
       </section>
 
       <section className="page-container stack stack-tight text-left">
-        <h2 className="text-3xl font-semibold text-slate-900">The letter</h2>
-        <div className="stack text-base text-slate-700">
+        <ScrollReveal variant="fade-up">
+          <h2 className="text-3xl font-semibold text-slate-900">The letter</h2>
+        </ScrollReveal>
+        <ScrollReveal variant="fade" delay={100}>
+          <div className="stack text-base text-slate-700">
           <p>Dear University Presidents and Vice-Chancellors,</p>
           <p>
             We are writing as academics and experts who are deeply concerned by
@@ -240,20 +244,28 @@ export default function OpenLetterPage() {
             moment of extreme crisis, we urge you to heed our call and cut
             damaging research ties with the fossil fuel industry.
           </p>
-        </div>
+          </div>
+        </ScrollReveal>
       </section>
 
       <section className="page-container stack">
-        <div className="stack stack-dense text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            Why sign on?
-          </h2>
-          <p className="text-base text-slate-600">
-            The more voices we have, the harder it is for universities to ignore
-            the call for climate justice.
-          </p>
-        </div>
-        <ul className="grid gap-6 text-slate-600 md:grid-cols-2">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Why sign on?
+            </h2>
+            <p className="text-base text-slate-600">
+              The more voices we have, the harder it is for universities to ignore
+              the call for climate justice.
+            </p>
+          </div>
+        </ScrollReveal>
+        <StaggerReveal
+          staggerDelay={100}
+          variant="blossom"
+          className="grid gap-6 text-slate-600 md:grid-cols-2"
+          childClassName="list-none"
+        >
           {signReasons.map((reason) => (
             <li
               key={reason.title}
@@ -270,19 +282,25 @@ export default function OpenLetterPage() {
               </div>
             </li>
           ))}
-        </ul>
+        </StaggerReveal>
       </section>
 
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack text-left text-white">
-          <div className="stack stack-dense">
-            <h2 className="text-3xl font-semibold">Who has signed so far</h2>
-            <p className="text-sm text-slate-200">
-              Thousands of supporters have endorsed the letter, representing
-              campuses and movements around the world.
-            </p>
-          </div>
-          <div className="grid gap-4 text-sm text-slate-100 md:grid-cols-4">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-dense">
+              <h2 className="text-3xl font-semibold">Who has signed so far</h2>
+              <p className="text-sm text-slate-200">
+                Thousands of supporters have endorsed the letter, representing
+                campuses and movements around the world.
+              </p>
+            </div>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={80}
+            variant="blossom"
+            className="grid gap-4 text-sm text-slate-100 md:grid-cols-4"
+          >
             {supporters.map((group) => (
               <div
                 key={group}
@@ -291,30 +309,32 @@ export default function OpenLetterPage() {
                 {group}
               </div>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
 
       <section className="page-container stack stack-tight text-left">
-        <h2 className="text-3xl font-semibold text-slate-900">Add your name</h2>
-        <p className="text-base text-slate-600">
-          We’re finalizing the new signatory form. In the meantime, contact us
-          and we’ll keep you updated about the next release of signatures.
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <a
-            className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-            href="mailto:info@campusclimatenetwork.org"
-          >
-            Pledge your support
-          </a>
-          <Link
-            className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-            href="/ffr-campaign"
-          >
-            Learn about FFR
-          </Link>
-        </div>
+        <ScrollReveal variant="fade-up">
+          <h2 className="text-3xl font-semibold text-slate-900">Add your name</h2>
+          <p className="mt-4 text-base text-slate-600">
+            We're finalizing the new signatory form. In the meantime, contact us
+            and we'll keep you updated about the next release of signatures.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <a
+              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+              href="mailto:info@campusclimatenetwork.org"
+            >
+              Pledge Your Support
+            </a>
+            <Link
+              className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
+              href="/ffr-campaign"
+            >
+              Learn About FFR
+            </Link>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   )

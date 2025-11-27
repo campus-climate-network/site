@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'FFR Reports',
@@ -49,20 +50,31 @@ export default function FfrReportsPage() {
       {/* Hero */}
       <section className="relative py-24 md:py-32">
         <div className="mx-auto max-w-6xl px-6">
-          <h1 className="font-instrument text-4xl leading-tight text-white md:text-6xl">
-            FFR Reports
-          </h1>
-          <p className="mt-6 max-w-2xl text-lg text-stone-300">
-            Research and investigative reports from campaigns across the network exposing fossil fuel 
-            influence in academic institutions.
-          </p>
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-tight">
+              <p className="text-sm uppercase tracking-[0.3em] text-stone-400">
+                Fossil Free Research
+              </p>
+              <h1 className="text-4xl font-semibold text-white">
+                FFR Reports
+              </h1>
+              <p className="max-w-2xl text-base text-stone-300">
+                Research and investigative reports from campaigns across the network exposing fossil fuel 
+                influence in academic institutions.
+              </p>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
       {/* Reports Grid */}
       <section className="pb-24 md:pb-32">
         <div className="mx-auto max-w-6xl px-6">
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <StaggerReveal
+            staggerDelay={100}
+            variant="blossom"
+            className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          >
             {reports.map((report) => (
               <Link
                 key={report.title}
@@ -96,7 +108,7 @@ export default function FfrReportsPage() {
                 </div>
               </Link>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
 

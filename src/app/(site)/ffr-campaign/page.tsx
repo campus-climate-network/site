@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Fossil Free Research Campaign',
@@ -114,35 +115,43 @@ export default function FFRCampaignPage() {
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <div className="stack stack-dense text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            Decades of deception
-          </h2>
-          <p className="text-base text-slate-600">
-            Polluters needed the prestige of elite institutions to sanitize
-            their biased research, so they poured money into centers,
-            departments, and labs—poisoning the very places meant to advance
-            human knowledge. They leveraged that borrowed credibility to shape
-            public policy and law, keeping business-as-usual intact while the
-            planet burned.
-          </p>
-        </div>
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Decades of deception
+            </h2>
+            <p className="text-base text-slate-600">
+              Polluters needed the prestige of elite institutions to sanitize
+              their biased research, so they poured money into centers,
+              departments, and labs—poisoning the very places meant to advance
+              human knowledge. They leveraged that borrowed credibility to shape
+              public policy and law, keeping business-as-usual intact while the
+              planet burned.
+            </p>
+          </div>
+        </ScrollReveal>
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <div className="stack stack-dense text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            Why Fossil Free Research matters
-          </h2>
-          <p className="text-base text-slate-600">
-            We are not letting Big Oil get away with capturing our campuses.
-            Students and faculty are turning universities into sites of
-            innovation and real climate solutions—not pipelines for corporate PR
-            and extraction. We are kicking fossil fuel money out of schools for
-            good.
-          </p>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Why Fossil Free Research matters
+            </h2>
+            <p className="text-base text-slate-600">
+              We are not letting Big Oil get away with capturing our campuses.
+              Students and faculty are turning universities into sites of
+              innovation and real climate solutions—not pipelines for corporate PR
+              and extraction. We are kicking fossil fuel money out of schools for
+              good.
+            </p>
+          </div>
+        </ScrollReveal>
+        <StaggerReveal
+          staggerDelay={80}
+          variant="blossom"
+          className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+        >
           {talkingPoints.map((point) => (
             <div
               key={point.title}
@@ -159,66 +168,76 @@ export default function FFRCampaignPage() {
               </div>
             </div>
           ))}
-        </div>
+        </StaggerReveal>
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <div className="stack stack-dense text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            What we&apos;ve already exposed
-          </h2>
-          <p className="text-base text-slate-600">
-            Fossil Free Research is the flagship campaign of Campus Climate
-            Network. We have already uncovered millions of dollars in hidden
-            fossil funding, winning Fossil Free Research policies from
-            individual faculty members to entire departments, centers, and
-            universities. Your school could be next.
-          </p>
-        </div>
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              What we&apos;ve already exposed
+            </h2>
+            <p className="text-base text-slate-600">
+              Fossil Free Research is the flagship campaign of Campus Climate
+              Network. We have already uncovered millions of dollars in hidden
+              fossil funding, winning Fossil Free Research policies from
+              individual faculty members to entire departments, centers, and
+              universities. Your school could be next.
+            </p>
+          </div>
+        </ScrollReveal>
       </section>
 
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack text-left text-white">
-          <div className="stack stack-dense">
-            <h2 className="text-3xl font-semibold">How we organize</h2>
-            <p className="text-sm text-slate-200">
-              Students are escalating from research audits to mass
-              mobilizations.
-            </p>
-          </div>
-          <div className="grid gap-4 text-sm text-slate-100 md:grid-cols-2">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-dense">
+              <h2 className="text-3xl font-semibold">How we organize</h2>
+              <p className="text-sm text-slate-200">
+                Students are escalating from research audits to mass
+                mobilizations.
+              </p>
+            </div>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={100}
+            variant="blossom"
+            className="grid gap-4 text-sm text-slate-100 md:grid-cols-2"
+          >
             {actions.map((action) => (
               <div key={action} className="rounded-3xl bg-white/10 p-5">
                 {action}
               </div>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
 
       <section className="page-container stack stack-tight text-left">
-        <h2 className="text-3xl font-semibold text-slate-900">
-          Plug into the campaign
-        </h2>
-        <p className="text-base text-slate-600">
-          Whether you are building a new site of innovation and real climate
-          solutions or scaling an existing campaign, CCN can help with strategy,
-          resources, and media amplification.
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <Link
-            className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-            href="/take-action"
-          >
-            Join a cohort call
-          </Link>
-          <Link
-            className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-            href="/open-letter"
-          >
-            Read the open letter
-          </Link>
-        </div>
+        <ScrollReveal variant="fade-up">
+          <h2 className="text-3xl font-semibold text-slate-900">
+            Plug into the campaign
+          </h2>
+          <p className="mt-4 text-base text-slate-600">
+            Whether you are building a new site of innovation and real climate
+            solutions or scaling an existing campaign, CCN can help with strategy,
+            resources, and media amplification.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <Link
+              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+              href="/take-action"
+            >
+              Join a Cohort Call
+            </Link>
+            <Link
+              className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
+              href="/open-letter"
+            >
+              Read the Open Letter
+            </Link>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   )

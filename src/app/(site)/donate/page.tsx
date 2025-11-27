@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Donate',
@@ -42,12 +42,43 @@ export default function DonatePage() {
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <div className="stack stack-dense text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            Ways to give
-          </h2>
-        </div>
-        <div className="grid gap-6 md:grid-cols-3">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Donate now
+            </h2>
+            <p className="text-base text-slate-600">
+              Your contribution directly supports student climate organizers.
+            </p>
+          </div>
+        </ScrollReveal>
+        <ScrollReveal variant="fade-up" delay={100}>
+          <div className="w-full max-w-xl overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-200">
+            <iframe
+              src="https://hcb.hackclub.com/donations/start/campus-climate-network"
+              name="donateFrame"
+              frameBorder="0"
+              allowFullScreen
+              className="h-[1100px] w-full"
+              style={{ border: 'none' }}
+            />
+          </div>
+        </ScrollReveal>
+      </section>
+
+      <section className="page-container stack stack-relaxed">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Ways to give
+            </h2>
+          </div>
+        </ScrollReveal>
+        <StaggerReveal
+          staggerDelay={120}
+          variant="blossom"
+          className="grid gap-6 md:grid-cols-3"
+        >
           {donationOptions.map((option) => (
             <div
               key={option.title}
@@ -59,32 +90,18 @@ export default function DonatePage() {
               <p className="text-sm text-slate-600">{option.body}</p>
             </div>
           ))}
-        </div>
-      </section>
-
-      <section className="bg-slate-900 section-dark">
-        <div className="page-container stack text-left text-white">
-          <h2 className="text-3xl font-semibold">Online giving coming soon</h2>
-          <p className="text-sm text-slate-200">
-            We’re setting up donation infrastructure on the new site. For now,
-            contribute through our fiscal sponsor or reach out directly for wire
-            instructions.
-          </p>
-          <div className="flex flex-wrap gap-4">
+        </StaggerReveal>
+        <ScrollReveal variant="fade-up" delay={200}>
+          <p className="text-center text-sm text-slate-600">
+            Have questions or interested in other ways to give? Email us at{' '}
             <a
-              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
               href="mailto:info@campusclimatenetwork.org"
+              className="font-medium text-brand-primary hover:underline"
             >
-              Email for giving options
+              info@campusclimatenetwork.org
             </a>
-            <Link
-              className="inline-flex items-center rounded-full border border-white/50 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
-              href="/take-action"
-            >
-              Support student organizers
-            </Link>
-          </div>
-        </div>
+          </p>
+        </ScrollReveal>
       </section>
     </div>
   )

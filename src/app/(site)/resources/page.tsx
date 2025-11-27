@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Resources',
@@ -73,7 +74,11 @@ export default function ResourcesPage() {
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <div className="grid gap-6 md:grid-cols-2">
+        <StaggerReveal
+          staggerDelay={150}
+          variant="blossom"
+          className="grid gap-6 md:grid-cols-2"
+        >
           {resourceSections.map((section) => (
             <Link
               key={section.title}
@@ -111,22 +116,24 @@ export default function ResourcesPage() {
               </div>
             </Link>
           ))}
-        </div>
+        </StaggerReveal>
       </section>
 
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack stack-tight text-left text-white">
-          <h2 className="text-3xl font-semibold">Need something specific?</h2>
-          <p className="text-sm text-slate-200">
-            We&apos;re always building new resources based on what organizers
-            need. Reach out and let us know how we can support your campaign.
-          </p>
-          <a
-            className="inline-flex items-center self-start rounded-full bg-brand-accent px-5 py-2 text-sm font-semibold text-slate-900 transition hover:bg-yellow-300"
-            href="mailto:info@campusclimatenetwork.org"
-          >
-            Request a resource
-          </a>
+          <ScrollReveal variant="fade-up">
+            <h2 className="text-3xl font-semibold">Need something specific?</h2>
+            <p className="mt-4 text-sm text-slate-200">
+              We&apos;re always building new resources based on what organizers
+              need. Reach out and let us know how we can support your campaign.
+            </p>
+            <a
+              className="mt-4 inline-flex items-center self-start rounded-full bg-brand-accent px-5 py-2 text-sm font-semibold text-slate-900 transition hover:bg-yellow-300"
+              href="mailto:info@campusclimatenetwork.org"
+            >
+              Request a Resource
+            </a>
+          </ScrollReveal>
         </div>
       </section>
     </div>

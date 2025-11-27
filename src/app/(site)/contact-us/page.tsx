@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Contact Us',
@@ -11,7 +12,7 @@ export default function ContactUsPage() {
   return (
     <div className="page-wrapper">
       <section className="bg-brand-cream/60 section-hero">
-        <div className="page-container stack stack-mid text-left">
+        <div className="page-container stack stack-tight text-left">
           <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Contact
           </p>
@@ -26,22 +27,28 @@ export default function ContactUsPage() {
       </section>
 
       <section className="page-container stack">
-        <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-8 shadow-sm">
-          <h2 className="text-3xl font-semibold text-brand-primary">
-            General inquiries
-          </h2>
-          <p className="text-sm text-slate-600">
-            Email{' '}
-            <a
-              className="text-brand-primary underline"
-              href="mailto:info@campusclimatenetwork.org"
-            >
-              info@campusclimatenetwork.org
-            </a>{' '}
-            for media requests, partnerships, or questions about the network.
-          </p>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
+        <ScrollReveal variant="blossom">
+          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-8 shadow-sm">
+            <h2 className="text-3xl font-semibold text-brand-primary">
+              General inquiries
+            </h2>
+            <p className="text-sm text-slate-600">
+              Email{' '}
+              <a
+                className="text-brand-primary underline"
+                href="mailto:info@campusclimatenetwork.org"
+              >
+                info@campusclimatenetwork.org
+              </a>{' '}
+              for media requests, partnerships, or questions about the network.
+            </p>
+          </div>
+        </ScrollReveal>
+        <StaggerReveal
+          staggerDelay={120}
+          variant="blossom"
+          className="grid gap-6 md:grid-cols-2"
+        >
           <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm">
             <h3 className="text-lg font-semibold text-brand-primary">
               Join the network
@@ -66,16 +73,18 @@ export default function ContactUsPage() {
               campaign.
             </p>
           </div>
-        </div>
+        </StaggerReveal>
       </section>
 
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack stack-tight text-left text-white">
-          <h2 className="text-3xl font-semibold">Stay in the loop</h2>
-          <p className="text-sm text-slate-200">
-            Newsletter signups and text alerts are coming soon. Email us now and
-            we’ll make sure you receive the first announcement.
-          </p>
+          <ScrollReveal variant="fade-up">
+            <h2 className="text-3xl font-semibold">Stay in the loop</h2>
+            <p className="mt-4 text-sm text-slate-200">
+              Newsletter signups and text alerts are coming soon. Email us now and
+              we'll make sure you receive the first announcement.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
     </div>

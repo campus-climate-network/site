@@ -41,12 +41,6 @@ export const navEntries: NavEntry[] = [
               'Where the network began and where we are heading next.',
           },
           {
-            label: 'Our People',
-            href: '/our-people',
-            description:
-              'Staff, fellows, and mentors powering student leadership.',
-          },
-          {
             label: 'Our Funders',
             href: '/our-funders',
             description: 'Partners investing in climate justice organizing.',
@@ -54,7 +48,7 @@ export const navEntries: NavEntry[] = [
         ],
       },
       {
-        title: 'Work with us',
+        title: 'Work With Us',
         items: [
           {
             label: 'We’re Hiring',
@@ -91,51 +85,34 @@ export const navEntries: NavEntry[] = [
           },
         ],
       },
-      {
-        title: 'Collaborate',
-        items: [
-          {
-            label: 'Work with CCN',
-            href: '/work',
-            description:
-              'Partner on trainings, research collaborations, or events.',
-          },
-        ],
-      },
     ],
   },
   {
     label: 'Fossil Free Research',
     columns: [
       {
-        title: 'Cut ties with fossil fuels',
+        title: 'Overview',
         items: [
           {
             label: 'FFR Campaign',
             href: '/ffr-campaign',
-            description:
-              'Organizing playbook to remove fossil funding from campuses.',
           },
           {
             label: 'Open Letter',
             href: '/open-letter',
-            description: 'Add your name to demand fossil free research now.',
           },
         ],
       },
       {
-        title: 'Learn more',
+        title: 'Learn More',
         items: [
           {
             label: 'FFR Reports',
             href: '/ffr-archive',
-            description:
-              'Reports exposing fossil interests in academic research.',
           },
           {
             label: 'Campus Toolkit',
             href: '/ffr-toolkit',
-            description: 'Step-by-step guidance to launch FFR on your campus.',
           },
         ],
       },
@@ -160,6 +137,10 @@ export const navEntries: NavEntry[] = [
         ],
       },
     ],
+  },
+  {
+    label: 'Donate',
+    href: '/donate',
   },
 ]
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Our Funders',
@@ -8,26 +9,13 @@ export const metadata: Metadata = {
 }
 
 const funders = [
+  { name: 'Broad Reach Fund' },
   {
-    name: 'Climate Emergency Fund',
-    description:
-      'Supporting rapid-response organizing and training for student-led climate justice campaigns.',
+    name: 'The University of Miami Climate Accountability Lab',
+    subtitle: '(via the KR Foundation)',
   },
-  {
-    name: 'Meliore Foundation',
-    description:
-      'Investing in movement infrastructure, strategic communications, and global collaboration.',
-  },
-  {
-    name: 'Sierra Club Foundation',
-    description:
-      'Backing campus and community-based projects that accelerate a just transition.',
-  },
-  {
-    name: 'Heising-Simons Foundation',
-    description:
-      'Funding research and organizing that holds institutions accountable to science-based climate goals.',
-  },
+  { name: 'The Winslow Foundation' },
+  { name: 'Rockefeller Philanthropy Advisors' },
 ]
 
 export default function OurFundersPage() {
@@ -51,43 +39,57 @@ export default function OurFundersPage() {
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <div className="stack stack-dense text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            Featured Institutional Supporters
-          </h2>
-          <p className="text-base text-slate-600">
-            A snapshot of the partners who have resourced our work to date.
-            We’re building a diversified funding base to sustain the long-haul
-            fight for climate justice.
-          </p>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Featured institutional supporters
+            </h2>
+            <p className="text-base text-slate-600">
+              A snapshot of the partners who have resourced our work to date.
+              We're building a diversified funding base to sustain the long-haul
+              fight for climate justice.
+            </p>
+          </div>
+        </ScrollReveal>
+        <StaggerReveal
+          staggerDelay={100}
+          variant="blossom"
+          className="grid gap-4 max-w-xl"
+        >
           {funders.map((funder) => (
             <div
               key={funder.name}
-              className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
+              className="rounded-2xl border border-brand-secondary/20 bg-white px-6 py-4 shadow-sm"
             >
               <h3 className="text-lg font-semibold text-brand-primary">
                 {funder.name}
               </h3>
-              <p className="text-sm text-slate-600">{funder.description}</p>
+              {funder.subtitle && (
+                <p className="text-sm text-slate-600">{funder.subtitle}</p>
+              )}
             </div>
           ))}
-        </div>
+        </StaggerReveal>
       </section>
 
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack text-left text-white">
-          <div className="stack stack-snug">
-            <h2 className="text-3xl font-semibold">
-              How funding moves through CCN
-            </h2>
-            <p className="text-sm text-slate-200">
-              Every contribution strengthens frontline organizing and long-term
-              leadership development.
-            </p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-snug">
+              <h2 className="text-3xl font-semibold">
+                How funding moves through CCN
+              </h2>
+              <p className="text-sm text-slate-200">
+                Every contribution strengthens frontline organizing and
+                long-term leadership development.
+              </p>
+            </div>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={120}
+            variant="blossom"
+            className="grid gap-6 md:grid-cols-3"
+          >
             {[
               {
                 title: 'Student Fellowships',
@@ -112,34 +114,36 @@ export default function OurFundersPage() {
                 <p className="text-sm text-slate-100">{item.body}</p>
               </div>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
 
       <section className="page-container stack stack-tight text-left">
-        <h2 className="text-3xl font-semibold text-slate-900">
-          Partner with us
-        </h2>
-        <p className="text-base text-slate-600">
-          We welcome conversations with aligned funders who want to resource
-          student leadership, climate justice, and fossil-free futures. Reach
-          out to discuss sponsorships, multi-year support, or in-kind
-          contributions.
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <a
-            className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-            href="mailto:info@campusclimatenetwork.org"
-          >
-            Email our development team
-          </a>
-          <Link
-            className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-            href="/donate"
-          >
-            Give online
-          </Link>
-        </div>
+        <ScrollReveal variant="fade-up">
+          <h2 className="text-3xl font-semibold text-slate-900">
+            Partner with us
+          </h2>
+          <p className="mt-4 text-base text-slate-600">
+            We welcome conversations with aligned funders who want to resource
+            student leadership, climate justice, and fossil-free futures. Reach
+            out to discuss sponsorships, multi-year support, or in-kind
+            contributions.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <a
+              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+              href="mailto:info@campusclimatenetwork.org"
+            >
+              Email Our Development Team
+            </a>
+            <Link
+              className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
+              href="/donate"
+            >
+              Give Online
+            </Link>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   )

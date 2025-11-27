@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Our Network',
@@ -127,23 +128,30 @@ export default function OurNetworkPage() {
             className="inline-flex items-center self-start rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
             href="/take-action"
           >
-            Join us
+            Join Us
           </Link>
         </div>
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <div className="stack stack-dense text-left">
-          <h2 className="text-3xl font-semibold text-slate-900">
-            Who’s in the network
-          </h2>
-          <p className="text-base text-slate-600">
-            A sampling of organizations currently collaborating through CCN—get
-            to know the student power behind their logos. We continually onboard
-            new partners, so reach out if you want to join them.
-          </p>
-        </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-3xl font-semibold text-slate-900">
+              Who's in the network
+            </h2>
+            <p className="text-base text-slate-600">
+              A sampling of organizations currently collaborating through
+              CCN—get to know the student power behind their logos. We
+              continually onboard new partners, so reach out if you want to join
+              them.
+            </p>
+          </div>
+        </ScrollReveal>
+        <StaggerReveal
+          staggerDelay={50}
+          variant="blossom"
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+        >
           {memberOrgs.map((org) => (
             <div
               key={org.name}
@@ -163,29 +171,37 @@ export default function OurNetworkPage() {
               </p>
             </div>
           ))}
-        </div>
-        <p className="text-sm text-slate-600">
-          Want to appear here? Membership applications open on a rolling basis.
-          Email{' '}
-          <a
-            className="text-brand-primary underline"
-            href="mailto:info@campusclimatenetwork.org"
-          >
-            info@campusclimatenetwork.org
-          </a>{' '}
-          to learn more.
-        </p>
+        </StaggerReveal>
+        <ScrollReveal variant="fade">
+          <p className="text-sm text-slate-600">
+            Want to appear here? Membership applications open on a rolling
+            basis. Email{' '}
+            <a
+              className="text-brand-primary underline"
+              href="mailto:info@campusclimatenetwork.org"
+            >
+              info@campusclimatenetwork.org
+            </a>{' '}
+            to learn more.
+          </p>
+        </ScrollReveal>
       </section>
 
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack text-left text-white">
-          <div className="stack stack-dense">
-            <h2 className="text-3xl font-semibold">Membership benefits</h2>
-            <p className="text-sm text-slate-200">
-              Tools and support to help campus organizers win faster.
-            </p>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-dense">
+              <h2 className="text-3xl font-semibold">Membership benefits</h2>
+              <p className="text-sm text-slate-200">
+                Tools and support to help campus organizers win faster.
+              </p>
+            </div>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={120}
+            variant="blossom"
+            className="grid gap-6 md:grid-cols-3"
+          >
             {[
               {
                 title: 'Organizing Playbooks',
@@ -210,33 +226,35 @@ export default function OurNetworkPage() {
                 <p className="text-sm text-slate-100">{item.body}</p>
               </div>
             ))}
-          </div>
+          </StaggerReveal>
         </div>
       </section>
 
       <section className="page-container stack stack-dense text-left">
-        <h2 className="text-3xl font-semibold text-slate-900">
-          Join the network
-        </h2>
-        <p className="text-base text-slate-600">
-          We welcome student-led climate justice groups ready to collaborate,
-          share resources, and take collective action. Share your info and our
-          onboarding team will reach out.
-        </p>
-        <div className="flex flex-wrap gap-4">
-          <Link
-            className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-            href="/take-action"
-          >
-            Apply for membership
-          </Link>
-          <a
-            className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-            href="mailto:info@campusclimatenetwork.org"
-          >
-            Ask a question
-          </a>
-        </div>
+        <ScrollReveal variant="fade-up">
+          <h2 className="text-3xl font-semibold text-slate-900">
+            Join the network
+          </h2>
+          <p className="mt-4 text-base text-slate-600">
+            We welcome student-led climate justice groups ready to collaborate,
+            share resources, and take collective action. Share your info and our
+            onboarding team will reach out.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <Link
+              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+              href="/take-action"
+            >
+              Apply for Membership
+            </Link>
+            <a
+              className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
+              href="mailto:info@campusclimatenetwork.org"
+            >
+              Ask a Question
+            </a>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   )

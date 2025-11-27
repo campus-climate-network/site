@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 import type { PostListItem } from '@/sanity/lib/types'
+import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -30,10 +31,10 @@ export default async function Page() {
       <section className="bg-brand-primary/10 section-hero">
         <div className="page-container text-brand-primary">
           <div className="stack stack-tight max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.4em] text-brand-secondary">
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
               Latest Stories
             </p>
-            <h1 className="text-4xl font-semibold leading-tight text-brand-primary sm:text-5xl">
+            <h1 className="text-4xl font-semibold text-brand-primary">
               Campus Climate Network Journal
             </h1>
             <p className="text-base text-brand-primary/80">
@@ -45,18 +46,24 @@ export default async function Page() {
       </section>
 
       <section className="page-container stack stack-relaxed text-left">
-        <header className="stack stack-compact">
-          <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
-            From the Network
-          </p>
-          <p className="text-base text-slate-600">
-            Explore the latest updates, reflections, and resources from student
-            climate organizers everywhere.
-          </p>
-        </header>
+        <ScrollReveal variant="fade-up">
+          <header className="stack stack-compact">
+            <p className="text-sm uppercase tracking-[0.3em] text-brand-secondary">
+              From the Network
+            </p>
+            <p className="text-base text-slate-600">
+              Explore the latest updates, reflections, and resources from student
+              climate organizers everywhere.
+            </p>
+          </header>
+        </ScrollReveal>
 
         {hasPosts ? (
-          <div className="grid gap-8 sm:grid-cols-2">
+          <StaggerReveal
+            staggerDelay={100}
+            variant="blossom"
+            className="grid gap-8 sm:grid-cols-2"
+          >
             {posts.map((post) => {
               const publishedOn = formatDate(post.publishedAt)
 
@@ -92,16 +99,18 @@ export default async function Page() {
                 </article>
               )
             })}
-          </div>
+          </StaggerReveal>
         ) : (
-          <div className="rounded-3xl border border-dashed border-brand-secondary/30 bg-white/70 p-12 text-center">
-            <p className="text-lg font-medium text-brand-primary">
-              No stories yet. Check back soon.
-            </p>
-            <p className="mt-2 text-sm text-slate-600">
-              We’re gathering reflections from organizers across the movement.
-            </p>
-          </div>
+          <ScrollReveal variant="blossom">
+            <div className="rounded-3xl border border-dashed border-brand-secondary/30 bg-white/70 p-12 text-center">
+              <p className="text-lg font-medium text-brand-primary">
+                No stories yet. Check back soon.
+              </p>
+              <p className="mt-2 text-sm text-slate-600">
+                We're gathering reflections from organizers across the movement.
+              </p>
+            </div>
+          </ScrollReveal>
         )}
       </section>
     </main>

@@ -973,11 +973,11 @@ function MobileNav({
         </nav>
         <div className="border-t border-slate-200 px-6 py-6">
           <Link
-            href="/donate"
+            href="/take-action"
             onClick={onClose}
             className="inline-flex w-full items-center justify-center rounded-full bg-brand-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-brand-secondary"
           >
-            Donate
+            Take Action
           </Link>
         </div>
       </div>
@@ -1073,10 +1073,10 @@ export function SiteHeader() {
           </nav>
           <div className="hidden items-center gap-3 lg:flex">
             <Link
-              href="/donate"
+              href="/take-action"
               className="inline-flex items-center rounded-full bg-brand-primary px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_40px_-20px_rgba(96,55,157,0.8)] transition hover:bg-brand-secondary"
             >
-              Donate
+              Take Action
             </Link>
           </div>
         </div>
