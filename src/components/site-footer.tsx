@@ -35,7 +35,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-slate-900 text-slate-100">
       <div className="page-container section-dark grid gap-10 md:gap-12 lg:grid-cols-[2fr_3fr]">
-        <div className="stack stack-tight">
+        <div className="order-2 stack stack-tight lg:order-1">
           <div>
             <p className="text-[10px] font-semibold uppercase tracking-[0.5em] text-brand-accent sm:text-xs sm:tracking-[0.65em]">
               Campus Climate Network
@@ -70,7 +70,7 @@ export function SiteFooter() {
             © Campus Climate Network {new Date().getFullYear()}
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-3 lg:grid-cols-3">
+        <div className="order-1 grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-3 lg:order-2 lg:grid-cols-3">
           {footerColumns.map((column) => (
             <div key={column.title}>
               <h3 className="text-[10px] font-semibold uppercase tracking-[0.25em] text-brand-accent sm:text-xs sm:tracking-[0.35em]">

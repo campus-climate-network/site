@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
+import { HeroCarousel } from '@/components/hero-carousel'
 import { MovementCarousel } from '@/components/movement-carousel'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
@@ -85,13 +86,6 @@ const movementHighlights = [
     image: '/images/movement-hero-4.jpg',
     alt: 'Students marching with signs demanding divestment from fossil fuels.',
   },
-  {
-    title: 'Fossil Free Research rally at UN Climate Week',
-    description:
-      'Campus Climate Network leaders joined a coalition to call on universities to reject Big Oil funding at global climate talks.',
-    image: '/images/movement-hero-5.jpg',
-    alt: 'Members of Campus Climate Network smiling together at a climate justice rally.',
-  },
 ]
 
 export default function Home() {
@@ -130,7 +124,12 @@ export default function Home() {
               className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-brand-primary/20 blur-3xl"
               aria-hidden="true"
             />
-            <div className="relative grid gap-4 sm:grid-cols-2">
+            {/* Mobile carousel */}
+            <div className="sm:hidden">
+              <HeroCarousel photos={movementHighlights.slice(0, 4)} />
+            </div>
+            {/* Desktop grid */}
+            <div className="relative hidden gap-4 sm:grid sm:grid-cols-2">
               {movementHighlights.slice(0, 4).map((photo, index) => (
                 <div
                   key={photo.image}
@@ -154,7 +153,11 @@ export default function Home() {
           </div>
         </div>
         <div className="border-t border-white/15 bg-white/5">
-          <div className="page-container grid grid-cols-2 gap-3 py-6 text-sm uppercase tracking-[0.3em] text-brand-cream/70 sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:justify-center md:gap-6">
+          <div className="page-container py-6">
+            <p className="mb-4 text-xs uppercase tracking-[0.3em] text-brand-cream/60">
+              Featured in
+            </p>
+            <div className="grid grid-cols-2 gap-3 text-sm uppercase tracking-[0.3em] text-brand-cream/70 sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:justify-center md:gap-6">
             {pressLogos.map((logo) => {
               const content = (
                 <div className="flex h-full w-full items-center justify-center">
@@ -187,6 +190,7 @@ export default function Home() {
                 </div>
               )
             })}
+            </div>
           </div>
         </div>
       </section>

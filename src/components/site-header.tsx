@@ -1025,7 +1025,7 @@ export function SiteHeader() {
       >
         <div className="page-container flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-4">
-            <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-[0_12px_30px_-12px_rgba(96,55,157,0.6)]">
+            <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-[0_4px_12px_-4px_rgba(96,55,157,0.25)]">
               <Image
                 src="/purple-logo.png"
                 alt="Campus Climate Network logo"
@@ -1050,7 +1050,7 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
-            className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 shadow-sm transition hover:border-brand-primary/40 hover:text-brand-primary focus-visible:outline-none lg:hidden"
+            className="inline-flex items-center gap-2 rounded-full border border-slate-200 px-3 py-2 text-sm font-medium text-slate-600 shadow-[0_1px_3px_-1px_rgba(0,0,0,0.08)] transition hover:border-brand-primary/40 hover:text-brand-primary focus-visible:outline-none lg:hidden"
             aria-label="Open navigation"
           >
             Menu
