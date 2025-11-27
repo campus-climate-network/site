@@ -58,8 +58,12 @@ const talkingPoints = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M5 12c3-6 9-9 14-9-2 9-7 15-14 15-2 0-3-.5-3-.5s1 .5 3 .5c5 0 9-3 11-6" />
-        <path d="M5 12c0 4 2 7 2 7" />
+        {/* Seedling growing - represents investment in green future */}
+        <path d="M12 22V12" />
+        <path d="M12 12c0-3 2.5-5 6-5-1 4-3 5-6 5Z" />
+        <path d="M12 15c0-2.5-2-4-5-4 .8 3.2 2.5 4 5 4Z" />
+        {/* Hands cupping/supporting */}
+        <path d="M7 22c0-2.5 2.2-4.5 5-4.5s5 2 5 4.5" />
       </svg>
     ),
   },
@@ -76,20 +80,14 @@ const talkingPoints = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="m4 10 5-5 5 5" />
-        <path d="M12 4v9a4 4 0 1 0 4 4" />
-        <path d="M16 19h6" />
-        <path d="m19 16 3 3-3 3" />
+        {/* Document/policy paper */}
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+        <path d="M14 2v6h6" />
+        {/* Checkmark inside - represents enforcement/approval */}
+        <path d="m9 15 2 2 4-4" />
       </svg>
     ),
   },
-]
-
-const actions = [
-  'Coordinate Fossil Free Research teach-ins and town halls',
-  'Meet with trustees and research leadership to demand transparency',
-  'Launch petitions and faculty letters supporting fossil-free funding policies',
-  'Escalate with creative actions when universities fail to act',
 ]
 
 export default function FFRCampaignPage() {
@@ -141,9 +139,9 @@ export default function FFRCampaignPage() {
             <p className="text-base text-slate-600">
               We are not letting Big Oil get away with capturing our campuses.
               Students and faculty are turning universities into sites of
-              innovation and real climate solutions—not pipelines for corporate PR
-              and extraction. We are kicking fossil fuel money out of schools for
-              good.
+              innovation and real climate solutions—not pipelines for corporate
+              PR and extraction. We are kicking fossil fuel money out of schools
+              for good.
             </p>
           </div>
         </ScrollReveal>
@@ -184,57 +182,11 @@ export default function FFRCampaignPage() {
               individual faculty members to entire departments, centers, and
               universities. Your school could be next.
             </p>
-          </div>
-        </ScrollReveal>
-      </section>
-
-      <section className="bg-slate-900 section-dark">
-        <div className="page-container stack text-left text-white">
-          <ScrollReveal variant="fade-up">
-            <div className="stack stack-dense">
-              <h2 className="text-2xl font-semibold sm:text-3xl">How we organize</h2>
-              <p className="text-sm text-slate-200">
-                Students are escalating from research audits to mass
-                mobilizations.
-              </p>
-            </div>
-          </ScrollReveal>
-          <StaggerReveal
-            staggerDelay={100}
-            variant="blossom"
-            className="grid gap-4 text-sm text-slate-100 md:grid-cols-2"
-          >
-            {actions.map((action) => (
-              <div key={action} className="rounded-3xl bg-white/10 p-5">
-                {action}
-              </div>
-            ))}
-          </StaggerReveal>
-        </div>
-      </section>
-
-      <section className="page-container stack stack-tight text-left">
-        <ScrollReveal variant="fade-up">
-          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-            Plug into the campaign
-          </h2>
-          <p className="mt-4 text-base text-slate-600">
-            Whether you are building a new site of innovation and real climate
-            solutions or scaling an existing campaign, CCN can help with strategy,
-            resources, and media amplification.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-4">
             <Link
-              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-              href="/take-action"
+              href="/ffr-archive"
+              className="mt-4 inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary w-fit"
             >
-              Join a Cohort Call
-            </Link>
-            <Link
-              className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-              href="/open-letter"
-            >
-              Read the Open Letter
+              View FFR Reports
             </Link>
           </div>
         </ScrollReveal>
