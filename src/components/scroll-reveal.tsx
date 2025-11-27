@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode, type JSX } from 'react'
 
 type RevealVariant = 'blossom' | 'fade-up' | 'fade' | 'scale'
 
