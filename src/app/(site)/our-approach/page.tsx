@@ -141,7 +141,7 @@ export default function OurApproachPage() {
         </div>
       </section>
 
-      <section className="bg-brand-primary/10 section-dark">
+      <section className="bg-brand-primary/10 section-dark -mt-8 sm:-mt-10 lg:-mt-12">
         <div className="page-container stack stack-tight">
           <ScrollReveal variant="fade-up">
             <div className="stack stack-dense">

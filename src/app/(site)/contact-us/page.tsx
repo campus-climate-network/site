@@ -75,18 +75,6 @@ export default function ContactUsPage() {
           </div>
         </StaggerReveal>
       </section>
-
-      <section className="bg-slate-900 section-dark">
-        <div className="page-container stack stack-tight text-left text-white">
-          <ScrollReveal variant="fade-up">
-            <h2 className="text-2xl font-semibold sm:text-3xl">Stay in the loop</h2>
-            <p className="mt-4 text-sm text-slate-200">
-              Newsletter signups and text alerts are coming soon. Email us now and
-              we&apos;ll make sure you receive the first announcement.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
     </div>
   )
 }
