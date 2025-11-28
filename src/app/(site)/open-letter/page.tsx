@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
+import { OpenLetterForm } from '@/components/open-letter-form'
 
 export const metadata: Metadata = {
   title: 'Open Letter',
@@ -8,11 +8,123 @@ export const metadata: Metadata = {
     'Sign our open letter calling on universities to end fossil fuel influence on campus research. Join thousands demanding fossil-free research policies.',
 }
 
-const supporters = [
-  'Students',
-  'Faculty & researchers',
-  'Alumni & donors',
-  'Climate justice organizations',
+const notableSignatories = [
+  {
+    name: 'Peter Kalmus',
+    title: 'Associate Project Scientist at NASA&apos;s Jet Propulsion Laboratory; Associate Project Scientist, UCLA Joint Institute for Regional Earth System Science and Engineering',
+  },
+  {
+    name: 'Michael Mann',
+    title: 'Distinguished Professor of Atmospheric Science & Director of Earth System Science Center, Pennsylvania State University',
+  },
+  {
+    name: 'David Michaels',
+    title: 'Professor of Environmental and Occupational Health, George Washington University School of Public Health',
+  },
+  {
+    name: 'Peter Frumhoff',
+    title: 'Former Director of Science & Policy and Chief Climate Scientist, Union of Concerned Scientists; Affiliate of Harvard University Center for the Environment',
+  },
+  {
+    name: 'Rowan Williams',
+    title: 'Former Archbishop of Canterbury; Chancellor, University of South Wales',
+  },
+  {
+    name: 'Robert Howarth',
+    title: 'David R. Atkinson Professor of Ecology & Environmental Biology, Cornell University',
+  },
+  {
+    name: 'Mark Maslin',
+    title: 'Professor of Earth System Science, University College London',
+  },
+  {
+    name: 'Jacquelyn Gill',
+    title: 'Associate Professor of Paleoecology & Plant Ecology, University of Maine',
+  },
+  {
+    name: 'Cornel West',
+    title: 'Dietrich Bonhoeffer Professor of Philosophy and Christian Practice, Union Theological Seminary; Professor Emeritus, Princeton University',
+  },
+  {
+    name: 'Julia Steinberger',
+    title: 'Professor of Societal Challenges of Climate Change, University of Lausanne; former Professor of Social Ecology & Ecological Economics, University of Leeds',
+  },
+  {
+    name: 'Roger Penrose',
+    title: 'Emeritus Rouse Ball Professor of Mathematics, University of Oxford',
+  },
+  {
+    name: 'Mary Robinson',
+    title: 'Adjunct Professor of Climate Justice, Trinity College Dublin; former President of Ireland',
+  },
+  {
+    name: 'Eric Chivian',
+    title: 'Founder and Former Director, Center for Health and the Global Environment, Harvard Medical School; Co-Founder, International Physicians for the Prevention of Nuclear War; Recipient, 1985 Nobel Peace Prize',
+  },
+  {
+    name: 'Hans-O. Poertner',
+    title: 'Professor of Integrative Ecophysiology, Alfred Wegener Institute',
+  },
+  {
+    name: 'Hamid Abakar Souleymane',
+    title: 'IPCC Executive Committee',
+  },
+  {
+    name: 'Raj Patel',
+    title: 'Research Professor, Lyndon B Johnson School of Public Affairs, University of Texas at Austin',
+  },
+  {
+    name: 'Karenna Gore',
+    title: 'Founder and Executive Director, Center for Earth Ethics, Union Theological Seminary',
+  },
+  {
+    name: 'Gary W. Yohe',
+    title: 'Huffington Foundation Professor of Economics and Environmental Studies, Wesleyan University',
+  },
+  {
+    name: 'Dr. Farhana Sultana',
+    title: 'Associate Professor, Maxwell School of Citizenship and Public Affairs, Syracuse University',
+  },
+  {
+    name: 'Dame Marilyn Strathern',
+    title: 'Emeritus Professor of Social Anthropology and Life Fellow, Girton College, University of Cambridge',
+  },
+  {
+    name: 'Philip Poole',
+    title: 'Professor of Plant Microbiology, Somerville College, University of Oxford',
+  },
+  {
+    name: 'Sir Jonathon Porritt CBE',
+    title: 'Chancellor, Keele University',
+  },
+  {
+    name: 'Richard Heede',
+    title: 'Director, Climate Accountability Institute',
+  },
+  {
+    name: 'Dr. Stuart Parkinson',
+    title: 'Executive Director, Scientists for Global Responsibility',
+  },
+  {
+    name: 'Gaurab Basu, MD, MPH',
+    title: 'Co-Director, CHA Center for Health Equity Education and Advocacy, Harvard Medical School',
+  },
+  {
+    name: 'Dr. Daniel Field',
+    title: 'Lecturer in Vertebrate Paleontology, Christ&apos;s College, University of Cambridge',
+  },
+  {
+    name: 'Professor J. Doyne Farmer',
+    title: 'Director, Complexity Economics programme at the Institute for New Economic Thinking at the Oxford Martin School, University of Oxford',
+  },
+  {
+    name: 'Professor Neil Metcalfe',
+    title: 'Professor of Behavioral Ecology, Institute of Biodiversity Animal Health & Comparative Medicine, University of Glasgow',
+  },
+  {
+    name: 'John Cook',
+    title: 'Postdoctoral Research Fellow, Climate Change Communication Research Hub, Monash University',
+  },
 ]
 
 const signReasons = [
@@ -96,7 +208,7 @@ const signReasons = [
 
 export default function OpenLetterPage() {
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper !pb-0">
       <section className="bg-brand-primary/10 section-hero">
         <div className="page-container stack stack-tight text-left">
           <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-brand-secondary">
@@ -123,14 +235,14 @@ export default function OpenLetterPage() {
           <p>Dear University Presidents and Vice-Chancellors,</p>
           <p>
             We are writing as academics and experts who are deeply concerned by
-            universities’ collaboration with the fossil fuel industry.
+            universities' collaboration with the fossil fuel industry.
             Universities across the United Kingdom and the United States
             currently accept substantial funding from fossil fuel companies for
             research aimed at solving the very problems this industry causes and
             continues to exacerbate. We believe this funding represents an
-            inherent conflict of interest, is antithetical to universities’ core
+            inherent conflict of interest, is antithetical to universities' core
             academic and social values, and supports industry greenwashing.
-            Thus, it compromises universities’ basic institutional integrity,
+            Thus, it compromises universities' basic institutional integrity,
             academic freedom, and their ability to address the climate
             emergency.
           </p>
@@ -150,7 +262,7 @@ export default function OpenLetterPage() {
             industry funding for climate change research and accepting tobacco
             industry funding for public health research. Already, numerous
             public health and research institutions reject tobacco money due to
-            the industry’s extensive record of spreading disinformation around
+            the industry's extensive record of spreading disinformation around
             the public health consequences of its products. Today, the fossil
             fuel industry has employed disinformation tactics from the same
             playbook, working to sow doubt about climate science, silence
@@ -160,7 +272,7 @@ export default function OpenLetterPage() {
           </p>
           <p>
             Fossil fuel funding for climate-related research creates a conflict
-            of interest that compromises researchers’ academic freedom.
+            of interest that compromises researchers' academic freedom.
             Academics must be free to determine their own research agendas,
             speak their minds, and declare their findings without fear of
             censorship, reprisal, or the withdrawal of funding for future
@@ -182,30 +294,30 @@ export default function OpenLetterPage() {
           </p>
           <p>
             Furthermore, accepting fossil fuel research funding contravenes
-            universities’ stated commitments to tackling the climate crisis.
+            universities' stated commitments to tackling the climate crisis.
             Fossil fuel companies have concealed, trivialized, and neglected the
             science of climate change for decades. Today, despite warnings from
-            the world’s top energy organization that “no investment in new
-            fossil fuel supply projects” can be made if the world is to limit
+            the world's top energy organization that "no investment in new
+            fossil fuel supply projects" can be made if the world is to limit
             global heating to 1.5°C, major fossil fuel companies continue to
             plan new extraction projects decades into the future and fail to
             align with the goals of the international Paris Agreement. Though
             they present themselves as leaders in sustainability, fossil fuel
-            companies’ investments in oil and gas continue to dwarf their
+            companies' investments in oil and gas continue to dwarf their
             renewable energy investments, which represent just a few percent of
             their total capital expenditure. Even the investments that they
             present as directed toward climate solutions contribute to projects
             that are often far from sustainable. In short, fossil fuel
-            companies’ claims to be leaders in a green transition should not be
+            companies' claims to be leaders in a green transition should not be
             taken seriously. It is clear, therefore, that these companies cannot
             make for effective or good faith partners with universities seeking
             to pave the way for a sustainable future. Collaborating with these
-            companies is inimical to academic institutions’ pledges for climate
+            companies is inimical to academic institutions' pledges for climate
             action.
           </p>
           <p>
             University research partnerships with fossil fuel companies play a
-            key role in greenwashing these companies’ reputations. When
+            key role in greenwashing these companies' reputations. When
             universities allow fossil fuel companies to buy and advertise
             connections to university research on key climate and energy issues,
             they inadvertently provide these companies with much-needed
@@ -224,7 +336,7 @@ export default function OpenLetterPage() {
             universities violate their own policies and espoused principles, and
             undermine their core social and academic mission. Increasingly,
             fossil fuel industry sponsorship is eroding faith in scientific and
-            cultural institutions’ commitments to climate action, leading a
+            cultural institutions' commitments to climate action, leading a
             number of such institutions — including, most recently, the National
             Portrait Gallery in London — to sever ties with the industry. When
             universities have a pivotal role to play in global conversations
@@ -246,6 +358,34 @@ export default function OpenLetterPage() {
           </p>
           </div>
         </ScrollReveal>
+      </section>
+
+      <section className="bg-slate-900 section-dark">
+        <div className="page-container stack text-left text-white">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-dense">
+              <h2 className="text-2xl font-semibold sm:text-3xl">Notable signatories</h2>
+              <p className="text-sm text-slate-200">
+                Leading academics, scientists, and public figures have endorsed this letter.
+              </p>
+            </div>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={40}
+            variant="blossom"
+            className="grid gap-4 text-slate-100 md:grid-cols-2"
+          >
+            {notableSignatories.map((signatory) => (
+              <div
+                key={signatory.name}
+                className="rounded-2xl bg-white/5 p-4 border border-white/10"
+              >
+                <p className="font-semibold text-brand-accent">{signatory.name}</p>
+                <p className="text-sm text-slate-300 mt-1">{signatory.title}</p>
+              </div>
+            ))}
+          </StaggerReveal>
+        </div>
       </section>
 
       <section className="page-container stack">
@@ -286,55 +426,21 @@ export default function OpenLetterPage() {
       </section>
 
       <section className="bg-slate-900 section-dark">
-        <div className="page-container stack text-left text-white">
+        <div className="page-container text-left">
           <ScrollReveal variant="fade-up">
-            <div className="stack stack-dense">
-              <h2 className="text-2xl font-semibold sm:text-3xl">Who has signed so far</h2>
+            <div className="stack stack-dense text-white mb-8">
+              <h2 className="text-2xl font-semibold sm:text-3xl">Add your name</h2>
               <p className="text-sm text-slate-200">
-                Thousands of supporters have endorsed the letter, representing
-                campuses and movements around the world.
+                Join thousands of academics, students, and supporters demanding fossil-free research.
               </p>
             </div>
           </ScrollReveal>
-          <StaggerReveal
-            staggerDelay={80}
-            variant="blossom"
-            className="grid grid-cols-2 gap-3 text-sm text-slate-100 sm:gap-4 lg:grid-cols-4"
-          >
-            {supporters.map((group) => (
-              <div
-                key={group}
-                className="rounded-3xl bg-white/10 p-4 font-semibold text-brand-accent"
-              >
-                {group}
-              </div>
-            ))}
-          </StaggerReveal>
+          <ScrollReveal variant="blossom">
+            <div className="rounded-3xl bg-white p-8 shadow-2xl">
+              <OpenLetterForm />
+            </div>
+          </ScrollReveal>
         </div>
-      </section>
-
-      <section className="page-container stack stack-tight text-left">
-        <ScrollReveal variant="fade-up">
-          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">Add your name</h2>
-          <p className="mt-4 text-base text-slate-600">
-            We&apos;re finalizing the new signatory form. In the meantime, contact us
-            and we&apos;ll keep you updated about the next release of signatures.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-4">
-            <a
-              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-              href="mailto:info@campusclimatenetwork.org"
-            >
-              Pledge Your Support
-            </a>
-            <Link
-              className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-              href="/ffr-campaign"
-            >
-              Learn About FFR
-            </Link>
-          </div>
-        </ScrollReveal>
       </section>
     </div>
   )
