@@ -5,7 +5,13 @@ export const POSTS_QUERY = `
   _id,
   title,
   "slug": slug.current,
-  publishedAt
+  publishedAt,
+  mainImage,
+  "categories": categories[]->{
+    _id,
+    title,
+    "slug": slug.current
+  }
 }
 `
 

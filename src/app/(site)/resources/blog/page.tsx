@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import type { PostListItem } from '@/sanity/lib/types'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
+import { urlFor } from '@/sanity/lib/image'
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -13,13 +15,18 @@ import { client } from '@/sanity/lib/client'
 import { POSTS_QUERY } from '@/sanity/lib/queries'
 
 export const revalidate = 60
-const dateFormatter = new Intl.DateTimeFormat('en-US', { dateStyle: 'long' })
 
 const formatDate = (input?: string | null) => {
   if (!input) return null
   const date = new Date(input)
   if (Number.isNaN(date.getTime())) return null
-  return dateFormatter.format(date)
+  return date
+    .toLocaleDateString('en-US', {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    })
+    .toUpperCase()
 }
 
 export default async function Page() {
@@ -54,35 +61,58 @@ export default async function Page() {
           >
             {posts.map((post) => {
               const publishedOn = formatDate(post.publishedAt)
+              const imageUrl = post.mainImage
+                ? urlFor(post.mainImage).width(800).height(500).fit('crop').auto('format').url()
+                : null
+              const category = post.categories?.[0]
 
               return (
                 <article
                   key={post._id}
-                  className="group flex h-full flex-col justify-between rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:border-brand-primary/60 hover:shadow-lg"
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white transition hover:-translate-y-1 hover:shadow-xl"
                 >
                   <Link
-                    className="flex h-full flex-col justify-between gap-6"
+                    className="flex h-full flex-col"
                     href={`/resources/blog/${post.slug}`}
                   >
-                    <div className="stack stack-dense">
-                      {publishedOn && (
-                        <span className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-secondary">
-                          {publishedOn}
-                        </span>
+                    {/* Hero Image */}
+                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+                      {imageUrl ? (
+                        <Image
+                          src={imageUrl}
+                          alt={post.title}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 640px) 100vw, 50vw"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10">
+                          <span className="text-4xl text-brand-primary/30">📰</span>
+                        </div>
                       )}
-                      <h2 className="text-3xl font-semibold leading-snug text-slate-900 transition-colors group-hover:text-brand-primary">
-                        {post.title}
-                      </h2>
+                      {/* Category Badge */}
+                      {category?.title && (
+                        <div className="absolute left-0 top-4">
+                          <span className="bg-brand-secondary/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+                            {category.title}
+                          </span>
+                        </div>
+                      )}
                     </div>
-                    <span className="inline-flex items-center text-sm font-semibold text-brand-primary transition group-hover:gap-2">
-                      Read article
-                      <span
-                        aria-hidden
-                        className="ml-1 transition-transform group-hover:translate-x-1"
-                      >
-                        →
-                      </span>
-                    </span>
+
+                    {/* Content */}
+                    <div className="flex flex-1 flex-col justify-between p-6">
+                      <div className="stack stack-dense">
+                        <h2 className="text-xl font-semibold leading-snug text-slate-900 transition-colors group-hover:text-brand-primary sm:text-2xl">
+                          {post.title}
+                        </h2>
+                      </div>
+                      {publishedOn && (
+                        <p className="mt-4 text-xs font-medium tracking-[0.15em] text-brand-secondary">
+                          {publishedOn}
+                        </p>
+                      )}
+                    </div>
                   </Link>
                 </article>
               )

@@ -69,7 +69,7 @@ export const navEntries: NavEntry[] = [
     label: 'Network',
     columns: [
       {
-        title: 'Campaigns',
+        title: 'CCN Network',
         items: [
           {
             label: 'Member Organizations',
@@ -80,8 +80,7 @@ export const navEntries: NavEntry[] = [
           {
             label: 'Network Campaigns',
             href: '/network-campaigns',
-            description:
-              'Dive into coordinated divestment and reinvestment efforts.',
+            description: 'Campaigns run by the CCN Network.',
           },
         ],
       },

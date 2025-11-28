@@ -3,6 +3,12 @@ export type PostListItem = {
   title: string
   slug: string
   publishedAt: string
+  mainImage?: unknown
+  categories?: {
+    _id: string
+    title?: string
+    slug?: string
+  }[]
 }
 
 export type PostDetail = PostListItem & {
