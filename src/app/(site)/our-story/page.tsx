@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
-import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
+import { ScrollReveal } from '@/components/scroll-reveal'
+import { Timeline } from '@/components/timeline'
 
 export const metadata: Metadata = {
   title: 'Our Story',
@@ -9,165 +9,129 @@ export const metadata: Metadata = {
     'Learn how Campus Climate Network emerged from the student divestment movement to become a coalition of 80+ organizations fighting for climate justice on campus.',
 }
 
-const timeline = [
+const timelineEvents = [
   {
-    title: 'A movement rooted in divestment',
-    body: 'Student groups across the US and beyond have fought for fossil fuel divestment for more than a decade, winning billions divested and building lasting power on their campuses.',
-  },
-  {
-    title: 'Fossil Free Research emerges',
-    body: 'In 2022, students launched Fossil Free Research to expose fossil fuel funding of university research that greenwashes corporate power and creates conflicts of interest.',
-  },
-  {
-    title: 'Campus Climate Network forms',
-    body: 'In 2023, organizers came together to coordinate campaigns, share tools, and invest in long-term leadership. CCN now supports more than 80 member organizations nationwide.',
-  },
-]
-
-const values = [
-  {
-    title: 'Movement Infrastructure',
+    date: 'March 2022',
+    title: 'The Fossil Free Research Movement is Born',
     description:
-      'We provide stipends, fellowships, and training that let student organizers dedicate real time to their campaigns and stay in the work after graduation.',
+      'Fossil Free Research launches with the release of our open letter, which has been signed by 1,000 academics from around the world—including IPCC authors and Nobel Prize winners—calling for an end to fossil fuel funding for climate and energy research.',
   },
   {
-    title: 'Community Care',
+    date: 'May 2022',
+    title: 'Our First Coordinated Action',
     description:
-      'We prioritize mutual support, political education, and accessible organizing spaces so our coalition thrives and resists burnout.',
+      'Student organizers from Oxford, Cambridge, and George Washington University stage the first coordinated action for Fossil Free Research. Following the action, organizers with Cambridge Climate Justice win their demand to rename the BP Institute at Cambridge.',
   },
   {
-    title: 'Collective Action',
+    date: 'March 2023',
+    title: 'Data For Progress Report Launch',
     description:
-      'We connect campus victories to global climate justice fights, coordinating national days of action and uplifting frontline demands.',
+      'Fossil Free Research, in collaboration with Data For Progress, released a first-of-its-kind report uncovering nearly $700 million in fossil fuel money across 27 US universities from 2010-2020. Due to a lack of transparency across institutions of higher education, this figure—while alarming—is likely a mere fraction of the true total.',
+  },
+  {
+    date: 'March 2023',
+    title: 'A Historic Fossil Free Research Win',
+    description:
+      'VU Amsterdam announces the most comprehensive Fossil Free Research policy to date by committing to reject funding from any fossil fuel company whose business model is not demonstrably committed to the goals of the Paris Agreement in the short term. FFR works with students from VU Amsterdam to amplify the role of activism in reaching this decision and what it means for our movement.',
+  },
+  {
+    date: 'August 2023',
+    title: 'An Academic and Oil Company Board Member Resigns',
+    description:
+      'Harvard environmental law professor Jody Freeman resigns from the ConocoPhillips Board. Momentum toward this decision was sparked by a Freedom of Information Act request (submitted by one of our coalition members) revealing that Freeman lobbied the Securities and Exchange Commission on behalf of Conoco, but only disclosed her ties to Harvard. Ensuring campus activism from CCN member group Fossil Fuel Divest Harvard, in collaboration with allied climate groups, soon resulted in Freeman\'s resignation from the Conoco board.',
+  },
+  {
+    date: 'September 2023',
+    title: 'Panel Event and Climate March',
+    description:
+      'At New York Climate week, one of the first opportunities for student climate activists to convene in person since the pandemic, Fossil Free Research coordinates a panel event on the state of campus organizing attended by over 60 student organizers from the US and Canada. The next day, members of the coalition march for climate justice alongside 75,000 others in New York City.',
+  },
+  {
+    date: 'October 2023',
+    title: 'FFR Becomes Campus Climate Network',
+    description:
+      'Fossil Free Research becomes the Campus Climate Network in an effort to build power among all campus campaigns demanding that their universities cut ties with the fossil fuel industry and its enablers.',
   },
 ]
 
 export default function OurStoryPage() {
   return (
     <div className="page-wrapper">
+      {/* Hero Section */}
       <section className="bg-brand-primary/10 section-hero">
         <div className="page-container stack stack-tight max-w-3xl">
           <p className="text-xs sm:text-sm uppercase tracking-[0.3em] text-brand-secondary">
             Our Story
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            Students have always changed what&apos;s possible.
+            How we got here
           </h1>
           <p className="text-base text-slate-700">
-            Campus Climate Network was created by student organizers who saw a
-            need for shared infrastructure, deeper political alignment, and a
-            home for campaigns that expose fossil fuel influence. We&apos;re
-            building a future where universities act for climate justice because
-            their students demanded nothing less.
+            From a grassroots open letter to a coalition of 80+ campus
+            organizations, here&apos;s the journey of our movement.
           </p>
         </div>
       </section>
 
-      <section className="page-container stack stack-loose">
+      {/* Timeline Section */}
+      <section className="page-container">
+        <div className="max-w-4xl mx-auto">
+          <Timeline items={timelineEvents} />
+        </div>
+      </section>
+
+      {/* Blog Section */}
+      <section className="bg-slate-900 section-dark">
+        <div className="page-container">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-dense text-white max-w-2xl">
+              <h2 className="text-2xl font-semibold sm:text-3xl">
+                Read more about CCN
+              </h2>
+              <p className="text-sm text-slate-200 mb-4">
+                Explore our blog for updates, reflections, and insights from our
+                movement.
+              </p>
+              <div className="flex">
+                <Link
+                  href="/resources/blog"
+                  className="inline-flex items-center rounded-full bg-brand-accent px-6 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-brand-accent/90"
+                >
+                  Visit Our Blog
+                </Link>
+              </div>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="page-container">
         <ScrollReveal variant="fade-up">
-          <div className="stack stack-dense text-left">
+          <div className="stack stack-cozy max-w-2xl">
             <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              How we got here
+              Join the Movement
             </h2>
             <p className="text-base text-slate-600">
-              Our coalition stands on the shoulders of divestment campaigns,
-              Fossil Free Research organizers, and countless campus coalitions
-              demanding climate justice.
+              Whether you&apos;re a student, academic, or supporter, there&apos;s
+              a place for you in the Campus Climate Network.
             </p>
+            <div className="flex flex-wrap gap-3 text-sm font-semibold">
+              <Link
+                className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-white transition hover:bg-brand-secondary"
+                href="/take-action"
+              >
+                Take Action
+              </Link>
+              <Link
+                className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-brand-primary transition hover:bg-brand-primary hover:text-white"
+                href="/donate"
+              >
+                Donate
+              </Link>
+            </div>
           </div>
         </ScrollReveal>
-        <StaggerReveal
-          staggerDelay={120}
-          variant="blossom"
-          className="grid gap-6 lg:grid-cols-3"
-        >
-          {timeline.map((moment) => (
-            <div
-              key={moment.title}
-              className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
-            >
-              <h3 className="text-xl font-semibold text-brand-primary">
-                {moment.title}
-              </h3>
-              <p className="text-sm text-slate-600">{moment.body}</p>
-            </div>
-          ))}
-        </StaggerReveal>
-      </section>
-
-      <section className="bg-slate-900 section-dark">
-        <div className="page-container stack text-left text-white">
-          <ScrollReveal variant="fade-up">
-            <div className="stack stack-dense">
-              <h2 className="text-2xl font-semibold sm:text-3xl">Our pillars</h2>
-              <p className="text-sm text-slate-200">
-                The student climate movement wins when we care for our people
-                and fight together.
-              </p>
-            </div>
-          </ScrollReveal>
-          <StaggerReveal
-            staggerDelay={120}
-            variant="blossom"
-            className="grid gap-6 md:grid-cols-3"
-          >
-            {values.map((value) => (
-              <div
-                key={value.title}
-                className="stack stack-dense rounded-3xl bg-white/10 p-6"
-              >
-                <h3 className="text-lg font-semibold text-brand-accent">
-                  {value.title}
-                </h3>
-                <p className="text-sm text-slate-100">{value.description}</p>
-              </div>
-            ))}
-          </StaggerReveal>
-        </div>
-      </section>
-
-      <section className="page-container">
-        <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <ScrollReveal variant="fade-up">
-            <div className="stack stack-cozy">
-              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-                What&apos;s next
-              </h2>
-              <p className="text-base text-slate-600">
-                We&apos;re expanding training programs, supporting regional
-                gatherings, and launching new campaigns that tackle fossil fuel
-                influence in research, procurement, and campus finances. We know
-                none of this happens alone, and we are excited to build with
-                you.
-              </p>
-              <div className="flex flex-wrap gap-3 text-sm font-semibold">
-                <Link
-                  className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-white transition hover:bg-brand-secondary"
-                  href="/take-action"
-                >
-                  Join the Network
-                </Link>
-                <Link
-                  className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-brand-primary transition hover:bg-brand-primary hover:text-white"
-                  href="/donate"
-                >
-                  Invest in Students
-                </Link>
-              </div>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal variant="blossom" delay={150}>
-            <div className="overflow-hidden rounded-3xl shadow-lg ring-1 ring-brand-primary/10">
-              <Image
-                src="/images/students-rally.jpg"
-                alt="Students holding a banner during a campus action"
-                width={1200}
-                height={800}
-                className="h-full w-full object-cover"
-              />
-            </div>
-          </ScrollReveal>
-        </div>
       </section>
     </div>
   )
