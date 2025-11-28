@@ -75,7 +75,7 @@ export default function NetworkCampaignsPage() {
           {campaignHighlights.map((campaign) => (
             <div
               key={campaign.title}
-              className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
+              className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6"
             >
               <h3 className="text-lg font-semibold text-brand-primary">
                 {campaign.title}

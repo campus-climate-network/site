@@ -82,7 +82,7 @@ export default function DonatePage() {
           {donationOptions.map((option) => (
             <div
               key={option.title}
-              className="stack stack-dense rounded-3xl border border-brand-primary/20 bg-white p-6 shadow-sm"
+              className="stack stack-dense rounded-3xl border border-brand-primary/20 bg-white p-6"
             >
               <h3 className="text-lg font-semibold text-brand-primary">
                 {option.title}

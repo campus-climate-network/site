@@ -178,14 +178,14 @@ export default function Home() {
                     href={logo.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-16 items-center justify-center rounded-xl bg-brand-cream/70 px-3 py-2 shadow-sm transition hover:bg-brand-cream hover:shadow-md sm:h-20 md:w-40 md:px-4 md:py-3"
+                    className="flex h-16 items-center justify-center rounded-xl bg-brand-cream/70 px-3 py-2 transition hover:bg-brand-cream sm:h-20 md:w-40 md:px-4 md:py-3"
                   >
                     {content}
                   </a>
                 ) : (
                   <div
                     key={logo.name}
-                    className="flex h-16 items-center justify-center rounded-xl bg-brand-cream/70 px-3 py-2 shadow-sm sm:h-20 md:w-40 md:px-4 md:py-3"
+                    className="flex h-16 items-center justify-center rounded-xl bg-brand-cream/70 px-3 py-2 sm:h-20 md:w-40 md:px-4 md:py-3"
                   >
                     {content}
                   </div>
@@ -277,7 +277,7 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="rounded-3xl bg-white p-8 shadow-sm"
+                className="rounded-3xl bg-white p-8"
               >
                 <p className="text-sm font-semibold uppercase tracking-widest text-brand-secondary">
                   {item.title}

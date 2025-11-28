@@ -162,7 +162,7 @@ export default function OurApproachPage() {
             {pillars.map((pillar) => (
               <div
                 key={pillar.title}
-                className="stack stack-dense rounded-3xl border border-brand-primary/30 bg-white p-6 shadow-sm"
+                className="stack stack-dense rounded-3xl border border-brand-primary/30 bg-white p-6"
               >
                 <h3 className="text-lg font-semibold text-brand-primary">
                   {pillar.title}

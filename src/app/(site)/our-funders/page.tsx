@@ -69,7 +69,7 @@ export default function OurFundersPage() {
           {funders.map((funder) => (
             <div
               key={funder.name}
-              className="rounded-2xl border border-brand-secondary/20 bg-white px-6 py-4 shadow-sm"
+              className="rounded-2xl border border-brand-secondary/20 bg-white px-6 py-4"
             >
               <h3 className="text-lg font-semibold text-brand-primary">
                 {funder.name}

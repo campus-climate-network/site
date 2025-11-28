@@ -28,7 +28,7 @@ export default function ContactUsPage() {
 
       <section className="page-container stack">
         <ScrollReveal variant="blossom">
-          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-8 shadow-sm">
+          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-8">
             <h2 className="text-2xl font-semibold text-brand-primary sm:text-3xl">
               General inquiries
             </h2>
@@ -49,7 +49,7 @@ export default function ContactUsPage() {
           variant="blossom"
           className="grid gap-6 md:grid-cols-2"
         >
-          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm">
+          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6">
             <h3 className="text-lg font-semibold text-brand-primary">
               Join the network
             </h3>
@@ -64,7 +64,7 @@ export default function ContactUsPage() {
               or email us.
             </p>
           </div>
-          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm">
+          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6">
             <h3 className="text-lg font-semibold text-brand-primary">
               Press & speaking
             </h3>

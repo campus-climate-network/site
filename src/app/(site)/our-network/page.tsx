@@ -155,7 +155,7 @@ export default function OurNetworkPage() {
           {memberOrgs.map((org) => (
             <div
               key={org.name}
-              className="flex flex-col rounded-3xl border border-brand-primary/10 bg-white p-6 shadow-sm"
+              className="flex flex-col rounded-3xl border border-brand-primary/10 bg-white p-6"
             >
               <div className="relative h-28 w-full">
                 <Image

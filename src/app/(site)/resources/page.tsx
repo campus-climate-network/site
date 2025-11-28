@@ -83,7 +83,7 @@ export default function ResourcesPage() {
             <Link
               key={section.title}
               href={section.href}
-              className="group flex flex-col rounded-3xl border border-brand-secondary/20 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:border-brand-primary/40 hover:shadow-lg"
+              className="group flex flex-col rounded-3xl border border-brand-secondary/20 bg-white p-8 transition hover:-translate-y-1 hover:border-brand-primary/40 hover:shadow-lg"
             >
               <div className="flex items-start justify-between">
                 <div className="rounded-2xl bg-brand-primary/10 p-3 text-brand-primary">

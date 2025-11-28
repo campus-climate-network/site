@@ -269,7 +269,7 @@ export default function OpenLetterPage() {
           {signReasons.map((reason) => (
             <li
               key={reason.title}
-              className="stack stack-relaxed rounded-3xl border border-brand-secondary/20 bg-white p-6 text-left shadow-sm"
+              className="stack stack-relaxed rounded-3xl border border-brand-secondary/20 bg-white p-6 text-left"
             >
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary">
                 {reason.icon}

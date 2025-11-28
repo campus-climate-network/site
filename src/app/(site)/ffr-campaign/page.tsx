@@ -153,7 +153,7 @@ export default function FFRCampaignPage() {
           {talkingPoints.map((point) => (
             <div
               key={point.title}
-              className="stack stack-relaxed rounded-3xl border border-brand-secondary/20 bg-white p-6 shadow-sm"
+              className="stack stack-relaxed rounded-3xl border border-brand-secondary/20 bg-white p-6"
             >
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-primary/10 text-brand-primary">
                 {point.icon}
