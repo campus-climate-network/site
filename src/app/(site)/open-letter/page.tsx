@@ -235,14 +235,14 @@ export default function OpenLetterPage() {
           <p>Dear University Presidents and Vice-Chancellors,</p>
           <p>
             We are writing as academics and experts who are deeply concerned by
-            universities' collaboration with the fossil fuel industry.
+            universities&apos; collaboration with the fossil fuel industry.
             Universities across the United Kingdom and the United States
             currently accept substantial funding from fossil fuel companies for
             research aimed at solving the very problems this industry causes and
             continues to exacerbate. We believe this funding represents an
-            inherent conflict of interest, is antithetical to universities' core
+            inherent conflict of interest, is antithetical to universities&apos; core
             academic and social values, and supports industry greenwashing.
-            Thus, it compromises universities' basic institutional integrity,
+            Thus, it compromises universities&apos; basic institutional integrity,
             academic freedom, and their ability to address the climate
             emergency.
           </p>
@@ -262,7 +262,7 @@ export default function OpenLetterPage() {
             industry funding for climate change research and accepting tobacco
             industry funding for public health research. Already, numerous
             public health and research institutions reject tobacco money due to
-            the industry's extensive record of spreading disinformation around
+            the industry&apos;s extensive record of spreading disinformation around
             the public health consequences of its products. Today, the fossil
             fuel industry has employed disinformation tactics from the same
             playbook, working to sow doubt about climate science, silence
@@ -272,7 +272,7 @@ export default function OpenLetterPage() {
           </p>
           <p>
             Fossil fuel funding for climate-related research creates a conflict
-            of interest that compromises researchers' academic freedom.
+            of interest that compromises researchers&apos; academic freedom.
             Academics must be free to determine their own research agendas,
             speak their minds, and declare their findings without fear of
             censorship, reprisal, or the withdrawal of funding for future
@@ -294,30 +294,30 @@ export default function OpenLetterPage() {
           </p>
           <p>
             Furthermore, accepting fossil fuel research funding contravenes
-            universities' stated commitments to tackling the climate crisis.
+            universities&apos; stated commitments to tackling the climate crisis.
             Fossil fuel companies have concealed, trivialized, and neglected the
             science of climate change for decades. Today, despite warnings from
-            the world's top energy organization that "no investment in new
-            fossil fuel supply projects" can be made if the world is to limit
+            the world&apos;s top energy organization that &quot;no investment in new
+            fossil fuel supply projects&quot; can be made if the world is to limit
             global heating to 1.5°C, major fossil fuel companies continue to
             plan new extraction projects decades into the future and fail to
             align with the goals of the international Paris Agreement. Though
             they present themselves as leaders in sustainability, fossil fuel
-            companies' investments in oil and gas continue to dwarf their
+            companies&apos; investments in oil and gas continue to dwarf their
             renewable energy investments, which represent just a few percent of
             their total capital expenditure. Even the investments that they
             present as directed toward climate solutions contribute to projects
             that are often far from sustainable. In short, fossil fuel
-            companies' claims to be leaders in a green transition should not be
+            companies&apos; claims to be leaders in a green transition should not be
             taken seriously. It is clear, therefore, that these companies cannot
             make for effective or good faith partners with universities seeking
             to pave the way for a sustainable future. Collaborating with these
-            companies is inimical to academic institutions' pledges for climate
+            companies is inimical to academic institutions&apos; pledges for climate
             action.
           </p>
           <p>
             University research partnerships with fossil fuel companies play a
-            key role in greenwashing these companies' reputations. When
+            key role in greenwashing these companies&apos; reputations. When
             universities allow fossil fuel companies to buy and advertise
             connections to university research on key climate and energy issues,
             they inadvertently provide these companies with much-needed
@@ -336,7 +336,7 @@ export default function OpenLetterPage() {
             universities violate their own policies and espoused principles, and
             undermine their core social and academic mission. Increasingly,
             fossil fuel industry sponsorship is eroding faith in scientific and
-            cultural institutions' commitments to climate action, leading a
+            cultural institutions&apos; commitments to climate action, leading a
             number of such institutions — including, most recently, the National
             Portrait Gallery in London — to sever ties with the industry. When
             universities have a pivotal role to play in global conversations
