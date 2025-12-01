@@ -147,6 +147,11 @@ const notableSignatories = [
     title:
       'Postdoctoral Research Fellow, Climate Change Communication Research Hub, Monash University',
   },
+  {
+    name: 'Huw Price',
+    title:
+      'Co-Founder, Cambridge Centre for the Study of Existential Risk, Trinity College, Cambridge',
+  },
 ]
 
 const signReasons = [
