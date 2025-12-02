@@ -54,23 +54,35 @@ export default function ContactUsPage() {
               Join the network
             </h3>
             <p className="text-sm text-slate-600">
-              Want to plug in? Visit{' '}
+              Are you a student, professor, alumni, or staff member? To plug
+              into CCN and see how you can take action, visit our{' '}
               <Link
                 className="text-brand-primary underline"
                 href="/take-action"
               >
                 Take Action
               </Link>{' '}
-              or email us.
+              page.
             </p>
           </div>
           <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6">
             <h3 className="text-lg font-semibold text-brand-primary">
-              Press & speaking
+              Donations
             </h3>
             <p className="text-sm text-slate-600">
-              Contact us for interviews, campus visits, or to feature a student
-              campaign.
+              You can donate directly through our{' '}
+              <a className="text-brand-primary underline" href="/donate">
+                website
+              </a>
+              . If you&apos;d like to make a larger donation or discuss other
+              ways to give, reach out to{' '}
+              <a
+                className="text-brand-primary underline"
+                href="mailto:info@campusclimatenetwork.org"
+              >
+                info@campusclimatenetwork.org
+              </a>
+              .
             </p>
           </div>
         </StaggerReveal>
