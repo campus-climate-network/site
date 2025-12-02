@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Bungee, Poppins } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/next'
 import './(site)/globals.css'
 
 const poppins = Poppins({
@@ -78,6 +79,7 @@ export default function RootLayout({
         className={`${poppins.variable} ${bungee.variable} antialiased bg-background text-foreground`}
       >
         {children}
+        <Analytics />
       </body>
     </html>
   )
