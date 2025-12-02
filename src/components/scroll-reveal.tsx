@@ -1,6 +1,12 @@
 'use client'
 
-import { useEffect, useRef, useState, type ReactNode, type ElementType } from 'react'
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type ElementType,
+} from 'react'
 
 type RevealVariant = 'blossom' | 'fade-up' | 'fade' | 'scale'
 
@@ -25,7 +31,9 @@ export function ScrollReveal({
 }: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   // Start as null - we don't know if we need to animate yet
-  const [animationState, setAnimationState] = useState<'idle' | 'will-animate' | 'visible'>('idle')
+  const [animationState, setAnimationState] = useState<
+    'idle' | 'will-animate' | 'visible'
+  >('idle')
 
   useEffect(() => {
     const element = ref.current
@@ -58,20 +66,23 @@ export function ScrollReveal({
   }, [threshold])
 
   const variantClass = `scroll-reveal-${variant}`
-  const stateClasses = animationState === 'will-animate' 
-    ? 'will-animate' 
-    : animationState === 'visible' 
-      ? 'is-visible' 
-      : ''
+  const stateClasses =
+    animationState === 'will-animate'
+      ? 'will-animate'
+      : animationState === 'visible'
+        ? 'is-visible'
+        : ''
 
   return (
     <Component
       ref={ref as React.Ref<unknown>}
       className={`${variantClass} ${stateClasses} ${className}`}
-      style={{
-        '--reveal-delay': `${delay}ms`,
-        '--reveal-duration': `${duration}ms`,
-      } as React.CSSProperties}
+      style={
+        {
+          '--reveal-delay': `${delay}ms`,
+          '--reveal-duration': `${duration}ms`,
+        } as React.CSSProperties
+      }
     >
       {children}
     </Component>
@@ -98,7 +109,9 @@ export function StaggerReveal({
   childClassName = '',
 }: StaggerRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const [animationState, setAnimationState] = useState<'idle' | 'will-animate' | 'visible'>('idle')
+  const [animationState, setAnimationState] = useState<
+    'idle' | 'will-animate' | 'visible'
+  >('idle')
 
   useEffect(() => {
     const element = ref.current
@@ -108,12 +121,10 @@ export function StaggerReveal({
     const isInViewport = rect.top < window.innerHeight && rect.bottom > 0
 
     if (isInViewport) {
-      // Already in viewport - just show it immediately, no animation needed
       setAnimationState('visible')
       return
     }
 
-    // Not in viewport - set up animation
     setAnimationState('will-animate')
 
     const observer = new IntersectionObserver(
@@ -131,28 +142,36 @@ export function StaggerReveal({
   }, [threshold])
 
   const variantClass = `scroll-reveal-${variant}`
-  const stateClasses = animationState === 'will-animate' 
-    ? 'will-animate' 
-    : animationState === 'visible' 
-      ? 'is-visible' 
-      : ''
+  const stateClasses =
+    animationState === 'will-animate'
+      ? 'will-animate'
+      : animationState === 'visible'
+        ? 'is-visible'
+        : ''
+
+  // Convert children to array safely using React.Children
+  const childArray = Array.isArray(children)
+    ? children
+    : children != null
+      ? [children]
+      : []
 
   return (
     <div ref={ref} className={className}>
-      {Array.isArray(children)
-        ? children.map((child, index) => (
-            <div
-              key={index}
-              className={`${variantClass} ${stateClasses} ${childClassName}`}
-              style={{
-                '--reveal-delay': `${index * staggerDelay}ms`,
-                '--reveal-duration': `${duration}ms`,
-              } as React.CSSProperties}
-            >
-              {child}
-            </div>
-          ))
-        : children}
+      {childArray.map((child, index) => (
+        <div
+          key={index}
+          className={`${variantClass} ${stateClasses} ${childClassName}`}
+          style={
+            {
+              '--reveal-delay': `${index * staggerDelay}ms`,
+              '--reveal-duration': `${duration}ms`,
+            } as React.CSSProperties
+          }
+        >
+          {child}
+        </div>
+      ))}
     </div>
   )
 }

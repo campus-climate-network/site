@@ -96,11 +96,7 @@ export default async function OurNetworkPage() {
             </p>
           </div>
         </ScrollReveal>
-        <StaggerReveal
-          staggerDelay={50}
-          variant="blossom"
-          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-        >
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {memberOrgs.map((org) => (
             <div
               key={org._id}
@@ -128,7 +124,7 @@ export default async function OurNetworkPage() {
               </p>
             </div>
           ))}
-        </StaggerReveal>
+        </div>
         <ScrollReveal variant="fade">
           <p className="text-sm text-slate-600">
             Want to appear here? Membership applications open on a rolling
