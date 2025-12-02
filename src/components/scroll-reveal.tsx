@@ -30,26 +30,50 @@ export function ScrollReveal({
     const element = ref.current
     if (!element) return
 
-    // Immediately check if element is already in viewport
-    const rect = element.getBoundingClientRect()
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      setIsVisible(true)
-      return
+    // Helper to check if element is in viewport
+    const checkInViewport = () => {
+      const rect = element.getBoundingClientRect()
+      // More lenient check - element is "in view" if any part could be visible
+      return rect.top < window.innerHeight + 100 && rect.bottom > -100
     }
 
-    // Otherwise set up observer for when it scrolls into view
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.unobserve(element)
-        }
-      },
-      { threshold: Math.min(threshold, 0.1), rootMargin: '50px 0px 0px 0px' }
-    )
+    // Use requestAnimationFrame to ensure layout is complete before checking
+    const rafId = requestAnimationFrame(() => {
+      if (checkInViewport()) {
+        setIsVisible(true)
+        return
+      }
 
-    observer.observe(element)
-    return () => observer.disconnect()
+      // Set up observer for when it scrolls into view
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+            observer.unobserve(element)
+          }
+        },
+        { threshold: Math.min(threshold, 0.1), rootMargin: '100px 0px 50px 0px' }
+      )
+
+      observer.observe(element)
+
+      // Store observer for cleanup
+      ;(element as HTMLElement & { _scrollObserver?: IntersectionObserver })._scrollObserver = observer
+    })
+
+    // Fallback: recheck after delay for mobile layout settling
+    const fallbackTimer = setTimeout(() => {
+      if (checkInViewport()) {
+        setIsVisible(true)
+      }
+    }, 150)
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      clearTimeout(fallbackTimer)
+      const obs = (element as HTMLElement & { _scrollObserver?: IntersectionObserver })._scrollObserver
+      if (obs) obs.disconnect()
+    }
   }, [threshold])
 
   const variantClass = `scroll-reveal-${variant}`
@@ -94,26 +118,50 @@ export function StaggerReveal({
     const element = ref.current
     if (!element) return
 
-    // Immediately check if element is already in viewport
-    const rect = element.getBoundingClientRect()
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      setIsVisible(true)
-      return
+    // Helper to check if element is in viewport
+    const checkInViewport = () => {
+      const rect = element.getBoundingClientRect()
+      // More lenient check - element is "in view" if any part could be visible
+      return rect.top < window.innerHeight + 100 && rect.bottom > -100
     }
 
-    // Otherwise set up observer for when it scrolls into view
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-          observer.unobserve(element)
-        }
-      },
-      { threshold: Math.min(threshold, 0.1), rootMargin: '50px 0px 0px 0px' }
-    )
+    // Use requestAnimationFrame to ensure layout is complete before checking
+    const rafId = requestAnimationFrame(() => {
+      if (checkInViewport()) {
+        setIsVisible(true)
+        return
+      }
 
-    observer.observe(element)
-    return () => observer.disconnect()
+      // Set up observer for when it scrolls into view
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+            observer.unobserve(element)
+          }
+        },
+        { threshold: Math.min(threshold, 0.1), rootMargin: '100px 0px 50px 0px' }
+      )
+
+      observer.observe(element)
+
+      // Store observer for cleanup
+      ;(element as HTMLElement & { _scrollObserver?: IntersectionObserver })._scrollObserver = observer
+    })
+
+    // Fallback: recheck after delay for mobile layout settling
+    const fallbackTimer = setTimeout(() => {
+      if (checkInViewport()) {
+        setIsVisible(true)
+      }
+    }, 150)
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      clearTimeout(fallbackTimer)
+      const obs = (element as HTMLElement & { _scrollObserver?: IntersectionObserver })._scrollObserver
+      if (obs) obs.disconnect()
+    }
   }, [threshold])
 
   const variantClass = `scroll-reveal-${variant}`
