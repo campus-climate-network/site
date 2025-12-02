@@ -289,10 +289,10 @@ export default function MemberMap({
       )}
 
       <div
-        className={`flex flex-col lg:flex-row ${compact ? 'h-[320px] sm:h-[420px] lg:h-[500px]' : 'h-[500px] lg:h-[700px]'}`}
+        className={`flex flex-col lg:flex-row ${compact ? 'h-auto lg:h-[500px]' : 'h-auto lg:h-[700px]'}`}
       >
         {/* Map */}
-        <div className="relative h-full min-w-0 flex-1">
+        <div className={`relative min-w-0 lg:flex-1 lg:h-full ${compact ? 'h-[250px] sm:h-[320px]' : 'h-[300px] sm:h-[400px]'}`}>
           <Map
             ref={mapRef}
             initialViewState={{
@@ -448,7 +448,7 @@ export default function MemberMap({
 
         {/* Sidebar - hidden in compact mode */}
         {!compact && (
-          <div className="flex w-full shrink-0 flex-col border-t border-slate-200 bg-white lg:w-80 lg:border-l lg:border-t-0">
+          <div className="flex max-h-[250px] w-full shrink-0 flex-col border-t border-slate-200 bg-white sm:max-h-[300px] lg:max-h-none lg:w-80 lg:border-l lg:border-t-0">
             {/* Search header */}
             <div className="border-b border-slate-200 p-4">
               <div className="relative">
