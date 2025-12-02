@@ -189,43 +189,49 @@ export default async function OurNetworkPage() {
         </div>
       </section>
 
-      <section className="page-container stack stack-dense text-left">
+      <section className="page-container text-left">
         <ScrollReveal variant="fade-up">
-          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-            Join the network
-          </h2>
-          <p className="mt-4 text-base text-slate-600">
-            We welcome student-led climate justice groups ready to collaborate,
-            share resources, and take collective action. Share your info and our
-            onboarding team will reach out.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-4">
-            <Link
-              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-              href="/take-action"
-            >
-              Apply for membership
-            </Link>
-            <a
-              className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-              href="mailto:info@campusclimatenetwork.org"
-            >
-              Ask a question
-            </a>
+          <div className="stack stack-cozy">
+            <div className="stack stack-dense">
+              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                Join the network
+              </h2>
+              <p className="text-base text-slate-600">
+                We welcome student-led climate justice groups ready to
+                collaborate, share resources, and take collective action. Share
+                your info and our onboarding team will reach out.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+                href="/take-action"
+              >
+                Apply for membership
+              </Link>
+              <a
+                className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
+                href="mailto:info@campusclimatenetwork.org"
+              >
+                Ask a question
+              </a>
+            </div>
           </div>
         </ScrollReveal>
       </section>
 
-      <section className="bg-slate-50 section-hero">
-        <div className="page-container stack stack-cozy text-left">
+      <section className="bg-slate-50 section-hero pb-16 sm:pb-20 lg:pb-24 -mb-12 sm:-mb-16 lg:-mb-20">
+        <div className="page-container stack stack-relaxed text-left">
           <ScrollReveal variant="fade-up">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              Find us on the map
-            </h2>
-            <p className="text-base text-slate-600">
-              Explore our member organizations across the country and around the
-              world.
-            </p>
+            <div className="stack stack-dense">
+              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                Find us on the map
+              </h2>
+              <p className="text-base text-slate-600">
+                Explore our member organizations across the country and around
+                the world.
+              </p>
+            </div>
           </ScrollReveal>
           <ScrollReveal variant="blossom" delay={100}>
             <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-lg">

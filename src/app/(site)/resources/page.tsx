@@ -120,19 +120,26 @@ export default function ResourcesPage() {
       </section>
 
       <section className="bg-slate-900 section-dark">
-        <div className="page-container stack stack-tight text-left text-white">
+        <div className="page-container text-left text-white">
           <ScrollReveal variant="fade-up">
-            <h2 className="text-2xl font-semibold sm:text-3xl">Need something specific?</h2>
-            <p className="mt-4 text-sm text-slate-200">
-              We&apos;re always building new resources based on what organizers
-              need. Reach out and let us know how we can support your campaign.
-            </p>
-            <a
-              className="mt-4 inline-flex items-center self-start rounded-full bg-brand-accent px-5 py-2 text-sm font-semibold text-slate-900 transition hover:bg-yellow-300"
-              href="mailto:info@campusclimatenetwork.org"
-            >
-              Request a resource
-            </a>
+            <div className="stack stack-cozy">
+              <div className="stack stack-dense">
+                <h2 className="text-2xl font-semibold sm:text-3xl">
+                  Need something specific?
+                </h2>
+                <p className="text-sm text-slate-200">
+                  We&apos;re always building new resources based on what
+                  organizers need. Reach out and let us know how we can support
+                  your campaign.
+                </p>
+              </div>
+              <a
+                className="inline-flex items-center rounded-full bg-brand-accent px-5 py-2 text-sm font-semibold text-slate-900 transition hover:bg-yellow-300 w-fit"
+                href="mailto:info@campusclimatenetwork.org"
+              >
+                Request a resource
+              </a>
+            </div>
           </ScrollReveal>
         </div>
       </section>

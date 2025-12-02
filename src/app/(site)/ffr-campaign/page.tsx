@@ -169,22 +169,24 @@ export default function FFRCampaignPage() {
         </StaggerReveal>
       </section>
 
-      <section className="page-container stack stack-relaxed">
+      <section className="page-container">
         <ScrollReveal variant="fade-up">
-          <div className="stack stack-dense text-left">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              What we&apos;ve already exposed
-            </h2>
-            <p className="text-base text-slate-600">
-              Fossil Free Research is the flagship campaign of Campus Climate
-              Network. We have already uncovered millions of dollars in hidden
-              fossil funding, winning Fossil Free Research policies from
-              individual faculty members to entire departments, centers, and
-              universities. Your school could be next.
-            </p>
+          <div className="stack stack-cozy text-left">
+            <div className="stack stack-dense">
+              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                What we&apos;ve already exposed
+              </h2>
+              <p className="text-base text-slate-600">
+                Fossil Free Research is the flagship campaign of Campus Climate
+                Network. We have already uncovered millions of dollars in hidden
+                fossil funding, winning Fossil Free Research policies from
+                individual faculty members to entire departments, centers, and
+                universities. Your school could be next.
+              </p>
+            </div>
             <Link
               href="/ffr-archive"
-              className="mt-4 inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary w-fit"
+              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary w-fit"
             >
               View FFR reports
             </Link>

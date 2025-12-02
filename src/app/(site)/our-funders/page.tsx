@@ -85,7 +85,7 @@ export default function OurFundersPage() {
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack text-left text-white">
           <ScrollReveal variant="fade-up">
-            <div className="stack stack-snug">
+            <div className="stack stack-dense">
               <h2 className="text-2xl font-semibold sm:text-3xl">
                 How funding moves through CCN
               </h2>
@@ -128,30 +128,34 @@ export default function OurFundersPage() {
         </div>
       </section>
 
-      <section className="page-container stack stack-tight text-left">
+      <section className="page-container text-left">
         <ScrollReveal variant="fade-up">
-          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-            Partner with us
-          </h2>
-          <p className="mt-4 text-base text-slate-600">
-            We welcome conversations with aligned funders who want to resource
-            student leadership, climate justice, and fossil-free futures. Reach
-            out to discuss sponsorships, multi-year support, or in-kind
-            contributions.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-4">
-            <Link
-              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-              href="/contact-us"
-            >
-              Contact us
-            </Link>
-            <Link
-              className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-              href="/donate"
-            >
-              Give online
-            </Link>
+          <div className="stack stack-cozy">
+            <div className="stack stack-dense">
+              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                Partner with us
+              </h2>
+              <p className="text-base text-slate-600">
+                We welcome conversations with aligned funders who want to resource
+                student leadership, climate justice, and fossil-free futures. Reach
+                out to discuss sponsorships, multi-year support, or in-kind
+                contributions.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+                href="/contact-us"
+              >
+                Contact us
+              </Link>
+              <Link
+                className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
+                href="/donate"
+              >
+                Give online
+              </Link>
+            </div>
           </div>
         </ScrollReveal>
       </section>

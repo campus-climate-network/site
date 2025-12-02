@@ -84,22 +84,22 @@ export default function OurStoryPage() {
       <section className="bg-slate-900 section-dark">
         <div className="page-container">
           <ScrollReveal variant="fade-up">
-            <div className="stack stack-dense text-white max-w-2xl">
-              <h2 className="text-2xl font-semibold sm:text-3xl">
-                Read more about CCN
-              </h2>
-              <p className="text-sm text-slate-200 mb-4">
-                Explore our blog for updates, reflections, and insights from our
-                movement.
-              </p>
-              <div className="flex">
-                <Link
-                  href="/resources/blog"
-                  className="inline-flex items-center rounded-full bg-brand-accent px-6 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-brand-accent/90"
-                >
-                  Visit our blog
-                </Link>
+            <div className="stack stack-cozy text-white max-w-2xl">
+              <div className="stack stack-dense">
+                <h2 className="text-2xl font-semibold sm:text-3xl">
+                  Read more about CCN
+                </h2>
+                <p className="text-sm text-slate-200">
+                  Explore our blog for updates, reflections, and insights from our
+                  movement.
+                </p>
               </div>
+              <Link
+                href="/resources/blog"
+                className="inline-flex items-center rounded-full bg-brand-accent px-6 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-brand-accent/90 w-fit"
+              >
+                Visit our blog
+              </Link>
             </div>
           </ScrollReveal>
         </div>

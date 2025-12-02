@@ -333,12 +333,14 @@ export default async function Home() {
       <section className="page-container">
         <div className="stack stack-mid text-left">
           <ScrollReveal variant="fade-up">
-            <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
-              We are the movement
-            </p>
-            <h2 className="mt-2 text-2xl font-semibold text-slate-900 sm:text-3xl">
-              Scenes from campuses taking bold climate action
-            </h2>
+            <div className="stack stack-dense">
+              <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
+                We are the movement
+              </p>
+              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                Scenes from campuses taking bold climate action
+              </h2>
+            </div>
           </ScrollReveal>
           <ScrollReveal variant="blossom" delay={100}>
             <MovementCarousel highlights={movementHighlights} />

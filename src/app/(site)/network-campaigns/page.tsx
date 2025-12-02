@@ -132,28 +132,32 @@ export default function NetworkCampaignsPage() {
         </div>
       </section>
 
-      <section className="page-container stack stack-tight text-left">
+      <section className="page-container text-left">
         <ScrollReveal variant="fade-up">
-          <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-            Share your campaign
-          </h2>
-          <p className="mt-4 text-base text-slate-600">
-            We uplift stories from across the network and coordinate national
-            actions. Submit your campaign or reach out for support.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-4">
-            <Link
-              className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-              href="/take-action"
-            >
-              Join coordination calls
-            </Link>
-            <a
-              className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-              href="mailto:info@campusclimatenetwork.org"
-            >
-              Submit an update
-            </a>
+          <div className="stack stack-cozy">
+            <div className="stack stack-dense">
+              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                Share your campaign
+              </h2>
+              <p className="text-base text-slate-600">
+                We uplift stories from across the network and coordinate national
+                actions. Submit your campaign or reach out for support.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+                href="/take-action"
+              >
+                Join coordination calls
+              </Link>
+              <a
+                className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
+                href="mailto:info@campusclimatenetwork.org"
+              >
+                Submit an update
+              </a>
+            </div>
           </div>
         </ScrollReveal>
       </section>
