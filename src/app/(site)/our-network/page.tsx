@@ -112,7 +112,7 @@ export default async function OurNetworkPage() {
               <div className="relative h-28 w-full">
                 {org.logo ? (
                   <Image
-                    src={urlFor(org.logo).width(400).height(224).fit('max').url()}
+                    src={urlFor(org.logo).width(400).url()}
                     alt={`${org.name} logo`}
                     fill
                     className="object-contain"
