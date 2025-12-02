@@ -92,10 +92,7 @@ export default async function OurNetworkPage() {
               Who&apos;s in the network
             </h2>
             <p className="text-base text-slate-600">
-              A sampling of organizations currently collaborating through
-              CCN—get to know the student power behind their logos. We
-              continually onboard new partners, so reach out if you want to join
-              them.
+              Meet the student groups powering campus climate action.
             </p>
           </div>
         </ScrollReveal>
@@ -151,7 +148,9 @@ export default async function OurNetworkPage() {
         <div className="page-container stack text-left text-white">
           <ScrollReveal variant="fade-up">
             <div className="stack stack-dense">
-              <h2 className="text-2xl font-semibold sm:text-3xl">Membership benefits</h2>
+              <h2 className="text-2xl font-semibold sm:text-3xl">
+                Membership benefits
+              </h2>
               <p className="text-sm text-slate-200">
                 Tools and support to help campus organizers win faster.
               </p>
