@@ -38,7 +38,7 @@ const timelineEvents = [
     date: 'August 2023',
     title: 'An academic and oil company board member resigns',
     description:
-      'Harvard environmental law professor Jody Freeman resigns from the ConocoPhillips Board. Momentum toward this decision was sparked by a Freedom of Information Act request (submitted by one of our coalition members) revealing that Freeman lobbied the Securities and Exchange Commission on behalf of Conoco, but only disclosed her ties to Harvard. Ensuring campus activism from CCN member group Fossil Fuel Divest Harvard, in collaboration with allied climate groups, soon resulted in Freeman\'s resignation from the Conoco board.',
+      "Harvard environmental law professor Jody Freeman resigns from the ConocoPhillips Board. Momentum toward this decision was sparked by a Freedom of Information Act request (submitted by one of our coalition members) revealing that Freeman lobbied the Securities and Exchange Commission on behalf of Conoco, but only disclosed her ties to Harvard. Ensuring campus activism from CCN member group Fossil Fuel Divest Harvard, in collaboration with allied climate groups, soon resulted in Freeman's resignation from the Conoco board.",
   },
   {
     date: 'September 2023',
@@ -64,7 +64,7 @@ export default function OurStoryPage() {
             Our story
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            How we got here
+            How we got here.
           </h1>
           <p className="text-base text-slate-700">
             From a grassroots open letter to a coalition of 80+ campus
@@ -90,8 +90,8 @@ export default function OurStoryPage() {
                   Read more about CCN
                 </h2>
                 <p className="text-sm text-slate-200">
-                  Explore our blog for updates, reflections, and insights from our
-                  movement.
+                  Explore our blog for updates, reflections, and insights from
+                  our movement.
                 </p>
               </div>
               <Link
@@ -113,8 +113,8 @@ export default function OurStoryPage() {
               Join the movement
             </h2>
             <p className="text-base text-slate-600">
-              Whether you&apos;re a student, academic, or supporter, there&apos;s
-              a place for you in the Campus Climate Network.
+              Whether you&apos;re a student, academic, or supporter,
+              there&apos;s a place for you in the Campus Climate Network.
             </p>
             <div className="flex flex-wrap gap-3 text-sm font-semibold">
               <Link

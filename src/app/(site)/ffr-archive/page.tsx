@@ -20,7 +20,8 @@ const reports = [
   },
   {
     title: 'Bound to Big Oil',
-    subtitle: 'The University of Toronto and Its Ties to the Fossil Fuel Industry',
+    subtitle:
+      'The University of Toronto and Its Ties to the Fossil Fuel Industry',
     image: '/reports/Aug 13 Screen Shot from Notion.png',
     organization: 'University of Toronto Divestment Campaign',
     year: '2023',
@@ -28,7 +29,8 @@ const reports = [
   },
   {
     title: 'A Year Just Like Any Other',
-    subtitle: 'Another £1.6 Million to Oxford University from the Fossil Industry in 2020-21',
+    subtitle:
+      'Another £1.6 Million to Oxford University from the Fossil Industry in 2020-21',
     image: '/reports/Aug 13 Screenshot from Notion.png',
     organization: 'Oxford Climate Justice Campaign',
     year: '2022',
@@ -56,11 +58,11 @@ export default function FfrReportsPage() {
                 Fossil Free Research
               </p>
               <h1 className="text-3xl font-semibold text-white sm:text-4xl">
-                FFR Reports
+                FFR Reports.
               </h1>
               <p className="max-w-2xl text-base text-stone-300">
-                Research and investigative reports from campaigns across the network exposing fossil fuel 
-                influence in academic institutions.
+                Research and investigative reports from campaigns across the
+                network exposing fossil fuel influence in academic institutions.
               </p>
             </div>
           </ScrollReveal>
@@ -76,24 +78,20 @@ export default function FfrReportsPage() {
             className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
           >
             {reports.map((report) => (
-              <Link
-                key={report.title}
-                href={report.link}
-                className="group"
-              >
+              <Link key={report.title} href={report.link} className="group">
                 {/* Document card */}
                 <div className="relative overflow-hidden rounded-sm bg-stone-900 shadow-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-red-500/10">
-                    <div className="p-3">
-                      <Image
-                        src={report.image}
-                        alt={report.title}
-                        width={400}
-                        height={500}
-                        className="w-full rounded-sm"
-                      />
-                    </div>
+                  <div className="p-3">
+                    <Image
+                      src={report.image}
+                      alt={report.title}
+                      width={400}
+                      height={500}
+                      className="w-full rounded-sm"
+                    />
+                  </div>
                 </div>
-                
+
                 {/* Text below */}
                 <div className="mt-4">
                   <h3 className="font-instrument text-lg text-white group-hover:text-red-400 transition-colors">
@@ -102,9 +100,7 @@ export default function FfrReportsPage() {
                   <p className="mt-1 text-sm text-stone-400">
                     {report.organization}
                   </p>
-                  <p className="text-sm text-stone-500">
-                    {report.year}
-                  </p>
+                  <p className="text-sm text-stone-500">{report.year}</p>
                 </div>
               </Link>
             ))}

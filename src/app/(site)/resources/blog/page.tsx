@@ -42,7 +42,7 @@ export default async function Page() {
               Latest stories
             </p>
             <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-              Campus Climate Network Journal
+              Campus Climate Network Journal.
             </h1>
             <p className="text-base text-brand-primary/80">
               Dispatches from organizers, campaign wins, and movement insights
@@ -62,7 +62,12 @@ export default async function Page() {
             {posts.map((post) => {
               const publishedOn = formatDate(post.publishedAt)
               const imageUrl = post.mainImage
-                ? urlFor(post.mainImage).width(800).height(500).fit('crop').auto('format').url()
+                ? urlFor(post.mainImage)
+                    .width(800)
+                    .height(500)
+                    .fit('crop')
+                    .auto('format')
+                    .url()
                 : null
               const category = post.categories?.[0]
 
@@ -87,7 +92,9 @@ export default async function Page() {
                         />
                       ) : (
                         <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10">
-                          <span className="text-4xl text-brand-primary/30">📰</span>
+                          <span className="text-4xl text-brand-primary/30">
+                            📰
+                          </span>
                         </div>
                       )}
                       {/* Category Badge */}
