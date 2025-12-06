@@ -92,6 +92,13 @@ const movementHighlights = [
     image: '/images/movement-hero-4.jpg',
     alt: 'Students marching with signs demanding divestment from fossil fuels.',
   },
+  {
+    title: 'Organizers strategize at national summit',
+    description:
+      'Student leaders from across the country gather to share tactics and build solidarity at our annual training summit.',
+    image: '/images/movement-hero-6.jpg',
+    alt: 'Students gathered in a circle discussion at an organizing summit.',
+  },
 ]
 
 async function getMembers(): Promise<MemberOrg[]> {
@@ -137,11 +144,11 @@ export default async function Home() {
             />
             {/* Mobile carousel */}
             <div className="sm:hidden">
-              <HeroCarousel photos={movementHighlights.slice(0, 4)} />
+              <HeroCarousel photos={movementHighlights} />
             </div>
             {/* Desktop grid */}
-            <div className="relative hidden gap-4 sm:grid sm:grid-cols-2">
-              {movementHighlights.slice(0, 4).map((photo, index) => (
+            <div className="relative hidden gap-4 sm:grid sm:grid-cols-2 sm:grid-rows-3">
+              {movementHighlights.slice(0, 5).map((photo, index) => (
                 <div
                   key={photo.image}
                   className={
