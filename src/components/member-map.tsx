@@ -38,7 +38,7 @@ interface MemberMapProps {
 const geocodeCache: Record<string, { lat: number; lng: number } | null> = {}
 
 async function geocodeAddress(
-  address: string
+  address: string,
 ): Promise<{ lat: number; lng: number } | null> {
   if (geocodeCache[address] !== undefined) {
     return geocodeCache[address]
@@ -46,7 +46,7 @@ async function geocodeAddress(
 
   try {
     const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${MAPBOX_TOKEN}&limit=1`
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${MAPBOX_TOKEN}&limit=1`,
     )
     const data = await response.json()
 
@@ -71,7 +71,7 @@ export default function MemberMap({
   const mapRef = useRef<MapRef>(null)
   const [members, setMembers] =
     useState<(MemberOrg & { resolvedCoords?: { lat: number; lng: number } })[]>(
-      initialMembers
+      initialMembers,
     )
   const [loading, setLoading] = useState(false)
   const [progress, setProgress] = useState({ current: 0, total: 0 })
@@ -114,7 +114,7 @@ export default function MemberMap({
             }
             geocoded++
             setProgress({ current: geocoded, total: needsGeocoding.length })
-          })
+          }),
         )
         setMembers([...updatedMembers])
         if (i + batchSize < needsGeocoding.length) {
@@ -129,7 +129,7 @@ export default function MemberMap({
   }, [initialMembers])
 
   const getCoords = (
-    member: MemberOrg & { resolvedCoords?: { lat: number; lng: number } }
+    member: MemberOrg & { resolvedCoords?: { lat: number; lng: number } },
   ) => {
     return member.coordinates || member.resolvedCoords
   }
@@ -147,7 +147,7 @@ export default function MemberMap({
         setSelectedMember(member)
       }
     },
-    []
+    [],
   )
 
   const fitAllMarkers = useCallback(() => {
@@ -165,7 +165,7 @@ export default function MemberMap({
           maxLat: Math.max(acc.maxLat, coords.lat),
         }
       },
-      { minLng: 180, maxLng: -180, minLat: 90, maxLat: -90 }
+      { minLng: 180, maxLng: -180, minLat: 90, maxLat: -90 },
     )
 
     mapRef.current.fitBounds(
@@ -173,7 +173,7 @@ export default function MemberMap({
         [bounds.minLng, bounds.minLat],
         [bounds.maxLng, bounds.maxLat],
       ],
-      { padding: 60, duration: 1000 }
+      { padding: 60, duration: 1000 },
     )
     setPopupInfo(null)
   }, [members])
@@ -183,7 +183,7 @@ export default function MemberMap({
     (m) =>
       m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       m.university.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (m.location?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false)
+      (m.location?.toLowerCase().includes(searchQuery.toLowerCase()) ?? false),
   )
 
   if (!MAPBOX_TOKEN) {
@@ -292,7 +292,9 @@ export default function MemberMap({
         className={`flex flex-col lg:flex-row ${compact ? 'h-auto lg:h-[500px]' : 'h-auto lg:h-[700px]'}`}
       >
         {/* Map */}
-        <div className={`relative min-w-0 lg:flex-1 lg:h-full ${compact ? 'h-[250px] sm:h-[320px]' : 'h-[300px] sm:h-[400px]'}`}>
+        <div
+          className={`relative min-w-0 lg:flex-1 lg:h-full ${compact ? 'h-[250px] sm:h-[320px]' : 'h-[300px] sm:h-[400px]'}`}
+        >
           <Map
             ref={mapRef}
             initialViewState={{

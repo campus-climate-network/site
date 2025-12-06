@@ -10,15 +10,3 @@ export default function robots(): MetadataRoute.Robots {
     sitemap: 'https://campusclimatenetwork.org/sitemap.xml',
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-

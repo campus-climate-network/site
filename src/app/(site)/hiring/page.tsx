@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { ScrollReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
-  title: "We&apos;re Hiring",
+  title: 'We&apos;re Hiring',
   description:
     'Join Campus Climate Network. View open positions for organizers, fellows, and coordinators helping students win climate justice on campuses nationwide.',
 }
@@ -20,8 +20,8 @@ export default function HiringPage() {
           </h1>
           <p className="text-base text-slate-700">
             Help students win climate justice on campuses around the world.
-            We&apos;re a distributed team of organizers, educators, and strategists
-            building infrastructure for the youth climate movement.
+            We&apos;re a distributed team of organizers, educators, and
+            strategists building infrastructure for the youth climate movement.
           </p>
         </div>
       </section>
@@ -33,8 +33,8 @@ export default function HiringPage() {
               Open roles
             </h2>
             <p className="text-base text-slate-600">
-              We don&apos;t have any open positions right now. Check back soon—we&apos;ll
-              update this page when new roles become available.
+              We don&apos;t have any open positions right now. Check back
+              soon—we&apos;ll update this page when new roles become available.
             </p>
           </div>
         </ScrollReveal>

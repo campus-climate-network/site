@@ -23,7 +23,8 @@ export const memberOrgType = defineType({
       name: 'address',
       title: 'Address',
       type: 'string',
-      description: 'Full address for geocoding (e.g., "123 University Ave, City, State ZIP")',
+      description:
+        'Full address for geocoding (e.g., "123 University Ave, City, State ZIP")',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
@@ -120,10 +121,3 @@ export const memberOrgType = defineType({
     },
   ],
 })
-
-
-
-
-
-
-

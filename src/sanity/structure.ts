@@ -12,7 +12,7 @@ export const structure: StructureResolver = (S) =>
             .title('Network')
             .items([
               S.documentTypeListItem('memberOrg').title('Member Organizations'),
-            ])
+            ]),
         ),
 
       S.divider(),
@@ -27,6 +27,6 @@ export const structure: StructureResolver = (S) =>
               S.documentTypeListItem('post').title('Posts'),
               S.documentTypeListItem('category').title('Categories'),
               S.documentTypeListItem('author').title('Authors'),
-            ])
+            ]),
         ),
     ])

@@ -58,7 +58,7 @@ export function ScrollReveal({
           observer.unobserve(element)
         }
       },
-      { threshold: Math.min(threshold, 0.1), rootMargin: '50px 0px 0px 0px' }
+      { threshold: Math.min(threshold, 0.1), rootMargin: '50px 0px 0px 0px' },
     )
 
     observer.observe(element)
@@ -134,7 +134,7 @@ export function StaggerReveal({
           observer.unobserve(element)
         }
       },
-      { threshold: Math.min(threshold, 0.1), rootMargin: '50px 0px 0px 0px' }
+      { threshold: Math.min(threshold, 0.1), rootMargin: '50px 0px 0px 0px' },
     )
 
     observer.observe(element)

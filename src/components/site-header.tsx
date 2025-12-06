@@ -50,7 +50,7 @@ function DesktopMenuTrigger({
   onOpen: (
     menu: NavMenu,
     trigger: HTMLButtonElement | null,
-    options?: MenuFocusOptions
+    options?: MenuFocusOptions,
   ) => void
   onTriggerEnter: () => void
   onTriggerLeave: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -58,7 +58,7 @@ function DesktopMenuTrigger({
   onKeyDown: (
     event: React.KeyboardEvent<HTMLButtonElement>,
     menu: NavMenu,
-    trigger: HTMLButtonElement | null
+    trigger: HTMLButtonElement | null,
   ) => void
   onSafeLeave: (event: React.MouseEvent<HTMLButtonElement>) => void
   triggerRefs: React.MutableRefObject<TriggerRefsMap>
@@ -104,14 +104,14 @@ function DesktopMenuTrigger({
           'inline-flex items-center gap-1 px-3 py-2 text-[0.95rem] font-medium transition-colors',
           isActive
             ? 'text-brand-primary'
-            : 'text-slate-700 hover:text-brand-primary'
+            : 'text-slate-700 hover:text-brand-primary',
         )}
       >
         {menu.label}
         <svg
           className={classNames(
             'h-3 w-3 transition-transform',
-            isActive && 'rotate-180 text-brand-primary'
+            isActive && 'rotate-180 text-brand-primary',
           )}
           viewBox="0 0 8 6"
           fill="none"
@@ -150,13 +150,13 @@ function MegaPanelColumns({
     event: React.KeyboardEvent<HTMLAnchorElement>,
     menuLabel: string,
     index: number,
-    total: number
+    total: number,
   ) => void
   onNavigate: () => void
   onItemEnter?: () => void
 }) {
   const [phase, setPhase] = useState<'from' | 'to' | 'exit'>(() =>
-    state === 'enter' ? 'from' : 'to'
+    state === 'enter' ? 'from' : 'to',
   )
 
   useEffect(() => {
@@ -181,7 +181,7 @@ function MegaPanelColumns({
   const columnCount = Math.max(menu.columns.length, 1)
   const totalItems = menu.columns.reduce(
     (count, column) => count + column.items.length,
-    0
+    0,
   )
 
   useEffect(() => {
@@ -215,7 +215,7 @@ function MegaPanelColumns({
         phase === 'from' && 'opacity-0',
         phase === 'to' && 'opacity-100',
         phase === 'exit' && 'opacity-0',
-        state === 'exit' && 'pointer-events-none absolute inset-0'
+        state === 'exit' && 'pointer-events-none absolute inset-0',
       )}
       style={{
         gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
@@ -314,7 +314,7 @@ function DesktopMegaPanel({
     event: React.KeyboardEvent<HTMLAnchorElement>,
     menuLabel: string,
     index: number,
-    total: number
+    total: number,
   ) => void
   activeMenuLabel: string | null
   onPanelRef: (element: HTMLDivElement | null) => void
@@ -334,14 +334,14 @@ function DesktopMegaPanel({
     }
 
     const orderedMenus = navEntries.filter((entry): entry is NavMenu =>
-      isNavMenu(entry)
+      isNavMenu(entry),
     )
 
     const previousIndex = orderedMenus.findIndex(
-      (entry) => entry.label === previousLabel
+      (entry) => entry.label === previousLabel,
     )
     const nextIndex = orderedMenus.findIndex(
-      (entry) => entry.label === nextLabel
+      (entry) => entry.label === nextLabel,
     )
 
     if (previousIndex === -1 || nextIndex === -1) {
@@ -372,7 +372,7 @@ function DesktopMegaPanel({
                     : entry.state,
                 direction,
               }
-            : entry
+            : entry,
         )
       }
 
@@ -400,7 +400,7 @@ function DesktopMegaPanel({
     if (!transitionMenus.some((entry) => entry.state === 'exit')) return
     const timeout = setTimeout(() => {
       setTransitionMenus((prev) =>
-        prev.filter((entry) => entry.state !== 'exit')
+        prev.filter((entry) => entry.state !== 'exit'),
       )
     }, TRANSITION_MS)
 
@@ -414,8 +414,8 @@ function DesktopMegaPanel({
         prev.map((entry) =>
           entry.state === 'enter'
             ? { ...entry, state: 'idle' as TransitionState }
-            : entry
-        )
+            : entry,
+        ),
       )
     }, TRANSITION_MS)
 
@@ -442,7 +442,7 @@ function DesktopMegaPanel({
         'absolute top-full z-[60] mt-3 w-full transition-all duration-150 ease-out',
         isOpen
           ? 'pointer-events-auto translate-y-0 opacity-100'
-          : 'pointer-events-none translate-y-2 opacity-0'
+          : 'pointer-events-none translate-y-2 opacity-0',
       )}
       onMouseEnter={() => {
         onMouseEnter()
@@ -554,7 +554,7 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
 
       scheduleClose()
     },
-    [cancelClose, isEventTargetWithinNav, scheduleClose]
+    [cancelClose, isEventTargetWithinNav, scheduleClose],
   )
 
   const handleItemEnter = useCallback(() => {
@@ -581,14 +581,14 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
         scheduleClose()
       }
     },
-    [cancelClose, isEventTargetWithinNav, scheduleClose]
+    [cancelClose, isEventTargetWithinNav, scheduleClose],
   )
 
   const openMenu = useCallback(
     (
       menu: NavMenu,
       trigger: HTMLButtonElement | null,
-      options?: MenuFocusOptions
+      options?: MenuFocusOptions,
     ) => {
       cancelClose()
       setActiveMenu(menu)
@@ -597,7 +597,7 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
         pendingFocusIndex.current = options.focusIndex
       }
     },
-    [cancelClose]
+    [cancelClose],
   )
 
   useEffect(() => {
@@ -614,11 +614,11 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
     (
       event: React.KeyboardEvent<HTMLButtonElement>,
       menu: NavMenu,
-      trigger: HTMLButtonElement | null
+      trigger: HTMLButtonElement | null,
     ) => {
       const totalItems = menu.columns.reduce(
         (count, column) => count + column.items.length,
-        0
+        0,
       )
 
       if (event.key === 'Escape') {
@@ -651,7 +651,7 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
         openMenu(menu, trigger, { focusIndex: totalItems - 1 })
       }
     },
-    [closeMenu, focusTrigger, openMenu]
+    [closeMenu, focusTrigger, openMenu],
   )
 
   const handleItemKeyDown = useCallback(
@@ -659,7 +659,7 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
       event: React.KeyboardEvent<HTMLAnchorElement>,
       menuLabel: string,
       index: number,
-      total: number
+      total: number,
     ) => {
       if (event.key === 'Escape') {
         event.preventDefault()
@@ -693,7 +693,7 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
         focusItem(menuLabel, total - 1)
       }
     },
-    [closeMenu, focusItem, focusTrigger]
+    [closeMenu, focusItem, focusTrigger],
   )
 
   return (
@@ -804,7 +804,7 @@ function MobileMenuSection({
         <svg
           className={classNames(
             'h-4 w-4 transition-transform',
-            expanded && 'rotate-180 text-brand-primary'
+            expanded && 'rotate-180 text-brand-primary',
           )}
           viewBox="0 0 16 16"
           fill="none"
@@ -825,7 +825,7 @@ function MobileMenuSection({
         aria-hidden={!expanded}
         className={classNames(
           'overflow-hidden transition-[max-height,opacity] duration-200 ease-out',
-          expanded ? 'opacity-100' : 'pointer-events-none opacity-0'
+          expanded ? 'opacity-100' : 'pointer-events-none opacity-0',
         )}
         style={{
           maxHeight: expanded ? contentHeight : 0,
@@ -906,13 +906,13 @@ function MobileNav({
         'fixed inset-0 z-[70] transition duration-200 ease-out lg:hidden',
         open
           ? 'pointer-events-auto bg-slate-900/40 opacity-100'
-          : 'pointer-events-none opacity-0'
+          : 'pointer-events-none opacity-0',
       )}
     >
       <div
         className={classNames(
           'ml-auto flex h-full w-full max-w-sm flex-col bg-white shadow-2xl transition-transform duration-200 ease-out',
-          open ? 'translate-x-0' : 'translate-x-full'
+          open ? 'translate-x-0' : 'translate-x-full',
         )}
       >
         <div className="flex items-center justify-between border-b border-slate-200 px-6 py-5">
@@ -951,7 +951,7 @@ function MobileNav({
                   expanded={expanded}
                   onToggle={() =>
                     setExpandedSection((prev) =>
-                      prev === entry.label ? null : entry.label
+                      prev === entry.label ? null : entry.label,
                     )
                   }
                   onNavigate={onClose}
@@ -1020,7 +1020,7 @@ export function SiteHeader() {
           'sticky top-0 z-50 border-b border-slate-200/40 transition-all duration-200',
           scrolled
             ? 'bg-white/80 py-3 shadow-[0_12px_40px_-24px_rgba(15,23,42,0.35)] backdrop-blur supports-[backdrop-filter]:bg-white/70'
-            : 'bg-white/95 py-5 backdrop-blur'
+            : 'bg-white/95 py-5 backdrop-blur',
         )}
       >
         <div className="page-container flex items-center justify-between gap-4">
@@ -1088,7 +1088,7 @@ export function SiteHeader() {
               open={mobileOpen}
               onClose={() => setMobileOpen(false)}
             />,
-            document.body
+            document.body,
           )
         : null}
     </>

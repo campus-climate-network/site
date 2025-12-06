@@ -68,9 +68,7 @@ export function HeroCarousel({ photos }: HeroCarouselProps) {
               type="button"
               onClick={() => goTo(index)}
               className={`h-2 w-2 rounded-full transition ${
-                current === index
-                  ? 'bg-white'
-                  : 'bg-white/50 hover:bg-white/70'
+                current === index ? 'bg-white' : 'bg-white/50 hover:bg-white/70'
               }`}
               aria-label={`View photo ${index + 1}`}
               aria-current={current === index}
@@ -102,12 +100,3 @@ export function HeroCarousel({ photos }: HeroCarouselProps) {
     </div>
   )
 }
-
-
-
-
-
-
-
-
-

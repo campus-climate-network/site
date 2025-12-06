@@ -20,7 +20,9 @@ const MemberMap = dynamic(() => import('@/components/member-map'), {
   ),
 })
 
-export function MemberMapWrapper({ members, compact = false }: MemberMapWrapperProps) {
+export function MemberMapWrapper({
+  members,
+  compact = false,
+}: MemberMapWrapperProps) {
   return <MemberMap members={members} compact={compact} />
 }
-

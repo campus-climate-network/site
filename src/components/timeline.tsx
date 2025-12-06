@@ -16,7 +16,7 @@ export function Timeline({ items }: TimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [progress, setProgress] = useState(0)
   const [visibleItems, setVisibleItems] = useState<boolean[]>(
-    new Array(items.length).fill(false)
+    new Array(items.length).fill(false),
   )
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -60,7 +60,7 @@ export function Timeline({ items }: TimelineProps) {
             observer.unobserve(item)
           }
         },
-        { threshold: 0.2, rootMargin: '0px 0px -100px 0px' }
+        { threshold: 0.2, rootMargin: '0px 0px -100px 0px' },
       )
       observer.observe(item)
       observers.push(observer)
@@ -115,12 +115,3 @@ export function Timeline({ items }: TimelineProps) {
     </div>
   )
 }
-
-
-
-
-
-
-
-
-

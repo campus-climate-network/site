@@ -119,7 +119,7 @@ export function MovementCarousel({ highlights }: MovementCarouselProps) {
                 'h-2.5 w-2.5 rounded-full transition',
                 current === index
                   ? 'bg-brand-primary'
-                  : 'bg-slate-200 hover:bg-slate-300'
+                  : 'bg-slate-200 hover:bg-slate-300',
               )}
               aria-label={`View highlight ${index + 1}: ${highlight.title}`}
               aria-current={current === index}

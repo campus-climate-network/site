@@ -12,7 +12,7 @@ import type { PostDetail } from '@/sanity/lib/types'
 export const revalidate = 60
 
 export async function generateMetadata(
-  props: PageProps<'/resources/blog/[slug]'>
+  props: PageProps<'/resources/blog/[slug]'>,
 ): Promise<Metadata> {
   const { slug } = await props.params
   const post = await client.fetch<PostDetail | null>(POST_QUERY, { slug })
@@ -75,7 +75,7 @@ function isSanityImage(value: unknown): value is SanityImageValue {
 function getSanityImageDimensions(
   ref?: string,
   targetWidth?: number,
-  targetHeight?: number
+  targetHeight?: number,
 ) {
   if (!ref) {
     return null
@@ -160,7 +160,7 @@ const portableTextComponents: PortableTextComponents = {
 }
 
 export default async function PostPage(
-  props: PageProps<'/resources/blog/[slug]'>
+  props: PageProps<'/resources/blog/[slug]'>,
 ) {
   const { slug } = await props.params
 
@@ -194,74 +194,78 @@ export default async function PostPage(
     <div className="page-wrapper">
       <div className="mx-auto max-w-3xl px-[var(--spacing-container)] section-hero stack stack-relaxed">
         <Link
-        href="/resources/blog"
-        className="inline-flex items-center gap-1 text-sm font-medium text-brand-primary transition hover:text-brand-secondary"
-      >
-        <span aria-hidden="true">←</span> Back to posts
-      </Link>
+          href="/resources/blog"
+          className="inline-flex items-center gap-1 text-sm font-medium text-brand-primary transition hover:text-brand-secondary"
+        >
+          <span aria-hidden="true">←</span> Back to posts
+        </Link>
 
-      <article className="stack stack-relaxed">
-        <header className="stack stack-mid">
-          <div className="stack stack-snug">
-            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-secondary">
-              {post.publishedAt
-                ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-                    dateStyle: 'long',
-                  })
-                : 'Unpublished'}
-            </p>
-            <h1 className="text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl">
-              {post.title}
-            </h1>
-          </div>
-
-          <div className="flex items-center gap-4">
-            {authorImageSrc && (
-              <Image
-                src={authorImageSrc}
-                alt={post.author?.name ?? 'Author photo'}
-                width={96}
-                height={96}
-                sizes="64px"
-                className="h-16 w-16 rounded-full object-cover"
-              />
-            )}
-            <div>
-              <p className="font-semibold text-slate-900">
-                {post.author?.name ?? 'Unknown author'}
+        <article className="stack stack-relaxed">
+          <header className="stack stack-mid">
+            <div className="stack stack-snug">
+              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-secondary">
+                {post.publishedAt
+                  ? new Date(post.publishedAt).toLocaleDateString('en-US', {
+                      dateStyle: 'long',
+                    })
+                  : 'Unpublished'}
               </p>
-              {post.categories && post.categories.length > 0 && (
-                <p className="text-sm text-slate-500">
-                  {post.categories.map((category) => category.title).join(', ')}
-                </p>
-              )}
+              <h1 className="text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl">
+                {post.title}
+              </h1>
             </div>
+
+            <div className="flex items-center gap-4">
+              {authorImageSrc && (
+                <Image
+                  src={authorImageSrc}
+                  alt={post.author?.name ?? 'Author photo'}
+                  width={96}
+                  height={96}
+                  sizes="64px"
+                  className="h-16 w-16 rounded-full object-cover"
+                />
+              )}
+              <div>
+                <p className="font-semibold text-slate-900">
+                  {post.author?.name ?? 'Unknown author'}
+                </p>
+                {post.categories && post.categories.length > 0 && (
+                  <p className="text-sm text-slate-500">
+                    {post.categories
+                      .map((category) => category.title)
+                      .join(', ')}
+                  </p>
+                )}
+              </div>
+            </div>
+          </header>
+
+          <hr className="border-slate-200" />
+
+          {mainImageSrc && (
+            <Image
+              src={mainImageSrc}
+              alt={post.title}
+              width={
+                (mainImageDimensions ?? DEFAULT_MAIN_IMAGE_DIMENSIONS).width
+              }
+              height={
+                (mainImageDimensions ?? DEFAULT_MAIN_IMAGE_DIMENSIONS).height
+              }
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="w-full rounded-2xl"
+              priority
+            />
+          )}
+
+          <div className="stack stack-mid text-base leading-relaxed text-slate-700 [&_h2]:mt-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-slate-900 [&_h3]:mt-2 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-slate-900 [&_a]:text-brand-primary [&_a]:underline [&_blockquote]:border-l-4 [&_blockquote]:border-brand-primary/30 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:list-disc [&_ul]:pl-6">
+            <PortableText
+              value={post.body as never}
+              components={portableTextComponents}
+            />
           </div>
-        </header>
-
-        <hr className="border-slate-200" />
-
-        {mainImageSrc && (
-          <Image
-            src={mainImageSrc}
-            alt={post.title}
-            width={(mainImageDimensions ?? DEFAULT_MAIN_IMAGE_DIMENSIONS).width}
-            height={
-              (mainImageDimensions ?? DEFAULT_MAIN_IMAGE_DIMENSIONS).height
-            }
-            sizes="(max-width: 768px) 100vw, 768px"
-            className="w-full rounded-2xl"
-            priority
-          />
-        )}
-
-        <div className="stack stack-mid text-base leading-relaxed text-slate-700 [&_h2]:mt-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-slate-900 [&_h3]:mt-2 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-slate-900 [&_a]:text-brand-primary [&_a]:underline [&_blockquote]:border-l-4 [&_blockquote]:border-brand-primary/30 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:list-disc [&_ul]:pl-6">
-          <PortableText
-            value={post.body as never}
-            components={portableTextComponents}
-          />
-        </div>
-      </article>
+        </article>
       </div>
     </div>
   )

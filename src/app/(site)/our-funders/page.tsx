@@ -136,10 +136,10 @@ export default function OurFundersPage() {
                 Partner with us
               </h2>
               <p className="text-base text-slate-600">
-                We welcome conversations with aligned funders who want to resource
-                student leadership, climate justice, and fossil-free futures. Reach
-                out to discuss sponsorships, multi-year support, or in-kind
-                contributions.
+                We welcome conversations with aligned funders who want to
+                resource student leadership, climate justice, and fossil-free
+                futures. Reach out to discuss sponsorships, multi-year support,
+                or in-kind contributions.
               </p>
             </div>
             <div className="flex flex-wrap gap-4">
