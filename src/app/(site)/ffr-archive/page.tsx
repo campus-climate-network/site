@@ -81,13 +81,12 @@ export default function FfrReportsPage() {
               <Link key={report.title} href={report.link} className="group">
                 {/* Document card */}
                 <div className="relative overflow-hidden rounded-sm bg-stone-900 shadow-lg transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:shadow-red-500/10">
-                  <div className="p-3">
+                  <div className="relative aspect-[8.5/11] overflow-hidden">
                     <Image
                       src={report.image}
                       alt={report.title}
-                      width={400}
-                      height={500}
-                      className="w-full rounded-sm"
+                      fill
+                      className="object-contain"
                     />
                   </div>
                 </div>

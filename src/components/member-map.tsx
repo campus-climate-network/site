@@ -64,6 +64,12 @@ async function geocodeAddress(
   return null
 }
 
+// Get initial zoom based on screen width (mobile needs more zoomed out view)
+function getInitialZoom(): number {
+  if (typeof window === 'undefined') return 3.5
+  return window.innerWidth < 768 ? 2.2 : 3.5
+}
+
 export default function MemberMap({
   members: initialMembers,
   compact = false,
@@ -78,6 +84,7 @@ export default function MemberMap({
   const [selectedMember, setSelectedMember] = useState<MemberOrg | null>(null)
   const [popupInfo, setPopupInfo] = useState<MemberOrg | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
+  const [initialZoom] = useState(getInitialZoom)
 
   // Geocode members that don&apos;t have coordinates
   useEffect(() => {
@@ -300,7 +307,7 @@ export default function MemberMap({
             initialViewState={{
               latitude: 39.8283,
               longitude: -98.5795,
-              zoom: 3.5,
+              zoom: initialZoom,
             }}
             style={{ width: '100%', height: '100%' }}
             mapStyle="mapbox://styles/mapbox/light-v11"

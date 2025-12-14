@@ -62,7 +62,7 @@ export function SiteFooter() {
             © Campus Climate Network {new Date().getFullYear()}
           </p>
           <p className="text-xs text-slate-400">
-            Site built by{' '}
+            Site by{' '}
             <a
               className="underline transition hover:text-slate-300"
               href="https://www.dylanwahbe.com"
