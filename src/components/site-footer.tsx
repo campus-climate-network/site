@@ -1,35 +1,31 @@
 import Link from 'next/link'
 
-import {
-  navEntries,
-  type NavEntry,
-  type NavColumn,
-  type NavLink,
-  isNavMenu,
-} from '@/data/navigation'
+import { navEntries, isNavMenu } from '@/data/navigation'
 
 type FooterColumn = {
   title: string
   links: Array<{ label: string; href: string }>
 }
 
-function extractFooterColumns(entry: NavEntry): FooterColumn[] {
-  if (!isNavMenu(entry)) {
-    return [
-      { title: entry.label, links: [{ label: entry.label, href: entry.href }] },
-    ]
-  }
-
-  return entry.columns.map((column: NavColumn) => ({
-    title: column.title,
-    links: column.items.map((item: NavLink) => ({
-      label: item.label,
-      href: item.href,
-    })),
-  }))
-}
-
-const footerColumns = navEntries.flatMap(extractFooterColumns)
+const footerColumns: FooterColumn[] = [
+  ...navEntries.filter(isNavMenu).map((entry) => ({
+    title: entry.label,
+    links: entry.columns.flatMap((column) =>
+      column.items.map((item) => ({
+        label: item.label,
+        href: item.href,
+      }))
+    ),
+  })),
+  {
+    title: 'Get involved',
+    links: [
+      { label: 'Take action', href: '/take-action' },
+      { label: 'Blog', href: '/resources/blog' },
+      { label: 'Donate', href: '/donate' },
+    ],
+  },
+]
 
 export function SiteFooter() {
   return (
@@ -71,7 +67,7 @@ export function SiteFooter() {
             </a>
           </p>
         </div>
-        <div className="order-1 grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-3 lg:order-2 lg:grid-cols-3">
+        <div className="order-1 grid grid-cols-2 gap-6 sm:gap-8 md:grid-cols-4 lg:order-2 lg:grid-cols-4">
           {footerColumns.map((column) => (
             <div key={column.title}>
               <h3 className="eyebrow text-[10px] font-semibold tracking-[0.25em] text-brand-accent sm:text-xs sm:tracking-[0.35em]">

@@ -84,6 +84,16 @@ export const navEntries: NavEntry[] = [
           },
         ],
       },
+      {
+        title: 'Movement',
+        items: [
+          {
+            label: 'Student wins',
+            href: '/student-wins',
+            description: 'Victories won by students in the climate movement.',
+          },
+        ],
+      },
     ],
   },
   {

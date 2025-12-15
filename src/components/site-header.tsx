@@ -941,7 +941,7 @@ function MobileNav({
                 onClick={onClose}
                 className="block py-2 text-[1.75rem] font-semibold text-brand-primary transition hover:text-brand-secondary"
               >
-                Take Action
+                Get involved
               </Link>
             </li>
           </ul>
@@ -1073,7 +1073,7 @@ export function SiteHeader() {
               href="/take-action"
               className="inline-flex items-center rounded-full bg-brand-primary px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_40px_-20px_rgba(96,55,157,0.8)] transition hover:bg-brand-secondary"
             >
-              Take action
+              Get involved
             </Link>
           </div>
         </div>

@@ -12,6 +12,7 @@ export const structure: StructureResolver = (S) =>
             .title('Network')
             .items([
               S.documentTypeListItem('memberOrg').title('Member Organizations'),
+              S.documentTypeListItem('movementWin').title('Movement Wins'),
             ]),
         ),
 

@@ -59,3 +59,20 @@ export const POST_QUERY = `
   }
 }
 `
+
+// Movement wins for student wins page
+export const MOVEMENT_WINS_QUERY = `
+*[_type == "movementWin"] | order(date desc){
+  _id,
+  title,
+  date,
+  description,
+  category,
+  link,
+  "memberOrg": memberOrg->{
+    _id,
+    name,
+    "logoUrl": logo.asset->url
+  }
+}
+`
