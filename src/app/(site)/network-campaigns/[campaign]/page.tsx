@@ -174,38 +174,6 @@ export default async function CampaignDetailPage({ params }: PageProps) {
           </div>
         )}
       </section>
-
-      <section className="bg-brand-cream/40 section-hero">
-        <div className="page-container text-left">
-          <ScrollReveal variant="fade-up">
-            <div className="stack stack-cozy">
-              <div className="stack stack-dense">
-                <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-                  Add your win to the list
-                </h2>
-                <p className="text-base text-slate-600">
-                  Won a victory on your campus? Let us know so we can celebrate
-                  and share your success with the network.
-                </p>
-              </div>
-              <div className="flex flex-wrap gap-4">
-                <Link
-                  className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-                  href="/contact-us"
-                >
-                  Report a win
-                </Link>
-                <Link
-                  className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-                  href="/network-campaigns"
-                >
-                  View all campaigns
-                </Link>
-              </div>
-            </div>
-          </ScrollReveal>
-        </div>
-      </section>
     </div>
   )
 }
