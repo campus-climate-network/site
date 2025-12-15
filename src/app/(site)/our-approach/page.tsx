@@ -213,6 +213,66 @@ export default function OurApproachPage() {
           </StaggerReveal>
         </div>
       </section>
+
+      <section className="bg-brand-primary section-dark -mt-8 sm:-mt-10 lg:-mt-12">
+        <div className="page-container stack stack-relaxed text-white">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-dense">
+              <h2 className="text-2xl font-semibold sm:text-3xl">
+                Theory of Change
+              </h2>
+            </div>
+          </ScrollReveal>
+          <StaggerReveal
+            staggerDelay={100}
+            variant="blossom"
+            className="stack stack-loose max-w-3xl"
+          >
+            <p className="text-lg leading-relaxed text-white/90">
+              If we build a large, coordinated coalition of skilled student
+              climate organizers and campus community members running effective
+              campaigns, we will hold the power to successfully influence
+              decision-making at universities and publicly pressure them to cut
+              ties with the fossil fuel industry.
+            </p>
+            <p className="text-lg leading-relaxed text-white/90">
+              <span className="font-semibold text-brand-accent">
+                We will win
+              </span>{' '}
+              because when we unite, we pose a credible threat to
+              universities&apos; prestige, credibility, and influence, without
+              which they can&apos;t survive.
+            </p>
+            <p className="text-lg leading-relaxed text-white/90">
+              Universities have always been on the forefront of social change.
+              When universities cut ties with the fossil fuel industry, other
+              social institutions will follow.
+            </p>
+            <p className="text-lg leading-relaxed text-white/90">
+              Along the way, we will equip a new generation of leaders to
+              continue the fight for climate justice long after they have left
+              campus.
+            </p>
+            <p className="text-lg font-medium leading-relaxed text-brand-accent">
+              Revoking the fossil fuel industry&apos;s social license to operate
+              and developing new climate justice leaders will bring us closer to
+              achieving a just energy transition to stop the climate crisis.
+            </p>
+            <p className="text-lg leading-relaxed text-white/90">
+              We subscribe to the{' '}
+              <a
+                href="https://www.ejnet.org/ej/jemez.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline text-brand-accent hover:text-brand-accent/80"
+              >
+                Jemez Principles for Democratic Organizing
+              </a>
+              .
+            </p>
+          </StaggerReveal>
+        </div>
+      </section>
     </div>
   )
 }
