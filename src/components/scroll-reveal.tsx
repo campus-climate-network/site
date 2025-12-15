@@ -51,6 +51,7 @@ export function ScrollReveal({
     // Not in viewport - set up animation
     setAnimationState('will-animate')
 
+    const normalizedThreshold = Math.max(0, Math.min(threshold, 1))
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -58,7 +59,7 @@ export function ScrollReveal({
           observer.unobserve(element)
         }
       },
-      { threshold: Math.min(threshold, 0.1), rootMargin: '50px 0px 0px 0px' },
+      { threshold: normalizedThreshold, rootMargin: '50px 0px 0px 0px' },
     )
 
     observer.observe(element)
@@ -127,6 +128,7 @@ export function StaggerReveal({
 
     setAnimationState('will-animate')
 
+    const normalizedThreshold = Math.max(0, Math.min(threshold, 1))
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -134,7 +136,7 @@ export function StaggerReveal({
           observer.unobserve(element)
         }
       },
-      { threshold: Math.min(threshold, 0.1), rootMargin: '50px 0px 0px 0px' },
+      { threshold: normalizedThreshold, rootMargin: '50px 0px 0px 0px' },
     )
 
     observer.observe(element)
