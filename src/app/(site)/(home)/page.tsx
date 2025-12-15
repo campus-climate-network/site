@@ -224,7 +224,7 @@ export default async function Home() {
               </p>
               <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
                 Around the world, students just like you are kicking Big Oil off
-                campus.
+                campus
               </h2>
               <p className="text-base text-slate-600 sm:text-lg">
                 Our members share organizing playbooks, tactical trainings, and
