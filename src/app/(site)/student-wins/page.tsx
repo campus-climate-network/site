@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { client } from '@/sanity/lib/client'
 import { MOVEMENT_WINS_QUERY } from '@/sanity/lib/queries'
