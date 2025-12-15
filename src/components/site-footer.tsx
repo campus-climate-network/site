@@ -63,7 +63,7 @@ export function SiteFooter() {
               className="underline transition hover:text-slate-300"
               href="https://www.dylanwahbe.com"
             >
-              Dylan Wahbe
+              Dylan Wahbe.
             </a>
           </p>
         </div>
