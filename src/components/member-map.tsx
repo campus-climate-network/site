@@ -66,8 +66,8 @@ async function geocodeAddress(
 
 // Get initial zoom based on screen width (mobile needs more zoomed out view)
 function getInitialZoom(): number {
-  if (typeof window === 'undefined') return 3.5
-  return window.innerWidth < 768 ? 2.2 : 3.5
+  if (typeof window === 'undefined') return 2.5
+  return window.innerWidth < 768 ? 2.2 : 2.5
 }
 
 export default function MemberMap({
