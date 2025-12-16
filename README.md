@@ -1,9 +1,9 @@
 # Campus Climate Network — Website
 
-This repository contains the source code for the Campus Climate Network website.
+Thanks for checking out the source code for the Campus Climate Network website.
 
-The site is open sourced to support transparency, collaboration, and community contribution.  
-However, **the source code and the site’s content are licensed separately**.
+We open source the code to support transparency, collaboration, and community contribution.  
+That said, **the source code and the site’s content are licensed separately**.
 
 ---
 
@@ -17,7 +17,7 @@ Campus Climate Network is **fiscally sponsored by The Hack Foundation**, a 501(c
 
 ## License Overview
 
-This is a **mixed-license** repository:
+Quick heads-up: this is a **mixed-license** repository:
 
 - **Source code** is licensed under the **MIT License** (permissive).
 - **Site content, branding, and assets** are **All Rights Reserved** (not permissive).
@@ -43,7 +43,7 @@ You are free to:
 - Distribute
 - Sublicense
 
-See the [`LICENSE`](./LICENSE) file for full details.
+For the full terms, see [`LICENSE`](./LICENSE).
 
 Third-party dependencies and services used by this project are licensed separately under their own terms.
 
@@ -74,7 +74,7 @@ Contributions to the **codebase** are welcome.
 
 By submitting a pull request, you agree that your contributions are licensed under the MIT License.
 
-Please note:
+A couple notes:
 
 - Contributions should not include unauthorized use of Campus Climate Network branding or assets.
 - Content changes may be reviewed more strictly than code changes.
@@ -83,13 +83,11 @@ Please note:
 
 ## Design & Development
 
-**Design and development by** [Dylan Wahbe](https://dylanwahbe.com)
-
----
+**Designed and developed by** [Dylan Wahbe](https://dylanwahbe.com)
 
 ## Questions
 
-For questions about licensing, permissions, or reuse, please contact Campus Climate Network directly.
+For questions about licensing, permissions, or reuse, please reach out to Campus Climate Network at info@campusclimatenetwork.org
 
 ## Architecture
 
