@@ -11,7 +11,7 @@ That said, **the source code and the site’s content are licensed separately**.
 
 Campus Climate Network is a student-led organization working to build power for climate justice on campuses across the United States.
 
-Campus Climate Network is **fiscally sponsored by The Hack Foundation**, a 501(c)(3) nonprofit organization.
+Campus Climate Network is **fiscally sponsored by [The Hack Foundation](https://the.hackfoundation.org/)**, a 501(c)(3) nonprofit organization.
 
 ---
 
