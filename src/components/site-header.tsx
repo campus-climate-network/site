@@ -762,11 +762,11 @@ function MobileNav({
   open: boolean
   onClose: () => void
 }) {
-  const [activeMenu, setActiveMenu] = useState<NavMenu | null>(null)
+  const [expandedMenus, setExpandedMenus] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     if (!open) {
-      setActiveMenu(null)
+      setExpandedMenus(new Set())
     }
   }, [open])
 
@@ -782,10 +782,17 @@ function MobileNav({
     }
   }, [open])
 
-  // Flatten all items from active menu
-  const activeMenuItems = activeMenu
-    ? activeMenu.columns.flatMap((col) => col.items)
-    : []
+  const toggleMenu = (label: string) => {
+    setExpandedMenus((prev) => {
+      const next = new Set(prev)
+      if (next.has(label)) {
+        next.delete(label)
+      } else {
+        next.add(label)
+      }
+      return next
+    })
+  }
 
   return (
     <div
@@ -799,42 +806,17 @@ function MobileNav({
     >
       {/* Header */}
       <div className="page-container flex items-center justify-between gap-4 py-3">
-        {/* Left side: back button or logo */}
-        {activeMenu ? (
-          <button
-            type="button"
-            onClick={() => setActiveMenu(null)}
-            className="-ml-2 rounded-full p-2 text-slate-400 transition hover:text-slate-600 focus-visible:outline-none"
-            aria-label="Back to menu"
-          >
-            <svg
-              className="h-5 w-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M15 6L9 12L15 18"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </button>
-        ) : (
-          <Link href="/" onClick={onClose} className="flex items-center gap-4">
-            <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-[0_4px_12px_-4px_rgba(96,55,157,0.25)]">
-              <Image
-                src="/purple-logo.png"
-                alt="Campus Climate Network logo"
-                fill
-                sizes="44px"
-                className="object-contain"
-              />
-            </div>
-          </Link>
-        )}
+        <Link href="/" onClick={onClose} className="flex items-center gap-4">
+          <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-[0_4px_12px_-4px_rgba(96,55,157,0.25)]">
+            <Image
+              src="/purple-logo.png"
+              alt="Campus Climate Network logo"
+              fill
+              sizes="44px"
+              className="object-contain"
+            />
+          </div>
+        </Link>
 
         {/* Close button */}
         <button
@@ -860,128 +842,114 @@ function MobileNav({
       </div>
 
       {/* Navigation content */}
-      <div className="relative flex-1 overflow-hidden">
-        {/* Main menu */}
-        <nav
-          className={classNames(
-            'page-container absolute inset-0 overflow-y-auto py-4 transition-transform duration-[400ms]',
-            activeMenu ? '-translate-x-full' : 'translate-x-0',
-          )}
-          style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}
-        >
-          <ul className="space-y-1">
-            {entries.map((entry, index) => {
-              if (isNavMenu(entry)) {
-                return (
-                  <li
-                    key={entry.label}
-                    style={{
-                      animationDelay:
-                        open && !activeMenu ? `${index * 50}ms` : '0ms',
-                    }}
-                    className={classNames(
-                      open && !activeMenu && 'animate-fade-in-up',
-                    )}
-                  >
-                    <button
-                      type="button"
-                      onClick={() => setActiveMenu(entry)}
-                      className="flex w-full items-center justify-between gap-4 py-2 text-left text-[1.75rem] font-semibold text-slate-900 transition hover:text-brand-primary"
-                    >
-                      {entry.label}
-                      <svg
-                        className="h-5 w-5 shrink-0 text-slate-400"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M9 6L15 12L9 18"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </button>
-                  </li>
-                )
-              }
+      <nav className="page-container flex-1 overflow-y-auto py-4">
+        <ul className="space-y-1">
+          {entries.map((entry, index) => {
+            if (isNavMenu(entry)) {
+              const isExpanded = expandedMenus.has(entry.label)
+              const menuItems = entry.columns.flatMap((col) => col.items)
 
               return (
                 <li
                   key={entry.label}
                   style={{
-                    animationDelay:
-                      open && !activeMenu ? `${index * 50}ms` : '0ms',
+                    animationDelay: open ? `${index * 50}ms` : '0ms',
                   }}
-                  className={classNames(
-                    open && !activeMenu && 'animate-fade-in-up',
-                  )}
+                  className={classNames(open && 'animate-fade-in-up')}
                 >
-                  <Link
-                    href={entry.href}
-                    onClick={onClose}
-                    className="block py-2 text-[1.75rem] font-semibold text-slate-900 transition hover:text-brand-primary"
+                  <button
+                    type="button"
+                    onClick={() => toggleMenu(entry.label)}
+                    aria-expanded={isExpanded}
+                    className="flex w-full items-center justify-between gap-4 py-2 text-left text-[1.75rem] font-semibold text-slate-900 transition hover:text-brand-primary"
                   >
                     {entry.label}
-                  </Link>
+                    <svg
+                      className={classNames(
+                        'h-5 w-5 shrink-0 text-slate-400 transition-transform duration-300',
+                        isExpanded && 'rotate-180',
+                      )}
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M6 9L12 15L18 9"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <div
+                    className={classNames(
+                      'grid transition-all duration-300 ease-out',
+                      isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
+                    )}
+                  >
+                    <div className="overflow-hidden">
+                      <ul className="space-y-1 pb-2 pl-4 pt-1">
+                        {menuItems.map((item) => (
+                          <li key={item.href}>
+                            <Link
+                              href={item.href}
+                              onClick={onClose}
+                              className="block py-2 transition hover:text-brand-primary"
+                            >
+                              <span className="block text-lg font-medium text-slate-700">
+                                {item.label}
+                              </span>
+                              {item.description && (
+                                <span className="mt-0.5 block text-sm text-slate-500">
+                                  {item.description}
+                                </span>
+                              )}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </li>
               )
-            })}
-            <li
-              style={{
-                animationDelay:
-                  open && !activeMenu ? `${entries.length * 50}ms` : '0ms',
-              }}
-              className={classNames(
-                open && !activeMenu && 'animate-fade-in-up',
-              )}
-            >
-              <Link
-                href="/take-action"
-                onClick={onClose}
-                className="block py-2 text-[1.75rem] font-semibold text-brand-primary transition hover:text-brand-secondary"
-              >
-                Get involved
-              </Link>
-            </li>
-          </ul>
-        </nav>
+            }
 
-        {/* Submenu */}
-        <nav
-          className={classNames(
-            'page-container absolute inset-0 overflow-y-auto py-4 transition-transform duration-[400ms]',
-            activeMenu ? 'translate-x-0' : 'translate-x-full',
-          )}
-          style={{ transitionTimingFunction: 'cubic-bezier(0.32, 0.72, 0, 1)' }}
-        >
-          {activeMenu && (
-            <ul className="space-y-4">
-              {activeMenuItems.map((item) => (
-                <li key={item.href}>
-                  <Link
-                    href={item.href}
-                    onClick={onClose}
-                    className="block py-2 transition hover:text-brand-primary"
-                  >
-                    <span className="block text-[1.75rem] font-semibold text-slate-900">
-                      {item.label}
-                    </span>
-                    {item.description && (
-                      <span className="mt-1 block text-sm text-slate-500">
-                        {item.description}
-                      </span>
-                    )}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </nav>
-      </div>
+            return (
+              <li
+                key={entry.label}
+                style={{
+                  animationDelay: open ? `${index * 50}ms` : '0ms',
+                }}
+                className={classNames(open && 'animate-fade-in-up')}
+              >
+                <Link
+                  href={entry.href}
+                  onClick={onClose}
+                  className="block py-2 text-[1.75rem] font-semibold text-slate-900 transition hover:text-brand-primary"
+                >
+                  {entry.label}
+                </Link>
+              </li>
+            )
+          })}
+          <li
+            style={{
+              animationDelay: open ? `${entries.length * 50}ms` : '0ms',
+            }}
+            className={classNames(open && 'animate-fade-in-up')}
+          >
+            <Link
+              href="/take-action"
+              onClick={onClose}
+              className="block py-2 text-[1.75rem] font-semibold text-brand-primary transition hover:text-brand-secondary"
+            >
+              Get involved
+            </Link>
+          </li>
+        </ul>
+      </nav>
     </div>
   )
 }
