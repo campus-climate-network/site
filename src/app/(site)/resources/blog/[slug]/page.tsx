@@ -8,6 +8,9 @@ import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import { POST_QUERY, POST_SLUGS_QUERY } from '@/sanity/lib/queries'
 import type { PostDetail } from '@/sanity/lib/types'
+import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/json-ld'
+
+const siteUrl = 'https://campusclimatenetwork.org'
 
 export const revalidate = 60
 
@@ -190,8 +193,34 @@ export default async function PostPage(
       getSanityImageDimensions(post.mainImage.asset?._ref, 1200)) ||
     null
 
+  const postUrl = `${siteUrl}/resources/blog/${slug}`
+  const ogImageUrl = post.mainImage
+    ? urlFor(post.mainImage)
+        .width(1200)
+        .height(630)
+        .fit('crop')
+        .auto('format')
+        .url()
+    : undefined
+
   return (
     <div className="page-wrapper">
+      <ArticleJsonLd
+        title={post.title}
+        description={`Read ${post.title} on the Campus Climate Network blog.`}
+        url={postUrl}
+        imageUrl={ogImageUrl}
+        datePublished={post.publishedAt}
+        authorName={post.author?.name}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: siteUrl },
+          { name: 'Resources', url: `${siteUrl}/resources` },
+          { name: 'Blog', url: `${siteUrl}/resources/blog` },
+          { name: post.title, url: postUrl },
+        ]}
+      />
       <div className="mx-auto max-w-3xl px-[var(--spacing-container)] section-hero stack stack-relaxed">
         <Link
           href="/resources/blog"

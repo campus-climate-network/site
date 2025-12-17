@@ -2,9 +2,12 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { BreadcrumbJsonLd } from '@/components/json-ld'
 import { client } from '@/sanity/lib/client'
 import { MOVEMENT_WINS_BY_CAMPAIGN_QUERY } from '@/sanity/lib/queries'
 import { WinsTimeline } from '@/app/(site)/student-wins/wins-timeline'
+
+const siteUrl = 'https://campusclimatenetwork.org'
 
 interface MovementWin {
   _id: string
@@ -125,6 +128,13 @@ export default async function CampaignDetailPage({ params }: PageProps) {
 
   return (
     <div className="page-wrapper">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: siteUrl },
+          { name: 'Network Campaigns', url: `${siteUrl}/network-campaigns` },
+          { name: config.title, url: `${siteUrl}/network-campaigns/${campaign}` },
+        ]}
+      />
       <section className="bg-brand-secondary/10 section-hero">
         <div className="page-container stack stack-tight text-left">
           <Link

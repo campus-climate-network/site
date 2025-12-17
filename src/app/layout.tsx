@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Bungee, Poppins } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/json-ld'
 import './(site)/globals.css'
 
 const poppins = Poppins({
@@ -75,6 +76,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <OrganizationJsonLd />
+        <WebSiteJsonLd />
+      </head>
       <body
         className={`${poppins.variable} ${bungee.variable} antialiased bg-background text-foreground`}
       >

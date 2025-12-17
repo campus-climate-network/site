@@ -4,33 +4,70 @@ import { POST_SLUGS_QUERY } from '@/sanity/lib/queries'
 
 const baseUrl = 'https://campusclimatenetwork.org'
 
+// Campaign slugs for dynamic routes
+const campaignSlugs = [
+  'fossil-free-research',
+  'campus-decarbonization',
+  'green-new-deal',
+  'fossil-free-careers',
+  'fossil-fuel-divestment',
+]
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const staticPages = [
-    '',
+  // High priority pages (main navigation)
+  const highPriorityPages = [
+    '', // Home
+    '/take-action',
+    '/donate',
     '/our-network',
+    '/ffr-campaign',
+  ]
+
+  // Standard priority pages
+  const standardPages = [
     '/our-story',
     '/our-approach',
     '/our-funders',
-    '/ffr-campaign',
-    '/ffr-toolkit',
     '/ffr-archive',
     '/network-campaigns',
+    '/student-wins',
     '/open-letter',
-    '/take-action',
-    '/donate',
-    '/contact-us',
-    '/hiring',
     '/resources',
     '/resources/blog',
-    '/resources/library',
+    '/contact-us',
+    '/hiring',
   ]
 
-  const staticEntries: MetadataRoute.Sitemap = staticPages.map((path) => ({
-    url: `${baseUrl}${path}`,
-    lastModified: new Date(),
-    changeFrequency: path === '' ? 'weekly' : 'monthly',
-    priority: path === '' ? 1 : 0.8,
-  }))
+  const staticEntries: MetadataRoute.Sitemap = [
+    // Home page
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 1,
+    },
+    // High priority pages
+    ...highPriorityPages.slice(1).map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    })),
+    // Standard pages
+    ...standardPages.map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+    // Campaign detail pages
+    ...campaignSlugs.map((slug) => ({
+      url: `${baseUrl}/network-campaigns/${slug}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
+  ]
 
   // Fetch blog post slugs
   let blogEntries: MetadataRoute.Sitemap = []
