@@ -108,13 +108,9 @@ function StackingSection({
 
   return (
     <section className={`${style.section} ${!isFirst ? '-mt-[15vh]' : ''}`}>
-      <StackingCards
-        totalCards={totalCards}
-        style={{ height: `${sectionHeight}vh` }}
-        scaleMultiplier={0.02}
-      >
+      <StackingCards totalCards={totalCards} style={{ height: `${sectionHeight}vh` }}>
         {/* Title card */}
-        <StackingCardItem index={0} className="h-screen" topPosition="5%">
+        <StackingCardItem index={0} className="h-screen">
           <div className="page-container h-full flex items-center px-6 sm:px-8">
             <h2
               className={`text-3xl sm:text-5xl lg:text-7xl font-bold ${style.header} max-w-3xl leading-tight`}
@@ -130,7 +126,6 @@ function StackingSection({
             key={card.title}
             index={index + 1}
             className="h-screen"
-            topPosition={`${8 + index * 2.5}%`}
           >
             <div className="page-container h-full flex items-center px-4 sm:px-8">
               <div

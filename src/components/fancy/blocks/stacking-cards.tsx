@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import {
   createContext,
@@ -6,28 +6,26 @@ import {
   useRef,
   type HTMLAttributes,
   type PropsWithChildren,
-} from "react"
+} from 'react'
 import {
   motion,
   useScroll,
   useTransform,
   type MotionValue,
   type UseScrollOptions,
-} from "motion/react"
+} from 'motion/react'
 
-import { cn } from "@/lib/utils"
+import { cn } from '@/lib/utils'
 
 interface StackingCardsProps
-  extends PropsWithChildren,
-    HTMLAttributes<HTMLDivElement> {
+  extends PropsWithChildren, HTMLAttributes<HTMLDivElement> {
   scrollOptions?: UseScrollOptions
   scaleMultiplier?: number
   totalCards: number
 }
 
 interface StackingCardItemProps
-  extends HTMLAttributes<HTMLDivElement>,
-    PropsWithChildren {
+  extends HTMLAttributes<HTMLDivElement>, PropsWithChildren {
   index: number
   topPosition?: string
 }
@@ -42,7 +40,7 @@ export default function StackingCards({
 }: StackingCardsProps) {
   const targetRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
-    offset: ["start start", "end end"],
+    offset: ['start start', 'end end'],
     ...scrollOptions,
     target: targetRef,
   })
@@ -76,9 +74,9 @@ const StackingCardItem = ({
   const top = topPosition ?? `${5 + index * 3}%`
 
   return (
-    <div className={cn("h-full sticky top-0", className)} {...props}>
+    <div className={cn('h-full sticky top-0', className)} {...props}>
       <motion.div
-        className={"origin-top relative h-full"}
+        className={'origin-top relative h-full'}
         style={{ top, scale }}
       >
         {children}
@@ -96,7 +94,7 @@ const StackingCardsContext = createContext<{
 export const useStackingCardsContext = () => {
   const context = useContext(StackingCardsContext)
   if (!context)
-    throw new Error("StackingCardItem must be used within StackingCards")
+    throw new Error('StackingCardItem must be used within StackingCards')
   return context
 }
 
