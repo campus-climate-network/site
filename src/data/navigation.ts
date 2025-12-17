@@ -103,7 +103,7 @@ export const navEntries: NavEntry[] = [
         title: 'FFR overview',
         items: [
           {
-            label: 'FFR campaign',
+            label: 'Campaign overview',
             href: '/ffr-campaign',
             description:
               'End fossil fuel industry influence over academic research.',
