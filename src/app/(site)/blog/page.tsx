@@ -78,7 +78,7 @@ export default async function Page() {
                 >
                   <Link
                     className="flex h-full flex-col"
-                    href={`/resources/blog/${post.slug}`}
+                    href={`/blog/${post.slug}`}
                   >
                     {/* Hero Image */}
                     <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
@@ -142,3 +142,4 @@ export default async function Page() {
     </div>
   )
 }
+

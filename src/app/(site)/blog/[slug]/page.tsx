@@ -15,7 +15,7 @@ const siteUrl = 'https://campusclimatenetwork.org'
 export const revalidate = 60
 
 export async function generateMetadata(
-  props: PageProps<'/resources/blog/[slug]'>,
+  props: PageProps<'/blog/[slug]'>,
 ): Promise<Metadata> {
   const { slug } = await props.params
   const post = await client.fetch<PostDetail | null>(POST_QUERY, { slug })
@@ -162,9 +162,7 @@ const portableTextComponents: PortableTextComponents = {
   },
 }
 
-export default async function PostPage(
-  props: PageProps<'/resources/blog/[slug]'>,
-) {
+export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
   const { slug } = await props.params
 
   const post = await client.fetch<PostDetail | null>(POST_QUERY, {
@@ -193,7 +191,7 @@ export default async function PostPage(
       getSanityImageDimensions(post.mainImage.asset?._ref, 1200)) ||
     null
 
-  const postUrl = `${siteUrl}/resources/blog/${slug}`
+  const postUrl = `${siteUrl}/blog/${slug}`
   const ogImageUrl = post.mainImage
     ? urlFor(post.mainImage)
         .width(1200)
@@ -216,14 +214,13 @@ export default async function PostPage(
       <BreadcrumbJsonLd
         items={[
           { name: 'Home', url: siteUrl },
-          { name: 'Resources', url: `${siteUrl}/resources` },
-          { name: 'Blog', url: `${siteUrl}/resources/blog` },
+          { name: 'Blog', url: `${siteUrl}/blog` },
           { name: post.title, url: postUrl },
         ]}
       />
       <div className="mx-auto max-w-3xl px-[var(--spacing-container)] section-hero stack stack-relaxed">
         <Link
-          href="/resources/blog"
+          href="/blog"
           className="inline-flex items-center gap-1 text-sm font-medium text-brand-primary transition hover:text-brand-secondary"
         >
           <span aria-hidden="true">←</span> Back to posts
@@ -299,3 +296,4 @@ export default async function PostPage(
     </div>
   )
 }
+

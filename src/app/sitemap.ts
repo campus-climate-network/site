@@ -4,14 +4,14 @@ import { POST_SLUGS_QUERY } from '@/sanity/lib/queries'
 
 const baseUrl = 'https://campusclimatenetwork.org'
 
-// Campaign slugs for dynamic routes
-const campaignSlugs = [
-  'fossil-free-research',
-  'campus-decarbonization',
-  'green-new-deal',
-  'fossil-free-careers',
-  'fossil-fuel-divestment',
-]
+// Campaign slugs for dynamic routes (hidden until Student Wins content is ready)
+// const campaignSlugs = [
+//   'fossil-free-research',
+//   'campus-decarbonization',
+//   'green-new-deal',
+//   'fossil-free-careers',
+//   'fossil-fuel-divestment',
+// ]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // High priority pages (main navigation)
@@ -30,10 +30,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/our-funders',
     '/ffr-archive',
     '/network-campaigns',
-    '/student-wins',
+    // '/student-wins', // Hidden until content is ready
     '/open-letter',
-    '/resources',
-    '/resources/blog',
+    '/blog',
     '/contact-us',
     '/hiring',
   ]
@@ -60,13 +59,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     })),
-    // Campaign detail pages
-    ...campaignSlugs.map((slug) => ({
-      url: `${baseUrl}/network-campaigns/${slug}`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    })),
+    // Campaign detail pages (hidden until Student Wins content is ready)
+    // ...campaignSlugs.map((slug) => ({
+    //   url: `${baseUrl}/network-campaigns/${slug}`,
+    //   lastModified: new Date(),
+    //   changeFrequency: 'monthly' as const,
+    //   priority: 0.7,
+    // })),
   ]
 
   // Fetch blog post slugs
@@ -74,7 +73,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const posts = await client.fetch<{ slug: string }[]>(POST_SLUGS_QUERY)
     blogEntries = posts.map(({ slug }) => ({
-      url: `${baseUrl}/resources/blog/${slug}`,
+      url: `${baseUrl}/blog/${slug}`,
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.6,

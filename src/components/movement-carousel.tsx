@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 type Highlight = {
   title: string
-  description: string
+  description?: string
   image: string
   alt: string
 }
@@ -43,18 +43,7 @@ export function MovementCarousel({ highlights }: MovementCarouselProps) {
           className="h-full w-full object-cover"
           priority={current === 0}
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/40 to-transparent sm:from-slate-900/90 sm:via-slate-900/50 sm:to-slate-900/10" />
-        <div className="absolute inset-x-4 bottom-14 stack stack-snug text-white sm:inset-x-6 sm:bottom-6 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
-          <p className="text-[10px] uppercase tracking-[0.35em] text-white/90 sm:text-xs">
-            Student wins
-          </p>
-          <h3 className="text-base font-semibold leading-tight sm:text-xl md:text-2xl drop-shadow-md">
-            {activeHighlight.title}
-          </h3>
-          <p className="text-xs text-white/95 line-clamp-2 sm:line-clamp-none sm:text-sm md:max-w-2xl">
-            {activeHighlight.description}
-          </p>
-        </div>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent sm:from-slate-900/50" />
         <div className="absolute bottom-3 left-0 right-0 flex items-center justify-between px-3 sm:top-1/2 sm:bottom-auto sm:-translate-y-1/2 sm:px-3">
           <button
             type="button"
@@ -101,14 +90,9 @@ export function MovementCarousel({ highlights }: MovementCarouselProps) {
         </div>
       </div>
       <div className="flex items-center justify-between gap-4 px-6 py-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.35em] text-brand-secondary/80">
-            Highlights
-          </p>
-          <p className="text-sm text-slate-600">
-            {current + 1} of {count}
-          </p>
-        </div>
+        <h3 className="text-sm font-semibold text-slate-900 sm:text-base">
+          {activeHighlight.title}
+        </h3>
         <div className="flex items-center gap-2">
           {highlights.map((highlight, index) => (
             <button

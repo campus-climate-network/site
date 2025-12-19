@@ -95,7 +95,7 @@ export default function OurStoryPage() {
                 </p>
               </div>
               <Link
-                href="/resources/blog"
+                href="/blog"
                 className="inline-flex items-center rounded-full bg-brand-accent px-6 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-brand-accent/90 w-fit"
               >
                 Visit our blog

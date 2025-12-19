@@ -17,7 +17,7 @@ export const MEMBER_ORGS_QUERY = `
 }
 `
 
-// Minimal GROQ used by /resources/blog page
+// Minimal GROQ used by /blog page
 export const POSTS_QUERY = `
 *[_type == "post" && publishedAt < now()] | order(publishedAt desc){
   _id,

@@ -21,7 +21,7 @@ const footerColumns: FooterColumn[] = [
     title: 'Get involved',
     links: [
       { label: 'Take action', href: '/take-action' },
-      { label: 'Blog', href: '/resources/blog' },
+      { label: 'Blog', href: '/blog' },
       { label: 'Donate', href: '/donate' },
     ],
   },
@@ -60,7 +60,7 @@ export function SiteFooter() {
           <p className="text-xs text-slate-400">
             This website is{' '}
             <a
-              href="https://github.com/dwahbe/campus-climate-network"
+              href="https://github.com/campus-climate-network/campus-climate-network"
               target="_blank"
               rel="noopener noreferrer"
               className="underline transition hover:text-slate-300"

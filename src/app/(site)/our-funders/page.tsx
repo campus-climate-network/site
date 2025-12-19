@@ -52,9 +52,30 @@ export default function OurFundersPage() {
         <ScrollReveal variant="fade-up">
           <div className="stack stack-dense text-left">
             <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+              We believe in transparency
+            </h2>
+            <p className="text-base text-slate-600 max-w-3xl">
+              Funding matters. At Campus Climate Network, we believe that funding
+              transparency is an essential mechanism of accountability. The vast
+              majority of funding for CCN comes from philanthropic foundations
+              (listed below) with nominal support from small individual
+              contributions. We will never accept funding from fossil fuel
+              companies, fossil fuel industry subsidiaries, or individuals with
+              close ties to the fossil fuel industry. When a donor wishes to keep
+              their identity anonymous, they are vetted by the CCN team to ensure
+              that the donor&apos;s values are aligned with those of CCN.
+            </p>
+          </div>
+        </ScrollReveal>
+      </section>
+
+      <section className="page-container stack stack-relaxed">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-dense text-left">
+            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
               Featured institutional supporters
             </h2>
-            <p className="text-base text-slate-600">
+            <p className="text-base text-slate-600 max-w-3xl">
               A snapshot of the partners who have resourced our work to date.
               We&apos;re building a diversified funding base to sustain the
               long-haul fight for climate justice.
