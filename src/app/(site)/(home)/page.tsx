@@ -310,24 +310,24 @@ export default async function Home() {
             variant="blossom"
             className="grid gap-8 lg:grid-cols-2"
           >
-            <div className="rounded-3xl bg-brand-primary/10 p-8 text-brand-primary">
+            <div className="flex h-full flex-col justify-between rounded-3xl bg-brand-primary/10 p-8 text-brand-primary">
               <p className="text-lg text-brand-primary/90">
                 Are you a university student, faculty, alumni, or community
                 member?
               </p>
               <Link
-                className="mt-6 inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+                className="mt-6 inline-flex w-fit items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
                 href="/take-action"
               >
                 Join us
               </Link>
             </div>
-            <div className="rounded-3xl bg-brand-secondary/10 p-8 text-brand-secondary">
+            <div className="flex h-full flex-col justify-between rounded-3xl bg-brand-secondary/10 p-8 text-brand-secondary">
               <p className="text-lg text-brand-secondary/90">
                 Do you want to support the movement?
               </p>
               <Link
-                className="mt-6 inline-flex items-center rounded-full bg-brand-secondary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-primary"
+                className="mt-6 inline-flex w-fit items-center rounded-full bg-brand-secondary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-primary"
                 href="/donate"
               >
                 Donate

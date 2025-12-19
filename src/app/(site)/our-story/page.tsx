@@ -114,7 +114,7 @@ export default function OurStoryPage() {
             </h2>
             <p className="text-base text-slate-600">
               Whether you&apos;re a student, academic, or supporter,
-              there&apos;s a place for you in the Campus Climate Network.
+              there&apos;s a place for you in Campus Climate Network.
             </p>
             <div className="flex flex-wrap gap-3 text-sm font-semibold">
               <Link
