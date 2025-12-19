@@ -89,27 +89,22 @@ export function MovementCarousel({ highlights }: MovementCarouselProps) {
           </button>
         </div>
       </div>
-      <div className="flex items-center justify-between gap-4 px-6 py-4">
-        <h3 className="text-sm font-semibold text-slate-900 sm:text-base">
-          {activeHighlight.title}
-        </h3>
-        <div className="flex items-center gap-2">
-          {highlights.map((highlight, index) => (
-            <button
-              key={highlight.image}
-              type="button"
-              onClick={() => goTo(index)}
-              className={classNames(
-                'h-2.5 w-2.5 rounded-full transition',
-                current === index
-                  ? 'bg-brand-primary'
-                  : 'bg-slate-200 hover:bg-slate-300',
-              )}
-              aria-label={`View highlight ${index + 1}: ${highlight.title}`}
-              aria-current={current === index}
-            />
-          ))}
-        </div>
+      <div className="flex items-center justify-center gap-2 px-6 py-4">
+        {highlights.map((highlight, index) => (
+          <button
+            key={highlight.image}
+            type="button"
+            onClick={() => goTo(index)}
+            className={classNames(
+              'h-2.5 w-2.5 rounded-full transition',
+              current === index
+                ? 'bg-brand-primary'
+                : 'bg-slate-200 hover:bg-slate-300',
+            )}
+            aria-label={`View highlight ${index + 1}`}
+            aria-current={current === index}
+          />
+        ))}
       </div>
     </div>
   )
