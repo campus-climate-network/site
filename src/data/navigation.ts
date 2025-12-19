@@ -40,11 +40,12 @@ export const navEntries: NavEntry[] = [
             description:
               'Where the network began and where we are heading next.',
           },
-          {
-            label: 'Our funders',
-            href: '/our-funders',
-            description: 'Partners investing in climate justice organizing.',
-          },
+          // Hidden until content is ready
+          // {
+          //   label: 'Our funders',
+          //   href: '/our-funders',
+          //   description: 'Partners investing in climate justice organizing.',
+          // },
         ],
       },
       {
