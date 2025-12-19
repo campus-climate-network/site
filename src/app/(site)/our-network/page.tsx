@@ -178,19 +178,6 @@ export default async function OurNetworkPage() {
               </div>
             ))}
           </div>
-          <ScrollReveal variant="fade">
-            <p className="text-sm text-slate-600">
-              Want to appear here? Membership applications open on a rolling
-              basis. Email{' '}
-              <a
-                className="text-brand-primary underline"
-                href="mailto:info@campusclimatenetwork.org"
-              >
-                info@campusclimatenetwork.org
-              </a>{' '}
-              to learn more.
-            </p>
-          </ScrollReveal>
         </div>
       </section>
 
