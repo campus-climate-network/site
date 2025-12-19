@@ -42,11 +42,10 @@ export default async function Page() {
               Latest stories
             </p>
             <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-              Campus Climate Network Journal.
+              The latest from CCN.
             </h1>
             <p className="text-base text-brand-primary/80">
-              Dispatches from organizers, campaign wins, and movement insights
-              powering fossil-free futures on campus.
+              Dispatches from organizers and movement leaders.
             </p>
           </div>
         </div>
