@@ -156,8 +156,8 @@ const notableSignatories = [
 
 const signReasons = [
   {
-    title: 'Protect academic integrity',
-    body: 'Back firewall policies that shield labs and departments from oil and gas interference so findings reflect science, not corporate PR.',
+    title: 'Expose conflicts of interest',
+    body: 'Uncover hidden contracts and gifts so polluters can no longer hijack academic credibility or steer research.',
     icon: (
       <svg
         className="h-6 w-6"
@@ -168,14 +168,14 @@ const signReasons = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M12 3 21 7v6c0 5-4 9-9 10-5-1-9-5-9-10V7Z" />
-        <path d="m9 12 2 2 4-4" />
+        <path d="M2 12s4-6 10-6 10 6 10 6-4 6-10 6-10-6-10-6Z" />
+        <circle cx="12" cy="12" r="2.5" />
       </svg>
     ),
   },
   {
-    title: 'Stand with frontline communities',
-    body: 'Align universities with people experiencing the violent impacts of extraction and show that campus voices will not stay silent.',
+    title: 'Protect academic integrity',
+    body: 'Build ironclad firewall policies so departments cannot be used as PR arms for the very corporations fueling the crisis.',
     icon: (
       <svg
         className="h-6 w-6"
@@ -186,10 +186,27 @@ const signReasons = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M6.6 11a2 2 0 1 0-2.6 3" />
-        <path d="M17.4 11a2 2 0 1 1 2.6 3" />
-        <path d="M8 21v-5l4-4 4 4v5" />
-        <path d="M12 3v5" />
+        <path d="M12 3 20 6v5c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6Z" />
+        <path d="M9 11.5 11 14l4-4.5" />
+      </svg>
+    ),
+  },
+  {
+    title: 'Win enforceable policies',
+    body: 'Organize trustees, faculty, and students to pass binding fossil-free funding rules that outlast any single administrator.',
+    icon: (
+      <svg
+        className="h-6 w-6"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+        <path d="M14 2v6h6" />
+        <path d="m9 15 2 2 4-4" />
       </svg>
     ),
   },
@@ -273,7 +290,7 @@ export default function OpenLetterPage() {
           <StaggerReveal
             staggerDelay={100}
             variant="blossom"
-            className="grid gap-6 text-slate-600 md:grid-cols-2"
+            className="grid gap-6 text-slate-600 sm:grid-cols-2 xl:grid-cols-3"
             childClassName="list-none"
           >
             {signReasons.map((reason) => (

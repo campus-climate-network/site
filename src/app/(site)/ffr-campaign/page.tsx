@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 const talkingPoints = [
   {
     title: 'Expose conflicts of interest',
-    body: 'Audit every contract and gift so fossil fuel front groups can no longer hide behind academic logos or dictate research agendas.',
+    body: 'Uncover hidden contracts and gifts so polluters can no longer hijack academic credibility or steer research.',
     icon: (
       <svg
         className="h-6 w-6"
@@ -42,28 +42,6 @@ const talkingPoints = [
       >
         <path d="M12 3 20 6v5c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6Z" />
         <path d="M9 11.5 11 14l4-4.5" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Invest in climate justice',
-    body: 'Redirect endowment-scale resources toward community-led solutions, transition research, and frontline partnerships.',
-    icon: (
-      <svg
-        className="h-6 w-6"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        {/* Seedling growing - represents investment in green future */}
-        <path d="M12 22V12" />
-        <path d="M12 12c0-3 2.5-5 6-5-1 4-3 5-6 5Z" />
-        <path d="M12 15c0-2.5-2-4-5-4 .8 3.2 2.5 4 5 4Z" />
-        {/* Hands cupping/supporting */}
-        <path d="M7 22c0-2.5 2.2-4.5 5-4.5s5 2 5 4.5" />
       </svg>
     ),
   },
@@ -148,7 +126,7 @@ export default function FFRCampaignPage() {
         <StaggerReveal
           staggerDelay={80}
           variant="blossom"
-          className="grid gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-4"
+          className="grid gap-4 sm:gap-6 sm:grid-cols-2 xl:grid-cols-3"
         >
           {talkingPoints.map((point) => (
             <div
