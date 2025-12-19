@@ -798,7 +798,7 @@ function MobileNav({
     <div
       aria-hidden={!open}
       className={classNames(
-        'fixed inset-0 z-[70] flex flex-col bg-white transition-opacity duration-300 ease-out lg:hidden',
+        'fixed inset-0 z-[70] flex flex-col bg-white transition-opacity duration-400 ease-out lg:hidden',
         open
           ? 'pointer-events-auto opacity-100'
           : 'pointer-events-none opacity-0',
@@ -853,7 +853,7 @@ function MobileNav({
                 <li
                   key={entry.label}
                   style={{
-                    animationDelay: open ? `${index * 50}ms` : '0ms',
+                    animationDelay: open ? `${index * 60}ms` : '0ms',
                   }}
                   className={classNames(open && 'animate-fade-in-up')}
                 >
@@ -920,7 +920,7 @@ function MobileNav({
               <li
                 key={entry.label}
                 style={{
-                  animationDelay: open ? `${index * 50}ms` : '0ms',
+                  animationDelay: open ? `${index * 60}ms` : '0ms',
                 }}
                 className={classNames(open && 'animate-fade-in-up')}
               >
@@ -936,7 +936,7 @@ function MobileNav({
           })}
           <li
             style={{
-              animationDelay: open ? `${entries.length * 50}ms` : '0ms',
+              animationDelay: open ? `${entries.length * 60}ms` : '0ms',
             }}
             className={classNames(open && 'animate-fade-in-up')}
           >
