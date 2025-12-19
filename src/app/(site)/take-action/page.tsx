@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function TakeActionPage() {
   return (
-    <div className="page-wrapper !pb-0">
+    <div className="page-wrapper !pb-0 !gap-0">
       <section className="bg-brand-cream/60 section-hero">
         <div className="page-container stack stack-tight text-left">
           <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
