@@ -116,11 +116,11 @@ export default async function Home() {
               Campus Climate Network
             </p>
             <h1 className="text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-              The largest network of student climate activists in the world.
+              We're building a winning student climate movement.
             </h1>
             <p className="text-base sm:text-lg text-brand-cream/90">
-              We provide students with the skills, resources, and connections
-              they need to run winning campaigns on campus.
+              We provide students with the skills, resources, and connections to
+              run winning campaigns on campus.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link

@@ -13,36 +13,28 @@ const reports = [
   {
     title: 'Accountable Allies',
     subtitle: 'The Undue Influence of Fossil Fuel Money in Academia',
-    image: '/reports/Aug 13 Screen Shot from Notion (2).png',
+    image: '/reports/Aug 13 Screenshot from Notion.png',
     organization: 'Campus Climate Network',
     year: '2024',
-    link: '#',
+    link: 'https://drive.google.com/file/d/1GTG8_JpqbxMaxLsPASZ4IBjl1ZBgiqeQ/view?usp=drive_link',
   },
   {
     title: 'Bound to Big Oil',
     subtitle:
       'The University of Toronto and Its Ties to the Fossil Fuel Industry',
-    image: '/reports/Aug 13 Screen Shot from Notion.png',
+    image: '/reports/Aug 13 Screen Shot from Notion (2).png',
     organization: 'University of Toronto Divestment Campaign',
     year: '2023',
-    link: '#',
+    link: 'https://drive.google.com/file/d/1qh-RbNEtsR2705PErIK7OoRsc7YjbYu0/view?usp=drive_link',
   },
   {
     title: 'A Year Just Like Any Other',
     subtitle:
       'Another £1.6 Million to Oxford University from the Fossil Industry in 2020-21',
-    image: '/reports/Aug 13 Screenshot from Notion.png',
-    organization: 'Oxford Climate Justice Campaign',
-    year: '2022',
-    link: '#',
-  },
-  {
-    title: 'Money, People, Reputation',
-    subtitle: "Oxford's Ties with the Fossil Fuel Industry",
     image: '/reports/Aug 13 Screen Shot from Notion (1).png',
     organization: 'Oxford Climate Justice Campaign',
-    year: '2021',
-    link: '#',
+    year: '2022',
+    link: 'https://drive.google.com/file/d/1x1W9Z5hF2vKDMKLP212fRDj1ROQw4SDi/view?usp=drive_link',
   },
 ]
 

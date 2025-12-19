@@ -37,8 +37,8 @@ export function SiteFooter() {
               Campus Climate Network
             </p>
             <p className="mt-3 max-w-xs text-sm text-slate-300">
-              We provide students with the skills, resources, and connections
-              they need to run winning campaigns on campus.
+              We provide students with the skills, resources, and connections to
+              run winning campaigns on campus.
             </p>
           </div>
 

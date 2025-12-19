@@ -132,7 +132,10 @@ export default async function CampaignDetailPage({ params }: PageProps) {
         items={[
           { name: 'Home', url: siteUrl },
           { name: 'Network Campaigns', url: `${siteUrl}/network-campaigns` },
-          { name: config.title, url: `${siteUrl}/network-campaigns/${campaign}` },
+          {
+            name: config.title,
+            url: `${siteUrl}/network-campaigns/${campaign}`,
+          },
         ]}
       />
       <section className="bg-brand-secondary/10 section-hero">

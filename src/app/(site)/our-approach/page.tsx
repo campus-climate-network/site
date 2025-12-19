@@ -22,12 +22,6 @@ export default function OurApproachPage() {
               We&apos;re organizing the next generation of climate justice
               leaders.
             </h1>
-            <p className="text-base text-slate-700">
-              Campus Climate Network empowers students to challenge fossil fuel
-              influence and win concrete commitments from their universities. We
-              train organizers, share resources, and build cross-campus
-              solidarity so climate justice wins everywhere.
-            </p>
           </div>
           <div className="flex-1 overflow-hidden rounded-3xl shadow-xl ring-1 ring-brand-primary/10">
             <Image
