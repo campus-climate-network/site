@@ -5,15 +5,11 @@ Thanks for checking out the source code for the Campus Climate Network website.
 We open source the code to support transparency, collaboration, and community contribution.  
 That said, **the source code and the site’s content are licensed separately**.
 
----
-
 ## About Campus Climate Network
 
 Campus Climate Network is a student-led organization working to build power for climate justice on campuses across the United States.
 
 Campus Climate Network is **fiscally sponsored by [The Hack Foundation](https://the.hackfoundation.org/)**, a 501(c)(3) nonprofit organization.
-
----
 
 ## License Overview
 
@@ -47,8 +43,6 @@ For the full terms, see [`LICENSE`](./LICENSE).
 
 Third-party dependencies and services used by this project are licensed separately under their own terms.
 
----
-
 ### ❌ Site Content, Branding & Assets — All Rights Reserved
 
 All **site content, branding, and assets** are © **Campus Climate Network**.  
@@ -66,8 +60,6 @@ These materials **are not covered by the MIT License** and may **not** be reused
 
 If you fork this repository to build your own site, you may use the code under MIT, but you must remove/replace Campus Climate Network branding and any protected content/assets, and you must not imply endorsement or affiliation.
 
----
-
 ## Contributions
 
 Contributions to the **codebase** are welcome.
@@ -79,12 +71,6 @@ A couple notes:
 - Contributions should not include unauthorized use of Campus Climate Network branding or assets.
 - Content changes may be reviewed more strictly than code changes.
 
----
-
-## Design & Development
-
-**Designed and developed by** [Dylan Wahbe](https://dylanwahbe.com).
-
 ## Questions
 
 For questions about licensing, permissions, or reuse, please reach out to Campus Climate Network at info@campusclimatenetwork.org
@@ -92,3 +78,7 @@ For questions about licensing, permissions, or reuse, please reach out to Campus
 ## Architecture
 
 **Tech Stack:** Next.js 15 + React 19 + TypeScript + Tailwind CSS
+
+## Design & Development
+
+**Designed and developed by** [Dylan Wahbe](https://dylanwahbe.com).
