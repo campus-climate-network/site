@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
+import { FAQPageJsonLd } from '@/components/json-ld'
 
 export const metadata: Metadata = {
   title: 'Network Campaigns',
@@ -41,9 +42,33 @@ const campaigns = [
   },
 ]
 
+const campaignFaqs = [
+  {
+    question: 'What is fossil fuel divestment?',
+    answer:
+      'Fossil fuel divestment is the removal of investment assets like stocks and bonds from companies that extract, process, or sell fossil fuels. Students campaign for their university endowments to divest from oil, gas, and coal companies to align institutional values with climate action and remove social license from polluters.',
+  },
+  {
+    question: 'What is campus decarbonization?',
+    answer:
+      'Campus decarbonization means transitioning university operations away from fossil fuels for heating, cooling, and electricity. We fight against greenwashing carbon neutrality plans that rely on offsets rather than genuine emissions reductions, and push for transparent, science-based decarbonization timelines.',
+  },
+  {
+    question: 'What are fossil free careers campaigns?',
+    answer:
+      'Fossil free careers campaigns work to end fossil fuel industry recruitment on college campuses. Oil and gas companies recruit heavily at universities, especially in engineering and business programs. These campaigns push for career fairs and recruiting events that prioritize employers building a just, green economy.',
+  },
+  {
+    question: 'How do campus climate campaigns connect to each other?',
+    answer:
+      'Campus Climate Network coordinates campaigns across universities so that local wins build national momentum. We share playbooks, messaging, and tactics. When one campus wins a policy, we help others replicate that success. Coordinated actions amplify media attention and pressure on the fossil fuel industry.',
+  },
+]
+
 export default function NetworkCampaignsPage() {
   return (
     <div className="page-wrapper">
+      <FAQPageJsonLd faqs={campaignFaqs} />
       <section className="bg-brand-primary/10 section-hero">
         <div className="page-container stack stack-tight text-left">
           <p className="eyebrow text-xs sm:text-sm text-brand-secondary">

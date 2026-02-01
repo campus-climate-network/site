@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
+import { FAQPageJsonLd } from '@/components/json-ld'
 
 export const metadata: Metadata = {
   title: 'Fossil Free Research Campaign',
@@ -68,9 +69,38 @@ const talkingPoints = [
   },
 ]
 
+const ffrFaqs = [
+  {
+    question: 'What is Fossil Free Research?',
+    answer:
+      'Fossil Free Research is a campaign to end fossil fuel company funding of university research. Oil and gas companies like Shell, ExxonMobil, and BP have funded academic research for decades to gain credibility, influence climate policy, and greenwash their image. We organize students and faculty to expose these conflicts of interest and win binding policies that protect academic integrity.',
+  },
+  {
+    question: 'Why does fossil fuel funding of research matter?',
+    answer:
+      'Fossil fuel companies use university research partnerships to gain legitimacy, shape public narratives about climate change, and influence energy policy. Industry-funded studies often downplay climate risks or promote false solutions. By cutting these financial ties, universities can produce independent research that serves the public interest, not corporate profits.',
+  },
+  {
+    question: 'How much money do fossil fuel companies give to universities?',
+    answer:
+      'A 2023 report by Fossil Free Research and Data For Progress uncovered nearly $700 million in fossil fuel funding across 27 US universities from 2010-2020. Due to lack of transparency, this figure is likely a fraction of the true total. Many universities do not disclose their industry funding relationships.',
+  },
+  {
+    question: 'What universities have adopted Fossil Free Research policies?',
+    answer:
+      'VU Amsterdam adopted the most comprehensive Fossil Free Research policy to date, committing to reject funding from any fossil fuel company not demonstrably committed to Paris Agreement goals. Cambridge University renamed its BP Institute following student pressure. Harvard professor Jody Freeman resigned from the ConocoPhillips board after students exposed conflicts of interest.',
+  },
+  {
+    question: 'How can I start a Fossil Free Research campaign at my school?',
+    answer:
+      'Join Campus Climate Network by filling out our intake form. We provide research guides to investigate fossil fuel ties at your university, campaign toolkits, organizer training, and connections to students running similar campaigns. Our team will help you develop strategy and build your campaign.',
+  },
+]
+
 export default function FFRCampaignPage() {
   return (
     <div className="page-wrapper">
+      <FAQPageJsonLd faqs={ffrFaqs} />
       <section className="bg-brand-tertiary/10 section-hero">
         <div className="page-container stack stack-tight text-left">
           <p className="eyebrow text-xs sm:text-sm text-brand-secondary">

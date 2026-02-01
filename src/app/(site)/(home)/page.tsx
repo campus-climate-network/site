@@ -5,6 +5,7 @@ import { HeroCarousel } from '@/components/hero-carousel'
 import { MovementCarousel } from '@/components/movement-carousel'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 import { MemberMapWrapper } from '@/components/member-map-wrapper'
+import { FAQPageJsonLd } from '@/components/json-ld'
 import { client } from '@/sanity/lib/client'
 import { MEMBER_ORGS_QUERY } from '@/sanity/lib/queries'
 import type { MemberOrg } from '@/components/member-map'
@@ -105,10 +106,34 @@ async function getMembers(): Promise<MemberOrg[]> {
   return client.fetch(MEMBER_ORGS_QUERY)
 }
 
+const homeFaqs = [
+  {
+    question: 'What is Campus Climate Network?',
+    answer:
+      'Campus Climate Network is a coalition of 50+ student organizations fighting for climate justice on college campuses. We organize students to win fossil-free research policies, divestment commitments, and climate accountability at universities worldwide.',
+  },
+  {
+    question: 'What does Campus Climate Network do?',
+    answer:
+      'We provide students with training, resources, and connections to run winning climate campaigns on campus. We share strategies, coordinate national actions, and build movement infrastructure so no campus fights Big Oil alone.',
+  },
+  {
+    question: 'How can I join Campus Climate Network?',
+    answer:
+      'Fill out our intake form on the Take Action page and our organizing team will reach out with next steps. Whether you are launching a new campaign or scaling an existing effort, we provide organizer support, trainings, toolkits, and funding opportunities.',
+  },
+  {
+    question: 'What is Fossil Free Research?',
+    answer:
+      'Fossil Free Research is our flagship campaign to cut fossil fuel money out of university research. For decades, oil and gas companies have funded academic research to gain legitimacy and influence climate policy. We work to expose these conflicts of interest and win binding policies that protect academic integrity.',
+  },
+]
+
 export default async function Home() {
   const members = await getMembers()
   return (
     <div className="page-wrapper">
+      <FAQPageJsonLd faqs={homeFaqs} />
       <section className="relative isolate overflow-hidden bg-linear-to-br from-brand-secondary via-brand-tertiary to-brand-primary text-white">
         <div className="page-container section-hero grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div className="stack stack-tight">

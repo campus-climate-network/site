@@ -21,9 +21,9 @@ export function OrganizationJsonLd({ url = siteUrl }: OrganizationJsonLdProps) {
       'Campus Climate Network organizes students to win fossil-free research and climate justice on campus.',
     foundingDate: '2022',
     sameAs: [
-      // Add social media URLs when available
-      // 'https://twitter.com/...',
-      // 'https://instagram.com/...',
+      'https://x.com/cclimatenetwork',
+      'https://www.instagram.com/campusclimatenetwork/',
+      'https://www.linkedin.com/company/campus-climate-network/',
     ],
     contactPoint: {
       '@type': 'ContactPoint',
@@ -173,6 +173,37 @@ export function WebPageJsonLd({ title, description, url }: WebPageJsonLdProps) {
     about: {
       '@id': `${siteUrl}/#organization`,
     },
+  }
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  )
+}
+
+type FAQItem = {
+  question: string
+  answer: string
+}
+
+type FAQPageJsonLdProps = {
+  faqs: FAQItem[]
+}
+
+export function FAQPageJsonLd({ faqs }: FAQPageJsonLdProps) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
   }
 
   return (
