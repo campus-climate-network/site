@@ -49,7 +49,7 @@ export default function ContactUsPage() {
           variant="blossom"
           className="grid gap-6 md:grid-cols-2"
         >
-          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6">
+          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 h-full">
             <h3 className="text-lg font-semibold text-brand-primary">
               Join the network
             </h3>
@@ -65,7 +65,7 @@ export default function ContactUsPage() {
               page.
             </p>
           </div>
-          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6">
+          <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-6 h-full">
             <h3 className="text-lg font-semibold text-brand-primary">
               Donations
             </h3>
