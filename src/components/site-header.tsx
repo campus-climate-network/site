@@ -729,6 +729,7 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
           <Link
             key={entry.label}
             href={entry.href}
+            onMouseEnter={closeMenu}
             className="px-3 py-2 text-[0.95rem] font-medium text-slate-700 transition-colors hover:text-brand-primary"
           >
             {entry.label}
