@@ -85,6 +85,16 @@ export const navEntries: NavEntry[] = [
           },
         ],
       },
+      {
+        title: 'Funding',
+        items: [
+          {
+            label: 'CCN Piggy Bank',
+            href: '/piggy-bank',
+            description: 'Small grants for campus climate organizers.',
+          },
+        ],
+      },
       // Hidden until content is ready
       // {
       //   title: 'Movement',
