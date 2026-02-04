@@ -439,7 +439,7 @@ function DesktopMegaPanel({
       role="menu"
       aria-hidden={!isOpen}
       className={classNames(
-        'absolute top-full z-[60] mt-3 w-full transition-all duration-150 ease-out',
+        'absolute top-full z-60 mt-3 w-full transition-all duration-150 ease-out',
         isOpen
           ? 'pointer-events-auto translate-y-0 opacity-100'
           : 'pointer-events-none translate-y-2 opacity-0',
@@ -799,7 +799,7 @@ function MobileNav({
     <div
       aria-hidden={!open}
       className={classNames(
-        'fixed inset-0 z-[70] flex flex-col bg-white transition-opacity duration-400 ease-out lg:hidden',
+        'fixed inset-0 z-70 flex flex-col bg-white transition-opacity duration-400 ease-out lg:hidden',
         open
           ? 'pointer-events-auto opacity-100'
           : 'pointer-events-none opacity-0',
@@ -1000,7 +1000,7 @@ export function SiteHeader() {
         className={classNames(
           'sticky top-0 z-50 border-b border-slate-200/40 py-3 lg:py-5 transition-all duration-200',
           scrolled
-            ? 'bg-white/80 shadow-[0_12px_40px_-24px_rgba(15,23,42,0.35)] backdrop-blur supports-[backdrop-filter]:bg-white/70'
+            ? 'bg-white/80 shadow-[0_12px_40px_-24px_rgba(15,23,42,0.35)] backdrop-blur supports-backdrop-filter:bg-white/70'
             : 'bg-white/95 backdrop-blur',
         )}
       >

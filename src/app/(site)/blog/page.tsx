@@ -80,7 +80,7 @@ export default async function Page() {
                     href={`/blog/${post.slug}`}
                   >
                     {/* Hero Image */}
-                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-slate-100">
+                    <div className="relative aspect-16/10 w-full overflow-hidden bg-slate-100">
                       {imageUrl ? (
                         <Image
                           src={imageUrl}
@@ -90,7 +90,7 @@ export default async function Page() {
                           sizes="(max-width: 640px) 100vw, 50vw"
                         />
                       ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-brand-primary/10 to-brand-secondary/10">
+                        <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-brand-primary/10 to-brand-secondary/10">
                           <span className="text-4xl text-brand-primary/30">
                             📰
                           </span>

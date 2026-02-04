@@ -222,7 +222,7 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
           { name: post.title, url: postUrl },
         ]}
       />
-      <div className="mx-auto max-w-3xl px-[var(--spacing-container)] section-hero stack stack-relaxed">
+      <div className="mx-auto max-w-3xl px-(--spacing-container) section-hero stack stack-relaxed">
         <Link
           href="/blog"
           className="inline-flex items-center gap-1 text-sm font-medium text-brand-primary transition hover:text-brand-secondary"
@@ -269,11 +269,12 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
                     </p>
                   )}
                 </div>
-                {post.author?.bio && (
-                  <div className="text-sm text-slate-600">
-                    <PortableText value={post.author.bio as never} />
-                  </div>
-                )}
+                {Array.isArray(post.author?.bio) &&
+                  post.author.bio.length > 0 && (
+                    <div className="text-sm text-slate-600">
+                      <PortableText value={post.author.bio as never} />
+                    </div>
+                  )}
               </div>
             </div>
           </header>
