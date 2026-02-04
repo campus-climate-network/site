@@ -112,6 +112,11 @@ export default async function Page() {
                         <h2 className="text-xl font-semibold leading-snug text-slate-900 transition-colors group-hover:text-brand-primary sm:text-2xl">
                           {post.title}
                         </h2>
+                        {post.excerpt && (
+                          <p className="line-clamp-2 text-sm text-slate-600">
+                            {post.excerpt}
+                          </p>
+                        )}
                       </div>
                       {publishedOn && (
                         <p className="mt-4 text-xs font-medium tracking-[0.15em] text-brand-secondary">

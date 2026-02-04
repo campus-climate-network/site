@@ -23,6 +23,7 @@ export const POSTS_QUERY = `
   _id,
   title,
   "slug": slug.current,
+  excerpt,
   publishedAt,
   mainImage,
   "categories": categories[]->{
@@ -34,23 +35,34 @@ export const POSTS_QUERY = `
 `
 
 export const POST_SLUGS_QUERY = `
-*[_type == "post" && defined(slug.current)]{
+*[_type == "post" && defined(slug.current) && publishedAt < now()]{
   "slug": slug.current
 }
 `
 
+// Post slugs with dates for sitemap
+export const POST_SLUGS_WITH_DATES_QUERY = `
+*[_type == "post" && defined(slug.current) && publishedAt < now()]{
+  "slug": slug.current,
+  publishedAt,
+  _updatedAt
+}
+`
+
 export const POST_QUERY = `
-*[_type == "post" && slug.current == $slug][0]{
+*[_type == "post" && slug.current == $slug && publishedAt < now()][0]{
   _id,
   title,
   "slug": slug.current,
+  excerpt,
   publishedAt,
   body,
   mainImage,
   "author": author->{
     _id,
     name,
-    image
+    image,
+    bio
   },
   "categories": categories[]->{
     _id,

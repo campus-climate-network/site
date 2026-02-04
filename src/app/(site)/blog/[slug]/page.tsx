@@ -33,7 +33,8 @@ export async function generateMetadata(
         .url()
     : undefined
 
-  const description = `Read ${post.title} on the Campus Climate Network blog.`
+  const description =
+    post.excerpt || `Read ${post.title} on the Campus Climate Network blog.`
 
   return {
     title: post.title,
@@ -205,7 +206,10 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
     <div className="page-wrapper">
       <ArticleJsonLd
         title={post.title}
-        description={`Read ${post.title} on the Campus Climate Network blog.`}
+        description={
+          post.excerpt ||
+          `Read ${post.title} on the Campus Climate Network blog.`
+        }
         url={postUrl}
         imageUrl={ogImageUrl}
         datePublished={post.publishedAt}
@@ -241,7 +245,7 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
               </h1>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-start gap-4">
               {authorImageSrc && (
                 <Image
                   src={authorImageSrc}
@@ -249,19 +253,26 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
                   width={96}
                   height={96}
                   sizes="64px"
-                  className="h-16 w-16 rounded-full object-cover"
+                  className="h-16 w-16 shrink-0 rounded-full object-cover"
                 />
               )}
-              <div>
-                <p className="font-semibold text-slate-900">
-                  {post.author?.name ?? 'Unknown author'}
-                </p>
-                {post.categories && post.categories.length > 0 && (
-                  <p className="text-sm text-slate-500">
-                    {post.categories
-                      .map((category) => category.title)
-                      .join(', ')}
+              <div className="stack stack-snug">
+                <div>
+                  <p className="font-semibold text-slate-900">
+                    {post.author?.name ?? 'Unknown author'}
                   </p>
+                  {post.categories && post.categories.length > 0 && (
+                    <p className="text-sm text-slate-500">
+                      {post.categories
+                        .map((category) => category.title)
+                        .join(', ')}
+                    </p>
+                  )}
+                </div>
+                {post.author?.bio && (
+                  <div className="text-sm text-slate-600">
+                    <PortableText value={post.author.bio as never} />
+                  </div>
                 )}
               </div>
             </div>

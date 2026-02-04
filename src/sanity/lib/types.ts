@@ -2,6 +2,7 @@ export type PostListItem = {
   _id: string
   title: string
   slug: string
+  excerpt?: string
   publishedAt: string
   mainImage?: unknown
   categories?: {
@@ -18,6 +19,7 @@ export type PostDetail = PostListItem & {
     _id: string
     name?: string
     image?: unknown
+    bio?: unknown
   }
   categories?: {
     _id: string

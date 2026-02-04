@@ -92,7 +92,7 @@ export default function PiggyBankPage() {
               and win!
             </p>
             <p className="text-base font-semibold text-brand-primary">
-              Submissions are due by February 16th!
+              Submissions are due by February 16, 2026!
             </p>
           </div>
           <a
@@ -208,7 +208,7 @@ export default function PiggyBankPage() {
                   Ready to apply?
                 </h2>
                 <p className="text-base text-white/80">
-                  Submit your application before the February 16th deadline.
+                  Submit your application before the February 16, 2026 deadline.
                   Have questions? Reach out to our team.
                 </p>
               </div>
