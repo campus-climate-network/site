@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function OurApproachPage() {
   return (
-    <div className="page-wrapper !pb-0">
+    <div className="page-wrapper">
       <section className="bg-brand-cream/60 section-hero">
         <div className="page-container flex flex-col gap-10 lg:flex-row lg:items-center">
           <div className="flex-1 stack stack-tight">

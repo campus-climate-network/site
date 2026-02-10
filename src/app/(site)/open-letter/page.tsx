@@ -214,7 +214,7 @@ const signReasons = [
 
 export default function OpenLetterPage() {
   return (
-    <div className="page-wrapper pb-0! gap-0!">
+    <div className="page-wrapper gap-0!">
       <section className="bg-brand-primary/10 section-hero">
         <div className="page-container stack stack-tight text-left">
           <p className="eyebrow text-xs sm:text-sm text-brand-secondary">

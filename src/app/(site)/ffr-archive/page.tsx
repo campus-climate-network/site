@@ -40,7 +40,7 @@ const reports = [
 
 export default function FfrReportsPage() {
   return (
-    <div className="page-wrapper !pb-0 bg-stone-950">
+    <div className="page-wrapper bg-stone-950">
       {/* Hero */}
       <section className="section-hero">
         <div className="page-container">
