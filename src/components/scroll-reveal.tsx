@@ -44,6 +44,7 @@ export function ScrollReveal({
 
     if (isInViewport) {
       // Already in viewport - just show it immediately, no animation needed
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- initial DOM measurement
       setAnimationState('visible')
       return
     }
@@ -122,6 +123,7 @@ export function StaggerReveal({
     const isInViewport = rect.top < window.innerHeight && rect.bottom > 0
 
     if (isInViewport) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- initial DOM measurement
       setAnimationState('visible')
       return
     }

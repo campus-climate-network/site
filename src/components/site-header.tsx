@@ -162,6 +162,7 @@ function MegaPanelColumns({
   useEffect(() => {
     let frame: number | null = null
     if (state === 'enter') {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- drives CSS transition phases
       setPhase('from')
       frame = requestAnimationFrame(() => setPhase('to'))
     } else if (state === 'exit') {
@@ -192,7 +193,9 @@ function MegaPanelColumns({
     }
   }, [assignRefs, itemRefs, menu.label, totalItems])
 
-  let itemCursor = -1
+  const columnOffsets = menu.columns.map((_, colIndex) =>
+    menu.columns.slice(0, colIndex).reduce((sum, col) => sum + col.items.length, 0),
+  )
 
   const transform = (() => {
     if (phase === 'from') {
@@ -222,15 +225,14 @@ function MegaPanelColumns({
         transform,
       }}
     >
-      {menu.columns.map((column) => (
+      {menu.columns.map((column, colIndex) => (
         <div key={`${menu.label}-${column.title}`} className="stack stack-snug">
           <p className="eyebrow text-xs font-semibold text-brand-secondary/90">
             {column.title}
           </p>
           <ul className="stack-list-compact">
-            {column.items.map((item) => {
-              itemCursor += 1
-              const currentIndex = itemCursor
+            {column.items.map((item, itemIndex) => {
+              const currentIndex = columnOffsets[colIndex] + itemIndex
               return (
                 <li key={item.href}>
                   <Link
@@ -353,6 +355,7 @@ function DesktopMegaPanel({
 
   useEffect(() => {
     if (!menu) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional reset when menu closes
       setTransitionMenus([])
       return
     }
@@ -767,6 +770,7 @@ function MobileNav({
 
   useEffect(() => {
     if (!open) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- reset sub-menus when drawer closes
       setExpandedMenus(new Set())
     }
   }, [open])
@@ -991,6 +995,7 @@ export function SiteHeader() {
   }, [])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- standard mount detection for portal
     setMounted(true)
   }, [])
 
