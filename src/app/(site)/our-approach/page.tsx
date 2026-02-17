@@ -80,7 +80,7 @@ export default function OurApproachPage() {
           <ScrollReveal variant="fade-up">
             <div className="stack stack-dense">
               <h2 className="text-2xl font-semibold sm:text-3xl">
-                Theory of Change
+                Theory of change
               </h2>
             </div>
           </ScrollReveal>
