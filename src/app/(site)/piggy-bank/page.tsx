@@ -96,14 +96,14 @@ export default function PiggyBankPage() {
               round coming soon!
             </p>
           </div>
-          <a
+          {/* <a
             className="inline-flex items-center self-start rounded-full bg-brand-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-secondary"
             href="https://airtable.com/appAuUL1H67TKPAEL/pagm6f25umImOEBAS/form"
             target="_blank"
             rel="noopener noreferrer"
           >
             Apply Now
-          </a>
+          </a> */}
         </div>
       </section>
 
@@ -224,14 +224,14 @@ export default function PiggyBankPage() {
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">
-                <a
+                {/* <a
                   className="inline-flex items-center rounded-full bg-brand-accent px-5 py-2 text-sm font-semibold text-slate-900 transition hover:bg-brand-accent/80"
                   href="https://airtable.com/appAuUL1H67TKPAEL/pagm6f25umImOEBAS/form"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
                   Apply Now
-                </a>
+                </a> */}
                 <a
                   className="inline-flex items-center rounded-full border border-white/30 px-5 py-2 text-sm font-semibold text-white transition hover:bg-white/10"
                   href="mailto:info@campusclimatenetwork.org"
