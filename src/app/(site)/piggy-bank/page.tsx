@@ -92,7 +92,8 @@ export default function PiggyBankPage() {
               and win!
             </p>
             <p className="text-base font-semibold text-brand-primary">
-              Submissions are due by February 16, 2026!
+              Applications for our most recent round of grants are closed. Next
+              round coming soon!
             </p>
           </div>
           <a
@@ -111,7 +112,7 @@ export default function PiggyBankPage() {
         <ScrollReveal variant="fade-up">
           <div className="rounded-2xl border border-brand-accent/30 bg-brand-accent/10 p-6">
             <p className="text-sm text-slate-700">
-              We&apos;d like to express gratitude to the{' '}
+              We’d like to express gratitude to the{' '}
               <a
                 href="https://www.ycfalliance.com/"
                 target="_blank"
@@ -121,9 +122,18 @@ export default function PiggyBankPage() {
                 Youth Climate Finance Alliance (YCFA)
               </a>
               . The structure of the CCN Piggy Bank is largely inspired by
-              YCFA&apos;s Organizer Support Fund (OSF). Thank you YCFA for
-              showing us what it looks like to redistribute resources to the
-              students who make our movement powerful.
+              YCFA’s Organizer Support Fund (OSF). Thank you YCFA for showing
+              us what it looks like to redistribute resources to the students
+              who make our movement powerful. Learn more about YCFA’s
+              organizing grants{' '}
+              <a
+                href="https://www.ycfalliance.com/grant-programs"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-brand-primary hover:underline"
+              >
+                here.
+              </a>
             </p>
           </div>
         </ScrollReveal>
@@ -208,7 +218,8 @@ export default function PiggyBankPage() {
                   Ready to apply?
                 </h2>
                 <p className="text-base text-white/80">
-                  Submit your application before the February 16, 2026 deadline.
+                  Applications for our most recent round of grants are closed.
+                  Next round coming soon!
                   Have questions? Reach out to our team.
                 </p>
               </div>
