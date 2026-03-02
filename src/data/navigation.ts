@@ -149,6 +149,10 @@ export const navEntries: NavEntry[] = [
     label: 'Donate',
     href: '/donate',
   },
+  {
+    label: 'Member Portal',
+    href: '/member-portal',
+  },
 ]
 
 export function isNavMenu(entry: NavEntry): entry is NavMenu {
