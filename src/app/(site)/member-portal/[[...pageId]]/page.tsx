@@ -117,7 +117,7 @@ export default async function MemberPortalPage({
             CCN Member Portal
           </h1>
           <p className="text-base text-slate-700">
-            Resources, updates, and tools for Campus Climate Network members.
+            Resources and guides for Campus Climate Network World.
           </p>
         </div>
       </section>
