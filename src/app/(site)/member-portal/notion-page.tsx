@@ -11,7 +11,7 @@ import 'react-notion-x/src/styles.css'
 const ROOT_PAGE_ID = '1dfeb502799a806ea31bdb5e280394c6'
 
 function mapImageUrl(
-  url: string,
+  url: string | undefined,
   block: { id: string; parent_table?: string },
 ) {
   if (!url) return ''
