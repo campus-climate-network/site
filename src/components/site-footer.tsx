@@ -99,6 +99,14 @@ export function SiteFooter() {
               </ul>
             </div>
           ))}
+          <div className="col-span-2 flex items-end justify-end md:col-span-4 lg:col-span-4">
+            <Link
+              href="/member-portal"
+              className="text-sm text-slate-400 underline underline-offset-2 transition hover:text-white"
+            >
+              Member Portal
+            </Link>
+          </div>
         </div>
       </div>
     </footer>

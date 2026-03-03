@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { NotionAPI } from 'notion-client'
 import type { ExtendedRecordMap } from 'notion-types'
+import { getBlockValue } from 'notion-utils'
 import { isAuthenticated, logout } from '../actions'
 import { PasswordForm } from '../password-form'
 import { NotionPage } from '../notion-page'
@@ -18,11 +19,76 @@ const ROOT_PAGE_ID = '1dfeb502799a806ea31bdb5e280394c6'
 
 const notion = new NotionAPI({ apiBaseUrl: 'https://www.notion.so/api/v3' })
 
+function findFirstImage(
+  blockId: string,
+  recordMap: ExtendedRecordMap,
+  depth = 0,
+): string | null {
+  if (depth > 5) return null
+  const block = getBlockValue(recordMap.block[blockId])
+  if (!block) return null
+  if (block.type === 'image') return blockId
+  for (const childId of block.content || []) {
+    const found = findFirstImage(childId, recordMap, depth + 1)
+    if (found) return found
+  }
+  return null
+}
+
+async function fetchMissingBlocks(recordMap: ExtendedRecordMap) {
+  for (let pass = 0; pass < 3; pass++) {
+    const missingIds: string[] = []
+    for (const blockEntry of Object.values(recordMap.block)) {
+      const block = getBlockValue(blockEntry)
+      if (!block?.content) continue
+      for (const childId of block.content) {
+        if (!getBlockValue(recordMap.block[childId])) {
+          missingIds.push(childId)
+        }
+      }
+    }
+    if (missingIds.length === 0) break
+    try {
+      const { recordMap: fetched } = await notion.getBlocks(missingIds)
+      for (const [id, block] of Object.entries(fetched.block)) {
+        if (!getBlockValue(recordMap.block[id])) {
+          recordMap.block[id] = block
+        }
+      }
+    } catch {
+      break
+    }
+  }
+}
+
+async function resolveCollectionCovers(recordMap: ExtendedRecordMap) {
+  await fetchMissingBlocks(recordMap)
+
+  for (const blockEntry of Object.values(recordMap.block)) {
+    const block = getBlockValue(blockEntry)
+    if (block?.parent_table !== 'collection' || !block.content) continue
+
+    const hasTopLevelImage = block.content.some(
+      (id: string) => getBlockValue(recordMap.block[id])?.type === 'image',
+    )
+    if (hasTopLevelImage) continue
+
+    const imageId = findFirstImage(block.id, recordMap)
+    if (imageId) {
+      block.content = [imageId, ...block.content]
+    }
+  }
+
+  await notion.addSignedUrls({ recordMap }).catch(() => {})
+}
+
 async function fetchNotionPage(
   pageId: string,
 ): Promise<ExtendedRecordMap | null> {
   try {
-    return await notion.getPage(pageId)
+    const recordMap = await notion.getPage(pageId)
+    await resolveCollectionCovers(recordMap)
+    return recordMap
   } catch (e) {
     console.error('Failed to fetch Notion page:', pageId, e)
     return null

@@ -5,9 +5,41 @@ import { ChevronRight } from 'lucide-react'
 import { NotionRenderer } from 'react-notion-x'
 import type { ExtendedRecordMap } from 'notion-types'
 import { getPageBreadcrumbs, getPageTitle } from 'notion-utils'
+import { Collection } from 'react-notion-x/build/third-party/collection'
 import 'react-notion-x/src/styles.css'
 
 const ROOT_PAGE_ID = '1dfeb502799a806ea31bdb5e280394c6'
+
+function mapImageUrl(
+  url: string,
+  block: { id: string; parent_table?: string },
+) {
+  if (!url) return ''
+  if (url.startsWith('data:')) return url
+
+  if (url.startsWith('https://images.unsplash.com')) return url
+
+  if (url.startsWith('notion://'))
+    return 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7'
+
+  if (url.startsWith('/images')) {
+    url = `https://www.notion.so${url}`
+  }
+
+  const proxyUrl = new URL(
+    `https://www.notion.so${url.startsWith('/image') ? url : `/image/${encodeURIComponent(url)}`}`,
+  )
+
+  let table =
+    block.parent_table === 'space' ? 'block' : block.parent_table || 'block'
+  if (table === 'collection' || table === 'team') table = 'block'
+
+  proxyUrl.searchParams.set('table', table)
+  proxyUrl.searchParams.set('id', block.id)
+  proxyUrl.searchParams.set('cache', 'v2')
+
+  return proxyUrl.toString()
+}
 
 function createMapPageUrl(recordMap: ExtendedRecordMap) {
   return (pageId: string) => {
@@ -118,6 +150,8 @@ export function NotionPage({
         darkMode={false}
         disableHeader
         mapPageUrl={mapPageUrl}
+        mapImageUrl={mapImageUrl}
+        components={{ Collection }}
       />
     </>
   )
