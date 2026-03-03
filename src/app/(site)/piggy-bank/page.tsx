@@ -122,10 +122,10 @@ export default function PiggyBankPage() {
                 Youth Climate Finance Alliance (YCFA)
               </a>
               . The structure of the CCN Piggy Bank is largely inspired by
-              YCFA’s Organizer Support Fund (OSF). Thank you YCFA for showing
-              us what it looks like to redistribute resources to the students
-              who make our movement powerful. Learn more about YCFA’s
-              organizing grants{' '}
+              YCFA’s Organizer Support Fund (OSF). Thank you YCFA for showing us
+              what it looks like to redistribute resources to the students who
+              make our movement powerful. Learn more about YCFA’s organizing
+              grants{' '}
               <a
                 href="https://www.ycfalliance.com/grant-programs"
                 target="_blank"
@@ -219,8 +219,7 @@ export default function PiggyBankPage() {
                 </h2>
                 <p className="text-base text-white/80">
                   Applications for our most recent round of grants are closed.
-                  Next round coming soon!
-                  Have questions? Reach out to our team.
+                  Next round coming soon! Have questions? Reach out to our team.
                 </p>
               </div>
               <div className="flex flex-wrap gap-4">

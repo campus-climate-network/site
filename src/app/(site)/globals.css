@@ -694,6 +694,11 @@ h1 {
   animation: fade-in-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
+/* Per-page opt-in: make site header scroll away instead of sticking */
+[data-scrollable-header] header {
+  position: relative;
+}
+
 .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);

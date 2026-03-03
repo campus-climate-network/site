@@ -194,7 +194,9 @@ function MegaPanelColumns({
   }, [assignRefs, itemRefs, menu.label, totalItems])
 
   const columnOffsets = menu.columns.map((_, colIndex) =>
-    menu.columns.slice(0, colIndex).reduce((sum, col) => sum + col.items.length, 0),
+    menu.columns
+      .slice(0, colIndex)
+      .reduce((sum, col) => sum + col.items.length, 0),
   )
 
   const transform = (() => {
@@ -1005,8 +1007,8 @@ export function SiteHeader() {
         className={classNames(
           'sticky top-0 z-50 border-b border-slate-200/40 py-3 lg:py-5 transition-all duration-200',
           scrolled
-            ? 'bg-white/80 shadow-[0_12px_40px_-24px_rgba(15,23,42,0.35)] backdrop-blur supports-backdrop-filter:bg-white/70'
-            : 'bg-white/95 backdrop-blur',
+            ? 'bg-white shadow-[0_12px_40px_-24px_rgba(15,23,42,0.35)]'
+            : 'bg-white',
         )}
       >
         <div className="page-container flex items-center justify-between gap-4">
