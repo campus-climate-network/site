@@ -33,7 +33,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const standardPages = [
     '/our-story',
     '/our-approach',
-    // '/our-funders', // Hidden until content is ready
     '/ffr-archive',
     '/network-campaigns',
     // '/student-wins', // Hidden until content is ready
