@@ -77,7 +77,7 @@ For questions about licensing, permissions, or reuse, please reach out to Campus
 
 ## Architecture
 
-**Tech Stack:** Next.js 15 + React 19 + TypeScript + Tailwind CSS
+**Tech Stack:** Next.js 16 + React 19 + TypeScript + Tailwind CSS
 
 ## Design & Development
 
