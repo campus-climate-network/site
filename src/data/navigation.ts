@@ -77,6 +77,12 @@ export const navEntries: NavEntry[] = [
             href: '/network-campaigns',
             description: 'Campaigns run by the CCN Network.',
           },
+          {
+            label: 'Member Portal',
+            href: '/member-portal',
+            description:
+              'Resources and tools for CCN member organizations.',
+          },
         ],
       },
       {
