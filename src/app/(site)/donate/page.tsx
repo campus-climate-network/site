@@ -55,6 +55,7 @@ export default function DonatePage() {
           <div className="w-full max-w-xl overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-200">
             <iframe
               src="https://hcb.hackclub.com/donations/start/campus-climate-network"
+              title="Campus Climate Network Donation Form"
               name="donateFrame"
               frameBorder="0"
               allowFullScreen

@@ -13,6 +13,7 @@ export type PostListItem = {
 }
 
 export type PostDetail = PostListItem & {
+  _updatedAt?: string
   body: unknown
   mainImage?: unknown
   author?: {

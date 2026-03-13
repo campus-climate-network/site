@@ -56,6 +56,7 @@ export const POST_QUERY = `
   "slug": slug.current,
   excerpt,
   publishedAt,
+  _updatedAt,
   body,
   mainImage,
   "author": author->{

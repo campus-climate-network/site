@@ -213,6 +213,7 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
         url={postUrl}
         imageUrl={ogImageUrl}
         datePublished={post.publishedAt}
+        dateModified={post._updatedAt}
         authorName={post.author?.name}
       />
       <BreadcrumbJsonLd

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Bungee, Poppins } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/json-ld'
@@ -19,6 +19,10 @@ const bungee = Bungee({
 })
 
 const siteUrl = 'https://campusclimatenetwork.org'
+
+export const viewport: Viewport = {
+  themeColor: '#60379d',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
