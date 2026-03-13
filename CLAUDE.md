@@ -134,8 +134,15 @@ src/
 ### Hidden/WIP Pages
 
 - `/network-campaigns/[campaign]` — redirects to `/network-campaigns` (detail pages hidden)
-- `/student-wins` — exists but navigation link is commented out
+- `/student-wins` — exists but navigation link is commented out; add to sitemap once published
+- `/impact-reports/2025` — currently noindex; add to sitemap once published
 - Campaign slugs in sitemap are commented out
+
+### Sitemap Notes
+
+- `/member-portal` — should be EXCLUDED from sitemap (not a public-facing page)
+- `/student-wins` — add to sitemap once the page is published
+- `/impact-reports/2025` — add to sitemap once the page is published
 
 ## Environment Variables
 
