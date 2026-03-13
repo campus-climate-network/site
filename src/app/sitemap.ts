@@ -40,6 +40,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/blog',
     '/contact-us',
     '/hiring',
+    '/piggy-bank',
   ]
 
   // Static pages omit lastModified since we don't have accurate dates
