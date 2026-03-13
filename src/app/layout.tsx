@@ -59,6 +59,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
+    site: '@cclimatenetwork',
     title: 'Campus Climate Network',
     description:
       'Students organizing for fossil-free research and climate justice.',
