@@ -170,8 +170,7 @@ export default async function MemberPortalPage({
                 Enter your password to access the portal.
               </h2>
               <p className="text-sm text-slate-500">
-                Contact a CCN staff member if you don&apos;t have the
-                password.
+                Contact a CCN staff member if you don&apos;t have the password.
               </p>
             </div>
           </ScrollReveal>

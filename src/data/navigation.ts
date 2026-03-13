@@ -80,8 +80,7 @@ export const navEntries: NavEntry[] = [
           {
             label: 'Member Portal',
             href: '/member-portal',
-            description:
-              'Resources and tools for CCN member organizations.',
+            description: 'Resources and tools for CCN member organizations.',
           },
         ],
       },
