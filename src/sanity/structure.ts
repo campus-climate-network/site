@@ -18,6 +18,17 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
+      // Careers section
+      S.listItem()
+        .title('Careers')
+        .child(
+          S.list()
+            .title('Careers')
+            .items([S.documentTypeListItem('jobRole').title('Job Roles')]),
+        ),
+
+      S.divider(),
+
       // Blog section
       S.listItem()
         .title('Blog')

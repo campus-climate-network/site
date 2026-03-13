@@ -1,5 +1,9 @@
 import type { Metadata } from 'next'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { client } from '@/sanity/lib/client'
+import { JOB_ROLES_QUERY } from '@/sanity/lib/queries'
+
+export const revalidate = 60
 
 export const metadata: Metadata = {
   title: 'Careers',
@@ -7,7 +11,23 @@ export const metadata: Metadata = {
     'Join Campus Climate Network. View open positions for organizers, fellows, and coordinators helping students win climate justice on campuses nationwide.',
 }
 
-export default function HiringPage() {
+interface JobRole {
+  _id: string
+  title: string
+  department: string | null
+  location: string | null
+  description: string | null
+  applicationUrl: string | null
+  postedAt: string
+}
+
+async function getJobRoles(): Promise<JobRole[]> {
+  return client.fetch(JOB_ROLES_QUERY)
+}
+
+export default async function HiringPage() {
+  const roles = await getJobRoles()
+
   return (
     <div className="page-wrapper">
       <section className="bg-brand-secondary/10 section-hero">
@@ -32,12 +52,59 @@ export default function HiringPage() {
             <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
               Open roles
             </h2>
-            <p className="text-base text-slate-600">
-              We don&apos;t have any open positions right now. Check back
-              soon—we&apos;ll update this page when new roles become available.
-            </p>
+            {roles.length > 0 ? (
+              <p className="text-base text-slate-600">
+                We&apos;re hiring! Check out our open positions below.
+              </p>
+            ) : (
+              <p className="text-base text-slate-600">
+                We don&apos;t have any open positions right now. Check back
+                soon—we&apos;ll update this page when new roles become
+                available.
+              </p>
+            )}
           </div>
         </ScrollReveal>
+
+        {roles.length > 0 && (
+          <div className="grid gap-4">
+            {roles.map((role) => (
+              <ScrollReveal key={role._id} variant="fade-up">
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
+                  <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                    <div className="stack stack-compact">
+                      <h3 className="text-lg font-semibold text-slate-900">
+                        {role.title}
+                      </h3>
+                      {(role.department || role.location) && (
+                        <p className="text-sm text-slate-500">
+                          {[role.department, role.location]
+                            .filter(Boolean)
+                            .join(' · ')}
+                        </p>
+                      )}
+                      {role.description && (
+                        <p className="mt-1 text-base text-slate-600">
+                          {role.description}
+                        </p>
+                      )}
+                    </div>
+                    {role.applicationUrl && (
+                      <a
+                        href={role.applicationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex shrink-0 items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-brand-primary/90"
+                      >
+                        Apply
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </ScrollReveal>
+            ))}
+          </div>
+        )}
       </section>
     </div>
   )

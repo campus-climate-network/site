@@ -72,6 +72,19 @@ export const POST_QUERY = `
 }
 `
 
+// Job roles for careers page
+export const JOB_ROLES_QUERY = `
+*[_type == "jobRole" && isOpen == true] | order(postedAt desc){
+  _id,
+  title,
+  department,
+  location,
+  description,
+  applicationUrl,
+  postedAt
+}
+`
+
 // Movement wins for student wins page
 export const MOVEMENT_WINS_QUERY = `
 *[_type == "movementWin"] | order(date desc){

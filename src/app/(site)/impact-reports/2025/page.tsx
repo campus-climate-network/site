@@ -133,8 +133,8 @@ export default function AnnualReport2025() {
             </h1>
             <p className="mt-8 mx-auto max-w-2xl text-lg sm:text-xl leading-relaxed text-slate-900/60">
               In a year of rising repression, CCN students organized at over 150
-              campuses, defeated Trump&apos;s loyalty oath, and pushed the fossil
-              fuel industry further off campus than ever before.
+              campuses, defeated Trump&apos;s loyalty oath, and pushed the
+              fossil fuel industry further off campus than ever before.
             </p>
           </ScrollReveal>
         </div>
@@ -217,9 +217,7 @@ export default function AnnualReport2025() {
               <p className="font-display text-7xl sm:text-8xl lg:text-9xl leading-none text-slate-900">
                 <AnimatedCounter value={stats.studentsTrained} suffix="+" />
               </p>
-              <p className="mt-3 text-sm text-slate-900/50">
-                students trained
-              </p>
+              <p className="mt-3 text-sm text-slate-900/50">students trained</p>
             </ScrollReveal>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-12 sm:gap-8">
               <ScrollReveal variant="fade-up" delay={100}>
@@ -248,9 +246,7 @@ export default function AnnualReport2025() {
         <div className="mx-auto max-w-4xl px-6">
           <ScrollReveal variant="fade-up">
             <div className="text-center">
-              <p className="eyebrow text-xs text-slate-900/30">
-                Campaign wins
-              </p>
+              <p className="eyebrow text-xs text-slate-900/30">Campaign wins</p>
               <h2 className="mt-4 text-3xl sm:text-4xl font-semibold text-slate-900">
                 CCN is pushing the fossil fuel industry off campus
               </h2>
@@ -351,7 +347,6 @@ export default function AnnualReport2025() {
               </p>
             </div>
           </ScrollReveal>
-
         </div>
       </section>
 
@@ -360,9 +355,7 @@ export default function AnnualReport2025() {
         <div className="mx-auto max-w-4xl px-6">
           <ScrollReveal variant="fade-up">
             <div className="text-center">
-              <p className="eyebrow text-xs text-white/30">
-                Student impact
-              </p>
+              <p className="eyebrow text-xs text-white/30">Student impact</p>
               <h2 className="mt-4 text-3xl sm:text-4xl font-semibold">
                 Students are feeling the difference
               </h2>
@@ -394,9 +387,7 @@ export default function AnnualReport2025() {
         <div className="mx-auto max-w-4xl px-6">
           <ScrollReveal variant="fade-up">
             <div className="text-center">
-              <p className="eyebrow text-xs text-slate-900/30">
-                Spotlight
-              </p>
+              <p className="eyebrow text-xs text-slate-900/30">Spotlight</p>
               <h2 className="mt-4 text-4xl sm:text-5xl font-semibold text-slate-900">
                 9 schools targeted.
                 <br />0 acceptances.
@@ -450,9 +441,7 @@ export default function AnnualReport2025() {
         <div className="mx-auto max-w-4xl px-6">
           <ScrollReveal variant="fade-up">
             <div className="text-center">
-              <p className="eyebrow text-xs text-slate-900/30">
-                Coalition
-              </p>
+              <p className="eyebrow text-xs text-slate-900/30">Coalition</p>
               <h2 className="mt-4 text-4xl sm:text-5xl font-semibold text-slate-900">
                 Building power beyond climate
               </h2>
@@ -505,9 +494,7 @@ export default function AnnualReport2025() {
         <div className="mx-auto max-w-4xl px-6">
           <ScrollReveal variant="fade-up">
             <div className="text-center">
-              <p className="eyebrow text-xs text-white/30">
-                Our team
-              </p>
+              <p className="eyebrow text-xs text-white/30">Our team</p>
               <h2 className="mt-4 text-3xl sm:text-4xl font-semibold">
                 We doubled our team
               </h2>
@@ -522,9 +509,7 @@ export default function AnnualReport2025() {
               <p className="font-display text-5xl sm:text-6xl leading-none text-brand-accent">
                 <AnimatedCounter value={4} />
               </p>
-              <p className="mt-2 text-sm text-white/50">
-                new staff members
-              </p>
+              <p className="mt-2 text-sm text-white/50">new staff members</p>
             </ScrollReveal>
             <ScrollReveal variant="fade-up" delay={75}>
               <p className="font-display text-5xl sm:text-6xl leading-none text-brand-accent">
@@ -553,8 +538,8 @@ export default function AnnualReport2025() {
               Beyond our 7-person staff, the CCN team includes 30+ volunteer
               coordinators, trainers, coaches, and committee members who lead
               different areas of our work. Many of our newest team members got
-              their start as campus organizers and developed their skills through
-              CCN.
+              their start as campus organizers and developed their skills
+              through CCN.
             </p>
           </ScrollReveal>
 
