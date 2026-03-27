@@ -11,6 +11,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
+// TODO: Verify filename matches the final uploaded PDF in public/impact-reports/
 const reportDownloadHref = '/impact-reports/ccn-impact-report-2025.pdf'
 
 const missionStatement =
