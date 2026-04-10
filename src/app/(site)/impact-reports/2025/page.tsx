@@ -8,10 +8,10 @@ import { ScrollableHeader } from './scrollable-header'
 const siteUrl = 'https://campusclimatenetwork.org'
 const pagePath = '/impact-reports/2025'
 const pageUrl = `${siteUrl}${pagePath}`
-const ogImagePath = '/images/impact-report/og-2025.jpg'
+const ogImagePath = '/images/impact-report/team-outdoor.jpg'
 const publishedAt = '2026-04-10'
 
-const ogTitle = 'The stakes went up. Students rose up.'
+const ogTitle = '2025 Impact Report'
 const ogDescription =
   'In a year that forced the student climate movement to confront the intersections between climate justice, democracy, and higher education, CCN members kicked Big Oil off campus and resisted authoritarianism. Read the CCN 2025 Impact Report.'
 
@@ -32,9 +32,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: ogImagePath,
-        width: 1200,
-        height: 630,
-        alt: 'Students gathered at the Southern College Climate Gathering with Campus Climate Network banner',
+        width: 1024,
+        height: 768,
+        alt: 'The CCN team posing outdoors with the Campus Climate Network banner',
       },
     ],
   },
