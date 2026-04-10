@@ -43,7 +43,7 @@ src/
 │   │   ├── contact-us/            # Contact page
 │   │   ├── hiring/                # Careers page
 │   │   ├── piggy-bank/            # Small grants program
-│   │   └── annual-report/2025/    # 2025 annual report (animated counters, scroll header)
+│   │   └── impact-reports/2025/   # 2025 impact report (animated counters, scroll header)
 │   └── studio/[[...tool]]/        # Sanity Studio at /studio
 ├── components/
 │   ├── site-header.tsx            # Sticky header with desktop mega-menu + mobile nav
@@ -135,14 +135,12 @@ src/
 
 - `/network-campaigns/[campaign]` — redirects to `/network-campaigns` (detail pages hidden)
 - `/student-wins` — exists but navigation link is commented out; add to sitemap once published
-- `/impact-reports/2025` — currently noindex; add to sitemap once published
 - Campaign slugs in sitemap are commented out
 
 ### Sitemap Notes
 
 - `/member-portal` — should be EXCLUDED from sitemap (not a public-facing page)
 - `/student-wins` — add to sitemap once the page is published
-- `/impact-reports/2025` — add to sitemap once the page is published
 
 ## Environment Variables
 

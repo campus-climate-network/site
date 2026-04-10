@@ -25,6 +25,10 @@ const footerColumns: FooterColumn[] = [
       { label: 'Donate', href: '/donate' },
     ],
   },
+  {
+    title: 'Impact Reports',
+    links: [{ label: '2025', href: '/impact-reports/2025' }],
+  },
 ]
 
 export function SiteFooter() {
