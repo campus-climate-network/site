@@ -136,10 +136,7 @@ export default async function Home() {
       <FAQPageJsonLd faqs={homeFaqs} />
       <section className="relative isolate overflow-hidden bg-linear-to-br from-brand-secondary via-brand-tertiary to-brand-primary text-white">
         <div className="page-container section-hero grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
-          <div className="stack stack-tight">
-            <p className="eyebrow text-xs sm:text-sm text-brand-cream/70">
-              Campus Climate Network
-            </p>
+          <div className="stack stack-cozy">
             <h1 className="text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
               We&apos;re building a winning student climate movement.
             </h1>
@@ -200,7 +197,7 @@ export default async function Home() {
             <p className="eyebrow text-xs text-brand-cream/60 mb-4">
               Featured in
             </p>
-            <div className="grid grid-cols-2 gap-3 text-sm uppercase tracking-[0.3em] text-brand-cream/70 sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:justify-center md:gap-6">
+            <div className="grid grid-cols-2 gap-3 text-sm uppercase tracking-[0.3em] text-brand-cream/70 sm:grid-cols-3 xl:grid-cols-6 xl:gap-6">
               {pressLogos.map((logo) => {
                 const scale = 'scale' in logo ? logo.scale : 1
                 const content = (
@@ -222,14 +219,14 @@ export default async function Home() {
                     href={logo.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-16 items-center justify-center rounded-xl bg-brand-cream/70 px-3 py-2 transition hover:bg-brand-cream sm:h-20 md:w-40 md:px-4 md:py-3"
+                    className="flex h-16 items-center justify-center rounded-xl bg-brand-cream/70 px-3 py-2 transition hover:bg-brand-cream sm:h-20 lg:px-4 lg:py-3"
                   >
                     {content}
                   </a>
                 ) : (
                   <div
                     key={logo.name}
-                    className="flex h-16 items-center justify-center rounded-xl bg-brand-cream/70 px-3 py-2 sm:h-20 md:w-40 md:px-4 md:py-3"
+                    className="flex h-16 items-center justify-center rounded-xl bg-brand-cream/70 px-3 py-2 sm:h-20 lg:px-4 lg:py-3"
                   >
                     {content}
                   </div>
@@ -247,9 +244,8 @@ export default async function Home() {
               <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
                 Our network
               </p>
-              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-                Around the world, students just like you are kicking Big Oil off
-                campus
+              <h2 className="text-2xl font-semibold text-pretty text-slate-900 sm:text-3xl">
+                Around the world, students are kicking Big Oil off campus
               </h2>
               <p className="text-base text-slate-600 sm:text-lg">
                 We share strategies, coordinate national actions, and build the
