@@ -3,7 +3,7 @@
 ## Quick Reference
 
 - **Site**: https://campusclimatenetwork.org
-- **Stack**: Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 + Sanity CMS + Mapbox GL
+- **Stack**: Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 + Sanity CMS + Mapbox GL + Notion (member portal)
 - **Package manager**: bun
 - **Deployment**: Vercel
 
@@ -41,9 +41,15 @@ src/
 │   │   ├── donate/                # HCB donation iframe
 │   │   ├── open-letter/           # Open letter + signatories
 │   │   ├── contact-us/            # Contact page
-│   │   ├── hiring/                # Careers page
+│   │   ├── hiring/                # Careers page (open roles from Sanity jobRole docs)
 │   │   ├── piggy-bank/            # Small grants program
-│   │   └── impact-reports/2025/   # 2025 impact report (animated counters, scroll header)
+│   │   ├── impact-reports/2025/   # 2025 impact report (animated counters, scroll header)
+│   │   ├── member-portal/         # Password-gated, Notion-backed member portal (noindex)
+│   │   │   ├── [[...pageId]]/page.tsx  # Renders Notion pages via react-notion-x
+│   │   │   ├── actions.ts         # Server actions: HMAC-cookie auth (MEMBER_PORTAL_PASSWORD)
+│   │   │   ├── password-form.tsx  # Password gate UI
+│   │   │   └── notion-page.tsx    # NotionRenderer wrapper
+│   │   └── resources/blog/[slug]/ # Empty placeholder dir — no page yet (WIP)
 │   └── studio/[[...tool]]/        # Sanity Studio at /studio
 ├── components/
 │   ├── site-header.tsx            # Sticky header with desktop mega-menu + mobile nav
@@ -76,7 +82,8 @@ src/
     │   ├── categoryType.ts       # Category
     │   ├── blockContentType.ts   # Rich text (Portable Text)
     │   ├── memberOrgType.ts      # Member organization (map + listing)
-    │   └── movementWinType.ts    # Movement win (timeline)
+    │   ├── movementWinType.ts    # Movement win (timeline)
+    │   └── jobRoleType.ts        # Job role / open position (powers /hiring)
     └── structure.ts              # Sanity Studio desk structure
 ```
 
@@ -135,6 +142,8 @@ src/
 
 - `/network-campaigns/[campaign]` — redirects to `/network-campaigns` (detail pages hidden)
 - `/student-wins` — exists but navigation link is commented out; add to sitemap once published
+- `/member-portal` — password-gated (HMAC cookie); `noindex` and excluded from sitemap
+- `/resources/blog/[slug]` — empty placeholder directory, no page implemented yet
 - Campaign slugs in sitemap are commented out
 
 ### Sitemap Notes
@@ -151,6 +160,7 @@ NEXT_PUBLIC_SANITY_PROJECT_ID=
 NEXT_PUBLIC_SANITY_DATASET=
 NEXT_PUBLIC_SANITY_API_VERSION=  # optional, defaults to 2025-10-19
 NEXT_PUBLIC_MAPBOX_TOKEN=
+MEMBER_PORTAL_PASSWORD=          # server-side; gates /member-portal access
 ```
 
 ## Important Notes
@@ -160,4 +170,5 @@ NEXT_PUBLIC_MAPBOX_TOKEN=
 - Take action form uses **Action Network** (external script embed)
 - Images served from `cdn.sanity.io` and `images.squarespace-cdn.com` (allowed in next.config.ts)
 - `styled-components` is a dependency (required by Sanity Studio) but not used in site code
+- Member portal content lives in **Notion**; fetched via `notion-client` and rendered with `react-notion-x` (`notion-types`/`notion-utils` for traversal). Access is gated by a server-side HMAC cookie keyed off `MEMBER_PORTAL_PASSWORD` (see `member-portal/actions.ts`)
 - Respect `prefers-reduced-motion` — all scroll animations have reduced-motion fallbacks
