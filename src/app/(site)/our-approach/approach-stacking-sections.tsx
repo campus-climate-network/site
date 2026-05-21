@@ -105,7 +105,9 @@ function StackingSection({
   const sectionHeight = (cards.length + 1) * 120
 
   return (
-    <section className={`${style.section} ${!isFirst ? '-mt-[15vh]' : ''}`}>
+    <section
+      className={`stacking-section ${style.section} ${!isFirst ? '-mt-[15vh]' : ''}`}
+    >
       <StackingCards
         totalCards={cards.length}
         style={{ height: `${sectionHeight}vh` }}
