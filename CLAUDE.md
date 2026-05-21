@@ -25,6 +25,8 @@ src/
 │   ├── not-found.tsx              # Global 404 page
 │   ├── robots.ts                  # Robots.txt generation
 │   ├── sitemap.ts                 # Dynamic sitemap (static pages + Sanity blog posts)
+│   ├── api/
+│   │   └── revalidate/route.ts    # Sanity webhook → on-demand revalidatePath (signature-validated)
 │   ├── (site)/                    # Public site route group
 │   │   ├── layout.tsx             # Site shell (SiteHeader + main + SiteFooter)
 │   │   ├── globals.css            # All global styles, CSS custom properties, utilities
@@ -134,9 +136,16 @@ src/
 ### Data Fetching
 
 - Sanity client with `useCdn: false` for fresh ISR data
-- Blog pages use `revalidate = 60` (ISR every 60 seconds)
+- Blog pages use `revalidate = 60` (ISR every 60 seconds); `/hiring` uses `revalidate = 3600` (1h); `/our-network` and `/student-wins` have no time-based `revalidate` (fully static, refreshed only via the webhook below or redeploy)
 - GROQ queries centralized in `src/sanity/lib/queries.ts`
 - Member orgs fetched server-side, geocoded client-side via Mapbox API
+
+#### On-demand revalidation (Sanity webhook)
+
+- `POST /api/revalidate` (`src/app/api/revalidate/route.ts`) refreshes pages the moment content is published/unpublished/deleted in Sanity. Time-based ISR above is the fallback.
+- Signature is validated with `parseBody` from `next-sanity/webhook` using `SANITY_REVALIDATE_SECRET` (server-only). Unsigned/invalid requests → 401.
+- Maps `_type` → `revalidatePath`: `jobRole` → `/hiring`; `post` → `/blog` + `/blog/{slug}`; `author`/`category` → `/blog` + all post pages (`/blog/[slug]`); `memberOrg` → `/our-network`; `movementWin` → `/student-wins`.
+- Sanity webhook config: URL `https://www.campusclimatenetwork.org/api/revalidate` (use `www.` — the apex 307-redirects), POST, projection `{ "_type": _type, "slug": slug.current }`, Drafts/Versions disabled, secret = `SANITY_REVALIDATE_SECRET`.
 
 ### Hidden/WIP Pages
 
@@ -161,6 +170,7 @@ NEXT_PUBLIC_SANITY_DATASET=
 NEXT_PUBLIC_SANITY_API_VERSION=  # optional, defaults to 2025-10-19
 NEXT_PUBLIC_MAPBOX_TOKEN=
 MEMBER_PORTAL_PASSWORD=          # server-side; gates /member-portal access
+SANITY_REVALIDATE_SECRET=        # server-side; shared secret for the Sanity → /api/revalidate webhook
 ```
 
 ## Important Notes
