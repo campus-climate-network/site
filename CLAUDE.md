@@ -37,14 +37,12 @@ src/
 │   │   ├── our-approach/          # Mission, stacking scroll sections
 │   │   ├── ffr-campaign/          # Fossil Free Research campaign page
 │   │   ├── ffr-archive/           # FFR research reports
-│   │   ├── network-campaigns/     # Campaign listing + [campaign] detail (redirects for now)
 │   │   ├── student-wins/          # Movement wins timeline (from Sanity)
 │   │   ├── take-action/           # Action Network intake form embed
 │   │   ├── donate/                # HCB donation iframe
 │   │   ├── open-letter/           # Open letter + signatories
 │   │   ├── contact-us/            # Contact page
 │   │   ├── hiring/                # Careers page (open roles from Sanity jobRole docs)
-│   │   ├── piggy-bank/            # Small grants program
 │   │   ├── impact-reports/2025/   # 2025 impact report (animated counters, scroll header)
 │   │   ├── member-portal/         # Password-gated, Notion-backed member portal (noindex)
 │   │   │   ├── [[...pageId]]/page.tsx  # Renders Notion pages via react-notion-x
@@ -149,11 +147,9 @@ src/
 
 ### Hidden/WIP Pages
 
-- `/network-campaigns/[campaign]` — redirects to `/network-campaigns` (detail pages hidden)
 - `/student-wins` — exists but navigation link is commented out; add to sitemap once published
 - `/member-portal` — password-gated (HMAC cookie); `noindex` and excluded from sitemap
 - `/resources/blog/[slug]` — empty placeholder directory, no page implemented yet
-- Campaign slugs in sitemap are commented out
 
 ### Sitemap Notes
 

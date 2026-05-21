@@ -29,7 +29,7 @@ export const navEntries: NavEntry[] = [
         title: 'Inside CCN',
         items: [
           {
-            label: 'Our approach',
+            label: 'About us',
             href: '/our-approach',
             description:
               'Strategy and support model for winning campus campaigns.',
@@ -73,68 +73,9 @@ export const navEntries: NavEntry[] = [
               'Explore the groups pushing universities to cut fossil ties.',
           },
           {
-            label: 'Network campaigns',
-            href: '/network-campaigns',
-            description: 'Campaigns run by the CCN Network.',
-          },
-          {
             label: 'Member Portal',
             href: '/member-portal',
             description: 'Resources and tools for CCN member organizations.',
-          },
-        ],
-      },
-      {
-        title: 'Funding',
-        items: [
-          {
-            label: 'CCN Piggy Bank',
-            href: '/piggy-bank',
-            description: 'Small grants for campus climate organizers.',
-          },
-        ],
-      },
-      // Hidden until content is ready
-      // {
-      //   title: 'Movement',
-      //   items: [
-      //     {
-      //       label: 'Student wins',
-      //       href: '/student-wins',
-      //       description: 'Victories won by students in the climate movement.',
-      //     },
-      //   ],
-      // },
-    ],
-  },
-  {
-    label: 'Fossil Free Research',
-    columns: [
-      {
-        title: 'FFR overview',
-        items: [
-          {
-            label: 'Campaign overview',
-            href: '/ffr-campaign',
-            description:
-              'End fossil fuel industry influence over academic research.',
-          },
-          {
-            label: 'Open letter',
-            href: '/open-letter',
-            description:
-              'Sign the call for universities to reject fossil fuel funding.',
-          },
-        ],
-      },
-      {
-        title: 'Reports',
-        items: [
-          {
-            label: 'FFR reports',
-            href: '/ffr-archive',
-            description:
-              'Research exposing fossil fuel ties to university programs.',
           },
         ],
       },
