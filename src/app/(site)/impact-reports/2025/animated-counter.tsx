@@ -6,6 +6,7 @@ type AnimatedCounterProps = {
   value: number
   suffix?: string
   durationMs?: number
+  groupDigits?: boolean
 }
 
 function easeOutCubic(progress: number) {
@@ -16,6 +17,7 @@ export function AnimatedCounter({
   value,
   suffix = '',
   durationMs = 1200,
+  groupDigits = false,
 }: AnimatedCounterProps) {
   const elementRef = useRef<HTMLSpanElement>(null)
   const frameRef = useRef<number | null>(null)
@@ -81,7 +83,7 @@ export function AnimatedCounter({
 
   return (
     <span ref={elementRef}>
-      {displayValue}
+      {groupDigits ? displayValue.toLocaleString('en-US') : displayValue}
       {suffix}
     </span>
   )
