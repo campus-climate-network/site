@@ -86,18 +86,11 @@ async function resolveCollectionCovers(recordMap: ExtendedRecordMap) {
   await notion.addSignedUrls({ recordMap }).catch(() => {})
 }
 
-// In production (Next's fetch), Notion returns collection records wrapped in a
+// In production (Next's fetch), Notion returns collection records in a
 // double-nested envelope (`{ value: { value, role } }`) that notion-client's
-// getPage doesn't unwrap when it reads `collection_view[id].value`. The per-view
-// filter (`format.property_filters`) is therefore invisible to it, so every
-// linked-database view is queried unfiltered and renders the entire collection.
-// getBlockValue unwraps any nesting depth, so we re-resolve each view's full
-// definition and re-run its query to get correctly-filtered results.
-type FilterableCollectionView = CollectionView & {
-  format?: { property_filters?: unknown[] }
-  query2?: { filter?: { filters?: unknown[] } }
-}
-
+// getPage doesn't unwrap when it reads `collection_view[id].value`, so the
+// per-view filter (`format.property_filters`) is invisible and every view is
+// queried unfiltered. We re-resolve each view and re-run its query.
 async function refetchFilteredCollectionViews(recordMap: ExtendedRecordMap) {
   const tasks: {
     collectionId: string
@@ -117,13 +110,8 @@ async function refetchFilteredCollectionViews(recordMap: ExtendedRecordMap) {
     const collectionId = getBlockCollectionId(block, recordMap)
     if (!collectionId) continue
 
-    const viewIds = (block as { view_ids?: string[] }).view_ids ?? []
-    const spaceId = (block as { space_id?: string }).space_id
-
-    for (const viewId of viewIds) {
-      const collectionView = getBlockValue(
-        recordMap.collection_view[viewId],
-      ) as FilterableCollectionView | undefined
+    for (const viewId of block.view_ids) {
+      const collectionView = getBlockValue(recordMap.collection_view[viewId])
       if (!collectionView) continue
 
       const hasFilter =
@@ -131,7 +119,12 @@ async function refetchFilteredCollectionViews(recordMap: ExtendedRecordMap) {
         !!collectionView.query2?.filter?.filters?.length
       if (!hasFilter) continue
 
-      tasks.push({ collectionId, viewId, spaceId, collectionView })
+      tasks.push({
+        collectionId,
+        viewId,
+        spaceId: block.space_id,
+        collectionView,
+      })
     }
   }
 
@@ -151,7 +144,8 @@ async function refetchFilteredCollectionViews(recordMap: ExtendedRecordMap) {
     }),
   )
 
-  // Apply sequentially: concurrent reads of the same collection bucket would race.
+  // Multiple views can share a collectionId, so merge into the same bucket
+  // rather than overwrite sibling views.
   for (const result of results) {
     if (!result?.reducerResults) continue
     const { collectionId, viewId } = result.task
@@ -172,11 +166,8 @@ function hideLinkedCollectionNames(recordMap: ExtendedRecordMap) {
     const block = getBlockValue(blockEntry)
     if (block?.type !== 'collection_view') continue
 
-    const viewIds = (block as { view_ids?: string[] }).view_ids ?? []
-    for (const viewId of viewIds) {
-      const collectionView = getBlockValue(
-        recordMap.collection_view[viewId],
-      ) as (CollectionView & { format?: Record<string, unknown> }) | undefined
+    for (const viewId of block.view_ids) {
+      const collectionView = getBlockValue(recordMap.collection_view[viewId])
       if (!collectionView) continue
       collectionView.format = {
         ...collectionView.format,

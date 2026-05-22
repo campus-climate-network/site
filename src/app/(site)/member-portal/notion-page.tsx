@@ -4,11 +4,15 @@ import Link from 'next/link'
 import { ChevronRight } from 'lucide-react'
 import { NotionRenderer } from 'react-notion-x'
 import type { ExtendedRecordMap } from 'notion-types'
-import { getPageBreadcrumbs, getPageTitle } from 'notion-utils'
+import { getPageBreadcrumbs, getPageTitle, uuidToId } from 'notion-utils'
 import { Collection } from 'react-notion-x/build/third-party/collection'
 import 'react-notion-x/src/styles.css'
 
 const ROOT_PAGE_ID = '1dfeb502799a806ea31bdb5e280394c6'
+
+// Notion block ids come dashed (`1dfeb502-...`) while ROOT_PAGE_ID is dashless,
+// so compare normalized ids to reliably detect the portal root.
+const isRootPage = (id: string) => uuidToId(id) === uuidToId(ROOT_PAGE_ID)
 
 function mapImageUrl(
   url: string | undefined,
@@ -68,15 +72,13 @@ function Breadcrumbs({
   recordMap: ExtendedRecordMap
   pageId: string
 }) {
-  if (pageId === ROOT_PAGE_ID) return null
+  if (isRootPage(pageId)) return null
 
   const notionCrumbs = getPageBreadcrumbs(recordMap, pageId) as
     | BreadcrumbItem[]
     | null
 
-  const hasPortalRoot = notionCrumbs?.some(
-    (item) => item.pageId === ROOT_PAGE_ID,
-  )
+  const hasPortalRoot = notionCrumbs?.some((item) => isRootPage(item.pageId))
 
   const items: BreadcrumbItem[] = []
 
@@ -117,7 +119,7 @@ function Breadcrumbs({
           ) : (
             <Link
               href={
-                item.pageId === ROOT_PAGE_ID
+                isRootPage(item.pageId)
                   ? '/member-portal'
                   : createMapPageUrl(recordMap)(item.pageId)
               }
