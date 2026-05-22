@@ -1,8 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { NotionAPI } from 'notion-client'
-import type { ExtendedRecordMap } from 'notion-types'
-import { getBlockValue } from 'notion-utils'
+import type {
+  CollectionQueryResult,
+  CollectionView,
+  ExtendedRecordMap,
+} from 'notion-types'
+import { getBlockValue, getBlockCollectionId } from 'notion-utils'
 import { isAuthenticated, logout } from '../actions'
 import { PasswordForm } from '../password-form'
 import { NotionPage } from '../notion-page'
@@ -82,11 +86,113 @@ async function resolveCollectionCovers(recordMap: ExtendedRecordMap) {
   await notion.addSignedUrls({ recordMap }).catch(() => {})
 }
 
+// In production (Next's fetch), Notion returns collection records wrapped in a
+// double-nested envelope (`{ value: { value, role } }`) that notion-client's
+// getPage doesn't unwrap when it reads `collection_view[id].value`. The per-view
+// filter (`format.property_filters`) is therefore invisible to it, so every
+// linked-database view is queried unfiltered and renders the entire collection.
+// getBlockValue unwraps any nesting depth, so we re-resolve each view's full
+// definition and re-run its query to get correctly-filtered results.
+type FilterableCollectionView = CollectionView & {
+  format?: { property_filters?: unknown[] }
+  query2?: { filter?: { filters?: unknown[] } }
+}
+
+async function refetchFilteredCollectionViews(recordMap: ExtendedRecordMap) {
+  const tasks: {
+    collectionId: string
+    viewId: string
+    spaceId?: string
+    collectionView: CollectionView
+  }[] = []
+
+  for (const blockEntry of Object.values(recordMap.block)) {
+    const block = getBlockValue(blockEntry)
+    if (
+      block?.type !== 'collection_view' &&
+      block?.type !== 'collection_view_page'
+    )
+      continue
+
+    const collectionId = getBlockCollectionId(block, recordMap)
+    if (!collectionId) continue
+
+    const viewIds = (block as { view_ids?: string[] }).view_ids ?? []
+    const spaceId = (block as { space_id?: string }).space_id
+
+    for (const viewId of viewIds) {
+      const collectionView = getBlockValue(
+        recordMap.collection_view[viewId],
+      ) as FilterableCollectionView | undefined
+      if (!collectionView) continue
+
+      const hasFilter =
+        !!collectionView.format?.property_filters?.length ||
+        !!collectionView.query2?.filter?.filters?.length
+      if (!hasFilter) continue
+
+      tasks.push({ collectionId, viewId, spaceId, collectionView })
+    }
+  }
+
+  const results = await Promise.all(
+    tasks.map(async (task) => {
+      try {
+        const data = await notion.getCollectionData(
+          task.collectionId,
+          task.viewId,
+          task.collectionView,
+          { limit: 999, spaceId: task.spaceId },
+        )
+        return { task, reducerResults: data.result?.reducerResults }
+      } catch {
+        return null
+      }
+    }),
+  )
+
+  // Apply sequentially: concurrent reads of the same collection bucket would race.
+  for (const result of results) {
+    if (!result?.reducerResults) continue
+    const { collectionId, viewId } = result.task
+    recordMap.collection_query[collectionId] = {
+      ...recordMap.collection_query[collectionId],
+      [viewId]: result.reducerResults as CollectionQueryResult,
+    }
+  }
+}
+
+// Each section here is an inline linked view of the shared "CCN People"
+// collection. Notion hides a linked collection's name by default, but
+// react-notion-x renders it unless `hide_linked_collection_name` is set — which
+// would repeat "CCN People" under every section heading. Set the flag to match
+// Notion's behavior.
+function hideLinkedCollectionNames(recordMap: ExtendedRecordMap) {
+  for (const blockEntry of Object.values(recordMap.block)) {
+    const block = getBlockValue(blockEntry)
+    if (block?.type !== 'collection_view') continue
+
+    const viewIds = (block as { view_ids?: string[] }).view_ids ?? []
+    for (const viewId of viewIds) {
+      const collectionView = getBlockValue(
+        recordMap.collection_view[viewId],
+      ) as (CollectionView & { format?: Record<string, unknown> }) | undefined
+      if (!collectionView) continue
+      collectionView.format = {
+        ...collectionView.format,
+        hide_linked_collection_name: true,
+      }
+    }
+  }
+}
+
 async function fetchNotionPage(
   pageId: string,
 ): Promise<ExtendedRecordMap | null> {
   try {
     const recordMap = await notion.getPage(pageId)
+    await refetchFilteredCollectionViews(recordMap)
+    hideLinkedCollectionNames(recordMap)
     await resolveCollectionCovers(recordMap)
     return recordMap
   } catch (e) {

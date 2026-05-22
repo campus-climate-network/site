@@ -741,3 +741,10 @@ h1 {
     @apply bg-background text-foreground;
   }
 }
+
+/* react-notion-x (member portal): drop the divider line react-notion-x draws
+   above each gallery's first row, which reads as a stray rule between a
+   section's description and its people. */
+.notion .notion-gallery-grid {
+  border-top: none;
+}
