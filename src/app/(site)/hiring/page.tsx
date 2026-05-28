@@ -36,7 +36,7 @@ export default async function HiringPage() {
             Careers
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            Work with Campus Climate Network.
+            Work at Campus Climate Network.
           </h1>
           <p className="text-base text-slate-700">
             Help students win climate justice on campuses around the world.
