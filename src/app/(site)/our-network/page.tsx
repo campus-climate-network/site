@@ -61,22 +61,27 @@ export default async function OurNetworkPage() {
           </div>
           <div className="stack stack-tight">
             <p className="text-base text-slate-700">
-              Our network is made up of powerful, grassroots, student-led groups
-              fighting for climate justice on campus. There are three simple
-              criteria for becoming a member of the Campus Climate Network:
+              The majority of CCN member groups are climate and environmental
+              justice organizations. However, any campus-based student group
+              that meets CCN&apos;s membership criteria is welcome to join the
+              network.
+            </p>
+            <p className="text-base text-slate-700">
+              CCN member groups are required to:
             </p>
             <ol className="stack-list-snug list-decimal pl-6 text-base text-slate-700">
+              <li>Participate in a CCN 101 training</li>
+              <li>Run a campaign with the goal to shift power</li>
               <li>
-                Currently running or planning to run a campaign that involves
-                cutting ties with the fossil fuel industry and its enablers.
+                Demonstrate eagerness to advance their campaign with support
+                from CCN
               </li>
               <li>
-                At least one member of the organization attends at least one
-                coalition call per month.
+                Participate in at least one network-wide program per semester
               </li>
               <li>
-                At least three active members on Slack, with at least two being
-                underclassmen.
+                Appoint three leaders of the organization to serve as CCN
+                liaisons
               </li>
             </ol>
             <p className="text-base text-slate-700">

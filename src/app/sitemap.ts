@@ -4,15 +4,6 @@ import { POST_SLUGS_WITH_DATES_QUERY } from '@/sanity/lib/queries'
 
 const baseUrl = 'https://campusclimatenetwork.org'
 
-// Campaign slugs for dynamic routes (hidden until Student Wins content is ready)
-// const campaignSlugs = [
-//   'fossil-free-research',
-//   'campus-decarbonization',
-//   'green-new-deal',
-//   'fossil-free-careers',
-//   'fossil-fuel-divestment',
-// ]
-
 type PostWithDates = {
   slug: string
   publishedAt: string
@@ -34,13 +25,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/our-story',
     '/our-approach',
     '/ffr-archive',
-    '/network-campaigns',
     // '/student-wins', // Hidden until content is ready
     '/open-letter',
     '/blog',
     '/contact-us',
     '/hiring',
-    '/piggy-bank',
     '/impact-reports/2025',
   ]
 
@@ -64,12 +53,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     })),
-    // Campaign detail pages (hidden until Student Wins content is ready)
-    // ...campaignSlugs.map((slug) => ({
-    //   url: `${baseUrl}/network-campaigns/${slug}`,
-    //   changeFrequency: 'monthly' as const,
-    //   priority: 0.7,
-    // })),
   ]
 
   // Fetch blog post slugs with dates

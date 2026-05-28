@@ -21,46 +21,46 @@ export const metadata: Metadata = {
 
 const pressLogos = [
   {
-    name: 'The Guardian',
-    image: '/press-logos/guardian.png',
-    width: 300,
-    height: 99,
-    href: 'https://www.theguardian.com/us-news/2023/aug/04/harvard-professor-resigns-conocophillips-board',
+    name: 'Chicago Tribune',
+    image: '/press-logos/Chicago_Tribune_Logo.svg.png',
+    width: 3840,
+    height: 581,
+    href: 'https://www.chicagotribune.com/2024/04/22/opinion-earth-day-colleges-fossil-fuel-divestment/',
   },
   {
     name: 'The New York Times',
     image: '/press-logos/new-york-times.png',
     width: 300,
     height: 41,
-    href: 'https://www.nytimes.com/2022/05/24/climate/fossil-fuel-divestment.html',
+    href: 'https://www.nytimes.com/2025/10/16/opinion/trump-compact-universities.html',
+  },
+  {
+    name: 'Waging Nonviolence',
+    image: '/press-logos/Waging+Nonviolence+Logo.webp',
+    width: 590,
+    height: 106,
+    href: 'https://wagingnonviolence.org/2025/12/student-resistance-to-authoritarianism/',
+  },
+  {
+    name: 'Teen Vogue',
+    image: '/press-logos/Teen_Vogue_logo.svg.png',
+    width: 960,
+    height: 359,
+    href: 'https://www.teenvogue.com/story/young-people-fighting-climate-anxiety-in-arkansas-parties-menstrual-cups',
+  },
+  {
+    name: 'The Guardian',
+    image: '/press-logos/guardian.png',
+    width: 300,
+    height: 99,
+    href: 'https://www.theguardian.com/us-news/2024/sep/19/oil-donations-universities',
   },
   {
     name: 'The Nation',
     image: '/press-logos/the-nation.png',
     width: 300,
     height: 90,
-    href: 'https://www.thenation.com/article/environment/climate-change-cop27-fossil-fuel-university-research/',
-  },
-  {
-    name: 'The Boston Globe',
-    image: '/press-logos/boston-globe.png',
-    width: 300,
-    height: 47,
-    href: 'https://www.bostonglobe.com/2025/02/18/science/mit-decarbonization-plan-saves-millions/',
-  },
-  {
-    name: 'The Chronicle of Higher Education',
-    image: '/press-logos/chronicle-higher-education.png',
-    width: 896,
-    height: 228,
-    href: 'https://www.chronicle.com/article/big-oil-helped-shape-stanfords-latest-climate-research-focus',
-  },
-  {
-    name: 'Mother Jones',
-    image: '/press-logos/mother-jones-2025.png',
-    width: 1024,
-    height: 209,
-    href: 'https://www.motherjones.com/environment/2024/09/fossil-fuel-funding-colleges-universities-clean-energy-transition-study-conflicts-interest/',
+    href: 'https://www.thenation.com/article/activism/university-of-florida-green-new-deal/',
   },
 ]
 
@@ -245,11 +245,11 @@ export default async function Home() {
                 Our network
               </p>
               <h2 className="text-2xl font-semibold text-pretty text-slate-900 sm:text-3xl">
-                Around the world, students are kicking Big Oil off campus
+                Building student power on campuses across the country
               </h2>
               <p className="text-base text-slate-600 sm:text-lg">
-                We share strategies, coordinate national actions, and build the
-                movement infrastructure so no campus fights Big Oil alone.
+                We are a network of student-led organizations running campaigns
+                for a just and liveable future.
               </p>
               <div className="flex flex-wrap gap-3 text-sm font-semibold">
                 <Link
@@ -257,12 +257,6 @@ export default async function Home() {
                   href="/our-network"
                 >
                   Member organizations
-                </Link>
-                <Link
-                  className="inline-flex items-center rounded-full border border-brand-primary px-4 py-2 text-brand-primary transition hover:bg-brand-primary hover:text-white"
-                  href="/network-campaigns"
-                >
-                  Campaigns
                 </Link>
               </div>
             </div>
@@ -285,23 +279,18 @@ export default async function Home() {
           <StaggerReveal
             staggerDelay={120}
             variant="blossom"
-            className="grid gap-6 md:grid-cols-3"
+            className="grid gap-6 md:grid-cols-2"
           >
             {[
               {
-                title: 'Train',
-                subtitle: 'Hone your organizing skills',
-                body: 'We provide you resources to research fossil fuel ties at your school and launch a campaign. Along the way, we develop each other as organizers through training and mentorship.',
+                title: 'Leadership Development',
+                subtitle: 'Honing students’ organizing skills',
+                body: 'We equip students with the skills and political analysis they need to become organizers capable of building durable power on and off campus. Support from CCN includes in-person campus trainings and dedicated coaching for their group.',
               },
               {
-                title: 'Network',
-                subtitle: 'Connect with fellow student organizers',
-                body: 'Meet the students who are doing this work at other schools. Our network is a place of support and connection.',
-              },
-              {
-                title: 'Action',
-                subtitle: 'Take action together',
-                body: "Our movement is stronger when we use our collective voice. We facilitate coordinated action so we can't be ignored.",
+                title: 'Network Building',
+                subtitle: 'Connecting students with fellow organizers',
+                body: 'Students connect with fellow organizers on campuses across the country. These are the people they’ll be in movement with long after leaving campus. Our network is a space for peer learning, support, and relationship building.',
               },
             ].map((item) => (
               <div key={item.title} className="rounded-3xl bg-white p-8">

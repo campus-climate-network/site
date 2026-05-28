@@ -229,7 +229,7 @@ function MegaPanelColumns({
     >
       {menu.columns.map((column, colIndex) => (
         <div key={`${menu.label}-${column.title}`} className="stack stack-snug">
-          <p className="eyebrow text-xs font-semibold text-brand-secondary/90">
+          <p className="eyebrow px-3 text-xs font-semibold text-brand-tertiary">
             {column.title}
           </p>
           <ul className="stack-list-compact">
@@ -429,6 +429,19 @@ function DesktopMegaPanel({
 
   const activeLabel = menu?.label ?? ''
 
+  // Size the panel by its column count so it stays roomy regardless of how
+  // many top-level nav items there are. Retain the last count while closing
+  // so the panel doesn't shrink mid fade-out.
+  const [lastColumnCount, setLastColumnCount] = useState(2)
+  const activeColumnCount = menu
+    ? Math.max(menu.columns.length, 1)
+    : lastColumnCount
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- remember width for the fade-out
+    if (menu) setLastColumnCount(Math.max(menu.columns.length, 1))
+  }, [menu])
+  const panelWidth = `${2.5 + activeColumnCount * 20 + (activeColumnCount - 1) * 1.25}rem`
+
   useEffect(() => {
     const node = panelRef.current
     onPanelRef(node)
@@ -443,8 +456,9 @@ function DesktopMegaPanel({
       id={panelId}
       role="menu"
       aria-hidden={!isOpen}
+      style={{ width: panelWidth, maxWidth: 'calc(100vw - 2rem)' }}
       className={classNames(
-        'absolute top-full z-60 mt-3 w-full transition-all duration-150 ease-out',
+        'absolute left-1/2 top-full z-60 mt-3 -translate-x-1/2 transition-all duration-150 ease-out',
         isOpen
           ? 'pointer-events-auto translate-y-0 opacity-100'
           : 'pointer-events-none translate-y-2 opacity-0',
@@ -704,7 +718,7 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
   return (
     <div
       ref={containerRef}
-      className="relative flex items-center gap-4"
+      className="flex items-center gap-4"
       onMouseEnter={cancelClose}
       onMouseLeave={handleSafePointerLeave}
     >
@@ -1011,7 +1025,7 @@ export function SiteHeader() {
             : 'bg-white',
         )}
       >
-        <div className="page-container flex items-center justify-between gap-4">
+        <div className="page-container relative flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-4">
             <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-[0_4px_12px_-4px_rgba(96,55,157,0.25)]">
               <Image

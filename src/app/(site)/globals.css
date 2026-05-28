@@ -134,7 +134,6 @@ h1 {
 /* Eyebrow text - small uppercase label above headings */
 .eyebrow {
   text-transform: uppercase;
-  letter-spacing: 0.3em;
 }
 
 /* Stack utilities for consistent vertical spacing */
@@ -204,8 +203,9 @@ h1 {
   padding-bottom: var(--spacing-section-sm);
 }
 
-/* When a dark section is the last child, eliminate the page-wrapper bottom padding gap */
-.page-wrapper > .section-dark:last-child {
+/* When a full-bleed section is the last child, eliminate the page-wrapper bottom padding gap */
+.page-wrapper > .section-dark:last-child,
+.page-wrapper > .stacking-section:last-child {
   margin-bottom: calc(var(--spacing-page-bottom) * -1);
 }
 
