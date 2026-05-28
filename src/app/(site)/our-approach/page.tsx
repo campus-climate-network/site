@@ -37,30 +37,11 @@ export default function AboutUsPage() {
       </section>
 
       <section className="page-container stack stack-relaxed">
-        <ScrollReveal variant="fade-up">
+        <ScrollReveal variant="fade-up" className="stack stack-loose max-w-3xl">
           <div className="stack stack-dense">
             <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              Our vision and mission
+              Our mission
             </h2>
-          </div>
-        </ScrollReveal>
-        <StaggerReveal
-          staggerDelay={150}
-          variant="blossom"
-          className="stack stack-loose max-w-3xl"
-        >
-          <div className="stack stack-snug">
-            <h3 className="text-xl font-semibold text-brand-primary">Vision</h3>
-            <p className="text-base text-slate-600">
-              We strive for a world free from the influence of the fossil fuel
-              industry and its enablers, where universities can become true
-              climate leaders.
-            </p>
-          </div>
-          <div className="stack stack-snug">
-            <h3 className="text-xl font-semibold text-brand-primary">
-              Mission
-            </h3>
             <p className="text-base text-slate-600">
               Campus Climate Network is stewarding a rising generation of
               student organizers to become the backbone of the movement for a
@@ -73,7 +54,7 @@ export default function AboutUsPage() {
               strategy for the long haul.
             </p>
           </div>
-        </StaggerReveal>
+        </ScrollReveal>
       </section>
 
       <ApproachStackingSection />

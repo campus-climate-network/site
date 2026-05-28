@@ -31,8 +31,7 @@ export const navEntries: NavEntry[] = [
           {
             label: 'About us',
             href: '/our-approach',
-            description:
-              'Strategy and support model for winning campus campaigns.',
+            description: 'Learn how we build student power.',
           },
           {
             label: 'Our story',
@@ -46,10 +45,9 @@ export const navEntries: NavEntry[] = [
         title: 'Work with us',
         items: [
           {
-            label: 'Careers',
+            label: 'Work at CCN',
             href: '/hiring',
-            description:
-              'Open roles for organizers, communicators, and builders.',
+            description: 'View open roles at CCN',
           },
           {
             label: 'Contact us',
