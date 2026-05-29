@@ -47,7 +47,7 @@ export const navEntries: NavEntry[] = [
           {
             label: 'Work at CCN',
             href: '/hiring',
-            description: 'View open roles at CCN',
+            description: 'View open roles at CCN.',
           },
           {
             label: 'Contact us',
@@ -78,6 +78,10 @@ export const navEntries: NavEntry[] = [
         ],
       },
     ],
+  },
+  {
+    label: 'Impact',
+    href: '/impact',
   },
   {
     label: 'Blog',

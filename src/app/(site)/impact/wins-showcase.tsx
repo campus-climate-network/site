@@ -26,6 +26,8 @@ interface WinsShowcaseProps {
 }
 
 function formatDate(dateString: string): string {
+  // Allow a bare year (e.g. '2025') when only the year is known.
+  if (/^\d{4}$/.test(dateString)) return dateString
   return new Date(dateString).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',

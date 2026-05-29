@@ -37,7 +37,7 @@ src/
 │   │   ├── our-approach/          # Mission, stacking scroll sections
 │   │   ├── ffr-campaign/          # Fossil Free Research campaign page
 │   │   ├── ffr-archive/           # FFR research reports
-│   │   ├── student-wins/          # Movement wins timeline (from Sanity)
+│   │   ├── impact/                # Impact page (local placeholder data; was student-wins)
 │   │   ├── take-action/           # Action Network intake form embed
 │   │   ├── donate/                # HCB donation iframe
 │   │   ├── open-letter/           # Open letter + signatories
@@ -134,7 +134,7 @@ src/
 ### Data Fetching
 
 - Sanity client with `useCdn: false` for fresh ISR data
-- Blog pages use `revalidate = 60` (ISR every 60 seconds); `/hiring` uses `revalidate = 3600` (1h); `/our-network` and `/student-wins` have no time-based `revalidate` (fully static, refreshed only via the webhook below or redeploy)
+- Blog pages use `revalidate = 60` (ISR every 60 seconds); `/hiring` uses `revalidate = 3600` (1h); `/our-network` and `/impact` have no time-based `revalidate` (fully static, refreshed only via the webhook below or redeploy)
 - GROQ queries centralized in `src/sanity/lib/queries.ts`
 - Member orgs fetched server-side, geocoded client-side via Mapbox API
 
@@ -142,19 +142,19 @@ src/
 
 - `POST /api/revalidate` (`src/app/api/revalidate/route.ts`) refreshes pages the moment content is published/unpublished/deleted in Sanity. Time-based ISR above is the fallback.
 - Signature is validated with `parseBody` from `next-sanity/webhook` using `SANITY_REVALIDATE_SECRET` (server-only). Unsigned/invalid requests → 401.
-- Maps `_type` → `revalidatePath`: `jobRole` → `/hiring`; `post` → `/blog` + `/blog/{slug}`; `author`/`category` → `/blog` + all post pages (`/blog/[slug]`); `memberOrg` → `/our-network`; `movementWin` → `/student-wins`.
+- Maps `_type` → `revalidatePath`: `jobRole` → `/hiring`; `post` → `/blog` + `/blog/{slug}`; `author`/`category` → `/blog` + all post pages (`/blog/[slug]`); `memberOrg` → `/our-network`; `movementWin` → `/impact`.
 - Sanity webhook config: URL `https://www.campusclimatenetwork.org/api/revalidate` (use `www.` — the apex 307-redirects), POST, projection `{ "_type": _type, "slug": slug.current }`, Drafts/Versions disabled, secret = `SANITY_REVALIDATE_SECRET`.
 
 ### Hidden/WIP Pages
 
-- `/student-wins` — exists but navigation link is commented out; add to sitemap once published
+- `/impact` — exists but navigation link is commented out; add to sitemap once published
 - `/member-portal` — password-gated (HMAC cookie); `noindex` and excluded from sitemap
 - `/resources/blog/[slug]` — empty placeholder directory, no page implemented yet
 
 ### Sitemap Notes
 
 - `/member-portal` — should be EXCLUDED from sitemap (not a public-facing page)
-- `/student-wins` — add to sitemap once the page is published
+- `/impact` — add to sitemap once the page is published
 
 ## Environment Variables
 

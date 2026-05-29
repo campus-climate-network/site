@@ -37,7 +37,7 @@ function targetsForType(type: string, slug?: string): RevalidateTarget[] {
     case 'memberOrg':
       return [{ path: '/our-network' }]
     case 'movementWin':
-      return [{ path: '/student-wins' }]
+      return [{ path: '/impact' }]
     default:
       return []
   }

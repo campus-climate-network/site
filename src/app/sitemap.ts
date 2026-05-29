@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/our-story',
     '/our-approach',
     '/ffr-archive',
-    // '/student-wins', // Hidden until content is ready
+    // '/impact', // Hidden until content is ready
     '/open-letter',
     '/blog',
     '/contact-us',
