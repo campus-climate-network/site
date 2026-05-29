@@ -38,13 +38,13 @@ const timelineEvents = [
     date: 'August 2023',
     title: 'An academic and oil company board member resigns',
     description:
-      "Harvard environmental law professor Jody Freeman resigns from the ConocoPhillips Board. Momentum toward this decision was sparked by a Freedom of Information Act request (submitted by one of our coalition members) revealing that Freeman lobbied the Securities and Exchange Commission on behalf of Conoco, but only disclosed her ties to Harvard. Ensuring campus activism from CCN member group Fossil Fuel Divest Harvard, in collaboration with allied climate groups, soon resulted in Freeman's resignation from the Conoco board.",
+      "Harvard environmental law professor Jody Freeman resigns from the ConocoPhillips board. Momentum toward this decision was sparked by a Freedom of Information Act request (submitted by one of our coalition members) revealing that Freeman lobbied the Securities and Exchange Commission on behalf of Conoco, but only disclosed her ties to Harvard. Ensuing campus activism from CCN member group Fossil Fuel Divest Harvard, in collaboration with allied climate groups, soon resulted in Freeman's resignation from the Conoco board.",
   },
   {
     date: 'September 2023',
     title: 'Panel event and climate march',
     description:
-      'At New York Climate week, one of the first opportunities for student climate activists to convene in person since the pandemic, Fossil Free Research coordinates a panel event on the state of campus organizing attended by over 60 student organizers from the US and Canada. The next day, members of the coalition march for climate justice alongside 75,000 others in New York City.',
+      'At New York Climate Week, one of the first opportunities for student climate activists to convene in person since the pandemic, Fossil Free Research coordinates a panel event on the state of campus organizing attended by over 60 student organizers from the US and Canada. The next day, members of the coalition march for climate justice alongside 75,000 others in New York City.',
   },
   {
     date: 'October 2023',

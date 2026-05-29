@@ -248,7 +248,7 @@ export default function OpenLetterPage() {
                 Notable signatories
               </h2>
               <p className="text-sm text-slate-200">
-                Nobel laureates, prominenet scientists, activists, and public
+                Nobel laureates, prominent scientists, activists, and public
                 figures have endorsed our letter.
               </p>
             </div>

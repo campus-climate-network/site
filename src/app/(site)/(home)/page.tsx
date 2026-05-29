@@ -146,7 +146,7 @@ export default async function Home() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
-                className="inline-flex items-center rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-yellow-300"
+                className="inline-flex items-center rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-brand-accent/90"
                 href="/take-action"
               >
                 Join us
@@ -197,7 +197,7 @@ export default async function Home() {
             <p className="eyebrow text-xs text-brand-cream/60 mb-4">
               Featured in
             </p>
-            <div className="grid grid-cols-2 gap-3 text-sm uppercase tracking-[0.3em] text-brand-cream/70 sm:grid-cols-3 xl:grid-cols-6 xl:gap-6">
+            <div className="grid grid-cols-2 gap-3 text-sm text-brand-cream/70 sm:grid-cols-3 xl:grid-cols-6 xl:gap-6">
               {pressLogos.map((logo) => {
                 const scale = 'scale' in logo ? logo.scale : 1
                 const content = (
@@ -249,7 +249,7 @@ export default async function Home() {
               </h2>
               <p className="text-base text-slate-600 sm:text-lg">
                 We are a network of student-led organizations running campaigns
-                for a just and liveable future.
+                for a just and livable future.
               </p>
               <div className="flex flex-wrap gap-3 text-sm font-semibold">
                 <Link
@@ -294,7 +294,7 @@ export default async function Home() {
               },
             ].map((item) => (
               <div key={item.title} className="rounded-3xl bg-white p-8">
-                <p className="text-sm font-semibold uppercase tracking-widest text-brand-secondary">
+                <p className="eyebrow text-sm font-semibold text-brand-secondary">
                   {item.title}
                 </p>
                 <h3 className="mt-2 text-xl font-semibold text-brand-primary">

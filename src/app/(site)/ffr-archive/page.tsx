@@ -85,7 +85,7 @@ export default function FfrReportsPage() {
 
                 {/* Text below */}
                 <div className="mt-4">
-                  <h3 className="font-instrument text-lg text-white group-hover:text-red-400 transition-colors">
+                  <h3 className="text-lg text-white group-hover:text-red-400 transition-colors">
                     {report.title}
                   </h3>
                   <p className="mt-1 text-sm text-stone-400">

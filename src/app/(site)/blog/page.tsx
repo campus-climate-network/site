@@ -99,7 +99,7 @@ export default async function Page() {
                       {/* Category Badge */}
                       {category?.title && (
                         <div className="absolute left-0 top-4">
-                          <span className="bg-brand-secondary/90 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
+                          <span className="bg-brand-secondary/90 px-3 py-1.5 text-[10px] font-bold eyebrow text-white">
                             {category.title}
                           </span>
                         </div>

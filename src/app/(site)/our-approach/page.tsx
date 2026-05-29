@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Image from 'next/image'
-import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
+import { ScrollReveal } from '@/components/scroll-reveal'
 import { ApproachStackingSection } from './approach-stacking-sections'
 
 export const metadata: Metadata = {

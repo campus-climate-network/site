@@ -304,7 +304,7 @@ export default function ImpactReport2025() {
                 justice, democracy, and higher education. International and
                 undocumented students were kidnapped in broad daylight, hundreds
                 of millions of dollars in public research funding were
-                cancelled, and widespread measures were taken to restrict
+                canceled, and widespread measures were taken to restrict
                 academic freedom. These measures are consistent with those of
                 authoritarian leaders throughout history.
               </p>
@@ -314,7 +314,7 @@ export default function ImpactReport2025() {
                 authoritarianism. History has taught us that authoritarian
                 leaders seek to capture universities in order to consolidate
                 power. By standing up to Trump, universities can play a role in
-                defending our right to a democratic, liveable future. Students
+                defending our right to a democratic, livable future. Students
                 have the power to ensure universities stand on the right side of
                 history.
               </p>
@@ -334,7 +334,7 @@ export default function ImpactReport2025() {
                 The stakes of developing a skilled, connected, and winning
                 student climate movement cannot be exaggerated. The student
                 climate movement has the potential to play a decisive role in
-                the fight for a democratic, just, and livable, future. This
+                the fight for a democratic, just, and livable future. This
                 potential is not guaranteed. At CCN, we remain steadfast in our
                 commitment to realizing the full potential of student power.
               </p>

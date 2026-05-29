@@ -234,7 +234,7 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
         <article className="stack stack-relaxed">
           <header className="stack stack-mid">
             <div className="stack stack-snug">
-              <p className="text-xs font-semibold uppercase tracking-[0.25em] text-brand-secondary">
+              <p className="eyebrow text-xs font-semibold text-brand-secondary">
                 {post.publishedAt
                   ? new Date(post.publishedAt).toLocaleDateString('en-US', {
                       dateStyle: 'long',
