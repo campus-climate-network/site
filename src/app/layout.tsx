@@ -41,8 +41,8 @@ export const metadata: Metadata = {
     'climate activism',
   ],
   icons: {
-    icon: '/favicon.png',
-    apple: '/favicon.png',
+    icon: { url: '/favicon.png', type: 'image/png', sizes: '64x64' },
+    apple: { url: '/apple-icon.png', type: 'image/png', sizes: '180x180' },
   },
   openGraph: {
     type: 'website',
