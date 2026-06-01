@@ -16,7 +16,24 @@ export const postType = defineType({
       type: 'slug',
       options: {
         source: 'title',
+        maxLength: 96,
+        slugify: (input) =>
+          input
+            .toLowerCase()
+            .replace(/['’‘]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '')
+            .slice(0, 96),
       },
+      validation: (rule) =>
+        rule.required().custom((value) => {
+          const current = value?.current
+          if (!current) return 'A slug is required'
+          if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(current)) {
+            return 'Use lowercase letters, numbers, and hyphens only — no spaces, punctuation, or uppercase. Click “Generate” to auto-format.'
+          }
+          return true
+        }),
     }),
     defineField({
       name: 'excerpt',
