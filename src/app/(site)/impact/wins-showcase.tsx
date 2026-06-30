@@ -9,7 +9,7 @@ export interface StudentWin {
   id: string
   title: string
   org: string
-  date: string
+  date?: string
   campaign?: string
   description?: string
   link?: string
@@ -34,7 +34,7 @@ function formatDate(dateString: string): string {
   })
 }
 
-function WinImage({
+export function WinImage({
   win,
   className,
   sizes,
@@ -123,7 +123,13 @@ function WinCard({
   )
 }
 
-function WinModal({ win, onClose }: { win: StudentWin; onClose: () => void }) {
+export function WinModal({
+  win,
+  onClose,
+}: {
+  win: StudentWin
+  onClose: () => void
+}) {
   const closeRef = useRef<HTMLButtonElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -190,9 +196,11 @@ function WinModal({ win, onClose }: { win: StudentWin; onClose: () => void }) {
 
         <div className="grid gap-8 pr-10 md:grid-cols-2 md:pr-12">
           <div>
-            <span className="text-xs font-medium text-slate-500">
-              {formatDate(win.date)}
-            </span>
+            {win.date && (
+              <span className="text-xs font-medium text-slate-500">
+                {formatDate(win.date)}
+              </span>
+            )}
             <h2
               id={titleId}
               className="mt-4 text-2xl font-semibold leading-tight text-brand-primary sm:text-3xl"

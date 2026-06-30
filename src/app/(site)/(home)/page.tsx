@@ -5,6 +5,7 @@ import { HeroCarousel } from '@/components/hero-carousel'
 import { MovementCarousel } from '@/components/movement-carousel'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 import { MemberMapWrapper } from '@/components/member-map-wrapper'
+import { AnimatedCounter } from '@/app/(site)/impact-reports/2025/animated-counter'
 import { FAQPageJsonLd } from '@/components/json-ld'
 import { client } from '@/sanity/lib/client'
 import { MEMBER_ORGS_QUERY } from '@/sanity/lib/queries'
@@ -62,6 +63,18 @@ const pressLogos = [
     height: 90,
     href: 'https://www.thenation.com/article/activism/university-of-florida-green-new-deal/',
   },
+]
+
+const impactStats: {
+  prefix?: string
+  value: number
+  suffix?: string
+  label: string
+  groupDigits?: boolean
+}[] = [
+  { value: 3000, suffix: '+', label: 'Students trained', groupDigits: true },
+  { value: 60, suffix: '+', label: 'Campuses organized' },
+  { prefix: '$', value: 100, suffix: 'B', label: 'Endowment dollars moved' },
 ]
 
 const movementHighlights = [
@@ -192,12 +205,12 @@ export default async function Home() {
             </div>
           </div>
         </div>
-        <div className="border-t border-white/15 bg-white/5">
+        <div className="border-t border-black/10 bg-brand-cream">
           <div className="page-container py-6">
-            <p className="eyebrow text-xs text-brand-cream/60 mb-4">
+            <p className="eyebrow text-xs text-brand-primary/60 mb-4">
               Featured in
             </p>
-            <div className="grid grid-cols-2 gap-3 text-sm text-brand-cream/70 sm:grid-cols-3 xl:grid-cols-6 xl:gap-6">
+            <div className="grid grid-cols-2 gap-3 text-sm text-slate-600 sm:grid-cols-3 xl:grid-cols-6 xl:gap-6">
               {pressLogos.map((logo) => {
                 const scale = 'scale' in logo ? logo.scale : 1
                 const content = (
@@ -219,14 +232,14 @@ export default async function Home() {
                     href={logo.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-16 items-center justify-center rounded-xl bg-brand-cream/70 px-3 py-2 transition hover:bg-brand-cream sm:h-20 lg:px-4 lg:py-3"
+                    className="flex h-16 items-center justify-center rounded-xl bg-white px-3 py-2 shadow-sm transition hover:shadow-md sm:h-20 lg:px-4 lg:py-3"
                   >
                     {content}
                   </a>
                 ) : (
                   <div
                     key={logo.name}
-                    className="flex h-16 items-center justify-center rounded-xl bg-brand-cream/70 px-3 py-2 sm:h-20 lg:px-4 lg:py-3"
+                    className="flex h-16 items-center justify-center rounded-xl bg-white px-3 py-2 shadow-sm sm:h-20 lg:px-4 lg:py-3"
                   >
                     {content}
                   </div>
@@ -238,12 +251,71 @@ export default async function Home() {
       </section>
 
       <section className="page-container">
+        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+          <ScrollReveal variant="fade-up">
+            <div className="stack stack-cozy">
+              <h2 className="text-2xl font-semibold text-pretty text-slate-900 sm:text-3xl">
+                Universities are where the fossil fuel industry buys legitimacy
+              </h2>
+              <p className="text-base text-slate-600 sm:text-lg">
+                For decades, oil and gas companies have poured money into
+                campuses, funding research, branding buildings, and shaping
+                climate policy from the inside. Students are uniquely positioned
+                to cut those ties.
+              </p>
+              <p className="text-base text-slate-600 sm:text-lg">
+                When students organize, we can move billion-dollar endowments,
+                win binding research policies, and prove that institutions
+                answer to people, not polluters.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal variant="blossom" delay={150}>
+            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-brand-secondary/20">
+              <Image
+                src="/photoprotest.jpg"
+                alt="Student organizers gathered outside a university building calling for climate action."
+                fill
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+              />
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="bg-brand-primary text-white section-dark">
+        <div className="page-container">
+          <dl className="grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {impactStats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <dd className="font-display text-4xl sm:text-5xl lg:text-6xl">
+                  {stat.prefix}
+                  <AnimatedCounter
+                    value={stat.value}
+                    suffix={stat.suffix}
+                    groupDigits={stat.groupDigits}
+                  />
+                </dd>
+                <dt className="mt-2 text-sm text-white/70">{stat.label}</dt>
+              </div>
+            ))}
+          </dl>
+          <div className="mt-10 text-center">
+            <Link
+              href="/impact"
+              className="inline-flex items-center rounded-full border border-white/40 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
+            >
+              See our full impact
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="page-container">
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <ScrollReveal variant="fade-up">
             <div className="stack stack-cozy">
-              <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
-                Our network
-              </p>
               <h2 className="text-2xl font-semibold text-pretty text-slate-900 sm:text-3xl">
                 Building student power on campuses across the country
               </h2>
@@ -311,57 +383,43 @@ export default async function Home() {
         <div className="stack stack-mid text-left">
           <ScrollReveal variant="fade-up">
             <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              What&apos;s next?
+              Scenes from campuses taking bold climate action
             </h2>
-          </ScrollReveal>
-          <StaggerReveal
-            staggerDelay={150}
-            variant="blossom"
-            className="grid gap-8 lg:grid-cols-2"
-          >
-            <div className="flex h-full flex-col justify-between rounded-3xl bg-brand-primary/10 p-8 text-brand-primary">
-              <p className="text-lg text-brand-primary/90">
-                Are you a university student, faculty, alumni, or community
-                member?
-              </p>
-              <Link
-                className="mt-6 inline-flex w-fit items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-                href="/take-action"
-              >
-                Join us
-              </Link>
-            </div>
-            <div className="flex h-full flex-col justify-between rounded-3xl bg-brand-secondary/10 p-8 text-brand-secondary">
-              <p className="text-lg text-brand-secondary/90">
-                Do you want to support the movement?
-              </p>
-              <Link
-                className="mt-6 inline-flex w-fit items-center rounded-full bg-brand-secondary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-primary"
-                href="/donate"
-              >
-                Donate
-              </Link>
-            </div>
-          </StaggerReveal>
-        </div>
-      </section>
-
-      <section className="page-container">
-        <div className="stack stack-mid text-left">
-          <ScrollReveal variant="fade-up">
-            <div className="stack stack-dense">
-              <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
-                We are the movement
-              </p>
-              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-                Scenes from campuses taking bold climate action
-              </h2>
-            </div>
           </ScrollReveal>
           <ScrollReveal variant="blossom" delay={100}>
             <MovementCarousel highlights={movementHighlights} />
           </ScrollReveal>
         </div>
+      </section>
+
+      <section className="page-container">
+        <ScrollReveal variant="fade-up">
+          <div className="relative isolate overflow-hidden rounded-[2.5rem] bg-linear-to-br from-brand-secondary via-brand-tertiary to-brand-primary px-6 py-16 text-center text-white sm:px-12 sm:py-20">
+            <div className="mx-auto stack stack-snug max-w-2xl">
+              <h2 className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
+                Be part of what&apos;s next
+              </h2>
+              <p className="mx-auto max-w-xl text-base text-brand-cream/90 sm:text-lg">
+                Whether you want to organize on your campus or fuel the movement
+                from anywhere, there&apos;s a place for you in this fight.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 pt-2">
+                <Link
+                  className="inline-flex items-center rounded-full bg-brand-accent px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-brand-accent/90"
+                  href="/take-action"
+                >
+                  Join us
+                </Link>
+                <Link
+                  className="inline-flex items-center rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
+                  href="/donate"
+                >
+                  Donate
+                </Link>
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   )

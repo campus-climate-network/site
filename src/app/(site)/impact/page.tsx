@@ -232,16 +232,16 @@ export default function ImpactPage() {
           <ScrollReveal variant="fade-up">
             <div className="stack stack-tight max-w-3xl">
               <SectionLabel number="01" className="text-brand-secondary">
-                For students
+                Students
               </SectionLabel>
               <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">
                 We develop the next generation of climate leaders
               </h2>
               <p className="text-lg text-slate-600">
-                Through fellowships, one-on-one coaching, and hands-on
-                trainings, students go from first-time volunteers to organizers
-                who can run — and win — campaigns. The skills and community they
-                build here last a lifetime.
+                We’ve supported thousands of student organizers across the
+                country to grow through hundreds of 1:1 coaching calls, group
+                coaching conversations, virtual trainings, and in person
+                trainings.
               </p>
             </div>
           </ScrollReveal>
@@ -337,11 +337,10 @@ export default function ImpactPage() {
           <ScrollReveal variant="fade-up">
             <div className="stack stack-tight max-w-3xl">
               <SectionLabel number="02" className="text-brand-primary">
-                Making progress
+                Campuses
               </SectionLabel>
               <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">
-                Students are winning real change — on climate, democracy, and
-                academic freedom
+                Student organizers are shaping the future of higher education
               </h2>
               <p className="text-lg text-slate-600">
                 Equipped with CCN&apos;s coaching, resources, and network, member
@@ -362,7 +361,7 @@ export default function ImpactPage() {
           <ScrollReveal variant="fade-up">
             <div className="stack stack-tight max-w-3xl">
               <SectionLabel number="03" className="text-brand-accent">
-                Movement infrastructure
+                Movement
               </SectionLabel>
               <h2 className="text-3xl font-semibold sm:text-4xl">
                 We&apos;re building lasting infrastructure for the movement

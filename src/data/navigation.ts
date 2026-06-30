@@ -23,7 +23,15 @@ export type NavEntry = NavMenu | NavPage
 
 export const navEntries: NavEntry[] = [
   {
-    label: 'About us',
+    label: 'Campaigns',
+    href: '/campaigns',
+  },
+  {
+    label: 'Impact',
+    href: '/impact',
+  },
+  {
+    label: 'About',
     columns: [
       {
         title: 'Inside CCN',
@@ -39,18 +47,13 @@ export const navEntries: NavEntry[] = [
             description:
               'Where the network began and where we are heading next.',
           },
-        ],
-      },
-      {
-        title: 'Work with us',
-        items: [
           {
-            label: 'Work at CCN',
+            label: 'Hiring',
             href: '/hiring',
             description: 'View open roles at CCN.',
           },
           {
-            label: 'Contact us',
+            label: 'Contact',
             href: '/contact-us',
             description: 'Reach the CCN team for partnerships or press.',
           },
@@ -59,13 +62,18 @@ export const navEntries: NavEntry[] = [
     ],
   },
   {
-    label: 'Network',
+    label: 'Resources',
     columns: [
       {
-        title: 'CCN Network',
+        title: 'Explore CCN',
         items: [
           {
-            label: 'Member organizations',
+            label: 'Blog',
+            href: '/blog',
+            description: 'Updates, analysis, and stories from the movement.',
+          },
+          {
+            label: 'Member orgs',
             href: '/our-network',
             description:
               'Explore the groups pushing universities to cut fossil ties.',
@@ -78,14 +86,6 @@ export const navEntries: NavEntry[] = [
         ],
       },
     ],
-  },
-  {
-    label: 'Impact',
-    href: '/impact',
-  },
-  {
-    label: 'Blog',
-    href: '/blog',
   },
   {
     label: 'Donate',

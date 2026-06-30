@@ -229,9 +229,6 @@ function MegaPanelColumns({
     >
       {menu.columns.map((column, colIndex) => (
         <div key={`${menu.label}-${column.title}`} className="stack stack-snug">
-          <p className="eyebrow px-3 text-xs font-semibold text-brand-tertiary">
-            {column.title}
-          </p>
           <ul className="stack-list-compact">
             {column.items.map((item, itemIndex) => {
               const currentIndex = columnOffsets[colIndex] + itemIndex
