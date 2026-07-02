@@ -28,7 +28,9 @@ interface WinsShowcaseProps {
 function formatDate(dateString: string): string {
   // Allow a bare year (e.g. '2025') when only the year is known.
   if (/^\d{4}$/.test(dateString)) return dateString
-  return new Date(dateString).toLocaleDateString('en-US', {
+  // Anchor to local midnight: bare 'YYYY-MM-DD' parses as UTC midnight, which
+  // rolls day-1 dates back a month for viewers west of UTC.
+  return new Date(`${dateString}T00:00:00`).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
   })
@@ -44,9 +46,11 @@ export function WinImage({
   sizes: string
 }) {
   if (!win.imageUrl) {
+    // Mirror the `fill` positioning of the Image branch so the gradient
+    // panel fills its `relative` parent instead of collapsing to content.
     return (
       <div
-        className={`flex items-center justify-center bg-gradient-to-br from-brand-secondary/20 via-brand-tertiary/10 to-brand-accent/20 ${className ?? ''}`}
+        className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br from-brand-secondary/20 via-brand-tertiary/10 to-brand-accent/20 ${className ?? ''}`}
       >
         <span className="font-display text-4xl text-brand-primary/40">
           {win.org.charAt(0)}

@@ -1022,7 +1022,9 @@ function MobileNav({
 // (desktop only — below 1080px the CSS ignores data-collapsed and keeps the full name).
 // Each word's trailing letters animate max-width -> 0 (+ fade) so the kept
 // initials (C, C, N) slide together. Widths are measured once fonts load so
-// the collapse has no dead-zone; full text stays in the DOM for screen readers.
+// the collapse has no dead-zone. The animated spans are aria-hidden (their
+// inline-block boxes fragment the accessible name into "C AMPUS C LIMATE…"),
+// so an sr-only span carries the full name for screen readers instead.
 function Wordmark({ collapsed }: { collapsed: boolean }) {
   const ref = useRef<HTMLParagraphElement>(null)
 
@@ -1046,30 +1048,34 @@ function Wordmark({ collapsed }: { collapsed: boolean }) {
   }, [])
 
   return (
-    <p
-      ref={ref}
-      data-collapsed={collapsed}
-      className="wordmark font-display whitespace-nowrap text-sm uppercase leading-tight tracking-tight sm:text-lg"
-    >
-      <span className="wordmark-keep">C</span>
-      <span className="wordmark-rest" data-collapsible>
-        ampus
-      </span>
-      <span className="wordmark-space" data-collapsible>
-        &nbsp;
-      </span>
-      <span className="wordmark-keep">C</span>
-      <span className="wordmark-rest" data-collapsible>
-        limate
-      </span>
-      <span className="wordmark-space" data-collapsible>
-        &nbsp;
-      </span>
-      <span className="wordmark-keep">N</span>
-      <span className="wordmark-rest" data-collapsible>
-        etwork
-      </span>
-    </p>
+    <>
+      <span className="sr-only">Campus Climate Network</span>
+      <p
+        ref={ref}
+        aria-hidden="true"
+        data-collapsed={collapsed}
+        className="wordmark font-display whitespace-nowrap text-sm uppercase leading-tight tracking-tight sm:text-lg"
+      >
+        <span className="wordmark-keep">C</span>
+        <span className="wordmark-rest" data-collapsible>
+          ampus
+        </span>
+        <span className="wordmark-space" data-collapsible>
+          &nbsp;
+        </span>
+        <span className="wordmark-keep">C</span>
+        <span className="wordmark-rest" data-collapsible>
+          limate
+        </span>
+        <span className="wordmark-space" data-collapsible>
+          &nbsp;
+        </span>
+        <span className="wordmark-keep">N</span>
+        <span className="wordmark-rest" data-collapsible>
+          etwork
+        </span>
+      </p>
+    </>
   )
 }
 
@@ -1128,7 +1134,7 @@ export function SiteHeader() {
             <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full shadow-[0_4px_12px_-4px_rgba(96,55,157,0.25)]">
               <Image
                 src="/purple-logo.png"
-                alt="Campus Climate Network logo"
+                alt=""
                 fill
                 priority
                 sizes="44px"

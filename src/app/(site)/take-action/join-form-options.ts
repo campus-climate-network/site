@@ -8,6 +8,9 @@ export const CAMPAIGN_STATUS_OPTIONS = [
   'I am trying to start one!',
 ] as const
 
+// Values for the 'Type (Student, Faculty, Alumni, Other)' custom field.
+export const MEMBER_TYPES = ['Student', 'Faculty', 'Alumni', 'Other'] as const
+
 export const CAMPAIGN_INTERESTS = [
   'Fossil Free Research',
   'Fossil Free Careers',

@@ -1,6 +1,12 @@
 'use client'
 
-import { startTransition, useActionState, useState } from 'react'
+import {
+  startTransition,
+  useActionState,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import type { FormEvent } from 'react'
 
 import { cn } from '@/lib/utils'
@@ -9,14 +15,22 @@ import {
   CAMPAIGN_INTERESTS,
   CAMPAIGN_STATUS_OPTIONS,
   COUNTRY_CODES,
+  MEMBER_TYPES,
 } from './join-form-options'
 
-const regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
+// Guarded so browsers without Intl.DisplayNames fall back to raw codes
+// instead of throwing during module evaluation and breaking the form.
+const regionNames =
+  typeof Intl.DisplayNames === 'undefined'
+    ? null
+    : new Intl.DisplayNames(['en'], { type: 'region' })
 
 const COUNTRIES = COUNTRY_CODES.map((code) => ({
   code,
-  name: regionNames.of(code) ?? code,
-})).sort((a, b) => a.name.localeCompare(b.name))
+  name: regionNames?.of(code) ?? code,
+  // Pin the collation locale: the module runs on both server and client, and
+  // a locale-sensitive sort would reorder options and break hydration.
+})).sort((a, b) => a.name.localeCompare(b.name, 'en'))
 
 const fieldClasses = 'flex flex-col gap-1.5'
 
@@ -72,6 +86,16 @@ function TextField({
 export function JoinForm() {
   const [state, formAction, isPending] = useActionState(submitJoinForm, null)
   const [interestError, setInterestError] = useState(false)
+  const successHeadingRef = useRef<HTMLHeadingElement>(null)
+
+  // The success panel replaces the form (and the focused submit button), so
+  // move focus to its heading — screen readers announce it and keyboard users
+  // aren't dropped back to the top of the page.
+  useEffect(() => {
+    if (state?.status === 'success') {
+      successHeadingRef.current?.focus()
+    }
+  }, [state])
 
   // Dispatching manually (instead of letting the form action run) keeps the
   // entered values in place if the submission fails
@@ -83,6 +107,10 @@ export function JoinForm() {
       return
     }
     setInterestError(false)
+    // Forward ?source=... link attribution to Action Network's sources chart
+    // (the old embed script captured this automatically).
+    const source = new URLSearchParams(window.location.search).get('source')
+    if (source) formData.set('source', source)
     startTransition(() => formAction(formData))
   }
 
@@ -102,7 +130,11 @@ export function JoinForm() {
           <circle cx="12" cy="12" r="10" />
           <path d="m8.5 12.5 2.5 2.5 4.5-5.5" />
         </svg>
-        <h2 className="text-2xl font-semibold text-brand-primary">
+        <h2
+          ref={successHeadingRef}
+          tabIndex={-1}
+          className="text-2xl font-semibold text-brand-primary outline-none"
+        >
           Thanks for signing up!
         </h2>
         <p className="max-w-xl text-base text-slate-700">
@@ -120,11 +152,13 @@ export function JoinForm() {
       onSubmit={handleSubmit}
       className="flex flex-col gap-8"
     >
+      {/* Non-semantic honeypot name: autofill vocabularies match names like
+          'website', which risks silently swallowing real signups. */}
       <div aria-hidden="true" className="sr-only">
-        <label htmlFor="join-website">Leave this field empty</label>
+        <label htmlFor="join-form-note">Leave this field empty</label>
         <input
-          id="join-website"
-          name="website"
+          id="join-form-note"
+          name="form_note"
           type="text"
           tabIndex={-1}
           autoComplete="off"
@@ -192,11 +226,24 @@ export function JoinForm() {
             </select>
           </div>
         </div>
-        <TextField
-          label="I am a..."
-          name="memberType"
-          placeholder="Student, Faculty, Alumni, etc."
-        />
+        <div className={fieldClasses}>
+          <label htmlFor="join-memberType" className={labelClasses}>
+            I am a...
+          </label>
+          <select
+            id="join-memberType"
+            name="memberType"
+            defaultValue=""
+            className={cn(inputClasses, 'appearance-auto')}
+          >
+            <option value="">Select one (optional)</option>
+            {MEMBER_TYPES.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       <div className="flex flex-col gap-5">

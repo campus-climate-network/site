@@ -43,7 +43,7 @@ export const studentWins: StudentWin[] = [
     date: '2025-10-15',
     campaign: 'Defending higher education',
     description:
-      'In October, the Trump administration sent a “Loyalty Oath Compact” to nine US universities, offering special treatment in exchange for allegiance to a partisan ideological agenda. Because of our efforts, not a single university accepted the compact. Seven of the original nine schools rejected it outright, and ten others proactively said they do not support the compact. CCN members at the University of Kansas and UNC Chapel Hill campaigns won their campaigns calling on administrators to pre-emptively reject the compact.',
+      'In October 2025, the Trump administration sent a “Loyalty Oath Compact” to nine US universities, offering special treatment in exchange for allegiance to a partisan ideological agenda. Because of our efforts, not a single university accepted the compact. Seven of the original nine schools rejected it outright, and ten others proactively said they do not support the compact. CCN members at the University of Kansas and UNC Chapel Hill won their campaigns calling on administrators to pre-emptively reject the compact.',
     imageUrl: '/images/impact-report/brown-reject-compact.jpg',
     imageAlt:
       "Students at Brown University holding a 'Brown Rise Up — Reject the Compact' banner outside the campus gates.",

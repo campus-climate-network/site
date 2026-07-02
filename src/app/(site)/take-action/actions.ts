@@ -4,6 +4,7 @@ import {
   CAMPAIGN_INTERESTS,
   CAMPAIGN_STATUS_OPTIONS,
   COUNTRY_CODES,
+  MEMBER_TYPES,
 } from './join-form-options'
 
 export type JoinFormState =
@@ -25,8 +26,10 @@ export async function submitJoinForm(
   _prevState: JoinFormState,
   formData: FormData,
 ): Promise<JoinFormState> {
-  // Honeypot — real users never see this field
-  if (field(formData, 'website')) {
+  // Honeypot — real users never see this field. Logged so silently dropped
+  // submissions are visible in server logs if a real user ever trips it.
+  if (field(formData, 'form_note')) {
+    console.warn('Join form honeypot tripped — submission dropped')
     return { status: 'success' }
   }
 
@@ -64,7 +67,8 @@ export async function submitJoinForm(
   if (
     requiredFields.some((value) => !value) ||
     !(CAMPAIGN_STATUS_OPTIONS as readonly string[]).includes(campaignStatus) ||
-    !(COUNTRY_CODES as readonly string[]).includes(country)
+    !(COUNTRY_CODES as readonly string[]).includes(country) ||
+    (memberType && !(MEMBER_TYPES as readonly string[]).includes(memberType))
   ) {
     return {
       status: 'error',
@@ -101,8 +105,13 @@ export async function submitJoinForm(
   }
   if (referralSource) customFields['Come from'] = referralSource
   if (supportNeeds) customFields['Needs for CCN Support'] = supportNeeds
-  for (const interest of interests) {
-    customFields[`Campaign Interest_${interest}`] = '1'
+  // Write every interest as '1' or '0': Action Network merges custom_fields
+  // per person, so omitting unchecked boxes would leave stale '1's from a
+  // previous submission sticky forever.
+  for (const interest of CAMPAIGN_INTERESTS) {
+    customFields[`Campaign Interest_${interest}`] = interests.includes(interest)
+      ? '1'
+      : '0'
   }
 
   // Tags are matched by name to tags that already exist in Action Network;
@@ -129,7 +138,12 @@ export async function submitJoinForm(
       },
     },
     'action_network:referrer_data': {
-      source: process.env.ACTION_NETWORK_SOURCE || 'ccn-website',
+      // Per-link attribution (/take-action?source=...) forwarded by the form;
+      // falls back to the configured site-wide source.
+      source:
+        field(formData, 'source').slice(0, 100) ||
+        process.env.ACTION_NETWORK_SOURCE ||
+        'ccn-website',
       website: 'https://www.campusclimatenetwork.org/take-action',
     },
   }
