@@ -60,11 +60,6 @@ export function CampaignsCarousel({ campaigns }: { campaigns: StudentWin[] }) {
             className="group relative flex h-[26rem] w-[78vw] shrink-0 snap-start flex-col overflow-hidden rounded-3xl border border-slate-200/80 bg-white text-left shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary focus-visible:ring-offset-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:h-[30rem] sm:w-[20rem] lg:w-[21.5rem]"
           >
             <div className="flex flex-col gap-2 p-6 sm:p-7">
-              {win.campaign && (
-                <span className="eyebrow text-[11px] font-semibold text-brand-secondary">
-                  {win.campaign}
-                </span>
-              )}
               <h3 className="text-xl font-semibold leading-snug text-slate-900 sm:text-2xl">
                 {win.title}
               </h3>

@@ -675,6 +675,71 @@ h1 {
   color: #1e293b;
 }
 
+/* Member map pins: hidden while `member-pin-waiting` (until the map scrolls
+   into view), then dropped in staggered via `member-pin-drop` with an inline
+   animation-delay set in member-map.tsx. A soft ring pulses at each pin tip.
+   Pins stay visible if the observer never runs. */
+.member-pin-waiting {
+  opacity: 0;
+}
+
+.member-pin-drop {
+  animation: member-pin-drop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes member-pin-drop {
+  from {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.member-pin-pulse {
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 9999px;
+  background: var(--brand-tertiary);
+  opacity: 0;
+  animation: member-pin-pulse 3.2s ease-out infinite;
+}
+
+@keyframes member-pin-pulse {
+  0% {
+    opacity: 0.45;
+    transform: scale(0.4);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .member-pin-waiting {
+    opacity: 1;
+  }
+
+  .member-pin-drop {
+    animation: none;
+  }
+
+  .member-pin-pulse {
+    display: none;
+  }
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    Mobile Menu Animation
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -747,4 +812,159 @@ h1 {
    section's description and its people. */
 .notion .notion-gallery-grid {
   border-top: none;
+}
+
+/* Header wordmark: "Campus Climate Network" collapses to "CCN" on scroll.
+   The kept initials stay; each word's trailing letters (and the inter-word
+   spaces) animate max-width -> 0 with a fade, sliding the initials together.
+   Width vars are set in JS from each span's measured width (no dead-zone). */
+.wordmark-keep,
+.wordmark-rest,
+.wordmark-space {
+  display: inline-block;
+  vertical-align: bottom;
+}
+.wordmark-rest,
+.wordmark-space {
+  max-width: var(--w, 8ch);
+  overflow: hidden;
+  white-space: pre;
+  transition:
+    max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.35s ease;
+}
+/* Collapse only alongside the desktop nav (≥1080px, matching the header's
+   nav ↔ burger switch); in the hamburger layout the full name always fits,
+   so it stays expanded regardless of scroll. */
+@media (min-width: 1080px) {
+  .wordmark[data-collapsed='true'] .wordmark-rest,
+  .wordmark[data-collapsed='true'] .wordmark-space {
+    max-width: 0;
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wordmark-rest,
+  .wordmark-space {
+    transition: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Press Logo Marquee
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* The track holds several identical logo groups and scrolls by half its own
+   width; the pattern repeats every group, so the loop is seamless. Hover or
+   keyboard focus pauses it. Reduced motion: static, manually scrollable row
+   with the duplicate groups hidden. */
+.logo-marquee {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+.logo-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: logo-marquee-scroll 45s linear infinite;
+}
+
+.logo-marquee-group {
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.logo-marquee:hover .logo-marquee-track,
+.logo-marquee:focus-within .logo-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes logo-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee {
+    overflow-x: auto;
+    mask-image: none;
+  }
+
+  .logo-marquee-track {
+    width: auto;
+    animation: none;
+  }
+
+  .logo-marquee-group[aria-hidden='true'] {
+    display: none;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CTA Delight: Drifting Gradient + Confetti
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.gradient-drift {
+  background-size: 180% 180%;
+  animation: gradient-drift 14s ease-in-out infinite;
+}
+
+@keyframes gradient-drift {
+  0%,
+  100% {
+    background-position: 15% 0%;
+  }
+  50% {
+    background-position: 85% 100%;
+  }
+}
+
+/* Confetti pieces are spawned imperatively by ConfettiLink with per-piece
+   --confetti-* vars. Base opacity 0 so pieces with an animation-delay don't
+   cluster visibly at the center before launching. */
+.confetti-piece {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 7px;
+  height: 11px;
+  opacity: 0;
+  animation: confetti-burst 0.8s cubic-bezier(0.12, 0.85, 0.35, 1) forwards;
+}
+
+@keyframes confetti-burst {
+  from {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(0deg) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translate(
+        calc(-50% + var(--confetti-x)),
+        calc(-50% + var(--confetti-y))
+      )
+      rotate(var(--confetti-r)) scale(0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gradient-drift {
+    animation: none;
+  }
+
+  .confetti-piece {
+    display: none;
+  }
 }

@@ -85,6 +85,16 @@ export default function MemberMap({
   const [popupInfo, setPopupInfo] = useState<MemberOrg | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [initialZoom] = useState(getInitialZoom)
+  const containerRef = useRef<HTMLDivElement>(null)
+  // Pins render visible ('idle') under reduced motion or if JS observers are
+  // unavailable; otherwise they wait hidden and drop in on first intersection.
+  const [pinPhase, setPinPhase] = useState<'idle' | 'waiting' | 'drop'>(() => {
+    if (typeof window === 'undefined') return 'idle'
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      return 'idle'
+    }
+    return 'waiting'
+  })
 
   // Geocode members that don&apos;t have coordinates
   useEffect(() => {
@@ -134,6 +144,26 @@ export default function MemberMap({
 
     geocodeMissingCoords()
   }, [initialMembers])
+
+  // Reveal pins with a staggered drop once the map scrolls into view
+  useEffect(() => {
+    if (pinPhase !== 'waiting') return
+    const node = containerRef.current
+    if (!node || typeof IntersectionObserver === 'undefined') {
+      setPinPhase('drop')
+      return
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setPinPhase('drop')
+        }
+      },
+      { threshold: 0.2 },
+    )
+    observer.observe(node)
+    return () => observer.disconnect()
+  }, [pinPhase])
 
   const getCoords = (
     member: MemberOrg & { resolvedCoords?: { lat: number; lng: number } },
@@ -269,7 +299,7 @@ export default function MemberMap({
   }
 
   return (
-    <div className="relative">
+    <div ref={containerRef} className="relative">
       {loading && (
         <div className="absolute inset-0 z-[1000] flex items-center justify-center bg-white/90 backdrop-blur-sm">
           <div className="text-center">
@@ -316,7 +346,7 @@ export default function MemberMap({
           >
             <NavigationControl position="top-right" />
 
-            {mappedMembers.map((member) => {
+            {mappedMembers.map((member, index) => {
               const coords = getCoords(member)!
               const isSelected = selectedMember?._id === member._id
               return (
@@ -332,23 +362,45 @@ export default function MemberMap({
                   }}
                 >
                   <div
-                    className={`cursor-pointer transition-all duration-200 ${
-                      isSelected ? 'z-10 scale-125' : 'hover:scale-110'
+                    className={`relative ${
+                      pinPhase === 'waiting'
+                        ? 'member-pin-waiting'
+                        : pinPhase === 'drop'
+                          ? 'member-pin-drop'
+                          : ''
                     }`}
+                    style={
+                      pinPhase === 'drop'
+                        ? { animationDelay: `${Math.min(index * 35, 1400)}ms` }
+                        : undefined
+                    }
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      className={`h-8 w-8 drop-shadow-lg transition-colors ${
-                        isSelected ? 'fill-brand-accent' : 'fill-brand-primary'
+                    <span
+                      className="member-pin-pulse"
+                      style={{ animationDelay: `${(index % 8) * 400}ms` }}
+                      aria-hidden="true"
+                    />
+                    <div
+                      className={`relative cursor-pointer transition-all duration-200 ${
+                        isSelected ? 'z-10 scale-125' : 'hover:scale-110'
                       }`}
                     >
-                      <path
-                        fillRule="evenodd"
-                        d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        className={`h-8 w-8 drop-shadow-lg transition-colors ${
+                          isSelected
+                            ? 'fill-brand-accent'
+                            : 'fill-brand-primary'
+                        }`}
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </Marker>
               )

@@ -13,19 +13,6 @@ export const metadata: Metadata = {
     'See the impact of the student climate movement: leaders trained, campaigns won, and the lasting infrastructure CCN is building alongside partners across the movement.',
 }
 
-// ── Headline stats banner (all-time figures) ────────────────────────────────
-const stats: {
-  prefix?: string
-  value: number
-  suffix?: string
-  label: string
-  groupDigits?: boolean
-}[] = [
-  { value: 3000, suffix: '+', label: 'Students trained', groupDigits: true },
-  { value: 60, suffix: '+', label: 'Campuses organized' },
-  { prefix: '$', value: 100, suffix: 'B', label: 'Endowment dollars moved' },
-]
-
 // ── Section 01 · Leadership development ──────────────────────────────────────
 const leadershipStats = [
   {
@@ -88,40 +75,6 @@ const testimonials = [
 
 // ── Section 03 · Movement infrastructure ─────────────────────────────────────
 // Real ecosystem partnerships (CCN 2025 Impact Report).
-const ecosystemPartners = [
-  {
-    name: 'Climate Resistance Incubator (CRI)',
-    description:
-      'CCN staff leaders receive regular coaching and support from Varshini Prakash, co-founder and former Executive Director of the Sunrise Movement.',
-    logo: '/images/impact-report/cri-logo.webp',
-    logoAlt: 'Climate Resistance Incubator logo',
-  },
-  {
-    name: 'UMiami Climate Accountability Lab',
-    description:
-      '28 students from CCN member organizations worked with CCN Advisory Board member Geoffrey Supran to uncover ties between universities and fossil fuel companies.',
-    logo: '/images/impact-report/umiami-logo.png',
-    logoAlt: 'University of Miami logo',
-  },
-]
-
-// Real Project Rise Up coalition partners (CCN 2025 Impact Report).
-const partnerOrgs = [
-  { name: 'Sunrise Movement', href: 'https://www.sunrisemovement.org' },
-  { name: 'Higher Ed Labor United', href: 'https://higheredlaborunited.org' },
-  {
-    name: 'American Association of University Professors',
-    href: 'https://www.aaup.org',
-  },
-  { name: 'Ohio Student Association', href: 'https://ohiostudentassociation.org' },
-  {
-    name: 'Educational Freedom Project',
-    href: 'https://www.educationalfreedomproject.org',
-  },
-  { name: 'Frontline for Freedom', href: 'https://www.frontline4freedom.org' },
-  { name: 'Youth Action Fund', href: 'https://www.youthactionfund.org' },
-]
-
 // ⚠️ PLACEHOLDER: Section 03 calls for a quote from a partner organization to
 // build credibility. We don't have a real one yet — replace the quote and the
 // attribution below before relying on this. The text shows the intended tone.
@@ -131,6 +84,19 @@ const partnerQuote = {
   name: 'Add a real partner quote here',
   org: 'Partner organization · name & title',
 }
+
+const studentQuotes = [
+  {
+    quote:
+      "I have never been a part of a national group of organizers and [it is] extremely inspiring and helpful to hear everyone's experiences on their campus.",
+    org: 'Student Organizer at the University of Arkansas',
+  },
+  {
+    quote:
+      'Having the support and guidance of incredible organizers has been both helpful and inspiring. It’s empowering to know that there’s a community of people who genuinely want to see you grow and succeed. The resources, mentorship, and sense of solidarity I’ve gained through [CCN] have been invaluable for my work on campus and beyond.',
+    org: 'Student Organizer at University of Richmond',
+  },
+]
 
 // ── Closing call to action (one path per audience) ───────────────────────────
 const ctaCards = [
@@ -153,8 +119,7 @@ const ctaCards = [
   {
     audience: 'Organizations',
     title: 'Partner with us',
-    description:
-      'Movement-aligned org? Let’s build student power together.',
+    description: 'Movement-aligned org? Let’s build student power together.',
     cta: 'Get in touch',
     href: '/contact-us',
   },
@@ -173,9 +138,7 @@ function SectionLabel({
     <div className={`flex items-center gap-3 ${className}`}>
       <span className="font-display text-lg leading-none">{number}</span>
       <span className="h-px w-8 bg-current opacity-40" />
-      <span className="eyebrow text-xs font-semibold">
-        {children}
-      </span>
+      <span className="eyebrow text-xs font-semibold">{children}</span>
     </div>
   )
 }
@@ -202,27 +165,6 @@ export default function ImpactPage() {
               </p>
             </div>
           </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Stats banner */}
-      <section className="bg-brand-primary text-white section-dark">
-        <div className="page-container">
-          <dl className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <dd className="font-display text-4xl sm:text-5xl lg:text-6xl">
-                  {stat.prefix}
-                  <AnimatedCounter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                    groupDigits={stat.groupDigits}
-                  />
-                </dd>
-                <dt className="mt-2 text-sm text-white/70">{stat.label}</dt>
-              </div>
-            ))}
-          </dl>
         </div>
       </section>
 
@@ -340,13 +282,13 @@ export default function ImpactPage() {
                 Campuses
               </SectionLabel>
               <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">
-                Student organizers are shaping the future of higher education
+                We shape the future of higher education
               </h2>
               <p className="text-lg text-slate-600">
-                Equipped with CCN&apos;s coaching, resources, and network, member
-                organizations deliver tangible wins: kicking Big Oil off campus,
-                defending higher education, and proving that organized students
-                can move even the most stubborn institutions.
+                Equipped with CCN&apos;s coaching, resources, and network,
+                member organizations deliver tangible wins: kicking Big Oil off
+                campus, defending higher education, and proving that organized
+                students can move even the most stubborn institutions.
               </p>
             </div>
           </ScrollReveal>
@@ -367,41 +309,12 @@ export default function ImpactPage() {
                 We&apos;re building lasting infrastructure for the movement
               </h2>
               <p className="text-lg text-white/70">
-                Campaigns come and go, but the relationships, training pipelines,
-                and partnerships we build endure. CCN is the connective tissue
-                developing the next generation of leaders — and we don&apos;t do
-                it alone.
+                We&rsquo;re strengthening the connective tissue of the student
+                movement. The relationships we cultivate empower students to
+                organize on campus and will last long after students graduate.
               </p>
             </div>
           </ScrollReveal>
-
-          <div className="grid gap-6 md:grid-cols-2">
-            {ecosystemPartners.map((partner, index) => (
-              <ScrollReveal
-                key={partner.name}
-                variant="fade-up"
-                delay={index * 75}
-              >
-                <div className="flex h-full items-start gap-5 rounded-3xl bg-white/5 p-6 ring-1 ring-white/10">
-                  <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-white p-2">
-                    <Image
-                      src={partner.logo}
-                      alt={partner.logoAlt}
-                      width={48}
-                      height={48}
-                      className="h-full w-full object-contain"
-                    />
-                  </div>
-                  <div>
-                    <p className="font-semibold">{partner.name}</p>
-                    <p className="mt-2 text-sm leading-relaxed text-white/65">
-                      {partner.description}
-                    </p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
 
           <ScrollReveal variant="fade-up">
             <figure className="rounded-3xl bg-white/5 p-8 ring-1 ring-white/10 sm:p-10">
@@ -418,31 +331,25 @@ export default function ImpactPage() {
             </figure>
           </ScrollReveal>
 
-          <ScrollReveal variant="fade-up">
-            <div className="stack stack-dense">
-              <p className="eyebrow text-xs font-semibold text-brand-accent">
-                Who we work with
-              </p>
-              <p className="max-w-2xl text-base text-white/70">
-                Through Project Rise Up — a coalition of labor and student-led
-                organizations — we work alongside trusted partners across the
-                movement.
-              </p>
-              <div className="flex flex-wrap gap-3 pt-2">
-                {partnerOrgs.map((partner) => (
-                  <a
-                    key={partner.name}
-                    href={partner.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-full border border-white/20 bg-white/5 px-4 py-2 text-sm font-medium text-white/80 transition hover:border-white/40 hover:text-white"
-                  >
-                    {partner.name}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </ScrollReveal>
+          <div className="grid gap-6 md:grid-cols-2">
+            {studentQuotes.map((studentQuote, index) => (
+              <ScrollReveal
+                key={studentQuote.org}
+                variant="fade-up"
+                delay={index * 75}
+              >
+                <figure className="flex h-full flex-col rounded-3xl bg-white/5 p-8 ring-1 ring-white/10">
+                  <Quote className="h-7 w-7 text-brand-accent/60" />
+                  <blockquote className="mt-4 flex-1 text-lg font-medium leading-relaxed text-white/90">
+                    {studentQuote.quote}
+                  </blockquote>
+                  <figcaption className="mt-6 text-sm font-semibold text-brand-accent">
+                    {studentQuote.org}
+                  </figcaption>
+                </figure>
+              </ScrollReveal>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -455,15 +362,19 @@ export default function ImpactPage() {
                 Be part of what&apos;s next
               </h2>
               <p className="mx-auto max-w-xl text-lg text-slate-600">
-                Whether you want to organize, fund the work, or partner with us —
-                there&apos;s a place for you in this movement.
+                Whether you want to organize, fund the work, or partner with us
+                — there&apos;s a place for you in this movement.
               </p>
             </div>
           </ScrollReveal>
 
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {ctaCards.map((card, index) => (
-              <ScrollReveal key={card.title} variant="fade-up" delay={index * 75}>
+              <ScrollReveal
+                key={card.title}
+                variant="fade-up"
+                delay={index * 75}
+              >
                 <Link
                   href={card.href}
                   className="group flex h-full flex-col rounded-3xl border border-slate-200/80 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:translate-y-0"

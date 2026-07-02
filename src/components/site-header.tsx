@@ -303,6 +303,7 @@ function DesktopMegaPanel({
   onPanelRef,
   onPanelEnter,
   onItemEnter,
+  left,
 }: {
   panelId: string
   menu: NavMenu | null
@@ -321,6 +322,7 @@ function DesktopMegaPanel({
   onPanelRef: (element: HTMLDivElement | null) => void
   onPanelEnter: () => void
   onItemEnter?: () => void
+  left: number | null
 }) {
   const panelRef = useRef<HTMLDivElement>(null)
 
@@ -453,9 +455,14 @@ function DesktopMegaPanel({
       id={panelId}
       role="menu"
       aria-hidden={!isOpen}
-      style={{ width: panelWidth, maxWidth: 'calc(100vw - 2rem)' }}
+      style={{
+        width: panelWidth,
+        maxWidth: 'calc(100vw - 2rem)',
+        left: left ?? undefined,
+      }}
       className={classNames(
-        'absolute left-1/2 top-full z-60 mt-3 -translate-x-1/2 transition-all duration-150 ease-out',
+        'absolute top-full z-60 mt-3 transition-all duration-150 ease-out',
+        left === null && 'left-1/2 -translate-x-1/2',
         isOpen
           ? 'pointer-events-auto translate-y-0 opacity-100'
           : 'pointer-events-none translate-y-2 opacity-0',
@@ -493,6 +500,7 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [activeMenu, setActiveMenu] = useState<NavMenu | null>(null)
   const [isOpen, setIsOpen] = useState(false)
+  const [panelLeft, setPanelLeft] = useState<number | null>(null)
   const closeTimer = useRef<NodeJS.Timeout | null>(null)
   const pendingFocusIndex = useRef<number | null>(null)
   const panelRef = useRef<HTMLDivElement | null>(null)
@@ -600,6 +608,30 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
     [cancelClose, isEventTargetWithinNav, scheduleClose],
   )
 
+  const positionPanel = useCallback(
+    (trigger: HTMLButtonElement | null, menu: NavMenu) => {
+      const container = containerRef.current
+      if (!trigger || !container) return
+
+      const triggerRect = trigger.getBoundingClientRect()
+      const containerRect = container.getBoundingClientRect()
+      const columnCount = Math.max(menu.columns.length, 1)
+      // Mirror the width formula used by the panel (rem → px at 16px root).
+      const panelWidth =
+        (2.5 + columnCount * 20 + (columnCount - 1) * 1.25) * 16
+      const margin = 16
+
+      // Align the panel's first item under the trigger label. The label sits
+      // 12px into the trigger (px-3); panel content sits 32px in (p-5 + p-3),
+      // so shift the panel left by the 20px difference.
+      const desired = triggerRect.left - 20
+      const maxLeft = window.innerWidth - panelWidth - margin
+      const clamped = Math.max(margin, Math.min(desired, maxLeft))
+      setPanelLeft(clamped - containerRect.left)
+    },
+    [],
+  )
+
   const openMenu = useCallback(
     (
       menu: NavMenu,
@@ -607,13 +639,14 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
       options?: MenuFocusOptions,
     ) => {
       cancelClose()
+      positionPanel(trigger, menu)
       setActiveMenu(menu)
       setIsOpen(true)
       if (options?.focusIndex !== undefined) {
         pendingFocusIndex.current = options.focusIndex
       }
     },
-    [cancelClose],
+    [cancelClose, positionPanel],
   )
 
   useEffect(() => {
@@ -625,6 +658,18 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
       })
     }
   }, [activeMenu, focusItem])
+
+  useEffect(() => {
+    if (!isOpen || !activeMenu) return
+    const handleResize = () => {
+      positionPanel(
+        triggerRefs.current.get(activeMenu.label) ?? null,
+        activeMenu,
+      )
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [isOpen, activeMenu, positionPanel])
 
   const handleTriggerKeyDown = useCallback(
     (
@@ -715,7 +760,7 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
   return (
     <div
       ref={containerRef}
-      className="flex items-center gap-4"
+      className="relative flex items-center gap-4"
       onMouseEnter={cancelClose}
       onMouseLeave={handleSafePointerLeave}
     >
@@ -765,6 +810,7 @@ function DesktopNav({ entries }: { entries: NavEntry[] }) {
         onPanelRef={setPanelElement}
         onPanelEnter={handlePanelEnter}
         onItemEnter={handleItemEnter}
+        left={panelLeft}
       />
     </div>
   )
@@ -816,7 +862,7 @@ function MobileNav({
     <div
       aria-hidden={!open}
       className={classNames(
-        'fixed inset-0 z-70 flex flex-col bg-white transition-opacity duration-400 ease-out lg:hidden',
+        'fixed inset-0 z-70 flex flex-col bg-white transition-opacity duration-400 ease-out min-[1080px]:hidden',
         open
           ? 'pointer-events-auto opacity-100'
           : 'pointer-events-none opacity-0',
@@ -972,6 +1018,61 @@ function MobileNav({
   )
 }
 
+// Wordmark that collapses "Campus Climate Network" into "CCN" on scroll
+// (desktop only — below 1080px the CSS ignores data-collapsed and keeps the full name).
+// Each word's trailing letters animate max-width -> 0 (+ fade) so the kept
+// initials (C, C, N) slide together. Widths are measured once fonts load so
+// the collapse has no dead-zone; full text stays in the DOM for screen readers.
+function Wordmark({ collapsed }: { collapsed: boolean }) {
+  const ref = useRef<HTMLParagraphElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const measure = () => {
+      // Defensive: skip if the wordmark is ever hidden; scrollWidth would be 0
+      // and lock the letters collapsed even once they become visible.
+      if (!el.offsetParent && el.offsetWidth === 0) return
+      el.querySelectorAll<HTMLElement>('[data-collapsible]').forEach((node) => {
+        if (node.scrollWidth > 0) {
+          node.style.setProperty('--w', `${node.scrollWidth}px`)
+        }
+      })
+    }
+    measure()
+    document.fonts?.ready.then(measure)
+    window.addEventListener('resize', measure)
+    return () => window.removeEventListener('resize', measure)
+  }, [])
+
+  return (
+    <p
+      ref={ref}
+      data-collapsed={collapsed}
+      className="wordmark font-display whitespace-nowrap text-sm uppercase leading-tight tracking-tight sm:text-lg"
+    >
+      <span className="wordmark-keep">C</span>
+      <span className="wordmark-rest" data-collapsible>
+        ampus
+      </span>
+      <span className="wordmark-space" data-collapsible>
+        &nbsp;
+      </span>
+      <span className="wordmark-keep">C</span>
+      <span className="wordmark-rest" data-collapsible>
+        limate
+      </span>
+      <span className="wordmark-space" data-collapsible>
+        &nbsp;
+      </span>
+      <span className="wordmark-keep">N</span>
+      <span className="wordmark-rest" data-collapsible>
+        etwork
+      </span>
+    </p>
+  )
+}
+
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -999,7 +1100,7 @@ export function SiteHeader() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      if (window.innerWidth >= 1080) {
         setMobileOpen(false)
       }
     }
@@ -1016,7 +1117,7 @@ export function SiteHeader() {
     <>
       <header
         className={classNames(
-          'sticky top-0 z-50 border-b border-slate-200/40 py-3 lg:py-5 transition-all duration-200',
+          'sticky top-0 z-50 border-b border-slate-200/40 py-3 min-[1080px]:py-5 transition-all duration-200',
           scrolled
             ? 'bg-white shadow-[0_12px_40px_-24px_rgba(15,23,42,0.35)]'
             : 'bg-white',
@@ -1024,7 +1125,7 @@ export function SiteHeader() {
       >
         <div className="page-container relative flex items-center justify-between gap-4">
           <Link href="/" className="flex items-center gap-4">
-            <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-[0_4px_12px_-4px_rgba(96,55,157,0.25)]">
+            <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full shadow-[0_4px_12px_-4px_rgba(96,55,157,0.25)]">
               <Image
                 src="/purple-logo.png"
                 alt="Campus Climate Network logo"
@@ -1034,22 +1135,17 @@ export function SiteHeader() {
                 className="object-contain"
               />
             </div>
-            <div className="hidden text-brand-primary sm:block">
-              <p className="font-display text-xs uppercase leading-tight tracking-[0.4em]">
-                Campus
-              </p>
-              <p className="font-display text-xs uppercase leading-tight tracking-[0.4em]">
-                Climate
-              </p>
-              <p className="font-display text-xs uppercase leading-tight tracking-[0.4em]">
-                Network
-              </p>
+            {/* Always visible; the nav ↔ burger switch happens at 1080px, where
+               the full wordmark fits beside the nav. Fixed-width zone at ≥1080px
+               so the collapse animation never shifts the nav. */}
+            <div className="text-brand-primary min-[1080px]:w-64">
+              <Wordmark collapsed={scrolled} />
             </div>
           </Link>
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
-            className="-mr-2 rounded-full p-2 text-slate-500 transition hover:text-brand-primary focus-visible:outline-none lg:hidden"
+            className="-mr-2 rounded-full p-2 text-slate-500 transition hover:text-brand-primary focus-visible:outline-none min-[1080px]:hidden"
             aria-label="Open navigation"
           >
             <svg
@@ -1066,10 +1162,10 @@ export function SiteHeader() {
               />
             </svg>
           </button>
-          <nav className="hidden items-center gap-4 lg:flex">
+          <nav className="ml-auto hidden items-center gap-4 min-[1080px]:flex">
             <DesktopNav entries={navEntries} />
           </nav>
-          <div className="hidden items-center gap-3 lg:flex">
+          <div className="hidden items-center gap-3 min-[1080px]:flex">
             <Link
               href="/take-action"
               className="inline-flex items-center rounded-full bg-brand-primary px-4 py-2 text-sm font-semibold text-white shadow-[0_16px_40px_-20px_rgba(96,55,157,0.8)] transition hover:bg-brand-secondary"

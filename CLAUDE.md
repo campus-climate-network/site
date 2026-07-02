@@ -1,4 +1,4 @@
-# CLAUDE.md — Campus Climate Network
+# Campus Climate Network — Agent Instructions
 
 ## Quick Reference
 
@@ -37,8 +37,9 @@ src/
 │   │   ├── our-approach/          # Mission, stacking scroll sections
 │   │   ├── ffr-campaign/          # Fossil Free Research campaign page
 │   │   ├── ffr-archive/           # FFR research reports
+│   │   ├── campaigns/             # Campaigns overview + carousel (local campaigns-data.ts)
 │   │   ├── impact/                # Impact page (local placeholder data; was student-wins)
-│   │   ├── take-action/           # Action Network intake form embed
+│   │   ├── take-action/           # Custom join form → Action Network API (actions.ts + join-form.tsx)
 │   │   ├── donate/                # HCB donation iframe
 │   │   ├── open-letter/           # Open letter + signatories
 │   │   ├── contact-us/            # Contact page
@@ -60,7 +61,7 @@ src/
 │   ├── member-map.tsx             # Mapbox GL map (client-side, geocoding)
 │   ├── member-map-wrapper.tsx     # Dynamic import wrapper (SSR disabled)
 │   ├── timeline.tsx               # Generic vertical scroll timeline
-│   ├── action-network-form.tsx    # Action Network form embed
+│   ├── confetti-link.tsx          # Next Link with confetti burst on hover/click (reduced-motion aware)
 │   ├── json-ld.tsx                # Structured data components (Organization, Article, FAQ, etc.)
 │   └── fancy/blocks/stacking-cards.tsx  # Scroll-triggered stacking card sections (motion)
 ├── data/
@@ -147,14 +148,14 @@ src/
 
 ### Hidden/WIP Pages
 
-- `/impact` — exists but navigation link is commented out; add to sitemap once published
+- `/impact` — linked in the main nav, but its sitemap entry is still commented out in `sitemap.ts`; uncomment once the page content is final
 - `/member-portal` — password-gated (HMAC cookie); `noindex` and excluded from sitemap
 - `/resources/blog/[slug]` — empty placeholder directory, no page implemented yet
 
 ### Sitemap Notes
 
 - `/member-portal` — should be EXCLUDED from sitemap (not a public-facing page)
-- `/impact` — add to sitemap once the page is published
+- `/impact` — linked in nav but still commented out of the sitemap; add it once the page content is final
 
 ## Environment Variables
 
@@ -167,13 +168,18 @@ NEXT_PUBLIC_SANITY_API_VERSION=  # optional, defaults to 2025-10-19
 NEXT_PUBLIC_MAPBOX_TOKEN=
 MEMBER_PORTAL_PASSWORD=          # server-side; gates /member-portal access
 SANITY_REVALIDATE_SECRET=        # server-side; shared secret for the Sanity → /api/revalidate webhook
+ACTION_NETWORK_API_KEY=          # server-side; OSDI-API-Token for the /take-action join form
+ACTION_NETWORK_FORM_ID=          # server-side; Action Network form UUID the join form submits to
+ACTION_NETWORK_TAGS=             # optional; comma-separated tag names applied to signups — tags must already exist in Action Network (unknown tags are silently ignored)
+ACTION_NETWORK_SOURCE=           # optional; source code for the form's sources chart (defaults to ccn-website)
+ACTION_NETWORK_AUTORESPONSE=     # optional; set to false to skip the form's autoresponse email (defaults to true)
 ```
 
 ## Important Notes
 
 - The site is **open source**: https://github.com/campus-climate-network/campus-climate-network
 - Donations go through **HCB** (Hack Club Bank) iframe embed
-- Take action form uses **Action Network** (external script embed)
+- Take action form is a custom-designed form that submits to the **Action Network API** (Record Submission Helper) via a server action (`take-action/actions.ts`); the API key stays server-side. Custom field names must match the Action Network form's fields exactly (e.g. `School 1`, `Campaign Interest_Divestment`)
 - Images served from `cdn.sanity.io` and `images.squarespace-cdn.com` (allowed in next.config.ts)
 - `styled-components` is a dependency (required by Sanity Studio) but not used in site code
 - Member portal content lives in **Notion**; fetched via `notion-client` and rendered with `react-notion-x` (`notion-types`/`notion-utils` for traversal). Access is gated by a server-side HMAC cookie keyed off `MEMBER_PORTAL_PASSWORD` (see `member-portal/actions.ts`)

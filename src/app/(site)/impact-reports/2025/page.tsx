@@ -303,10 +303,10 @@ export default function ImpactReport2025() {
                 In 2025, we confronted the intersections between climate
                 justice, democracy, and higher education. International and
                 undocumented students were kidnapped in broad daylight, hundreds
-                of millions of dollars in public research funding were
-                canceled, and widespread measures were taken to restrict
-                academic freedom. These measures are consistent with those of
-                authoritarian leaders throughout history.
+                of millions of dollars in public research funding were canceled,
+                and widespread measures were taken to restrict academic freedom.
+                These measures are consistent with those of authoritarian
+                leaders throughout history.
               </p>
               <p className="text-lg leading-relaxed text-slate-900/70 sm:text-xl">
                 Big Oil stands to benefit from Trump&apos;s bid to capture US

@@ -73,7 +73,7 @@ export const navEntries: NavEntry[] = [
             description: 'Updates, analysis, and stories from the movement.',
           },
           {
-            label: 'Member orgs',
+            label: 'Member organisations',
             href: '/our-network',
             description:
               'Explore the groups pushing universities to cut fossil ties.',

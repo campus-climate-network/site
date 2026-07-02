@@ -23,7 +23,7 @@ export default function CampaignsPage() {
                 Our work
               </p>
               <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-                Running strategic campaigns that build student power
+                Running strategic campaigns that build power
               </h1>
               <figure className="mt-4 border-l-2 border-brand-accent pl-5 sm:mt-6">
                 <blockquote className="text-lg italic text-slate-700 sm:text-xl">
@@ -72,7 +72,7 @@ export default function CampaignsPage() {
               </h2>
               <p className="mx-auto max-w-xl text-lg text-slate-600">
                 CCN gives student organizers the skills, resources, and network
-                to run — and win — strategic campaigns. Let&apos;s get started.
+                to run winning campaigns on campus.
               </p>
               <div className="flex flex-wrap justify-center gap-3 pt-2">
                 <Link

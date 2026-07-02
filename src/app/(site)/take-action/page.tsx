@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 
-import { ActionNetworkForm } from '@/components/action-network-form'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { FAQPageJsonLd } from '@/components/json-ld'
+import { JoinForm } from './join-form'
 
 export const metadata: Metadata = {
   title: 'Take Action',
@@ -58,7 +58,7 @@ export default function TakeActionPage() {
         <div className="page-container text-left">
           <ScrollReveal variant="blossom">
             <div className="rounded-3xl bg-white p-8 shadow-2xl">
-              <ActionNetworkForm />
+              <JoinForm />
             </div>
           </ScrollReveal>
         </div>

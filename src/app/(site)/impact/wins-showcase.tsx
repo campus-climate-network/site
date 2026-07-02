@@ -286,28 +286,15 @@ export function WinsShowcase({ wins }: WinsShowcaseProps) {
     )
   }
 
-  const [spotlight, ...rest] = wins
   const activeWin = wins.find((win) => win.id === activeId)
 
   return (
     <div className="stack stack-relaxed">
-      <WinCard
-        win={spotlight}
-        featured
-        onOpen={() => setActiveId(spotlight.id)}
-      />
-
-      {rest.length > 0 && (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {rest.map((win) => (
-            <WinCard
-              key={win.id}
-              win={win}
-              onOpen={() => setActiveId(win.id)}
-            />
-          ))}
-        </div>
-      )}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {wins.map((win) => (
+          <WinCard key={win.id} win={win} onOpen={() => setActiveId(win.id)} />
+        ))}
+      </div>
 
       {activeWin && <WinModal win={activeWin} onClose={close} />}
     </div>

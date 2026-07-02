@@ -3,10 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { HeroCarousel } from '@/components/hero-carousel'
 import { MovementCarousel } from '@/components/movement-carousel'
-import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
+import { ScrollReveal } from '@/components/scroll-reveal'
 import { MemberMapWrapper } from '@/components/member-map-wrapper'
-import { AnimatedCounter } from '@/app/(site)/impact-reports/2025/animated-counter'
 import { FAQPageJsonLd } from '@/components/json-ld'
+import { ConfettiLink } from '@/components/confetti-link'
 import { client } from '@/sanity/lib/client'
 import { MEMBER_ORGS_QUERY } from '@/sanity/lib/queries'
 import type { MemberOrg } from '@/components/member-map'
@@ -24,8 +24,8 @@ const pressLogos = [
   {
     name: 'Chicago Tribune',
     image: '/press-logos/Chicago_Tribune_Logo.svg.png',
-    width: 3840,
-    height: 581,
+    width: 2350,
+    height: 392,
     href: 'https://www.chicagotribune.com/2024/04/22/opinion-earth-day-colleges-fossil-fuel-divestment/',
   },
   {
@@ -63,18 +63,6 @@ const pressLogos = [
     height: 90,
     href: 'https://www.thenation.com/article/activism/university-of-florida-green-new-deal/',
   },
-]
-
-const impactStats: {
-  prefix?: string
-  value: number
-  suffix?: string
-  label: string
-  groupDigits?: boolean
-}[] = [
-  { value: 3000, suffix: '+', label: 'Students trained', groupDigits: true },
-  { value: 60, suffix: '+', label: 'Campuses organized' },
-  { prefix: '$', value: 100, suffix: 'B', label: 'Endowment dollars moved' },
 ]
 
 const movementHighlights = [
@@ -205,76 +193,31 @@ export default async function Home() {
             </div>
           </div>
         </div>
-        <div className="border-t border-black/10 bg-brand-cream">
-          <div className="page-container py-6">
-            <p className="eyebrow text-xs text-brand-primary/60 mb-4">
-              Featured in
-            </p>
-            <div className="grid grid-cols-2 gap-3 text-sm text-slate-600 sm:grid-cols-3 xl:grid-cols-6 xl:gap-6">
-              {pressLogos.map((logo) => {
-                const scale = 'scale' in logo ? logo.scale : 1
-                const content = (
-                  <div className="flex h-full w-full items-center justify-center">
-                    <Image
-                      src={logo.image}
-                      alt={`${logo.name} logo`}
-                      width={logo.width}
-                      height={logo.height}
-                      className="max-h-full max-w-full object-contain"
-                      sizes="(max-width: 768px) 140px, 160px"
-                      style={{ transform: `scale(${scale})` }}
-                    />
-                  </div>
-                )
-                return logo.href ? (
-                  <a
-                    key={logo.name}
-                    href={logo.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-16 items-center justify-center rounded-xl bg-white px-3 py-2 shadow-sm transition hover:shadow-md sm:h-20 lg:px-4 lg:py-3"
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <div
-                    key={logo.name}
-                    className="flex h-16 items-center justify-center rounded-xl bg-white px-3 py-2 shadow-sm sm:h-20 lg:px-4 lg:py-3"
-                  >
-                    {content}
-                  </div>
-                )
-              })}
-            </div>
-          </div>
-        </div>
       </section>
 
       <section className="page-container">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <ScrollReveal variant="fade-up">
             <div className="stack stack-cozy">
+              <p className="eyebrow text-sm font-semibold text-brand-secondary">
+                Leadership Development
+              </p>
               <h2 className="text-2xl font-semibold text-pretty text-slate-900 sm:text-3xl">
-                Universities are where the fossil fuel industry buys legitimacy
+                Honing students’ organizing skills
               </h2>
               <p className="text-base text-slate-600 sm:text-lg">
-                For decades, oil and gas companies have poured money into
-                campuses, funding research, branding buildings, and shaping
-                climate policy from the inside. Students are uniquely positioned
-                to cut those ties.
-              </p>
-              <p className="text-base text-slate-600 sm:text-lg">
-                When students organize, we can move billion-dollar endowments,
-                win binding research policies, and prove that institutions
-                answer to people, not polluters.
+                We equip students with the skills and political analysis they
+                need to become organizers capable of building durable power on
+                and off campus. Support from CCN includes in-person campus
+                trainings and dedicated coaching for their group.
               </p>
             </div>
           </ScrollReveal>
           <ScrollReveal variant="blossom" delay={150}>
-            <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-brand-secondary/20">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-brand-secondary/20">
               <Image
-                src="/photoprotest.jpg"
-                alt="Student organizers gathered outside a university building calling for climate action."
+                src="/images/movement-hero-6.jpg"
+                alt="Students gathered in a small-group discussion at a CCN organizing training."
                 fill
                 sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
@@ -284,31 +227,35 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="bg-brand-primary text-white section-dark">
-        <div className="page-container">
-          <dl className="grid grid-cols-1 gap-8 sm:grid-cols-3">
-            {impactStats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <dd className="font-display text-4xl sm:text-5xl lg:text-6xl">
-                  {stat.prefix}
-                  <AnimatedCounter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                    groupDigits={stat.groupDigits}
-                  />
-                </dd>
-                <dt className="mt-2 text-sm text-white/70">{stat.label}</dt>
-              </div>
-            ))}
-          </dl>
-          <div className="mt-10 text-center">
-            <Link
-              href="/impact"
-              className="inline-flex items-center rounded-full border border-white/40 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
-            >
-              See our full impact
-            </Link>
-          </div>
+      <section className="bg-brand-cream/40 section-hero">
+        <div className="page-container grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+          <ScrollReveal variant="fade-up" className="lg:order-2">
+            <div className="stack stack-cozy">
+              <p className="eyebrow text-sm font-semibold text-brand-secondary">
+                Network Building
+              </p>
+              <h2 className="text-2xl font-semibold text-pretty text-slate-900 sm:text-3xl">
+                Connecting students with fellow organizers
+              </h2>
+              <p className="text-base text-slate-600 sm:text-lg">
+                Students connect with fellow organizers on campuses across the
+                country. These are the people they’ll be in movement with long
+                after leaving campus. Our network is a space for peer learning,
+                support, and relationship building.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollReveal variant="blossom" delay={150} className="lg:order-1">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-brand-secondary/20">
+              <Image
+                src="/images/students-rally.jpg"
+                alt="A group of student organizers smiling together at a climate march, holding divestment signs."
+                fill
+                sizes="(max-width: 1024px) 100vw, 45vw"
+                className="object-cover"
+              />
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -341,41 +288,58 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="bg-brand-cream/40 section-hero">
-        <div className="page-container stack stack-relaxed text-left">
-          <ScrollReveal variant="fade-up">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              What we do
-            </h2>
-          </ScrollReveal>
-          <StaggerReveal
-            staggerDelay={120}
-            variant="blossom"
-            className="grid gap-6 md:grid-cols-2"
-          >
-            {[
-              {
-                title: 'Leadership Development',
-                subtitle: 'Honing students’ organizing skills',
-                body: 'We equip students with the skills and political analysis they need to become organizers capable of building durable power on and off campus. Support from CCN includes in-person campus trainings and dedicated coaching for their group.',
-              },
-              {
-                title: 'Network Building',
-                subtitle: 'Connecting students with fellow organizers',
-                body: 'Students connect with fellow organizers on campuses across the country. These are the people they’ll be in movement with long after leaving campus. Our network is a space for peer learning, support, and relationship building.',
-              },
-            ].map((item) => (
-              <div key={item.title} className="rounded-3xl bg-white p-8">
-                <p className="eyebrow text-sm font-semibold text-brand-secondary">
-                  {item.title}
-                </p>
-                <h3 className="mt-2 text-xl font-semibold text-brand-primary">
-                  {item.subtitle}
-                </h3>
-                <p className="mt-3 text-sm text-slate-600">{item.body}</p>
-              </div>
-            ))}
-          </StaggerReveal>
+      <section className="bg-linear-to-br from-brand-primary via-brand-tertiary to-brand-secondary">
+        <div className="py-8">
+          <div className="page-container">
+            <p className="eyebrow text-xs text-white/70 mb-4">Featured in</p>
+          </div>
+          <div className="logo-marquee">
+            <div className="logo-marquee-track">
+              {[0, 1, 2, 3].map((copy) => (
+                <div
+                  key={copy}
+                  className="logo-marquee-group"
+                  aria-hidden={copy > 0}
+                >
+                  {pressLogos.map((logo) => {
+                    const scale = 'scale' in logo ? logo.scale : 1
+                    const content = (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <Image
+                          src={logo.image}
+                          alt={`${logo.name} logo`}
+                          width={logo.width}
+                          height={logo.height}
+                          className="max-h-full max-w-full object-contain grayscale opacity-80 transition duration-300 group-hover:grayscale-0 group-hover:opacity-100"
+                          sizes="(max-width: 768px) 140px, 160px"
+                          style={{ transform: `scale(${scale})` }}
+                        />
+                      </div>
+                    )
+                    return logo.href ? (
+                      <a
+                        key={logo.name}
+                        href={logo.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        tabIndex={copy > 0 ? -1 : undefined}
+                        className="group flex h-16 w-40 flex-none items-center justify-center rounded-xl bg-white px-3 py-2 shadow-sm transition hover:shadow-md sm:h-20 sm:w-48 lg:px-4 lg:py-3"
+                      >
+                        {content}
+                      </a>
+                    ) : (
+                      <div
+                        key={logo.name}
+                        className="group flex h-16 w-40 flex-none items-center justify-center rounded-xl bg-white px-3 py-2 shadow-sm sm:h-20 sm:w-48 lg:px-4 lg:py-3"
+                      >
+                        {content}
+                      </div>
+                    )
+                  })}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -394,7 +358,7 @@ export default async function Home() {
 
       <section className="page-container">
         <ScrollReveal variant="fade-up">
-          <div className="relative isolate overflow-hidden rounded-[2.5rem] bg-linear-to-br from-brand-secondary via-brand-tertiary to-brand-primary px-6 py-16 text-center text-white sm:px-12 sm:py-20">
+          <div className="gradient-drift relative isolate overflow-hidden rounded-[2.5rem] bg-linear-to-br from-brand-secondary via-brand-tertiary to-brand-primary px-6 py-16 text-center text-white sm:px-12 sm:py-20">
             <div className="mx-auto stack stack-snug max-w-2xl">
               <h2 className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
                 Be part of what&apos;s next
@@ -404,12 +368,12 @@ export default async function Home() {
                 from anywhere, there&apos;s a place for you in this fight.
               </p>
               <div className="flex flex-wrap justify-center gap-3 pt-2">
-                <Link
+                <ConfettiLink
                   className="inline-flex items-center rounded-full bg-brand-accent px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-brand-accent/90"
                   href="/take-action"
                 >
                   Join us
-                </Link>
+                </ConfettiLink>
                 <Link
                   className="inline-flex items-center rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
                   href="/donate"
