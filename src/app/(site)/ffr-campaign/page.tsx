@@ -1,12 +1,15 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
-import { FAQPageJsonLd } from '@/components/json-ld'
+import { FaqSection } from '@/components/faq-section'
 
 export const metadata: Metadata = {
   title: 'Fossil Free Research Campaign',
   description:
     'Join the Fossil Free Research campaign to cut fossil fuel money out of university research. Expose conflicts of interest and protect academic integrity.',
+  alternates: {
+    canonical: '/ffr-campaign',
+  },
 }
 
 const talkingPoints = [
@@ -100,18 +103,17 @@ const ffrFaqs = [
 export default function FFRCampaignPage() {
   return (
     <div className="page-wrapper">
-      <FAQPageJsonLd faqs={ffrFaqs} />
       <section className="bg-brand-tertiary/10 section-hero">
         <div className="page-container stack stack-tight text-left">
           <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
             Fossil Free Research
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            Cut fossil fuel money out of university research.
+            Cut fossil fuel money out of university research
           </h1>
           <p className="text-base text-slate-700">
             For decades, fossil fuel companies have known their products would
-            cause climate destruction—Shell’s own reports from the 1970s
+            cause climate destruction — Shell’s own reports from the 1970s
             predicted “major climatic changes.” Even as record-breaking heat,
             abnormal storms, and mass displacement became reality, these
             companies doubled down on disinformation and deregulation to protect
@@ -184,7 +186,7 @@ export default function FFRCampaignPage() {
           <div className="stack stack-cozy text-left">
             <div className="stack stack-dense">
               <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-                What we&apos;ve already exposed
+                What we’ve already exposed
               </h2>
               <p className="text-base text-slate-600">
                 Fossil Free Research is the flagship campaign of Campus Climate
@@ -203,6 +205,10 @@ export default function FFRCampaignPage() {
             </Link>
           </div>
         </ScrollReveal>
+      </section>
+
+      <section className="page-container">
+        <FaqSection faqs={ffrFaqs} />
       </section>
     </div>
   )

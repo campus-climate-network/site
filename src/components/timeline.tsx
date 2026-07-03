@@ -12,11 +12,16 @@ interface TimelineProps {
   items: TimelineItem[]
 }
 
+// Progressive enhancement (mirrors ScrollReveal): items render visible by
+// default; JS adds 'will-animate' (which hides) only to items confirmed to be
+// outside the viewport, then flips them to 'visible' on intersection.
+type ItemState = 'idle' | 'will-animate' | 'visible'
+
 export function Timeline({ items }: TimelineProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLDivElement>(null)
-  const [visibleItems, setVisibleItems] = useState<boolean[]>(
-    new Array(items.length).fill(false),
+  const [itemStates, setItemStates] = useState<ItemState[]>(
+    new Array(items.length).fill('idle'),
   )
   const itemRefs = useRef<(HTMLDivElement | null)[]>([])
 
@@ -54,18 +59,35 @@ export function Timeline({ items }: TimelineProps) {
       requestAnimationFrame(updateProgress)
     }
 
+    const setItemState = (index: number, state: ItemState) => {
+      setItemStates((prev) => {
+        if (prev[index] === state) return prev
+        const next = [...prev]
+        next[index] = state
+        return next
+      })
+    }
+
     // Intersection observer for individual items
     const observers: IntersectionObserver[] = []
     itemRefs.current.forEach((item, index) => {
       if (!item) return
+
+      const rect = item.getBoundingClientRect()
+      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0
+      if (isInViewport) {
+        // Already in viewport - show immediately, no animation needed
+        setItemState(index, 'visible')
+        return
+      }
+
+      // Not in viewport - hide and set up the reveal animation
+      setItemState(index, 'will-animate')
+
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            setVisibleItems((prev) => {
-              const newState = [...prev]
-              newState[index] = true
-              return newState
-            })
+            setItemState(index, 'visible')
             observer.unobserve(item)
           }
         },
@@ -100,7 +122,13 @@ export function Timeline({ items }: TimelineProps) {
             ref={(el) => {
               itemRefs.current[index] = el
             }}
-            className={`timeline-item ${visibleItems[index] ? 'is-visible' : ''}`}
+            className={`timeline-item ${
+              itemStates[index] === 'will-animate'
+                ? 'will-animate'
+                : itemStates[index] === 'visible'
+                  ? 'is-visible'
+                  : ''
+            }`}
             style={{ '--item-delay': `${index * 50}ms` } as React.CSSProperties}
           >
             {/* Connector dot */}

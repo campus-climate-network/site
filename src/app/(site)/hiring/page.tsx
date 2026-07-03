@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
+import { JobPostingJsonLd } from '@/components/json-ld'
 import { client } from '@/sanity/lib/client'
 import { JOB_ROLES_QUERY } from '@/sanity/lib/queries'
 
@@ -9,6 +10,9 @@ export const metadata: Metadata = {
   title: 'Careers',
   description:
     'Join Campus Climate Network. View open positions for organizers, fellows, and coordinators helping students win climate justice on campuses nationwide.',
+  alternates: {
+    canonical: '/hiring',
+  },
 }
 
 interface JobRole {
@@ -30,18 +34,28 @@ export default async function HiringPage() {
 
   return (
     <div className="page-wrapper">
+      {roles.map((role) => (
+        <JobPostingJsonLd
+          key={role._id}
+          title={role.title}
+          description={role.description ?? role.title}
+          datePosted={role.postedAt}
+          location={role.location ?? undefined}
+          applicationUrl={role.applicationUrl ?? undefined}
+        />
+      ))}
       <section className="bg-brand-secondary/10 section-hero">
         <div className="page-container stack stack-tight text-left">
           <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
             Careers
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            Work at Campus Climate Network.
+            Work at Campus Climate Network
           </h1>
           <p className="text-base text-slate-700">
             Help students win climate justice on campuses around the world.
-            We&apos;re a distributed team of organizers, educators, and
-            strategists building infrastructure for the youth climate movement.
+            We’re a distributed team of organizers, educators, and strategists
+            building infrastructure for the youth climate movement.
           </p>
         </div>
       </section>
@@ -54,13 +68,12 @@ export default async function HiringPage() {
             </h2>
             {roles.length > 0 ? (
               <p className="text-base text-slate-600">
-                We&apos;re hiring! Check out our open positions below.
+                We’re hiring! Check out our open positions below.
               </p>
             ) : (
               <p className="text-base text-slate-600">
-                We don&apos;t have any open positions right now. Check back
-                soon—we&apos;ll update this page when new roles become
-                available.
+                We don’t have any open positions right now. Check back soon —
+                we’ll update this page when new roles become available.
               </p>
             )}
           </div>

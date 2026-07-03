@@ -4,8 +4,9 @@ import { ScrollReveal } from '@/components/scroll-reveal'
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/json-ld'
 import { AnimatedCounter } from './animated-counter'
 import { ScrollableHeader } from './scrollable-header'
+import { SITE_URL } from '@/lib/site'
 
-const siteUrl = 'https://campusclimatenetwork.org'
+const siteUrl = SITE_URL
 const pagePath = '/impact-reports/2025'
 const pageUrl = `${siteUrl}${pagePath}`
 const ogImagePath = '/images/impact-report/team-outdoor.jpg'

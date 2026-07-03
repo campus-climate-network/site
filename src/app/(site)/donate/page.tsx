@@ -5,6 +5,9 @@ export const metadata: Metadata = {
   title: 'Donate',
   description:
     'Support student climate leadership with a donation to Campus Climate Network. Every dollar fuels organizing infrastructure, trainings, and rapid-response actions.',
+  alternates: {
+    canonical: '/donate',
+  },
 }
 
 const donationOptions = [
@@ -31,7 +34,7 @@ export default function DonatePage() {
             Donate
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            Invest in student climate leadership.
+            Invest in student climate leadership
           </h1>
           <p className="text-base text-slate-700">
             Every dollar supports organizing infrastructure, training programs,

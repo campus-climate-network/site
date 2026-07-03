@@ -12,15 +12,16 @@ import type { StudentWin } from './wins-showcase'
 //
 // ⚠️ PENDING ASSETS (reached out, waiting to hear back):
 //   - Claremont: campaign photo. Drop a file in /public/impact/ and set imageUrl.
-//   - Compact: organizer quotes from Brown Rise Up + Sunrise UNC.
-//   - UCSD: campaign photo + organizer quote from UCSD Green New Deal.
-//   - All three: link to the blog post / article (set `link`).
-// Left off here rather than invented — fill in once we have them.
+//   - Compact: organizer quote from Brown Rise Up + Sunrise UNC — add
+//     organizerQuote/organizerName/organizerRole once received.
+//   - UCSD: campaign photo + organizer quote from UCSD Green New Deal — add
+//     the organizer* fields once received.
+// The modal only renders the quote block when organizerQuote is set, so
+// missing quotes simply don't appear.
 export const studentWins: StudentWin[] = [
   {
     id: 'claremont-decarbonization',
     title: 'Campus decarbonization at the Claremont Colleges',
-    org: 'Claremont Off Fossil Fuels Campaign',
     date: '2025',
     campaign: 'Campus decarbonization',
     description:
@@ -34,12 +35,11 @@ export const studentWins: StudentWin[] = [
     organizerQuote:
       "CCN was absolutely essential to the success of the Claremont Off Fossil Fuels Campaign. We wouldn't have gotten to where we did without their help.",
     organizerRole: '5C’s Environmental Justice student organizer',
-    // TODO: add link to blog post.
+    link: '/blog/winning-renewable-energy-at-the-claremont-colleges',
   },
   {
     id: 'trump-compact',
     title: "Rejecting and pre-empting Trump's campus compact",
-    org: 'CCN & the Project Rise Up coalition',
     date: '2025-10-15',
     campaign: 'Defending higher education',
     description:
@@ -53,13 +53,11 @@ export const studentWins: StudentWin[] = [
       '10 more universities proactively said they do not support it',
       'University of Kansas and UNC Chapel Hill won pre-emptive rejections',
     ],
-    // TODO: add organizer quotes from Brown Rise Up + Sunrise UNC.
-    // TODO: add link to article.
+    link: 'https://wagingnonviolence.org/2025/12/student-resistance-to-authoritarianism/',
   },
   {
     id: 'ucsd-climate-curriculum',
     title: 'Mandatory climate curriculum at UC San Diego',
-    org: 'UCSD Green New Deal',
     date: '2025',
     campaign: 'Climate education',
     description:
@@ -69,7 +67,6 @@ export const studentWins: StudentWin[] = [
       'All undergraduates must now take a climate change course to graduate',
       'Won through organizing by UCSD Green New Deal',
     ],
-    // TODO: add organizer quote from UCSD Green New Deal.
-    // TODO: add link to article.
+    link: 'https://www.theguardian.com/environment/2024/oct/15/california-university-ucsd-climate-change-course-requirement',
   },
 ]

@@ -5,8 +5,7 @@ import { HeroCarousel } from '@/components/hero-carousel'
 import { MovementCarousel } from '@/components/movement-carousel'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { MemberMapWrapper } from '@/components/member-map-wrapper'
-import { FAQPageJsonLd } from '@/components/json-ld'
-import { ConfettiLink } from '@/components/confetti-link'
+import { FaqSection } from '@/components/faq-section'
 import { client } from '@/sanity/lib/client'
 import { MEMBER_ORGS_QUERY } from '@/sanity/lib/queries'
 import type { MemberOrg } from '@/components/member-map'
@@ -18,6 +17,9 @@ export const metadata: Metadata = {
   },
   description:
     'Campus Climate Network organizes students to win fossil-free research and climate justice on campus. Join 50+ member organizations nationwide.',
+  alternates: {
+    canonical: '/',
+  },
 }
 
 const pressLogos = [
@@ -134,26 +136,25 @@ export default async function Home() {
   const members = await getMembers()
   return (
     <div className="page-wrapper">
-      <FAQPageJsonLd faqs={homeFaqs} />
       <section className="relative isolate overflow-hidden bg-linear-to-br from-brand-secondary via-brand-tertiary to-brand-primary text-white">
         <div className="page-container section-hero grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
           <div className="stack stack-cozy">
             <h1 className="text-3xl font-semibold leading-tight sm:text-4xl lg:text-5xl">
-              We&apos;re building a winning student climate movement.
+              We’re building a winning student climate movement
             </h1>
-            <p className="text-base sm:text-lg text-brand-cream/90">
+            <p className="text-base sm:text-lg text-white">
               We provide students with the skills, resources, and connections to
               run winning campaigns on campus.
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
-                className="inline-flex items-center rounded-full bg-brand-accent px-5 py-2.5 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-brand-accent/90"
+                className="inline-flex items-center rounded-full bg-brand-accent px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-brand-accent/90"
                 href="/take-action"
               >
                 Join us
               </Link>
               <Link
-                className="inline-flex items-center rounded-full border border-white/50 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
+                className="inline-flex items-center rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
                 href="/donate"
               >
                 Donate
@@ -199,7 +200,7 @@ export default async function Home() {
         <div className="grid gap-10 lg:grid-cols-[1.2fr_1fr] lg:items-center">
           <ScrollReveal variant="fade-up">
             <div className="stack stack-cozy">
-              <p className="eyebrow text-sm font-semibold text-brand-secondary">
+              <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
                 Leadership Development
               </p>
               <h2 className="text-2xl font-semibold text-pretty text-slate-900 sm:text-3xl">
@@ -231,8 +232,8 @@ export default async function Home() {
         <div className="page-container grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
           <ScrollReveal variant="fade-up" className="lg:order-2">
             <div className="stack stack-cozy">
-              <p className="eyebrow text-sm font-semibold text-brand-secondary">
-                Network Building
+              <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
+                Connective tissue
               </p>
               <h2 className="text-2xl font-semibold text-pretty text-slate-900 sm:text-3xl">
                 Connecting students with fellow organizers
@@ -272,7 +273,7 @@ export default async function Home() {
               </p>
               <div className="flex flex-wrap gap-3 text-sm font-semibold">
                 <Link
-                  className="inline-flex items-center rounded-full bg-brand-primary px-4 py-2 text-white transition hover:bg-brand-secondary"
+                  className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-white transition hover:bg-brand-secondary"
                   href="/our-network"
                 >
                   Member organizations
@@ -326,6 +327,7 @@ export default async function Home() {
                         className="group flex h-16 w-40 flex-none items-center justify-center rounded-xl bg-white px-3 py-2 shadow-sm transition hover:shadow-md sm:h-20 sm:w-48 lg:px-4 lg:py-3"
                       >
                         {content}
+                        <span className="sr-only">(opens in new tab)</span>
                       </a>
                     ) : (
                       <div
@@ -357,23 +359,27 @@ export default async function Home() {
       </section>
 
       <section className="page-container">
+        <FaqSection faqs={homeFaqs} />
+      </section>
+
+      <section className="page-container">
         <ScrollReveal variant="fade-up">
           <div className="gradient-drift relative isolate overflow-hidden rounded-[2.5rem] bg-linear-to-br from-brand-secondary via-brand-tertiary to-brand-primary px-6 py-16 text-center text-white sm:px-12 sm:py-20">
             <div className="mx-auto stack stack-snug max-w-2xl">
-              <h2 className="text-2xl font-semibold sm:text-3xl lg:text-4xl">
-                Be part of what&apos;s next
+              <h2 className="text-2xl font-semibold sm:text-3xl">
+                Be part of what’s next
               </h2>
-              <p className="mx-auto max-w-xl text-base text-brand-cream/90 sm:text-lg">
+              <p className="mx-auto max-w-xl text-base text-white sm:text-lg">
                 Whether you want to organize on your campus or fuel the movement
-                from anywhere, there&apos;s a place for you in this fight.
+                from anywhere, there’s a place for you in this fight.
               </p>
               <div className="flex flex-wrap justify-center gap-3 pt-2">
-                <ConfettiLink
+                <Link
                   className="inline-flex items-center rounded-full bg-brand-accent px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-brand-accent/90"
                   href="/take-action"
                 >
                   Join us
-                </ConfettiLink>
+                </Link>
                 <Link
                   className="inline-flex items-center rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
                   href="/donate"

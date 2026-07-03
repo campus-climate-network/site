@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
-// import { OpenLetterForm } from '@/components/open-letter-form'
 
 export const metadata: Metadata = {
   title: 'Open Letter',
   description:
     'Sign our open letter calling on universities to end fossil fuel influence on campus research. Join thousands demanding fossil-free research policies.',
+  alternates: {
+    canonical: '/open-letter',
+  },
 }
 
 const notableSignatories = [
@@ -221,7 +223,7 @@ export default function OpenLetterPage() {
             Open letter
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            End fossil fuel influence on campus research.
+            End fossil fuel influence on campus research
           </h1>
           <p className="text-base text-slate-700">
             Our open letter calls on universities to adopt Fossil Free Research
@@ -313,27 +315,6 @@ export default function OpenLetterPage() {
         </div>
       </section>
 
-      {/* <section className="bg-slate-900 section-dark">
-        <div className="page-container text-left">
-          <ScrollReveal variant="fade-up">
-            <div className="stack stack-dense text-white mb-8">
-              <h2 className="text-2xl font-semibold sm:text-3xl">
-                Add your name
-              </h2>
-              <p className="text-sm text-slate-200">
-                Join thousands of academics, students, and supporters demanding
-                fossil-free research.
-              </p>
-            </div>
-          </ScrollReveal>
-          <ScrollReveal variant="blossom">
-            <div className="rounded-3xl bg-white p-8 shadow-2xl">
-              <OpenLetterForm />
-            </div>
-          </ScrollReveal>
-        </div>
-      </section> */}
-
       <section className="bg-slate-900 section-dark">
         <div className="page-container stack stack-tight text-left text-white">
           <ScrollReveal variant="fade-up">
@@ -344,16 +325,16 @@ export default function OpenLetterPage() {
               <p>Dear University Presidents and Vice-Chancellors,</p>
               <p>
                 We are writing as academics and experts who are deeply concerned
-                by universities&apos; collaboration with the fossil fuel
-                industry. Universities across the United Kingdom and the United
-                States currently accept substantial funding from fossil fuel
-                companies for research aimed at solving the very problems this
-                industry causes and continues to exacerbate. We believe this
-                funding represents an inherent conflict of interest, is
-                antithetical to universities&apos; core academic and social
-                values, and supports industry greenwashing. Thus, it compromises
-                universities&apos; basic institutional integrity, academic
-                freedom, and their ability to address the climate emergency.
+                by universities’ collaboration with the fossil fuel industry.
+                Universities across the United Kingdom and the United States
+                currently accept substantial funding from fossil fuel companies
+                for research aimed at solving the very problems this industry
+                causes and continues to exacerbate. We believe this funding
+                represents an inherent conflict of interest, is antithetical to
+                universities’ core academic and social values, and supports
+                industry greenwashing. Thus, it compromises universities’ basic
+                institutional integrity, academic freedom, and their ability to
+                address the climate emergency.
               </p>
               <p>
                 For these reasons, we are calling on U.K. and U.S. universities
@@ -371,7 +352,7 @@ export default function OpenLetterPage() {
                 accepting fossil fuel industry funding for climate change
                 research and accepting tobacco industry funding for public
                 health research. Already, numerous public health and research
-                institutions reject tobacco money due to the industry&apos;s
+                institutions reject tobacco money due to the industry’s
                 extensive record of spreading disinformation around the public
                 health consequences of its products. Today, the fossil fuel
                 industry has employed disinformation tactics from the same
@@ -382,7 +363,7 @@ export default function OpenLetterPage() {
               </p>
               <p>
                 Fossil fuel funding for climate-related research creates a
-                conflict of interest that compromises researchers&apos; academic
+                conflict of interest that compromises researchers’ academic
                 freedom. Academics must be free to determine their own research
                 agendas, speak their minds, and declare their findings without
                 fear of censorship, reprisal, or the withdrawal of funding for
@@ -405,35 +386,34 @@ export default function OpenLetterPage() {
               </p>
               <p>
                 Furthermore, accepting fossil fuel research funding contravenes
-                universities&apos; stated commitments to tackling the climate
-                crisis. Fossil fuel companies have concealed, trivialized, and
-                neglected the science of climate change for decades. Today,
-                despite warnings from the world&apos;s top energy organization
-                that &quot;no investment in new fossil fuel supply
-                projects&quot; can be made if the world is to limit global
-                heating to 1.5°C, major fossil fuel companies continue to plan
-                new extraction projects decades into the future and fail to
-                align with the goals of the international Paris Agreement.
-                Though they present themselves as leaders in sustainability,
-                fossil fuel companies&apos; investments in oil and gas continue
-                to dwarf their renewable energy investments, which represent
-                just a few percent of their total capital expenditure. Even the
-                investments that they present as directed toward climate
-                solutions contribute to projects that are often far from
-                sustainable. In short, fossil fuel companies&apos; claims to be
+                universities’ stated commitments to tackling the climate crisis.
+                Fossil fuel companies have concealed, trivialized, and neglected
+                the science of climate change for decades. Today, despite
+                warnings from the world’s top energy organization that “no
+                investment in new fossil fuel supply projects” can be made if
+                the world is to limit global heating to 1.5°C, major fossil fuel
+                companies continue to plan new extraction projects decades into
+                the future and fail to align with the goals of the international
+                Paris Agreement. Though they present themselves as leaders in
+                sustainability, fossil fuel companies’ investments in oil and
+                gas continue to dwarf their renewable energy investments, which
+                represent just a few percent of their total capital expenditure.
+                Even the investments that they present as directed toward
+                climate solutions contribute to projects that are often far from
+                sustainable. In short, fossil fuel companies’ claims to be
                 leaders in a green transition should not be taken seriously. It
                 is clear, therefore, that these companies cannot make for
                 effective or good faith partners with universities seeking to
                 pave the way for a sustainable future. Collaborating with these
-                companies is inimical to academic institutions&apos; pledges for
+                companies is inimical to academic institutions’ pledges for
                 climate action.
               </p>
               <p>
                 University research partnerships with fossil fuel companies play
-                a key role in greenwashing these companies&apos; reputations.
-                When universities allow fossil fuel companies to buy and
-                advertise connections to university research on key climate and
-                energy issues, they inadvertently provide these companies with
+                a key role in greenwashing these companies’ reputations. When
+                universities allow fossil fuel companies to buy and advertise
+                connections to university research on key climate and energy
+                issues, they inadvertently provide these companies with
                 much-needed scientific and cultural legitimacy. This is
                 incredibly valuable to fossil fuel companies, as it allows them
                 to report to policymakers, shareholders, and the media that they
@@ -451,15 +431,14 @@ export default function OpenLetterPage() {
                 policies and espoused principles, and undermine their core
                 social and academic mission. Increasingly, fossil fuel industry
                 sponsorship is eroding faith in scientific and cultural
-                institutions&apos; commitments to climate action, leading a
-                number of such institutions — including, most recently, the
-                National Portrait Gallery in London — to sever ties with the
-                industry. When universities have a pivotal role to play in
-                global conversations about tackling the climate emergency, they
-                cannot afford to have their voices compromised, which is
-                precisely what will happen if they continue to make themselves
-                dependent on the industry most responsible for climate
-                breakdown.
+                institutions’ commitments to climate action, leading a number of
+                such institutions — including, most recently, the National
+                Portrait Gallery in London — to sever ties with the industry.
+                When universities have a pivotal role to play in global
+                conversations about tackling the climate emergency, they cannot
+                afford to have their voices compromised, which is precisely what
+                will happen if they continue to make themselves dependent on the
+                industry most responsible for climate breakdown.
               </p>
               <p>
                 Universities and the research they produce are vital to
@@ -480,15 +459,22 @@ export default function OpenLetterPage() {
               href="https://actionnetwork.org/widgets/v5/form/fossil-free-research-open-letter"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Sign the letter (opens in new tab)"
               className="group relative inline-flex items-center justify-center rounded-full bg-brand-accent border-4 border-brand-accent px-6 py-4 text-base sm:px-16 sm:py-6 sm:text-2xl font-bold text-slate-900 shadow-2xl transition-all duration-300 ease-out hover:bg-slate-900 hover:text-brand-accent hover:scale-105 hover:shadow-slate-900/50 sm:whitespace-nowrap text-center max-w-[calc(100vw-2rem)]"
             >
-              <span className="invisible">
+              <span aria-hidden="true" className="invisible">
                 Down with the fossil fuel industry!
               </span>
-              <span className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0 px-4">
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 flex items-center justify-center transition-opacity duration-300 group-hover:opacity-0 px-4"
+              >
                 Sign the letter
               </span>
-              <span className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 px-4">
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 px-4"
+              >
                 Down with the fossil fuel industry!
               </span>
             </a>

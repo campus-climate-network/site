@@ -8,7 +8,7 @@ import { ArrowUpRight, Check, Maximize2, Quote, X } from 'lucide-react'
 export interface StudentWin {
   id: string
   title: string
-  org: string
+  org?: string
   date?: string
   campaign?: string
   description?: string
@@ -52,8 +52,11 @@ export function WinImage({
       <div
         className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br from-brand-secondary/20 via-brand-tertiary/10 to-brand-accent/20 ${className ?? ''}`}
       >
-        <span className="font-display text-4xl text-brand-primary/40">
-          {win.org.charAt(0)}
+        <span
+          aria-hidden="true"
+          className="font-display text-4xl text-brand-primary/40"
+        >
+          {(win.org || win.title).charAt(0)}
         </span>
       </div>
     )
@@ -62,7 +65,7 @@ export function WinImage({
   return (
     <Image
       src={win.imageUrl}
-      alt={win.imageAlt || win.title}
+      alt={win.imageAlt || ''}
       fill
       sizes={sizes}
       className={`object-cover ${className ?? ''}`}
@@ -93,10 +96,17 @@ function WinCard({
       </span>
 
       <div
-        className={`flex p-6 sm:p-7 ${
-          featured ? 'md:w-1/2 md:items-center md:p-9' : ''
+        className={`flex flex-col gap-2 p-6 sm:p-7 ${
+          featured ? 'md:w-1/2 md:justify-center md:p-9' : ''
         }`}
       >
+        {(win.campaign || win.date) && (
+          <p className="pr-10 text-xs font-medium text-slate-500">
+            {[win.campaign, win.date && formatDate(win.date)]
+              .filter(Boolean)
+              .join(' · ')}
+          </p>
+        )}
         <h3
           className={`pr-10 font-semibold leading-snug text-slate-900 ${
             featured ? 'text-2xl sm:text-3xl' : 'text-xl'
@@ -104,6 +114,11 @@ function WinCard({
         >
           {win.title}
         </h3>
+        {win.description && (
+          <p className="line-clamp-3 text-sm leading-relaxed text-slate-600">
+            {win.description}
+          </p>
+        )}
       </div>
 
       <div
@@ -207,11 +222,15 @@ export function WinModal({
             )}
             <h2
               id={titleId}
-              className="mt-4 text-2xl font-semibold leading-tight text-brand-primary sm:text-3xl"
+              className="mt-4 text-2xl font-semibold leading-tight text-slate-900 sm:text-3xl"
             >
               {win.title}
             </h2>
-            <p className="mt-2 text-sm font-medium text-slate-500">{win.org}</p>
+            {win.org && (
+              <p className="mt-2 text-sm font-medium text-slate-500">
+                {win.org}
+              </p>
+            )}
             {win.description && (
               <p className="mt-4 text-base text-slate-700">{win.description}</p>
             )}
@@ -220,12 +239,18 @@ export function WinModal({
               <div className="mt-6">
                 <a
                   href={win.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-brand-primary px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-primary/90"
+                  {...(win.link.startsWith('/')
+                    ? {}
+                    : { target: '_blank', rel: 'noopener noreferrer' })}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary"
                 >
-                  Read the coverage
+                  {win.link.startsWith('/')
+                    ? 'Read the story'
+                    : 'Read the coverage'}
                   <ArrowUpRight className="h-4 w-4" />
+                  {!win.link.startsWith('/') && (
+                    <span className="sr-only">(opens in new tab)</span>
+                  )}
                 </a>
               </div>
             )}
@@ -243,10 +268,6 @@ export function WinModal({
               ))}
             </ul>
           )}
-        </div>
-
-        <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl">
-          <WinImage win={win} sizes="(max-width: 896px) 100vw, 896px" />
         </div>
 
         {win.organizerQuote && (
@@ -268,6 +289,10 @@ export function WinModal({
             )}
           </figure>
         )}
+
+        <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl">
+          <WinImage win={win} sizes="(max-width: 896px) 100vw, 896px" />
+        </div>
       </div>
     </div>,
     document.body,

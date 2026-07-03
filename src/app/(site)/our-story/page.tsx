@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'Our Story',
   description:
     'Learn how Campus Climate Network emerged from the student divestment movement to become a coalition of 50+ organizations fighting for climate justice on campus.',
+  alternates: {
+    canonical: '/our-story',
+  },
 }
 
 const timelineEvents = [
@@ -14,7 +17,7 @@ const timelineEvents = [
     date: 'March 2022',
     title: 'The Fossil Free Research movement is born',
     description:
-      'Fossil Free Research launches with the release of our open letter, which has been signed by 1,000 academics from around the world—including IPCC authors and Nobel Prize winners—calling for an end to fossil fuel funding for climate and energy research.',
+      'Fossil Free Research launches with the release of our open letter, which has been signed by 1,000 academics from around the world — including IPCC authors and Nobel Prize winners — calling for an end to fossil fuel funding for climate and energy research.',
   },
   {
     date: 'May 2022',
@@ -26,7 +29,7 @@ const timelineEvents = [
     date: 'March 2023',
     title: 'Data For Progress report launch',
     description:
-      'Fossil Free Research, in collaboration with Data For Progress, released a first-of-its-kind report uncovering nearly $700 million in fossil fuel money across 27 US universities from 2010-2020. Due to a lack of transparency across institutions of higher education, this figure—while alarming—is likely a mere fraction of the true total.',
+      'Fossil Free Research, in collaboration with Data For Progress, released a first-of-its-kind report uncovering nearly $700 million in fossil fuel money across 27 US universities from 2010-2020. Due to a lack of transparency across institutions of higher education, this figure — while alarming — is likely a mere fraction of the true total.',
   },
   {
     date: 'March 2023',
@@ -64,11 +67,11 @@ export default function OurStoryPage() {
             Our story
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            How we got here.
+            How we got here
           </h1>
           <p className="text-base text-slate-700">
             From a grassroots open letter to a coalition of 50+ campus
-            organizations, here&apos;s the journey of our movement.
+            organizations, here’s the journey of our movement.
           </p>
         </div>
       </section>
@@ -76,6 +79,7 @@ export default function OurStoryPage() {
       {/* Timeline Section */}
       <section className="page-container">
         <div className="max-w-4xl mx-auto">
+          <h2 className="sr-only">Movement timeline</h2>
           <Timeline items={timelineEvents} />
         </div>
       </section>
@@ -96,7 +100,7 @@ export default function OurStoryPage() {
               </div>
               <Link
                 href="/blog"
-                className="inline-flex items-center rounded-full bg-brand-accent px-6 py-2.5 text-sm font-semibold text-slate-900 transition hover:bg-brand-accent/90 w-fit"
+                className="inline-flex items-center rounded-full bg-brand-accent px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-brand-accent/90 w-fit"
               >
                 Visit our blog
               </Link>
@@ -113,8 +117,8 @@ export default function OurStoryPage() {
               Join the movement
             </h2>
             <p className="text-base text-slate-600">
-              Whether you&apos;re a student, academic, or supporter,
-              there&apos;s a place for you in Campus Climate Network.
+              Whether you’re a student, academic, or supporter, there’s a place
+              for you in Campus Climate Network.
             </p>
             <div className="flex flex-wrap gap-3 text-sm font-semibold">
               <Link

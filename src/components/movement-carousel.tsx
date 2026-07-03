@@ -32,7 +32,12 @@ export function MovementCarousel({ highlights }: MovementCarouselProps) {
   const activeHighlight = highlights[current]
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white/80 shadow-[0_30px_80px_-60px_rgba(15,23,42,0.45)]">
+    <div
+      role="group"
+      aria-roledescription="carousel"
+      aria-label="Movement highlights"
+      className="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-white/80 shadow-[0_30px_80px_-60px_rgba(15,23,42,0.45)]"
+    >
       <div className="relative aspect-[4/5] w-full sm:aspect-[3/2]">
         <Image
           key={activeHighlight.image}
@@ -89,23 +94,31 @@ export function MovementCarousel({ highlights }: MovementCarouselProps) {
           </button>
         </div>
       </div>
-      <div className="flex items-center justify-center gap-2 px-6 py-4">
+      <div className="flex items-center justify-center gap-1 px-6 py-3">
         {highlights.map((highlight, index) => (
           <button
             key={highlight.image}
             type="button"
             onClick={() => goTo(index)}
-            className={classNames(
-              'h-2.5 w-2.5 rounded-full transition',
-              current === index
-                ? 'bg-brand-primary'
-                : 'bg-slate-200 hover:bg-slate-300',
-            )}
+            className="group flex h-6 w-6 items-center justify-center"
             aria-label={`View highlight ${index + 1}`}
             aria-current={current === index}
-          />
+          >
+            <span
+              aria-hidden="true"
+              className={classNames(
+                'h-2.5 w-2.5 rounded-full transition',
+                current === index
+                  ? 'bg-brand-primary'
+                  : 'bg-slate-500 group-hover:bg-slate-600',
+              )}
+            />
+          </button>
         ))}
       </div>
+      <p aria-live="polite" className="sr-only">
+        Slide {current + 1} of {count}
+      </p>
     </div>
   )
 }

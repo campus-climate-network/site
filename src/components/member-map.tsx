@@ -96,7 +96,7 @@ export default function MemberMap({
     return 'waiting'
   })
 
-  // Geocode members that don&apos;t have coordinates
+  // Geocode members that don't have coordinates
   useEffect(() => {
     async function geocodeMissingCoords() {
       const needsGeocoding = initialMembers.filter((m) => !m.coordinates)
@@ -380,8 +380,10 @@ export default function MemberMap({
                       style={{ animationDelay: `${(index % 8) * 400}ms` }}
                       aria-hidden="true"
                     />
-                    <div
-                      className={`relative cursor-pointer transition-all duration-200 ${
+                    <button
+                      type="button"
+                      aria-label={member.name}
+                      className={`relative block cursor-pointer transition-all duration-200 ${
                         isSelected ? 'z-10 scale-125' : 'hover:scale-110'
                       }`}
                     >
@@ -400,7 +402,7 @@ export default function MemberMap({
                           clipRule="evenodd"
                         />
                       </svg>
-                    </div>
+                    </button>
                   </div>
                 </Marker>
               )
@@ -528,13 +530,14 @@ export default function MemberMap({
                 </svg>
                 <input
                   type="text"
+                  aria-label="Search organizations"
                   placeholder="Search organizations..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-lg border border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-base placeholder:text-slate-400 focus:border-brand-primary focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-primary"
+                  className="w-full rounded-lg border border-slate-200 bg-slate-50 py-2 pl-10 pr-4 text-base placeholder:text-slate-500 focus:border-brand-primary focus:bg-white focus:outline-none focus:ring-1 focus:ring-brand-primary"
                 />
               </div>
-              <p className="mt-2 text-xs text-slate-500">
+              <p role="status" className="mt-2 text-xs text-slate-500">
                 {filteredMembers.length} of {members.length} shown
               </p>
             </div>

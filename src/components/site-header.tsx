@@ -33,6 +33,8 @@ function classNames(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(' ')
 }
 
+const MOBILE_NAV_ID = 'mobile-nav-overlay'
+
 function DesktopMenuTrigger({
   menu,
   isActive,
@@ -81,7 +83,6 @@ function DesktopMenuTrigger({
         ref={triggerRef}
         id={`${panelId}-${menu.label}-trigger`}
         aria-expanded={isActive}
-        aria-haspopup="true"
         aria-controls={panelId}
         onMouseEnter={() => {
           onTriggerEnter()
@@ -245,7 +246,6 @@ function MegaPanelColumns({
                           }
                         : undefined
                     }
-                    role="menuitem"
                     href={item.href}
                     onClick={onNavigate}
                     onMouseEnter={onItemEnter}
@@ -453,7 +453,6 @@ function DesktopMegaPanel({
     <div
       ref={panelRef}
       id={panelId}
-      role="menu"
       aria-hidden={!isOpen}
       style={{
         width: panelWidth,
@@ -826,6 +825,8 @@ function MobileNav({
   onClose: () => void
 }) {
   const [expandedMenus, setExpandedMenus] = useState<Set<string>>(new Set())
+  const overlayRef = useRef<HTMLDivElement>(null)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     if (!open) {
@@ -833,6 +834,52 @@ function MobileNav({
       setExpandedMenus(new Set())
     }
   }, [open])
+
+  // Focus management: move focus to the close button on open, trap Tab inside
+  // the overlay, close on Escape, and restore focus to the opener on close.
+  useEffect(() => {
+    if (!open) return
+    const overlay = overlayRef.current
+    if (!overlay) return
+
+    const previouslyFocused =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null
+    closeButtonRef.current?.focus()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        onClose()
+        return
+      }
+      if (event.key !== 'Tab') return
+
+      const focusable = Array.from(
+        overlay.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled])',
+        ),
+      )
+      if (focusable.length === 0) return
+      const first = focusable[0]
+      const last = focusable[focusable.length - 1]
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+      previouslyFocused?.focus()
+    }
+  }, [open, onClose])
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow
@@ -860,7 +907,10 @@ function MobileNav({
 
   return (
     <div
+      ref={overlayRef}
+      id={MOBILE_NAV_ID}
       aria-hidden={!open}
+      inert={!open}
       className={classNames(
         'fixed inset-0 z-70 flex flex-col bg-white transition-opacity duration-400 ease-out min-[1080px]:hidden',
         open
@@ -884,9 +934,10 @@ function MobileNav({
 
         {/* Close button */}
         <button
+          ref={closeButtonRef}
           type="button"
           onClick={onClose}
-          className="-mr-2 rounded-full p-2 text-slate-400 transition hover:text-slate-600 focus-visible:outline-none"
+          className="-mr-2 rounded-full p-2 text-slate-500 transition hover:text-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary"
           aria-label="Close navigation"
         >
           <svg
@@ -906,7 +957,10 @@ function MobileNav({
       </div>
 
       {/* Navigation content */}
-      <nav className="page-container flex-1 overflow-y-auto py-4">
+      <nav
+        aria-label="Mobile"
+        className="page-container flex-1 overflow-y-auto py-4"
+      >
         <ul className="space-y-1">
           {entries.map((entry, index) => {
             if (isNavMenu(entry)) {
@@ -948,6 +1002,7 @@ function MobileNav({
                     </svg>
                   </button>
                   <div
+                    inert={!isExpanded}
                     className={classNames(
                       'grid transition-all duration-300 ease-out',
                       isExpanded ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]',
@@ -1083,6 +1138,9 @@ export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  // Stable identity so MobileNav's focus-management effect doesn't re-run
+  // (and restore focus) on unrelated header re-renders while the menu is open
+  const closeMobileNav = useCallback(() => setMobileOpen(false), [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -1151,7 +1209,9 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => setMobileOpen(true)}
-            className="-mr-2 rounded-full p-2 text-slate-500 transition hover:text-brand-primary focus-visible:outline-none min-[1080px]:hidden"
+            aria-expanded={mobileOpen}
+            aria-controls={MOBILE_NAV_ID}
+            className="-mr-2 rounded-full p-2 text-slate-500 transition hover:text-brand-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary min-[1080px]:hidden"
             aria-label="Open navigation"
           >
             <svg
@@ -1168,7 +1228,10 @@ export function SiteHeader() {
               />
             </svg>
           </button>
-          <nav className="ml-auto hidden items-center gap-4 min-[1080px]:flex">
+          <nav
+            aria-label="Main"
+            className="ml-auto hidden items-center gap-4 min-[1080px]:flex"
+          >
             <DesktopNav entries={navEntries} />
           </nav>
           <div className="hidden items-center gap-3 min-[1080px]:flex">
@@ -1186,7 +1249,7 @@ export function SiteHeader() {
             <MobileNav
               entries={navEntries}
               open={mobileOpen}
-              onClose={() => setMobileOpen(false)}
+              onClose={closeMobileNav}
             />,
             document.body,
           )

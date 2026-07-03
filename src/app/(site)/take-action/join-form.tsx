@@ -87,6 +87,7 @@ export function JoinForm() {
   const [state, formAction, isPending] = useActionState(submitJoinForm, null)
   const [interestError, setInterestError] = useState(false)
   const successHeadingRef = useRef<HTMLHeadingElement>(null)
+  const interestFieldsetRef = useRef<HTMLFieldSetElement>(null)
 
   // The success panel replaces the form (and the focused submit button), so
   // move focus to its heading — screen readers announce it and keyboard users
@@ -104,6 +105,11 @@ export function JoinForm() {
     const formData = new FormData(event.currentTarget)
     if (formData.getAll('interest').length === 0) {
       setInterestError(true)
+      // Put keyboard users where they can fix the problem; the role="alert"
+      // message announces itself.
+      interestFieldsetRef.current
+        ?.querySelector<HTMLInputElement>('input[type="checkbox"]')
+        ?.focus()
       return
     }
     setInterestError(false)
@@ -302,11 +308,17 @@ export function JoinForm() {
           </div>
         </fieldset>
 
-        <fieldset>
+        <fieldset
+          ref={interestFieldsetRef}
+          aria-required="true"
+          aria-invalid={interestError || undefined}
+          aria-describedby={interestError ? 'join-interest-error' : undefined}
+        >
           <legend className={cn(labelClasses, 'mb-3')}>
             Which campaign is your student org currently, or interested in,
             running? (check all that apply)
             <RequiredMark />
+            <span className="sr-only"> (required)</span>
           </legend>
           <div className="grid gap-2.5 sm:grid-cols-2">
             {CAMPAIGN_INTERESTS.map((interest) => (
@@ -326,7 +338,11 @@ export function JoinForm() {
             ))}
           </div>
           {interestError && (
-            <p role="alert" className="mt-3 text-sm font-medium text-red-600">
+            <p
+              id="join-interest-error"
+              role="alert"
+              className="mt-3 text-sm font-medium text-red-600"
+            >
               Please select at least one campaign.
             </p>
           )}
@@ -355,7 +371,7 @@ export function JoinForm() {
         <button
           type="submit"
           disabled={isPending}
-          className="inline-flex w-fit items-center justify-center rounded-full bg-brand-primary px-8 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-secondary disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex w-fit items-center justify-center rounded-full bg-brand-primary px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-brand-secondary disabled:cursor-not-allowed disabled:opacity-60"
         >
           {isPending ? 'Signing you up…' : 'Sign up'}
         </button>

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Bungee, Poppins } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { OrganizationJsonLd, WebSiteJsonLd } from '@/components/json-ld'
+import { SITE_URL } from '@/lib/site'
 import './(site)/globals.css'
 
 const poppins = Poppins({
@@ -18,14 +19,12 @@ const bungee = Bungee({
   display: 'swap',
 })
 
-const siteUrl = 'https://campusclimatenetwork.org'
-
 export const viewport: Viewport = {
   themeColor: '#60379d',
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Campus Climate Network',
     template: '%s | Campus Climate Network',
@@ -47,11 +46,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: siteUrl,
     siteName: 'Campus Climate Network',
-    title: 'Campus Climate Network',
-    description:
-      'Campus Climate Network organizes students to win fossil-free research and climate justice on campus.',
     images: [
       {
         url: '/photoprotest.jpg',
@@ -64,9 +59,6 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     site: '@cclimatenetwork',
-    title: 'Campus Climate Network',
-    description:
-      'Students organizing for fossil-free research and climate justice.',
     images: ['/photoprotest.jpg'],
   },
 }

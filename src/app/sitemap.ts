@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next'
 import { client } from '@/sanity/lib/client'
 import { POST_SLUGS_WITH_DATES_QUERY } from '@/sanity/lib/queries'
+import { SITE_URL } from '@/lib/site'
 
-const baseUrl = 'https://campusclimatenetwork.org'
+const baseUrl = SITE_URL
 
 type PostWithDates = {
   slug: string
@@ -25,13 +26,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/our-story',
     '/our-approach',
     '/ffr-archive',
-    // '/impact', // Hidden until content is ready
+    '/impact',
     '/campaigns',
     '/open-letter',
     '/blog',
     '/contact-us',
     '/hiring',
-    '/impact-reports/2025',
   ]
 
   // Static pages omit lastModified since we don't have accurate dates
@@ -54,6 +54,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.8,
     })),
+    // Annual report — content is fixed once published
+    {
+      url: `${baseUrl}/impact-reports/2025`,
+      changeFrequency: 'yearly' as const,
+      priority: 0.8,
+    },
   ]
 
   // Fetch blog post slugs with dates
@@ -68,6 +74,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }))
+    // The blog listing changes whenever its newest post does
+    const newest = blogEntries
+      .map((entry) => entry.lastModified)
+      .filter((date): date is Date => date instanceof Date)
+      .sort((a, b) => b.getTime() - a.getTime())[0]
+    if (newest) {
+      const blogIndex = staticEntries.find(
+        (entry) => entry.url === `${baseUrl}/blog`,
+      )
+      if (blogIndex) blogIndex.lastModified = newest
+    }
   } catch {
     // If Sanity fetch fails, continue without blog entries
   }

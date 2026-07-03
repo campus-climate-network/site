@@ -1,4 +1,6 @@
-const siteUrl = 'https://campusclimatenetwork.org'
+import { SITE_URL } from '@/lib/site'
+
+const siteUrl = SITE_URL
 
 type OrganizationJsonLdProps = {
   url?: string
@@ -154,25 +156,46 @@ export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
   )
 }
 
-type WebPageJsonLdProps = {
+type JobPostingJsonLdProps = {
   title: string
   description: string
-  url: string
+  datePosted?: string
+  location?: string
+  applicationUrl?: string
 }
 
-export function WebPageJsonLd({ title, description, url }: WebPageJsonLdProps) {
+export function JobPostingJsonLd({
+  title,
+  description,
+  datePosted,
+  location,
+  applicationUrl,
+}: JobPostingJsonLdProps) {
+  const remote = !location || /remote/i.test(location)
   const schema = {
     '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: title,
-    description: description,
-    url: url,
-    isPartOf: {
-      '@id': `${siteUrl}/#website`,
-    },
-    about: {
+    '@type': 'JobPosting',
+    title,
+    description,
+    ...(datePosted && { datePosted }),
+    hiringOrganization: {
       '@id': `${siteUrl}/#organization`,
     },
+    ...(remote
+      ? {
+          jobLocationType: 'TELECOMMUTE',
+          applicantLocationRequirements: {
+            '@type': 'Country',
+            name: 'USA',
+          },
+        }
+      : {
+          jobLocation: {
+            '@type': 'Place',
+            address: location,
+          },
+        }),
+    ...(applicationUrl && { directApply: true, url: applicationUrl }),
   }
 
   return (

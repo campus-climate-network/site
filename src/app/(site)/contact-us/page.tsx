@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Contact Us',
   description:
     'Get in touch with Campus Climate Network for collaborations, media requests, partnerships, or to learn more about our student climate organizing work.',
+  alternates: {
+    canonical: '/contact-us',
+  },
 }
 
 export default function ContactUsPage() {
@@ -17,7 +20,7 @@ export default function ContactUsPage() {
             Contact
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            Let&apos;s connect.
+            Let’s connect
           </h1>
           <p className="text-base text-slate-700">
             Reach out to collaborate, request resources, or learn more about
@@ -29,7 +32,7 @@ export default function ContactUsPage() {
       <section className="page-container stack">
         <ScrollReveal variant="blossom">
           <div className="stack stack-dense rounded-3xl border border-brand-secondary/20 bg-white p-8">
-            <h2 className="text-2xl font-semibold text-brand-primary sm:text-3xl">
+            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
               General inquiries
             </h2>
             <p className="text-sm text-slate-600">
@@ -74,8 +77,8 @@ export default function ContactUsPage() {
               <a className="text-brand-primary underline" href="/donate">
                 website
               </a>
-              . If you&apos;d like to make a larger donation or discuss other
-              ways to give, reach out to{' '}
+              . If you’d like to make a larger donation or discuss other ways to
+              give, reach out to{' '}
               <a
                 className="text-brand-primary underline"
                 href="mailto:info@campusclimatenetwork.org"

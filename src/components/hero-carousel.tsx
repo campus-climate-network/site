@@ -45,7 +45,12 @@ export function HeroCarousel({ photos }: HeroCarouselProps) {
       </div>
 
       {/* Desktop: Full carousel */}
-      <div className="relative hidden md:block">
+      <div
+        role="group"
+        aria-roledescription="carousel"
+        aria-label="Photo highlights"
+        className="relative hidden md:block"
+      >
         <div className="overflow-hidden rounded-3xl border border-white/20">
           <div className="relative aspect-3/4">
             <Image
@@ -80,20 +85,25 @@ export function HeroCarousel({ photos }: HeroCarouselProps) {
               />
             </svg>
           </button>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             {photos.map((photo, index) => (
               <button
                 key={photo.image}
                 type="button"
                 onClick={() => goTo(index)}
-                className={`h-2 w-2 rounded-full transition ${
-                  current === index
-                    ? 'bg-white'
-                    : 'bg-white/50 hover:bg-white/70'
-                }`}
+                className="group flex h-6 w-6 items-center justify-center"
                 aria-label={`View photo ${index + 1}`}
                 aria-current={current === index}
-              />
+              >
+                <span
+                  aria-hidden="true"
+                  className={`h-2 w-2 rounded-full ring-1 ring-black/25 transition ${
+                    current === index
+                      ? 'bg-white'
+                      : 'bg-white/50 group-hover:bg-white/70'
+                  }`}
+                />
+              </button>
             ))}
           </div>
           <button
@@ -118,6 +128,9 @@ export function HeroCarousel({ photos }: HeroCarouselProps) {
             </svg>
           </button>
         </div>
+        <p aria-live="polite" className="sr-only">
+          Slide {current + 1} of {count}
+        </p>
       </div>
     </>
   )

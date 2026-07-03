@@ -9,17 +9,20 @@ export const metadata: Metadata = {
   title: 'Campaigns',
   description:
     'Campus Climate Network members run strategic campaigns that build durable student power. Explore winning campaigns from CCN member groups across the country.',
+  alternates: {
+    canonical: '/campaigns',
+  },
 }
 
 export default function CampaignsPage() {
   return (
-    <div>
+    <div className="page-wrapper">
       {/* Hero */}
       <section className="bg-gradient-to-b from-brand-secondary/10 to-transparent section-hero">
         <div className="page-container">
           <ScrollReveal variant="fade-up">
             <div className="stack stack-tight max-w-3xl text-left">
-              <p className="eyebrow text-xs font-semibold text-brand-secondary sm:text-sm">
+              <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
                 Our work
               </p>
               <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
@@ -34,14 +37,6 @@ export default function CampaignsPage() {
                   — Paulo Freire
                 </figcaption>
               </figure>
-              <p className="mt-4 max-w-2xl text-lg text-slate-600 sm:mt-6 sm:text-xl">
-                The ability to run a strategic campaign is foundational to good
-                organizing. Members of Campus Climate Network run campaigns that
-                build durable power. While a majority of CCN member group
-                campaigns are focused on climate and environmental justice, we
-                support our members to run campaigns that build student power
-                toward a more just and liveable future.
-              </p>
             </div>
           </ScrollReveal>
         </div>
@@ -52,8 +47,8 @@ export default function CampaignsPage() {
         <div className="page-container stack stack-loose">
           <ScrollReveal variant="fade-up">
             <div className="stack stack-tight max-w-3xl">
-              <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">
-                Winning campaigns by student organizers
+              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                Winning campaigns by CCN members
               </h2>
             </div>
           </ScrollReveal>
@@ -62,36 +57,53 @@ export default function CampaignsPage() {
         </div>
       </section>
 
+      {/* Why campaigns */}
+      <section className="page-container">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-tight max-w-3xl">
+            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+              Our approach to campaigns
+            </h2>
+            <p className="text-base text-slate-600">
+              The ability to run a strategic campaign is foundational to good
+              organizing. Members of Campus Climate Network run campaigns that
+              build durable power. While a majority of CCN member group
+              campaigns are focused on climate and environmental justice, we
+              support our members to run campaigns that build student power
+              toward a more just and liveable future.
+            </p>
+          </div>
+        </ScrollReveal>
+      </section>
+
       {/* Closing CTA */}
-      <section className="section-hero">
-        <div className="page-container">
-          <ScrollReveal variant="fade-up">
-            <div className="stack stack-snug mx-auto max-w-2xl text-center">
-              <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">
-                Students are winning a better future
-              </h2>
-              <p className="mx-auto max-w-xl text-lg text-slate-600">
-                CCN gives student organizers the skills, resources, and network
-                to run winning campaigns on campus.
-              </p>
-              <div className="flex flex-wrap justify-center gap-3 pt-2">
-                <Link
-                  href="/take-action"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-brand-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-primary/90"
-                >
-                  Get involved
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  href="/our-network"
-                  className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900"
-                >
-                  Explore the network
-                </Link>
-              </div>
+      <section className="page-container">
+        <ScrollReveal variant="fade-up">
+          <div className="stack stack-snug mx-auto max-w-2xl text-center">
+            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+              Students are winning a better future
+            </h2>
+            <p className="mx-auto max-w-xl text-base text-slate-600">
+              CCN gives student organizers the skills, resources, and network to
+              run winning campaigns on campus.
+            </p>
+            <div className="flex flex-wrap justify-center gap-3 pt-2">
+              <Link
+                href="/take-action"
+                className="inline-flex items-center gap-1.5 rounded-full bg-brand-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-secondary"
+              >
+                Get involved
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/our-network"
+                className="inline-flex items-center gap-1.5 rounded-full border border-brand-primary px-6 py-3 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
+              >
+                Explore the network
+              </Link>
             </div>
-          </ScrollReveal>
-        </div>
+          </div>
+        </ScrollReveal>
       </section>
     </div>
   )

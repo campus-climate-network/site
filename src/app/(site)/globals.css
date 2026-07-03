@@ -7,6 +7,9 @@
   /* Colors */
   --brand-primary: #60379d;
   --brand-secondary: #4f72ca;
+  /* Darker brand-secondary for small text: ≥4.5:1 on white and on the tinted
+     hero backgrounds (brand-secondary/10, brand-primary/10, cream/60). */
+  --brand-secondary-ink: #4563b0;
   --brand-tertiary: #a474e1;
   --brand-accent: #e8bf43;
   --brand-sky: #73bcf0;
@@ -76,6 +79,7 @@
   --color-foreground: var(--foreground);
   --color-brand-primary: var(--brand-primary);
   --color-brand-secondary: var(--brand-secondary);
+  --color-brand-secondary-ink: var(--brand-secondary-ink);
   --color-brand-tertiary: var(--brand-tertiary);
   --color-brand-accent: var(--brand-accent);
   --color-brand-sky: var(--brand-sky);
@@ -136,6 +140,13 @@ h1 {
   text-transform: uppercase;
 }
 
+/* Eyebrows colored brand-secondary at the call site get the darker ink
+   variant so they hold ≥4.5:1 contrast on the tinted hero backgrounds.
+   Other eyebrow colors (white/accent/stone on dark sections) are untouched. */
+.eyebrow.text-brand-secondary {
+  color: var(--brand-secondary-ink);
+}
+
 /* Stack utilities for consistent vertical spacing */
 .stack {
   display: flex;
@@ -175,10 +186,6 @@ h1 {
   gap: 2.5rem; /* 40px */
 }
 
-.stack.stack-giant {
-  gap: 4rem; /* 64px */
-}
-
 /* Stack list variants */
 .stack-list-compact {
   display: flex;
@@ -207,11 +214,6 @@ h1 {
 .page-wrapper > .section-dark:last-child,
 .page-wrapper > .stacking-section:last-child {
   margin-bottom: calc(var(--spacing-page-bottom) * -1);
-}
-
-.section-accent {
-  padding-top: var(--spacing-section);
-  padding-bottom: var(--spacing-section);
 }
 
 /* Container utility */
@@ -429,19 +431,25 @@ h1 {
   }
 }
 
-/* Individual timeline item */
+/* Individual timeline item — visible by default (progressive enhancement,
+   same approach as the scroll-reveal classes above). JS adds .will-animate
+   before observing; only that class hides the item. */
 .timeline-item {
   position: relative;
+}
+
+.timeline-item.will-animate {
   opacity: 0;
   transform: translateX(-20px);
-  transition:
-    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--item-delay, 0ms),
-    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--item-delay, 0ms);
+  will-change: opacity, transform;
 }
 
 .timeline-item.is-visible {
   opacity: 1;
   transform: translateX(0);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--item-delay, 0ms),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--item-delay, 0ms);
 }
 
 /* Dot/connector */
@@ -575,7 +583,7 @@ h1 {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--brand-secondary);
+  color: var(--brand-secondary-ink);
   background: linear-gradient(
     135deg,
     rgba(79, 114, 202, 0.1) 0%,
@@ -633,7 +641,8 @@ h1 {
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .timeline-item {
+  .timeline-item,
+  .timeline-item.will-animate {
     opacity: 1;
     transform: none;
     transition: none;
@@ -757,6 +766,12 @@ h1 {
 
 .animate-fade-in-up {
   animation: fade-in-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-in-up {
+    animation: none;
+  }
 }
 
 /* Per-page opt-in: make site header scroll away instead of sticking */
@@ -913,7 +928,7 @@ h1 {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   CTA Delight: Drifting Gradient + Confetti
+   CTA Delight: Drifting Gradient
    ═══════════════════════════════════════════════════════════════════════════ */
 
 .gradient-drift {
@@ -931,40 +946,8 @@ h1 {
   }
 }
 
-/* Confetti pieces are spawned imperatively by ConfettiLink with per-piece
-   --confetti-* vars. Base opacity 0 so pieces with an animation-delay don't
-   cluster visibly at the center before launching. */
-.confetti-piece {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 7px;
-  height: 11px;
-  opacity: 0;
-  animation: confetti-burst 0.8s cubic-bezier(0.12, 0.85, 0.35, 1) forwards;
-}
-
-@keyframes confetti-burst {
-  from {
-    opacity: 1;
-    transform: translate(-50%, -50%) rotate(0deg) scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: translate(
-        calc(-50% + var(--confetti-x)),
-        calc(-50% + var(--confetti-y))
-      )
-      rotate(var(--confetti-r)) scale(0.6);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .gradient-drift {
     animation: none;
-  }
-
-  .confetti-piece {
-    display: none;
   }
 }

@@ -6,6 +6,7 @@
 - **Stack**: Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 + Sanity CMS + Mapbox GL + Notion (member portal)
 - **Package manager**: bun
 - **Deployment**: Vercel
+- **Design system**: [design.md](design.md) — read it before building or changing any UI
 
 ## Commands
 
@@ -38,7 +39,7 @@ src/
 │   │   ├── ffr-campaign/          # Fossil Free Research campaign page
 │   │   ├── ffr-archive/           # FFR research reports
 │   │   ├── campaigns/             # Campaigns overview + carousel (local campaigns-data.ts)
-│   │   ├── impact/                # Impact page (local placeholder data; was student-wins)
+│   │   ├── impact/                # Impact page (wins in local wins-data.ts; some assets still pending)
 │   │   ├── take-action/           # Custom join form → Action Network API (actions.ts + join-form.tsx)
 │   │   ├── donate/                # HCB donation iframe
 │   │   ├── open-letter/           # Open letter + signatories
@@ -61,12 +62,13 @@ src/
 │   ├── member-map.tsx             # Mapbox GL map (client-side, geocoding)
 │   ├── member-map-wrapper.tsx     # Dynamic import wrapper (SSR disabled)
 │   ├── timeline.tsx               # Generic vertical scroll timeline
-│   ├── confetti-link.tsx          # Next Link with confetti burst on hover/click (reduced-motion aware)
-│   ├── json-ld.tsx                # Structured data components (Organization, Article, FAQ, etc.)
+│   ├── json-ld.tsx                # Structured data components (Organization, Article, JobPosting, FAQ, etc.)
+│   ├── faq-section.tsx            # Visible FAQ accordion + FAQPage JSON-LD from the same data
 │   └── fancy/blocks/stacking-cards.tsx  # Scroll-triggered stacking card sections (motion)
 ├── data/
 │   └── navigation.ts             # Navigation entries (shared by header + footer)
 ├── lib/
+│   ├── site.ts                   # SITE_URL — canonical www origin for all absolute URLs
 │   └── utils.ts                  # cn() utility (clsx + tailwind-merge)
 └── sanity/
     ├── env.ts                    # Sanity project ID, dataset, API version from env vars
@@ -104,25 +106,9 @@ src/
 ### Styling
 
 - **Tailwind CSS v4** with `@tailwindcss/postcss` — no `tailwind.config.ts` file; theme is defined inline in `globals.css` via `@theme inline`
-- Brand colors defined as CSS custom properties: `--brand-primary` (#60379d), `--brand-secondary` (#4f72ca), `--brand-tertiary` (#a474e1), `--brand-accent` (#e8bf43), `--brand-sky` (#73bcf0), `--brand-cream` (#fff4eb)
-- Use Tailwind classes like `bg-brand-primary`, `text-brand-accent`, etc.
 - shadcn/ui configured (new-york style, lucide icons) but no UI components currently installed — `cn()` utility in `src/lib/utils.ts`
 - Fancy components registry: `@fancy` → `https://fancycomponents.dev/r/{name}.json`
-- Custom CSS utility classes (defined in globals.css, NOT Tailwind):
-  - `.page-wrapper` — flex column with responsive gap + bottom padding
-  - `.page-container` — centered max-w-6xl with responsive horizontal padding
-  - `.section-hero`, `.section-dark`, `.section-accent` — section vertical padding
-  - `.stack` with modifiers: `.stack-compact` (4px) through `.stack-giant` (64px)
-  - `.stack-list-compact`, `.stack-list-snug` — tighter list spacing
-  - `.eyebrow` — uppercase tracking-widest label text
-- Scroll reveal animations: CSS-driven with `.scroll-reveal-{variant}`, `.will-animate`, `.is-visible` classes
-- Timeline styles: `.timeline-container`, `.timeline-track`, `.timeline-item`, etc.
-
-### Fonts
-
-- **Poppins** (body, `--font-poppins` / `font-sans`) — weights: 300, 400, 500, 700
-- **Bungee** (display/headings, `--font-bungee` / `font-display`) — weight: 400
-- All `<h1>` elements globally styled with `font-family: var(--font-bungee)`, `text-transform: uppercase`, `max-width: 48rem`
+- **All design conventions live in [design.md](design.md)** — brand colors, fonts, type scale, layout/spacing utilities (`page-wrapper`, `section-*`, `stack`), buttons, cards, motion, copy rules, and page-specific exceptions (including the intentionally distinct impact report)
 
 ### Components
 
@@ -148,14 +134,17 @@ src/
 
 ### Hidden/WIP Pages
 
-- `/impact` — linked in the main nav, but its sitemap entry is still commented out in `sitemap.ts`; uncomment once the page content is final
 - `/member-portal` — password-gated (HMAC cookie); `noindex` and excluded from sitemap
 - `/resources/blog/[slug]` — empty placeholder directory, no page implemented yet
+- `/impact` — live and in the sitemap; still waiting on a partner quote (section 03), campaign photos, and organizer quotes for two wins (see comments in `impact/page.tsx` and `impact/wins-data.ts`)
 
-### Sitemap Notes
+### SEO & Sitemap Notes
 
-- `/member-portal` — should be EXCLUDED from sitemap (not a public-facing page)
-- `/impact` — linked in nav but still commented out of the sitemap; add it once the page content is final
+- Canonical host is `https://www.campusclimatenetwork.org` — the apex 307-redirects to `www`. All absolute URLs (metadataBase, sitemap, robots, JSON-LD) derive from the shared `SITE_URL` constant in `src/lib/site.ts`; never hardcode the origin
+- Every public page sets `alternates.canonical`; the root layout deliberately omits og/twitter `title`/`description`/`url` so each page's own metadata flows into social cards
+- `/member-portal` and `/studio` — EXCLUDED from sitemap and noindexed. Do not robots-disallow `/member-portal`: crawlers must be able to fetch it to see the noindex
+- FAQ content: `src/components/faq-section.tsx` renders the visible FAQ accordion and its `FAQPage` JSON-LD from the same data — never emit FAQ JSON-LD without matching visible content (structured-data spam signal)
+- `public/llms.txt` — AI-crawler site summary; update its links when pages are added or renamed
 
 ## Environment Variables
 
@@ -183,4 +172,3 @@ ACTION_NETWORK_AUTORESPONSE=     # optional; set to false to skip the form's aut
 - Images served from `cdn.sanity.io` and `images.squarespace-cdn.com` (allowed in next.config.ts)
 - `styled-components` is a dependency (required by Sanity Studio) but not used in site code
 - Member portal content lives in **Notion**; fetched via `notion-client` and rendered with `react-notion-x` (`notion-types`/`notion-utils` for traversal). Access is gated by a server-side HMAC cookie keyed off `MEMBER_PORTAL_PASSWORD` (see `member-portal/actions.ts`)
-- Respect `prefers-reduced-motion` — all scroll animations have reduced-motion fallbacks

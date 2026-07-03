@@ -4,9 +4,12 @@ import Link from 'next/link'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
-  title: 'FFR Reports',
+  title: 'Fossil Free Research Reports',
   description:
-    'Reports exposing fossil fuel influence in academic research from campaigns across the network.',
+    'Read Fossil Free Research reports exposing fossil fuel industry influence over academic research, produced by student campaigns across the Campus Climate Network.',
+  alternates: {
+    canonical: '/ffr-archive',
+  },
 }
 
 const reports = [
@@ -50,7 +53,7 @@ export default function FfrReportsPage() {
                 Fossil Free Research
               </p>
               <h1 className="text-3xl font-semibold text-white sm:text-4xl">
-                FFR Reports.
+                FFR Reports
               </h1>
               <p className="max-w-2xl text-base text-stone-300">
                 Research and investigative reports from campaigns across the
@@ -64,6 +67,7 @@ export default function FfrReportsPage() {
       {/* Reports Grid */}
       <section className="section-dark">
         <div className="page-container">
+          <h2 className="sr-only">Reports</h2>
           <StaggerReveal
             staggerDelay={100}
             variant="blossom"
@@ -76,7 +80,7 @@ export default function FfrReportsPage() {
                   <div className="relative aspect-[8.5/11] overflow-hidden">
                     <Image
                       src={report.image}
-                      alt={report.title}
+                      alt=""
                       fill
                       className="object-contain"
                     />
@@ -85,13 +89,13 @@ export default function FfrReportsPage() {
 
                 {/* Text below */}
                 <div className="mt-4">
-                  <h3 className="text-lg text-white group-hover:text-red-400 transition-colors">
+                  <h3 className="text-lg font-semibold text-white group-hover:text-red-400 transition-colors">
                     {report.title}
                   </h3>
                   <p className="mt-1 text-sm text-stone-400">
                     {report.organization}
                   </p>
-                  <p className="text-sm text-stone-500">{report.year}</p>
+                  <p className="text-sm text-stone-400">{report.year}</p>
                 </div>
               </Link>
             ))}

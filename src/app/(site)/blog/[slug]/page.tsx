@@ -9,8 +9,9 @@ import { urlFor } from '@/sanity/lib/image'
 import { POST_QUERY, POST_SLUGS_QUERY } from '@/sanity/lib/queries'
 import type { PostDetail } from '@/sanity/lib/types'
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/json-ld'
+import { SITE_URL } from '@/lib/site'
 
-const siteUrl = 'https://campusclimatenetwork.org'
+const siteUrl = SITE_URL
 
 export const revalidate = 60
 
@@ -39,9 +40,13 @@ export async function generateMetadata(
   return {
     title: post.title,
     description,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description,
+      url: `/blog/${slug}`,
       type: 'article',
       publishedTime: post.publishedAt,
       authors: post.author?.name ? [post.author.name] : undefined,
@@ -233,18 +238,9 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
 
         <article className="stack stack-relaxed">
           <header className="stack stack-mid">
-            <div className="stack stack-snug">
-              <p className="eyebrow text-xs font-semibold text-brand-secondary">
-                {post.publishedAt
-                  ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-                      dateStyle: 'long',
-                    })
-                  : 'Unpublished'}
-              </p>
-              <h1 className="text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl">
-                {post.title}
-              </h1>
-            </div>
+            <h1 className="text-3xl font-semibold leading-tight text-slate-900 sm:text-4xl">
+              {post.title}
+            </h1>
 
             <div className="flex items-start gap-4">
               {authorImageSrc && (
@@ -260,7 +256,14 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
               <div className="stack stack-snug">
                 <div>
                   <p className="font-semibold text-slate-900">
-                    {post.author?.name ?? 'Unknown author'}
+                    By {post.author?.name ?? 'Unknown author'}
+                  </p>
+                  <p className="text-sm text-slate-500">
+                    {post.publishedAt
+                      ? new Date(post.publishedAt).toLocaleDateString('en-US', {
+                          dateStyle: 'long',
+                        })
+                      : 'Unpublished'}
                   </p>
                   {post.categories && post.categories.length > 0 && (
                     <p className="text-sm text-slate-500">
@@ -279,8 +282,6 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
               </div>
             </div>
           </header>
-
-          <hr className="border-slate-200" />
 
           {mainImageSrc && (
             <Image

@@ -26,6 +26,7 @@ export const POSTS_QUERY = `
   excerpt,
   publishedAt,
   mainImage,
+  "authorName": author->name,
   "categories": categories[]->{
     _id,
     title,

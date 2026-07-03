@@ -9,6 +9,7 @@ import {
 } from 'react'
 import {
   motion,
+  useReducedMotion,
   useScroll,
   useTransform,
   type MotionValue,
@@ -71,13 +72,14 @@ const StackingCardItem = ({
   const scaleTo = 1 - (totalCards - index) * (scaleMultiplier ?? 0.03)
   const rangeScale = [index * (1 / totalCards), 1]
   const scale = useTransform(progress, rangeScale, [1, scaleTo])
+  const prefersReducedMotion = useReducedMotion()
   const top = topPosition ?? `${5 + index * 3}%`
 
   return (
     <div className={cn('h-full sticky top-0', className)} {...props}>
       <motion.div
         className={'origin-top relative h-full'}
-        style={{ top, scale }}
+        style={{ top, scale: prefersReducedMotion ? 1 : scale }}
       >
         {children}
       </motion.div>

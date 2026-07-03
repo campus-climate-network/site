@@ -11,7 +11,10 @@ import type { MemberOrg as MapMemberOrg } from '@/components/member-map'
 export const metadata: Metadata = {
   title: 'Our Network',
   description:
-    'Meet the student-led climate justice groups in the Campus Climate Network—a national coalition fighting for fossil-free futures on campuses across the country.',
+    'Meet the student-led climate justice groups in the Campus Climate Network — a national coalition fighting for fossil-free futures on campuses across the country.',
+  alternates: {
+    canonical: '/our-network',
+  },
 }
 
 interface MemberOrg {
@@ -53,7 +56,7 @@ export default async function OurNetworkPage() {
               Member organizations
             </p>
             <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-              A national coalition of students fighting for fossil-free futures.
+              A national coalition of students fighting for fossil-free futures
             </h1>
           </div>
           <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
@@ -63,7 +66,7 @@ export default async function OurNetworkPage() {
             <p className="text-base text-slate-700">
               The majority of CCN member groups are climate and environmental
               justice organizations. However, any campus-based student group
-              that meets CCN&apos;s membership criteria is welcome to join the
+              that meets CCN’s membership criteria is welcome to join the
               network.
             </p>
             <p className="text-base text-slate-700">
@@ -102,7 +105,7 @@ export default async function OurNetworkPage() {
           <ScrollReveal variant="fade-up">
             <div className="stack stack-dense">
               <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-                Who&apos;s in the network
+                Who’s in the network
               </h2>
               <p className="text-base text-slate-600">
                 Meet the student groups powering campus climate action.
@@ -126,7 +129,10 @@ export default async function OurNetworkPage() {
                     />
                   ) : (
                     <div className="flex h-full w-full items-center justify-center rounded-xl bg-brand-primary/5">
-                      <span className="text-2xl font-bold text-brand-primary/30">
+                      <span
+                        aria-hidden="true"
+                        className="text-2xl font-bold text-brand-primary/30"
+                      >
                         {org.name.charAt(0)}
                       </span>
                     </div>

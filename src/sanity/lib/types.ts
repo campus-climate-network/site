@@ -5,6 +5,7 @@ export type PostListItem = {
   excerpt?: string
   publishedAt: string
   mainImage?: unknown
+  authorName?: string
   categories?: {
     _id: string
     title?: string

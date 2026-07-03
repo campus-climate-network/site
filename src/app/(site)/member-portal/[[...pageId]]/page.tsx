@@ -207,7 +207,7 @@ export default async function MemberPortalPage({
     <div className="page-wrapper">
       <section className="bg-brand-primary/10 section-hero">
         <div className="page-container stack stack-tight text-left">
-          <p className="eyebrow text-xs sm:text-sm text-brand-primary">
+          <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
             Members only
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
@@ -264,10 +264,10 @@ export default async function MemberPortalPage({
           <ScrollReveal variant="fade-up">
             <div className="stack stack-snug">
               <h2 className="text-xl font-semibold text-slate-900">
-                Enter your password to access the portal.
+                Enter your password to access the portal
               </h2>
               <p className="text-sm text-slate-500">
-                Contact a CCN staff member if you don&apos;t have the password.
+                Contact a CCN staff member if you don’t have the password.
               </p>
             </div>
           </ScrollReveal>

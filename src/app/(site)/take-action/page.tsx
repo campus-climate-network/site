@@ -1,13 +1,16 @@
 import type { Metadata } from 'next'
 
 import { ScrollReveal } from '@/components/scroll-reveal'
-import { FAQPageJsonLd } from '@/components/json-ld'
+import { FaqSection } from '@/components/faq-section'
 import { JoinForm } from './join-form'
 
 export const metadata: Metadata = {
   title: 'Take Action',
   description:
     'Plug into the Campus Climate Network, get organizer support, and access trainings, toolkits, and funding for your climate justice campaign.',
+  alternates: {
+    canonical: '/take-action',
+  },
 }
 
 const takeActionFaqs = [
@@ -36,14 +39,13 @@ const takeActionFaqs = [
 export default function TakeActionPage() {
   return (
     <div className="page-wrapper !pb-0 !gap-0">
-      <FAQPageJsonLd faqs={takeActionFaqs} />
       <section className="bg-brand-cream/60 section-hero">
         <div className="page-container stack stack-tight text-left">
           <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
             Take action
           </p>
           <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            Join Campus Climate Network.
+            Join Campus Climate Network
           </h1>
           <p className="text-base text-slate-700">
             Ready to build power on your campus? Fill out the intake form below
@@ -61,6 +63,12 @@ export default function TakeActionPage() {
               <JoinForm />
             </div>
           </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="section-hero">
+        <div className="page-container">
+          <FaqSection faqs={takeActionFaqs} />
         </div>
       </section>
     </div>

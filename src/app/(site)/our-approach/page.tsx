@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'About Us',
   description:
     'Discover how Campus Climate Network trains student organizers, coordinates national campaigns, and builds long-term infrastructure for climate justice.',
+  alternates: {
+    canonical: '/our-approach',
+  },
 }
 
 export default function AboutUsPage() {
@@ -19,8 +22,7 @@ export default function AboutUsPage() {
               About us
             </p>
             <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-              We&apos;re organizing the next generation of climate justice
-              leaders.
+              We’re organizing the next generation of climate justice leaders
             </h1>
           </div>
           <div className="flex-1 overflow-hidden rounded-3xl shadow-xl ring-1 ring-brand-primary/10">
