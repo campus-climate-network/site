@@ -12,8 +12,8 @@ import type { StudentWin } from './wins-showcase'
 //
 // ⚠️ PENDING ASSETS (reached out, waiting to hear back):
 //   - Claremont: campaign photo. Drop a file in /public/impact/ and set imageUrl.
-//   - Compact: organizer quote from Brown Rise Up + Sunrise UNC — add
-//     organizerQuote/organizerName/organizerRole once received.
+//   - Compact: organizer quote from Sunrise UNC — Brown Rise Up quote is in;
+//     swap/extend once the UNC one arrives.
 //   - UCSD: campaign photo + organizer quote from UCSD Green New Deal — add
 //     the organizer* fields once received.
 // The modal only renders the quote block when organizerQuote is set, so
@@ -53,6 +53,9 @@ export const studentWins: StudentWin[] = [
       '10 more universities proactively said they do not support it',
       'University of Kansas and UNC Chapel Hill won pre-emptive rejections',
     ],
+    organizerQuote:
+      'CCN’s support in the compact fight was invaluable. Because of our existing relationships with other CCN organizers and the Network’s connective infrastructure, we were able to almost immediately get into contact with all 8 of the other affected schools and coordinate our campaign strategies. We were able to effectively share resources and stand against the Trump administration as a united force, all because of CCN.',
+    organizerRole: 'Brown Rise Up student organizer',
     link: 'https://wagingnonviolence.org/2025/12/student-resistance-to-authoritarianism/',
   },
   {

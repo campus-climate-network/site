@@ -114,11 +114,6 @@ function WinCard({
         >
           {win.title}
         </h3>
-        {win.description && (
-          <p className="line-clamp-3 text-sm leading-relaxed text-slate-600">
-            {win.description}
-          </p>
-        )}
       </div>
 
       <div
