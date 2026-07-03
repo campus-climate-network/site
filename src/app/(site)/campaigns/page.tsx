@@ -79,28 +79,30 @@ export default function CampaignsPage() {
       {/* Closing CTA */}
       <section className="page-container">
         <ScrollReveal variant="fade-up">
-          <div className="stack stack-snug mx-auto max-w-2xl text-center">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              Students are winning a better future
-            </h2>
-            <p className="mx-auto max-w-xl text-base text-slate-600">
-              CCN gives student organizers the skills, resources, and network to
-              run winning campaigns on campus.
-            </p>
-            <div className="flex flex-wrap justify-center gap-3 pt-2">
-              <Link
-                href="/take-action"
-                className="inline-flex items-center gap-1.5 rounded-full bg-brand-primary px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-secondary"
-              >
-                Get involved
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/our-network"
-                className="inline-flex items-center gap-1.5 rounded-full border border-brand-primary px-6 py-3 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white"
-              >
-                Explore the network
-              </Link>
+          <div className="gradient-drift relative isolate overflow-hidden rounded-[2.5rem] bg-linear-to-br from-brand-secondary via-brand-tertiary to-brand-primary px-6 py-16 text-center text-white sm:px-12 sm:py-20">
+            <div className="mx-auto stack stack-snug max-w-2xl">
+              <h2 className="text-2xl font-semibold sm:text-3xl">
+                Students are winning a better future
+              </h2>
+              <p className="mx-auto max-w-xl text-base text-white sm:text-lg">
+                CCN gives student organizers the skills, resources, and network
+                to run winning campaigns on campus.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 pt-2">
+                <Link
+                  href="/take-action"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-brand-accent px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-brand-accent/90"
+                >
+                  Get involved
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/our-network"
+                  className="inline-flex items-center rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
+                >
+                  Explore the network
+                </Link>
+              </div>
             </div>
           </div>
         </ScrollReveal>
