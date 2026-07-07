@@ -112,27 +112,29 @@ export default function OurStoryPage() {
       {/* CTA Section */}
       <section className="page-container">
         <ScrollReveal variant="fade-up">
-          <div className="stack stack-cozy max-w-2xl">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              Join the movement
-            </h2>
-            <p className="text-base text-slate-600">
-              Whether you’re a student, academic, or supporter, there’s a place
-              for you in Campus Climate Network.
-            </p>
-            <div className="flex flex-wrap gap-3 text-sm font-semibold">
-              <Link
-                className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-white transition hover:bg-brand-secondary"
-                href="/take-action"
-              >
-                Take action
-              </Link>
-              <Link
-                className="inline-flex items-center rounded-full border border-brand-primary px-5 py-2 text-brand-primary transition hover:bg-brand-primary hover:text-white"
-                href="/donate"
-              >
-                Donate
-              </Link>
+          <div className="gradient-drift relative isolate overflow-hidden rounded-[2.5rem] bg-linear-to-br from-brand-secondary via-brand-tertiary to-brand-primary px-6 py-16 text-center text-white sm:px-12 sm:py-20">
+            <div className="mx-auto stack stack-snug max-w-2xl">
+              <h2 className="text-2xl font-semibold sm:text-3xl">
+                Be part of what’s next
+              </h2>
+              <p className="mx-auto max-w-xl text-base text-white sm:text-lg">
+                Whether you want to organize on your campus or fuel the movement
+                from anywhere, there’s a place for you in this fight.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 pt-2">
+                <Link
+                  className="inline-flex items-center rounded-full bg-brand-accent px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-brand-accent/90"
+                  href="/take-action"
+                >
+                  Join us
+                </Link>
+                <Link
+                  className="inline-flex items-center rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
+                  href="/donate"
+                >
+                  Donate
+                </Link>
+              </div>
             </div>
           </div>
         </ScrollReveal>
