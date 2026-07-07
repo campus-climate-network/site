@@ -376,7 +376,7 @@ function DesktopMegaPanel({
                     : entry.state,
                 direction,
               }
-            : entry,
+            : { ...entry, state: 'exit' as TransitionState, direction },
         )
       }
 
