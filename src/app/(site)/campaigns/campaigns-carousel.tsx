@@ -56,7 +56,7 @@ export function CampaignsCarousel({
     <div>
       <div
         ref={scrollerRef}
-        className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 py-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-4 px-4 py-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {campaigns.map((win) => (
           <a
