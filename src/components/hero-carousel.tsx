@@ -32,7 +32,7 @@ export function HeroCarousel({ photos }: HeroCarouselProps) {
       {/* Mobile: Single static image */}
       <div className="md:hidden">
         <div className="overflow-hidden rounded-3xl border border-white/20">
-          <div className="relative aspect-3/4">
+          <div className="relative aspect-4/3">
             <Image
               src={firstPhoto.image}
               alt={firstPhoto.alt}
@@ -52,7 +52,7 @@ export function HeroCarousel({ photos }: HeroCarouselProps) {
         className="relative hidden md:block"
       >
         <div className="overflow-hidden rounded-3xl border border-white/20">
-          <div className="relative aspect-3/4">
+          <div className="relative aspect-4/3">
             <Image
               key={activePhoto.image}
               src={activePhoto.image}

@@ -20,8 +20,8 @@ const footerColumns: FooterColumn[] = [
   {
     title: 'Our work',
     links: [
-      { label: 'Campaigns', href: '/campaigns' },
       { label: 'Impact', href: '/impact' },
+      { label: 'Campaigns', href: '/campaigns' },
       { label: '2025 Impact Report', href: '/impact-reports/2025' },
     ],
   },

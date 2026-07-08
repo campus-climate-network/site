@@ -1,12 +1,18 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react'
 import { ArrowUpRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import { WinImage, type StudentWin } from '../impact/wins-showcase'
 
 const CARD_GAP = 20 // matches the `gap-5` on the scroller
 
-export function CampaignsCarousel({ campaigns }: { campaigns: StudentWin[] }) {
+export function CampaignsCarousel({
+  campaigns,
+  cta,
+}: {
+  campaigns: StudentWin[]
+  cta?: ReactNode
+}) {
   const scrollerRef = useRef<HTMLDivElement>(null)
   const [canPrev, setCanPrev] = useState(false)
   const [canNext, setCanNext] = useState(false)
@@ -83,7 +89,8 @@ export function CampaignsCarousel({ campaigns }: { campaigns: StudentWin[] }) {
         ))}
       </div>
 
-      <div className="mt-4 flex justify-end gap-3">
+      <div className="mt-4 flex items-center justify-end gap-3">
+        {cta && <div className="mr-auto">{cta}</div>}
         <button
           type="button"
           onClick={() => {

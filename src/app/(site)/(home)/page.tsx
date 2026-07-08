@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { HeroCarousel } from '@/components/hero-carousel'
-import { MovementCarousel } from '@/components/movement-carousel'
 import { ScrollReveal } from '@/components/scroll-reveal'
+import { CampaignsCarousel } from '../campaigns/campaigns-carousel'
+import { campaigns } from '../campaigns/campaigns-data'
 import { MemberMapWrapper } from '@/components/member-map-wrapper'
 import { client } from '@/sanity/lib/client'
 import { MEMBER_ORGS_QUERY } from '@/sanity/lib/queries'
@@ -68,39 +69,16 @@ const pressLogos = [
 
 const movementHighlights = [
   {
-    title: 'NYC students flood the streets for climate justice',
-    description:
-      'Campus Climate Network organizers helped pack the 2023 march demanding the end of fossil fuel expansion.',
-    image: '/images/movement-hero-1.jpg',
-    alt: 'Campus Climate Network organizers leading a march through downtown streets.',
+    image: '/images/climate-justice-now-march.jpg',
+    alt: 'Students holding “Climate Justice Now” and “This is Code Red” signs at a climate march.',
   },
   {
-    title: 'University of Toronto occupies RBC campus branch',
-    description:
-      'Students with Climate Justice UofT staged a sit-in to force their university to cut ties with the fossil fuel financier.',
-    image: '/images/movement-hero-2.jpg',
-    alt: 'Students staging a sit-in with banners demanding fossil fuel divestment.',
+    image: '/images/future-is-now-speaker.jpg',
+    alt: 'Student speaker at a podium with a “Future is Now” sign addressing an organizing summit.',
   },
   {
-    title: 'Brown Divest wins major victory',
-    description:
-      'Student organizers secured a commitment to phase out fossil fuel funding after years of sit-ins and coalition building.',
-    image: '/photoprotest.jpg',
-    alt: 'Student organizers gathered outside a university building calling for climate action.',
-  },
-  {
-    title: 'Sunrise NYU pushes trustees to divest',
-    description:
-      'Hundreds marched through campus and delivered signatures that helped drive NYU’s divestment decision.',
-    image: '/images/movement-hero-4.jpg',
-    alt: 'Students marching with signs demanding divestment from fossil fuels.',
-  },
-  {
-    title: 'Organizers strategize at national summit',
-    description:
-      'Student leaders from across the country gather to share tactics and build solidarity at our annual training summit.',
-    image: '/images/movement-hero-6.jpg',
-    alt: 'Students gathered in a circle discussion at an organizing summit.',
+    image: '/images/fossil-free-uc-rally.jpg',
+    alt: 'Students rallying behind a banner reading “Students need a fossil-fuel free UC”.',
   },
 ]
 
@@ -142,31 +120,42 @@ export default async function Home() {
               className="pointer-events-none absolute inset-0 rounded-[2.5rem] bg-brand-primary/20 blur-3xl"
               aria-hidden="true"
             />
-            {/* Mobile carousel */}
+            {/* Mobile: single static photo (FFUC rally) */}
             <div className="sm:hidden">
-              <HeroCarousel photos={movementHighlights} />
+              <HeroCarousel photos={[movementHighlights[2]]} />
             </div>
             {/* Desktop grid */}
-            <div className="relative hidden gap-4 sm:grid sm:grid-cols-2 sm:grid-rows-3">
-              {movementHighlights.slice(0, 5).map((photo, index) => (
-                <div
-                  key={photo.image}
-                  className={
-                    index === 0
-                      ? 'row-span-2 overflow-hidden rounded-3xl border border-white/20'
-                      : 'overflow-hidden rounded-3xl border border-white/15'
-                  }
-                >
-                  <Image
-                    src={photo.image}
-                    alt={photo.alt}
-                    width={index === 0 ? 620 : 280}
-                    height={index === 0 ? 760 : 260}
-                    className="h-full w-full object-cover"
-                    priority={index === 0}
-                  />
-                </div>
-              ))}
+            <div className="relative hidden gap-4 sm:grid sm:grid-cols-2">
+              {movementHighlights.map((photo, index) =>
+                index === 1 ? (
+                  <div
+                    key={photo.image}
+                    className="relative row-span-2 overflow-hidden rounded-3xl border border-white/15"
+                  >
+                    <Image
+                      src={photo.image}
+                      alt={photo.alt}
+                      fill
+                      sizes="(min-width: 1024px) 25vw, 50vw"
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    key={photo.image}
+                    className="overflow-hidden rounded-3xl border border-white/15"
+                  >
+                    <Image
+                      src={photo.image}
+                      alt={photo.alt}
+                      width={620}
+                      height={465}
+                      className="aspect-4/3 w-full object-cover"
+                      priority={index === 0}
+                    />
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </div>
@@ -183,10 +172,10 @@ export default async function Home() {
                 Honing students’ organizing skills
               </h2>
               <p className="text-base text-slate-600 sm:text-lg">
-                We equip students with the skills and political analysis they
-                need to become organizers capable of building durable power on
-                and off campus. Support from CCN includes in-person campus
-                trainings and dedicated coaching for their group.
+                We equip student organizers with strategic capacity they need to
+                become lifelong movement leaders. Support from CCN includes
+                in-person campus trainings and dedicated coaching for their
+                group.
               </p>
             </div>
           </ScrollReveal>
@@ -215,18 +204,19 @@ export default async function Home() {
                 Connecting students with fellow organizers
               </h2>
               <p className="text-base text-slate-600 sm:text-lg">
-                Students connect with fellow organizers on campuses across the
-                country. These are the people they’ll be in movement with long
-                after leaving campus. Our network is a space for peer learning,
-                support, and relationship building.
+                Stronger connective tissue leads to more powerful and resilient
+                student movements. The peers that students meet through CCN are
+                the people they’ll be in movement with long after leaving
+                campus. We build connective tissue by cultivating spaces for
+                peer learning, support, and relationship building.
               </p>
             </div>
           </ScrollReveal>
           <ScrollReveal variant="blossom" delay={150} className="lg:order-1">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border border-brand-secondary/20">
               <Image
-                src="/images/students-rally.jpg"
-                alt="A group of student organizers smiling together at a climate march, holding divestment signs."
+                src="/images/college-climate-gathering-banner.jpg"
+                alt="Students painting a large College Climate Gathering banner together at a CCN convening."
                 fill
                 sizes="(max-width: 1024px) 100vw, 45vw"
                 className="object-cover"
@@ -324,12 +314,30 @@ export default async function Home() {
       <section className="page-container">
         <div className="stack stack-mid text-left">
           <ScrollReveal variant="fade-up">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              Scenes from campuses taking bold climate action
-            </h2>
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
+                Students are winning campaigns across the country
+              </h2>
+              <Link
+                className="inline-flex items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary sm:hidden"
+                href="/campaigns"
+              >
+                Explore our campaigns
+              </Link>
+            </div>
           </ScrollReveal>
           <ScrollReveal variant="blossom" delay={100}>
-            <MovementCarousel highlights={movementHighlights} />
+            <CampaignsCarousel
+              campaigns={campaigns}
+              cta={
+                <Link
+                  className="hidden items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition hover:bg-brand-secondary sm:inline-flex"
+                  href="/campaigns"
+                >
+                  Explore our campaigns
+                </Link>
+              }
+            />
           </ScrollReveal>
         </div>
       </section>
@@ -342,8 +350,8 @@ export default async function Home() {
                 Be part of what’s next
               </h2>
               <p className="mx-auto max-w-xl text-base text-white sm:text-lg">
-                Whether you want to organize on your campus or fuel the movement
-                from anywhere, there’s a place for you in this fight.
+                Whether you want to organize on your campus or donate to the
+                fight, there is a place for you in the movement.
               </p>
               <div className="flex flex-wrap justify-center gap-3 pt-2">
                 <Link
