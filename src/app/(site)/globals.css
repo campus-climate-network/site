@@ -829,42 +829,6 @@ h1 {
   border-top: none;
 }
 
-/* Header wordmark: "Campus Climate Network" collapses to "CCN" on scroll.
-   The kept initials stay; each word's trailing letters (and the inter-word
-   spaces) animate max-width -> 0 with a fade, sliding the initials together.
-   Width vars are set in JS from each span's measured width (no dead-zone). */
-.wordmark-keep,
-.wordmark-rest,
-.wordmark-space {
-  display: inline-block;
-  vertical-align: bottom;
-}
-.wordmark-rest,
-.wordmark-space {
-  max-width: var(--w, 8ch);
-  overflow: hidden;
-  white-space: pre;
-  transition:
-    max-width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.35s ease;
-}
-/* Collapse only alongside the desktop nav (≥1080px, matching the header's
-   nav ↔ burger switch); in the hamburger layout the full name always fits,
-   so it stays expanded regardless of scroll. */
-@media (min-width: 1080px) {
-  .wordmark[data-collapsed='true'] .wordmark-rest,
-  .wordmark[data-collapsed='true'] .wordmark-space {
-    max-width: 0;
-    opacity: 0;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .wordmark-rest,
-  .wordmark-space {
-    transition: none;
-  }
-}
-
 /* ═══════════════════════════════════════════════════════════════════════════
    Press Logo Marquee
    ═══════════════════════════════════════════════════════════════════════════ */

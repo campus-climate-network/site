@@ -1073,67 +1073,6 @@ function MobileNav({
   )
 }
 
-// Wordmark that collapses "Campus Climate Network" into "CCN" on scroll
-// (desktop only — below 1080px the CSS ignores data-collapsed and keeps the full name).
-// Each word's trailing letters animate max-width -> 0 (+ fade) so the kept
-// initials (C, C, N) slide together. Widths are measured once fonts load so
-// the collapse has no dead-zone. The animated spans are aria-hidden (their
-// inline-block boxes fragment the accessible name into "C AMPUS C LIMATE…"),
-// so an sr-only span carries the full name for screen readers instead.
-function Wordmark({ collapsed }: { collapsed: boolean }) {
-  const ref = useRef<HTMLParagraphElement>(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const measure = () => {
-      // Defensive: skip if the wordmark is ever hidden; scrollWidth would be 0
-      // and lock the letters collapsed even once they become visible.
-      if (!el.offsetParent && el.offsetWidth === 0) return
-      el.querySelectorAll<HTMLElement>('[data-collapsible]').forEach((node) => {
-        if (node.scrollWidth > 0) {
-          node.style.setProperty('--w', `${node.scrollWidth}px`)
-        }
-      })
-    }
-    measure()
-    document.fonts?.ready.then(measure)
-    window.addEventListener('resize', measure)
-    return () => window.removeEventListener('resize', measure)
-  }, [])
-
-  return (
-    <>
-      <span className="sr-only">Campus Climate Network</span>
-      <p
-        ref={ref}
-        aria-hidden="true"
-        data-collapsed={collapsed}
-        className="wordmark font-display whitespace-nowrap text-sm uppercase leading-tight tracking-tight sm:text-lg"
-      >
-        <span className="wordmark-keep">C</span>
-        <span className="wordmark-rest" data-collapsible>
-          ampus
-        </span>
-        <span className="wordmark-space" data-collapsible>
-          &nbsp;
-        </span>
-        <span className="wordmark-keep">C</span>
-        <span className="wordmark-rest" data-collapsible>
-          limate
-        </span>
-        <span className="wordmark-space" data-collapsible>
-          &nbsp;
-        </span>
-        <span className="wordmark-keep">N</span>
-        <span className="wordmark-rest" data-collapsible>
-          etwork
-        </span>
-      </p>
-    </>
-  )
-}
-
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -1199,12 +1138,9 @@ export function SiteHeader() {
                 className="object-contain"
               />
             </div>
-            {/* Always visible; the nav ↔ burger switch happens at 1080px, where
-               the full wordmark fits beside the nav. Fixed-width zone at ≥1080px
-               so the collapse animation never shifts the nav. */}
-            <div className="text-brand-primary min-[1080px]:w-64">
-              <Wordmark collapsed={scrolled} />
-            </div>
+            <p className="font-display whitespace-nowrap text-sm uppercase leading-tight tracking-tight text-brand-primary sm:text-lg">
+              Campus Climate Network
+            </p>
           </Link>
           <button
             type="button"
