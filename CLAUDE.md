@@ -134,7 +134,7 @@ src/
 
 - `/member-portal` — password-gated (HMAC cookie); `noindex` and excluded from sitemap
 - `/resources/blog/[slug]` — empty placeholder directory, no page implemented yet
-- `/impact` — live and in the sitemap; still waiting on a partner quote (section 03), campaign photos, and organizer quotes for two wins (see comments in `impact/page.tsx` and `impact/wins-data.ts`)
+- `/impact` — live and in the sitemap; still waiting on a partner quote (section 03), the UCSD campaign photo, and organizer quotes for two wins (see comments in `impact/page.tsx` and `impact/wins-data.ts`)
 
 ### SEO & Sitemap Notes
 

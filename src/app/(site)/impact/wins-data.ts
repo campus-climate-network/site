@@ -11,7 +11,6 @@ import type { StudentWin } from './wins-showcase'
 //     month isn't known — the latter renders as just the year.
 //
 // ⚠️ PENDING ASSETS (reached out, waiting to hear back):
-//   - Claremont: campaign photo. Drop a file in /public/impact/ and set imageUrl.
 //   - Compact: organizer quote from Sunrise UNC — Brown Rise Up quote is in;
 //     swap/extend once the UNC one arrives.
 //   - UCSD: campaign photo + organizer quote from UCSD Green New Deal — add
@@ -26,7 +25,9 @@ export const studentWins: StudentWin[] = [
     campaign: 'Campus decarbonization',
     description:
       'As a result of student pressure, The Claremont Colleges Services unanimously voted to switch the Colleges from sourcing fossil fuels from the investor-owned electricity monopoly Southern California Edison to the Clean Power Alliance’s 100 percent renewable electricity.',
-    // TODO: add campaign photo once received (imageUrl / imageAlt).
+    imageUrl: '/images/campaigns/claremont-campaign-art.jpg',
+    imageAlt:
+      "Collage of hand-drawn Claremont Off Fossil Fuels campaign art, including a flyer reading 'We won!'",
     outcomes: [
       'Claremont Colleges Services voted unanimously to make the switch',
       'Dropped Southern California Edison for the Clean Power Alliance',
