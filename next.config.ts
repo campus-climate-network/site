@@ -13,6 +13,21 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      // Former FFR pages, folded into /campaigns — keep old inbound links alive
+      {
+        source: '/ffr-campaign',
+        destination: '/campaigns',
+        permanent: true,
+      },
+      {
+        source: '/ffr-archive',
+        destination: '/campaigns',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 export default nextConfig

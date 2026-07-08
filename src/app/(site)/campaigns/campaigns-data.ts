@@ -20,21 +20,6 @@ export const campaigns: StudentWin[] = [
       "Collage of hand-drawn Claremont Off Fossil Fuels campaign art, including a flyer reading 'We won!'",
   },
   {
-    id: 'ucsd-climate-courses',
-    title: 'Mandatory climate courses at UC San Diego',
-    link: 'https://abcnews.com/US/education-climate-change-now-required-uc-san-diego/story?id=114824937',
-    imageUrl: '/images/campaigns/ucsd-campus-sign.jpg',
-    imageAlt: 'The UC San Diego sign at the entrance to campus.',
-  },
-  {
-    id: 'uf-green-new-deal',
-    title: 'A Green New Deal for campus at the University of Florida',
-    link: 'https://www.thenation.com/article/activism/university-of-florida-green-new-deal/',
-    imageUrl: '/images/campaigns/uf-gnd-rally.jpg',
-    imageAlt:
-      "Students at the University of Florida holding signs reading 'Strike for Climate' and 'We Deserve a Future'.",
-  },
-  {
     id: 'trump-compact',
     title:
       "Defeating Trump's loyalty oath compact on campuses across the country",
@@ -42,6 +27,13 @@ export const campaigns: StudentWin[] = [
     imageUrl: '/images/campaigns/brown-reject-compact-banner.jpg',
     imageAlt:
       "Students at Brown University's gates holding a banner reading 'Brown Rise Up — Reject the Compact'.",
+  },
+  {
+    id: 'ucsd-climate-courses',
+    title: 'Mandatory climate courses at UC San Diego',
+    link: 'https://abcnews.com/US/education-climate-change-now-required-uc-san-diego/story?id=114824937',
+    imageUrl: '/images/campaigns/ucsd-campus-sign.jpg',
+    imageAlt: 'The UC San Diego sign at the entrance to campus.',
   },
   {
     id: 'utoronto-dissociation',
@@ -52,12 +44,20 @@ export const campaigns: StudentWin[] = [
     imageAlt: 'Students walking through the University of Toronto campus.',
   },
   {
-    id: 'nyu-divestment',
-    title: 'Fossil fuel divestment at New York University',
-    link: 'https://www.rollingstone.com/culture/culture-commentary/nyu-divest-fossil-fuels-students-1234826380/',
-    imageUrl: '/images/campaigns/nyu-divest-rally.jpg',
+    id: 'uf-green-new-deal',
+    title: 'A Green New Deal for campus at the University of Florida',
+    link: 'https://www.thenation.com/article/activism/university-of-florida-green-new-deal/',
+    imageUrl: '/images/campaigns/uf-gnd-rally.jpg',
     imageAlt:
-      "A student protester holding a cardboard sign reading 'No More Climate Chaos — Divest NYU'.",
+      "Students at the University of Florida holding signs reading 'Strike for Climate' and 'We Deserve a Future'.",
+  },
+  {
+    id: 'cambridge-fossil-free-research',
+    title: 'Fossil Free Research at Cambridge University',
+    link: 'https://www.cam.ac.uk/notices/grace-on-fossil-fuel-industry-ties',
+    imageUrl: '/images/campaigns/cambridge-ffr-banner.jpg',
+    imageAlt:
+      "Cambridge students holding a hand-painted banner reading 'Fossil-Free Research Now' during a sit-in.",
   },
   {
     id: 'jody-freeman-conocophillips',
@@ -67,10 +67,11 @@ export const campaigns: StudentWin[] = [
     imageAlt: "The columned facade of Harvard Law School's Langdell Hall.",
   },
   {
-    id: 'cambridge-fossil-free-research',
-    title: 'Fossil Free Research at Cambridge University',
-    link: 'https://www.cam.ac.uk/notices/grace-on-fossil-fuel-industry-ties',
-    // TODO: add a campaign photo (imageUrl / imageAlt). The linked Cambridge
-    // notice is text-only, so there is no article image to pull from.
+    id: 'nyu-divestment',
+    title: 'Fossil fuel divestment at New York University',
+    link: 'https://www.rollingstone.com/culture/culture-commentary/nyu-divest-fossil-fuels-students-1234826380/',
+    imageUrl: '/images/campaigns/nyu-divest-rally.jpg',
+    imageAlt:
+      "A student protester holding a cardboard sign reading 'No More Climate Chaos — Divest NYU'.",
   },
 ]

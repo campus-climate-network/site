@@ -18,14 +18,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/take-action',
     '/donate',
     '/our-network',
-    '/ffr-campaign',
   ]
 
   // Standard priority pages
   const standardPages = [
     '/our-story',
     '/our-approach',
-    '/ffr-archive',
     '/impact',
     '/campaigns',
     '/open-letter',

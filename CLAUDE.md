@@ -36,9 +36,7 @@ src/
 │   │   ├── our-network/           # Member organizations + interactive map
 │   │   ├── our-story/             # Timeline of CCN history
 │   │   ├── our-approach/          # Mission, stacking scroll sections
-│   │   ├── ffr-campaign/          # Fossil Free Research campaign page
-│   │   ├── ffr-archive/           # FFR research reports
-│   │   ├── campaigns/             # Campaigns overview + carousel (local campaigns-data.ts)
+│   │   ├── campaigns/             # Campaigns overview + carousel (local campaigns-data.ts; absorbed the former /ffr-campaign and /ffr-archive pages)
 │   │   ├── impact/                # Impact page (wins in local wins-data.ts; some assets still pending)
 │   │   ├── take-action/           # Custom join form → Action Network API (actions.ts + join-form.tsx)
 │   │   ├── donate/                # HCB donation iframe

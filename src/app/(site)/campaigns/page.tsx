@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { ScrollReveal } from '@/components/scroll-reveal'
@@ -19,26 +20,34 @@ export default function CampaignsPage() {
     <div className="page-wrapper">
       {/* Hero */}
       <section className="bg-gradient-to-b from-brand-secondary/10 to-transparent section-hero">
-        <div className="page-container">
-          <ScrollReveal variant="fade-up">
-            <div className="stack stack-tight max-w-3xl text-left">
-              <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
-                Our work
-              </p>
-              <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-                Running strategic campaigns that build power
-              </h1>
-              <figure className="mt-4 border-l-2 border-brand-accent pl-5 sm:mt-6">
-                <blockquote className="text-lg italic text-slate-700 sm:text-xl">
-                  “What can we do now in order to be able to do tomorrow what we
-                  are unable to do today?”
-                </blockquote>
-                <figcaption className="mt-2 text-sm font-medium text-slate-500">
-                  — Paulo Freire
-                </figcaption>
-              </figure>
-            </div>
+        <div className="page-container flex flex-col gap-10 lg:flex-row lg:items-center">
+          <ScrollReveal variant="fade-up" className="flex-1 stack stack-tight">
+            <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
+              Our work
+            </p>
+            <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
+              Running strategic campaigns that build power
+            </h1>
+            <figure className="mt-4 border-l-2 border-brand-accent pl-5 sm:mt-6">
+              <blockquote className="text-lg italic text-slate-700 sm:text-xl">
+                “What can we do now in order to be able to do tomorrow what we
+                are unable to do today?”
+              </blockquote>
+              <figcaption className="mt-2 text-sm font-medium text-slate-500">
+                — Paulo Freire
+              </figcaption>
+            </figure>
           </ScrollReveal>
+          <div className="flex-1 overflow-hidden rounded-3xl shadow-xl ring-1 ring-brand-primary/10">
+            <Image
+              src="/images/fossil-free-uc.jpg"
+              alt="Students marching with a banner reading 'Students Need a Fossil-Fuel Free UC'"
+              width={1920}
+              height={1280}
+              className="h-full w-full object-cover"
+              priority
+            />
+          </div>
         </div>
       </section>
 
