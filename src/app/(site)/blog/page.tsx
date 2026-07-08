@@ -231,8 +231,8 @@ export default async function Page() {
                 Be part of what’s next
               </h2>
               <p className="mx-auto max-w-xl text-base text-white sm:text-lg">
-                Whether you want to organize on your campus or fuel the movement
-                from anywhere, there’s a place for you in this fight.
+                Whether you want to organize on your campus or donate to the
+                fight, there is a place for you in the movement.
               </p>
               <div className="flex flex-wrap justify-center gap-3 pt-2">
                 <Link

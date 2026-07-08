@@ -54,25 +54,25 @@ const studentPhotos = [
   },
 ]
 
-// Real student testimonials (CCN 2025 Impact Report).
+// Real student testimonials (CCN 2025 Impact Report); names anonymized.
 const testimonials = [
   {
     quote:
       "Having the support and guidance of incredible organizers has been both helpful and inspiring. It's empowering to know that there's a community of people who genuinely want to see you grow and succeed.",
-    name: 'Devin Morgan',
-    role: 'University of Richmond · 2025 CCN Organizing Fellow',
+    name: 'Student Organizer at the University of Richmond',
+    role: '2025 CCN Organizing Fellow',
   },
   {
     quote:
       "It's been great to be in community with people that are also navigating such a rough political moment on campuses.",
-    name: 'Amy Okonkwo',
-    role: 'UNC Chapel Hill · CCN Planning Committee Elected Rep',
+    name: 'Student Organizer at UNC Chapel Hill',
+    role: 'CCN Planning Committee Elected Rep',
   },
   {
     quote:
       'CCN is a fantastic organization, and they have really impacted my college organizing experience.',
-    name: 'Sarah Reuben-Hallock',
-    role: 'University of Kansas · 2025 CCN Organizing Fellow',
+    name: 'Student Organizer at the University of Kansas',
+    role: '2025 CCN Organizing Fellow',
   },
 ]
 
@@ -91,33 +91,6 @@ const studentQuotes = [
     quote:
       'Having the support and guidance of incredible organizers has been both helpful and inspiring. It’s empowering to know that there’s a community of people who genuinely want to see you grow and succeed. The resources, mentorship, and sense of solidarity I’ve gained through [CCN] have been invaluable for my work on campus and beyond.',
     org: 'Student Organizer at University of Richmond',
-  },
-]
-
-// ── Closing call to action (one path per audience) ───────────────────────────
-const ctaCards = [
-  {
-    audience: 'Students',
-    title: 'Join the movement',
-    description:
-      'Find your campus group or start one, and get the training to run a winning campaign.',
-    cta: 'Get involved',
-    href: '/take-action',
-  },
-  {
-    audience: 'Funders & donors',
-    title: 'Fuel the work',
-    description:
-      'Your support trains students and sustains the organizing backbone behind every win.',
-    cta: 'Donate',
-    href: '/donate',
-  },
-  {
-    audience: 'Organizations',
-    title: 'Partner with us',
-    description: 'Movement-aligned org? Let’s build student power together.',
-    cta: 'Get in touch',
-    href: '/contact-us',
   },
 ]
 
@@ -312,6 +285,12 @@ export default function ImpactPage() {
                 movement. The relationships we cultivate empower students to
                 organize on campus and will last long after students graduate.
               </p>
+              <p className="text-base text-white/70">
+                Already, CCN alumni have gone on to lead fights to keep data
+                centers out of their communities, found new organizations, take
+                roles as paid organizers, lead electoral campaigns for movement
+                champions, and more.
+              </p>
             </div>
           </ScrollReveal>
 
@@ -337,44 +316,35 @@ export default function ImpactPage() {
         </div>
       </section>
 
-      {/* Closing CTA — one path per audience */}
+      {/* Closing CTA */}
       <section className="page-container">
         <ScrollReveal variant="fade-up">
-          <div className="stack stack-snug mx-auto max-w-2xl text-center">
-            <h2 className="text-2xl font-semibold text-slate-900 sm:text-3xl">
-              Be part of what’s next
-            </h2>
-            <p className="mx-auto max-w-xl text-base text-slate-600">
-              Whether you want to organize, fund the work, or partner with us,
-              there’s a place for you in this movement.
-            </p>
+          <div className="gradient-drift relative isolate overflow-hidden rounded-[2.5rem] bg-linear-to-br from-brand-secondary via-brand-tertiary to-brand-primary px-6 py-16 text-center text-white sm:px-12 sm:py-20">
+            <div className="mx-auto stack stack-snug max-w-2xl">
+              <h2 className="text-2xl font-semibold sm:text-3xl">
+                Be part of what’s next
+              </h2>
+              <p className="mx-auto max-w-xl text-base text-white sm:text-lg">
+                Whether you want to organize on your campus or donate to the
+                fight, there is a place for you in the movement.
+              </p>
+              <div className="flex flex-wrap justify-center gap-3 pt-2">
+                <Link
+                  className="inline-flex items-center rounded-full bg-brand-accent px-6 py-3 text-sm font-semibold text-slate-900 shadow-lg transition hover:bg-brand-accent/90"
+                  href="/take-action"
+                >
+                  Join us
+                </Link>
+                <Link
+                  className="inline-flex items-center rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white hover:text-brand-primary"
+                  href="/donate"
+                >
+                  Donate
+                </Link>
+              </div>
+            </div>
           </div>
         </ScrollReveal>
-
-        <div className="mt-12 grid gap-6 md:grid-cols-3">
-          {ctaCards.map((card, index) => (
-            <ScrollReveal key={card.title} variant="fade-up" delay={index * 75}>
-              <Link
-                href={card.href}
-                className="group flex h-full flex-col rounded-3xl border border-slate-200/80 bg-white p-8 shadow-sm transition hover:-translate-y-1 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:translate-y-0"
-              >
-                <p className="eyebrow text-xs text-brand-secondary">
-                  {card.audience}
-                </p>
-                <h3 className="mt-3 text-lg font-semibold text-slate-900">
-                  {card.title}
-                </h3>
-                <p className="mt-2 flex-1 text-sm text-slate-600">
-                  {card.description}
-                </p>
-                <span className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-primary transition-all group-hover:gap-2.5">
-                  {card.cta}
-                  <ArrowUpRight className="h-4 w-4" />
-                </span>
-              </Link>
-            </ScrollReveal>
-          ))}
-        </div>
       </section>
     </div>
   )
