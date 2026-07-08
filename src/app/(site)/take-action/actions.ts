@@ -8,9 +8,7 @@ import {
 } from './join-form-options'
 
 export type JoinFormState =
-  | { status: 'success' }
-  | { status: 'error'; message: string }
-  | null
+  { status: 'success' } | { status: 'error'; message: string } | null
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 

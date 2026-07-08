@@ -74,8 +74,7 @@ src/
     │   ├── client.ts             # Sanity client (CDN disabled for ISR freshness)
     │   ├── queries.ts            # All GROQ queries
     │   ├── types.ts              # TypeScript types for Sanity data
-    │   ├── image.ts              # urlFor() image URL builder
-    │   └── live.ts               # sanityFetch / SanityLive (not actively used)
+    │   └── image.ts              # urlFor() image URL builder
     ├── schemaTypes/
     │   ├── index.ts              # Schema registry
     │   ├── postType.ts           # Blog post

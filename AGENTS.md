@@ -74,8 +74,7 @@ src/
     │   ├── client.ts             # Sanity client (CDN disabled for ISR freshness)
     │   ├── queries.ts            # All GROQ queries
     │   ├── types.ts              # TypeScript types for Sanity data
-    │   ├── image.ts              # urlFor() image URL builder
-    │   └── live.ts               # sanityFetch / SanityLive (not actively used)
+    │   └── image.ts              # urlFor() image URL builder
     ├── schemaTypes/
     │   ├── index.ts              # Schema registry
     │   ├── postType.ts           # Blog post
@@ -134,7 +133,7 @@ src/
 
 - `/member-portal` — password-gated (HMAC cookie); `noindex` and excluded from sitemap
 - `/resources/blog/[slug]` — empty placeholder directory, no page implemented yet
-- `/impact` — live and in the sitemap; still waiting on a partner quote (section 03), campaign photos, and organizer quotes for two wins (see comments in `impact/page.tsx` and `impact/wins-data.ts`)
+- `/impact` — live and in the sitemap; still waiting on a partner quote (section 03), the UCSD campaign photo, and organizer quotes for two wins (see comments in `impact/page.tsx` and `impact/wins-data.ts`)
 
 ### SEO & Sitemap Notes
 

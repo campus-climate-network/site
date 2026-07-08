@@ -75,8 +75,7 @@ function Breadcrumbs({
   if (isRootPage(pageId)) return null
 
   const notionCrumbs = getPageBreadcrumbs(recordMap, pageId) as
-    | BreadcrumbItem[]
-    | null
+    BreadcrumbItem[] | null
 
   const hasPortalRoot = notionCrumbs?.some((item) => isRootPage(item.pageId))
 

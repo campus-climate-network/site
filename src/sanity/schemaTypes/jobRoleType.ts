@@ -1,4 +1,4 @@
-import { CaseIcon } from '@sanity/icons'
+import { CaseIcon } from '@sanity/icons/Case'
 import { defineField, defineType } from 'sanity'
 
 export const jobRoleType = defineType({
