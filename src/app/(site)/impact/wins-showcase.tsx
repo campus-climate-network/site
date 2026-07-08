@@ -76,10 +76,12 @@ export function WinImage({
 function WinCard({
   win,
   featured = false,
+  wide = false,
   onOpen,
 }: {
   win: StudentWin
   featured?: boolean
+  wide?: boolean
   onOpen: () => void
 }) {
   return (
@@ -120,13 +122,15 @@ function WinCard({
         className={`relative ${
           featured
             ? 'aspect-[16/10] md:aspect-auto md:w-1/2'
-            : 'min-h-56 flex-1'
+            : wide
+              ? 'min-h-56 flex-1 lg:min-h-72'
+              : 'min-h-56 flex-1'
         }`}
       >
         <WinImage
           win={win}
           sizes={
-            featured
+            featured || wide
               ? '(max-width: 768px) 100vw, 50vw'
               : '(max-width: 768px) 100vw, 33vw'
           }
@@ -314,9 +318,18 @@ export function WinsShowcase({ wins }: WinsShowcaseProps) {
 
   return (
     <div className="stack stack-relaxed">
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        className={`grid gap-6 sm:grid-cols-2 ${
+          wins.length >= 3 ? 'lg:grid-cols-3' : ''
+        }`}
+      >
         {wins.map((win) => (
-          <WinCard key={win.id} win={win} onOpen={() => setActiveId(win.id)} />
+          <WinCard
+            key={win.id}
+            win={win}
+            wide={wins.length < 3}
+            onOpen={() => setActiveId(win.id)}
+          />
         ))}
       </div>
 

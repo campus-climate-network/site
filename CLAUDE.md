@@ -44,12 +44,11 @@ src/
 │   │   ├── contact-us/            # Contact page
 │   │   ├── hiring/                # Careers page (open roles from Sanity jobRole docs)
 │   │   ├── impact-reports/2025/   # 2025 impact report (animated counters, scroll header)
-│   │   ├── member-portal/         # Password-gated, Notion-backed member portal (noindex)
-│   │   │   ├── [[...pageId]]/page.tsx  # Renders Notion pages via react-notion-x
-│   │   │   ├── actions.ts         # Server actions: HMAC-cookie auth (MEMBER_PORTAL_PASSWORD)
-│   │   │   ├── password-form.tsx  # Password gate UI
-│   │   │   └── notion-page.tsx    # NotionRenderer wrapper
-│   │   └── resources/blog/[slug]/ # Empty placeholder dir — no page yet (WIP)
+│   │   └── member-portal/         # Password-gated, Notion-backed member portal (noindex)
+│   │       ├── [[...pageId]]/page.tsx  # Renders Notion pages via react-notion-x
+│   │       ├── actions.ts         # Server actions: HMAC-cookie auth (MEMBER_PORTAL_PASSWORD)
+│   │       ├── password-form.tsx  # Password gate UI
+│   │       └── notion-page.tsx    # NotionRenderer wrapper
 │   └── studio/[[...tool]]/        # Sanity Studio at /studio
 ├── components/
 │   ├── site-header.tsx            # Sticky header with desktop mega-menu + mobile nav
@@ -132,8 +131,7 @@ src/
 ### Hidden/WIP Pages
 
 - `/member-portal` — password-gated (HMAC cookie); `noindex` and excluded from sitemap
-- `/resources/blog/[slug]` — empty placeholder directory, no page implemented yet
-- `/impact` — live and in the sitemap; still waiting on a partner quote (section 03), the UCSD campaign photo, and organizer quotes for two wins (see comments in `impact/page.tsx` and `impact/wins-data.ts`)
+- `/impact` — live and in the sitemap; still waiting on a partner quote (section 03) and the UCSD campaign photo + organizer quote (see comments in `impact/page.tsx` and `impact/wins-data.ts`)
 
 ### SEO & Sitemap Notes
 

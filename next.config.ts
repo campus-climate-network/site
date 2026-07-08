@@ -26,6 +26,12 @@ const nextConfig: NextConfig = {
         destination: '/campaigns',
         permanent: true,
       },
+      // Former Student Wins page — its campaign-win content now lives on /campaigns
+      {
+        source: '/student-wins',
+        destination: '/campaigns',
+        permanent: true,
+      },
     ]
   },
 }

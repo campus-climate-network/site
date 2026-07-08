@@ -7,21 +7,19 @@ import type { StudentWin } from './wins-showcase'
 // To add a win: copy an entry below and edit the fields.
 //   - All cards render at equal size in the grid.
 //   - `outcomes` become the checklist in the modal; `organizer*` powers the quote.
-//   - `date` accepts a full date ('2025-10-15') or a bare year ('2025') when the
-//     month isn't known — the latter renders as just the year.
+//   - `date` is supported ('2025-10-15' or bare '2025') but intentionally
+//     omitted — we don't show dates on the cards.
 //
 // ⚠️ PENDING ASSETS (reached out, waiting to hear back):
-//   - Compact: organizer quote from Sunrise UNC — Brown Rise Up quote is in;
-//     swap/extend once the UNC one arrives.
-//   - UCSD: campaign photo + organizer quote from UCSD Green New Deal — add
-//     the organizer* fields once received.
+//   - UCSD: campaign photo + organizer quote from UCSD Green New Deal — the
+//     entry is commented out at the bottom of this list until the photo
+//     arrives; restore it (and add the organizer* fields) once received.
 // The modal only renders the quote block when organizerQuote is set, so
 // missing quotes simply don't appear.
 export const studentWins: StudentWin[] = [
   {
     id: 'claremont-decarbonization',
     title: 'Campus decarbonization at the Claremont Colleges',
-    date: '2025',
     campaign: 'Campus decarbonization',
     description:
       'As a result of student pressure, The Claremont Colleges Services unanimously voted to switch the Colleges from sourcing fossil fuels from the investor-owned electricity monopoly Southern California Edison to the Clean Power Alliance’s 100 percent renewable electricity.',
@@ -41,7 +39,6 @@ export const studentWins: StudentWin[] = [
   {
     id: 'trump-compact',
     title: "Rejecting and pre-empting Trump's campus compact",
-    date: '2025-10-15',
     campaign: 'Defending higher education',
     description:
       'In October 2025, the Trump administration sent a “Loyalty Oath Compact” to nine US universities, offering special treatment in exchange for allegiance to a partisan ideological agenda. Because of our efforts, not a single university accepted the compact. Seven of the original nine schools rejected it outright, and ten others proactively said they do not support the compact. CCN members at the University of Kansas and UNC Chapel Hill won their campaigns calling on administrators to pre-emptively reject the compact.',
@@ -59,18 +56,18 @@ export const studentWins: StudentWin[] = [
     organizerRole: 'Brown Rise Up student organizer',
     link: 'https://wagingnonviolence.org/2025/12/student-resistance-to-authoritarianism/',
   },
-  {
-    id: 'ucsd-climate-curriculum',
-    title: 'Mandatory climate curriculum at UC San Diego',
-    date: '2025',
-    campaign: 'Climate education',
-    description:
-      'In order to graduate from the University of California San Diego, all undergraduate students are now required to take a course on climate change.',
-    // TODO: add campaign photo once received (imageUrl / imageAlt).
-    outcomes: [
-      'All undergraduates must now take a climate change course to graduate',
-      'Won through organizing by UCSD Green New Deal',
-    ],
-    link: 'https://www.theguardian.com/environment/2024/oct/15/california-university-ucsd-climate-change-course-requirement',
-  },
+  // Hidden until the UCSD campaign photo arrives (imageUrl / imageAlt) —
+  // uncomment to restore.
+  // {
+  //   id: 'ucsd-climate-curriculum',
+  //   title: 'Mandatory climate curriculum at UC San Diego',
+  //   campaign: 'Climate education',
+  //   description:
+  //     'In order to graduate from the University of California San Diego, all undergraduate students are now required to take a course on climate change.',
+  //   outcomes: [
+  //     'All undergraduates must now take a climate change course to graduate',
+  //     'Won through organizing by UCSD Green New Deal',
+  //   ],
+  //   link: 'https://www.theguardian.com/environment/2024/oct/15/california-university-ucsd-climate-change-course-requirement',
+  // },
 ]
