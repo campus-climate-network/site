@@ -95,8 +95,8 @@ export default function DonatePage() {
                 className="font-medium text-brand-primary hover:underline"
               >
                 info@campusclimatenetwork.org
-              </a>{' '}
-              — we&rsquo;d love to hear from you.
+              </a>
+              . We&rsquo;d love to hear from you.
             </p>
           </div>
         </ScrollReveal>
