@@ -32,7 +32,7 @@ const takeActionFaqs = [
   {
     question: 'What kinds of campaigns does Campus Climate Network support?',
     answer:
-      'We support campaigns for Fossil Free Research policies, fossil fuel divestment, campus decarbonization, ending fossil fuel industry recruitment, and broader climate justice initiatives. Each campus adapts these priorities to their local context.',
+      'The ability to run a strategic campaign is foundational to good organizing. Members of Campus Climate Network run campaigns that build durable power. While a majority of CCN member group campaigns focus on climate and environmental justice, we support our members in running campaigns that build student power toward a more just and livable future.',
   },
 ]
 

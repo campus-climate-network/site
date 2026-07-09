@@ -77,9 +77,9 @@ export default function CampaignsPage() {
               The ability to run a strategic campaign is foundational to good
               organizing. Members of Campus Climate Network run campaigns that
               build durable power. While a majority of CCN member group
-              campaigns are focused on climate and environmental justice, we
-              support our members to run campaigns that build student power
-              toward a more just and liveable future.
+              campaigns focus on climate and environmental justice, we support
+              our members in running campaigns that build student power toward
+              a more just and livable future.
             </p>
           </div>
         </ScrollReveal>
