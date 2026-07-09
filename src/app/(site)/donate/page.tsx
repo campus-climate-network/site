@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { ScrollReveal } from '@/components/scroll-reveal'
 
 export const metadata: Metadata = {
@@ -14,17 +15,30 @@ export default function DonatePage() {
   return (
     <div className="page-wrapper">
       <section className="bg-brand-secondary/10 section-hero">
-        <div className="page-container stack stack-tight text-left">
-          <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
-            Donate
-          </p>
-          <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
-            Invest in student climate leadership
-          </h1>
-          <p className="text-base text-slate-700">
-            Every dollar supports organizing infrastructure, training programs,
-            and rapid-response actions led by students on the frontlines.
-          </p>
+        <div className="page-container flex flex-col gap-10 lg:flex-row lg:items-center">
+          <div className="flex-1 stack stack-tight text-left">
+            <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
+              Donate
+            </p>
+            <h1 className="text-3xl font-semibold text-brand-primary sm:text-4xl">
+              Invest in student climate leadership
+            </h1>
+            <p className="text-base text-slate-700">
+              Every dollar supports organizing infrastructure, training
+              programs, and rapid-response actions led by students on the
+              frontlines.
+            </p>
+          </div>
+          <div className="flex-1 overflow-hidden rounded-3xl shadow-xl ring-1 ring-brand-primary/10">
+            <Image
+              src="/images/ccn-banner-tree.jpg"
+              alt="Student organizers gathered around a large tree, holding a Campus Climate Network banner"
+              width={1920}
+              height={1536}
+              className="h-full w-full object-cover"
+              priority
+            />
+          </div>
         </div>
       </section>
 
