@@ -54,14 +54,23 @@ export default function DonatePage() {
           </div>
         </ScrollReveal>
         <ScrollReveal variant="fade-up" delay={100}>
-          <div className="w-full max-w-xl overflow-hidden rounded-3xl bg-white shadow-xl ring-1 ring-slate-200">
+          {/* The HCB embed renders its own "Donate to" header with no option to
+              hide it, so we crop it out: the iframe is pulled up behind this
+              overflow-hidden card. The header ends at 277px (307px when the org
+              name wraps to 3 lines below ~330px-wide screens — still blank
+              padding at the crop line) and the One-time/Monthly tabs start at
+              297px, so a 280px crop lands in the whitespace between them at
+              every width. bg color matches HCB's page background (bg-snow);
+              their ?background= param emits invalid CSS, so it can't be used.
+              If HCB changes its header layout, re-measure these offsets. */}
+          <div className="w-full max-w-xl overflow-hidden rounded-3xl bg-[#f9fafc] shadow-xl ring-1 ring-slate-200">
             <iframe
               src="https://hcb.hackclub.com/donations/start/campus-climate-network"
               title="Campus Climate Network Donation Form"
               name="donateFrame"
               frameBorder="0"
               allowFullScreen
-              className="h-[1100px] w-full"
+              className="-mt-[280px] h-[1240px] w-full sm:h-[1140px]"
               style={{ border: 'none' }}
             />
           </div>
