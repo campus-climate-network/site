@@ -5,6 +5,12 @@ import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import { ArrowUpRight, Check, Maximize2, Quote, X } from 'lucide-react'
 
+export interface WinQuote {
+  quote: string
+  name?: string
+  role?: string
+}
+
 export interface StudentWin {
   id: string
   title: string
@@ -14,9 +20,7 @@ export interface StudentWin {
   description?: string
   link?: string
   outcomes?: string[]
-  organizerQuote?: string
-  organizerName?: string
-  organizerRole?: string
+  quotes?: WinQuote[]
   imageUrl?: string
   imageAlt?: string
 }
@@ -269,24 +273,31 @@ export function WinModal({
           )}
         </div>
 
-        {win.organizerQuote && (
-          <figure className="mt-8 rounded-2xl bg-brand-secondary/[0.07] p-6 sm:p-8">
-            <Quote className="h-7 w-7 text-brand-secondary/50" />
-            <blockquote className="mt-3 text-lg font-medium leading-relaxed text-slate-800">
-              {win.organizerQuote}
-            </blockquote>
-            {(win.organizerName || win.organizerRole) && (
-              <figcaption className="mt-4 text-sm text-slate-500">
-                {win.organizerName && (
-                  <span className="font-semibold text-slate-700">
-                    {win.organizerName}
-                  </span>
+        {win.quotes && win.quotes.length > 0 && (
+          <div className="mt-8 space-y-4">
+            {win.quotes.map((quote, index) => (
+              <figure
+                key={index}
+                className="rounded-2xl bg-brand-secondary/[0.07] p-6 sm:p-8"
+              >
+                <Quote className="h-7 w-7 text-brand-secondary/50" />
+                <blockquote className="mt-3 text-lg font-medium leading-relaxed text-slate-800">
+                  {quote.quote}
+                </blockquote>
+                {(quote.name || quote.role) && (
+                  <figcaption className="mt-4 text-sm text-slate-500">
+                    {quote.name && (
+                      <span className="font-semibold text-slate-700">
+                        {quote.name}
+                      </span>
+                    )}
+                    {quote.name && quote.role && ' — '}
+                    {quote.role}
+                  </figcaption>
                 )}
-                {win.organizerName && win.organizerRole && ' — '}
-                {win.organizerRole}
-              </figcaption>
-            )}
-          </figure>
+              </figure>
+            ))}
+          </div>
         )}
 
         <div className="relative mt-8 aspect-[16/9] overflow-hidden rounded-2xl">
