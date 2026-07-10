@@ -37,7 +37,7 @@ src/
 │   │   ├── our-story/             # Timeline of CCN history
 │   │   ├── our-approach/          # Mission, stacking scroll sections
 │   │   ├── campaigns/             # Campaigns overview + carousel (local campaigns-data.ts; absorbed the former /ffr-campaign and /ffr-archive pages)
-│   │   ├── impact/                # Impact page (wins in local wins-data.ts; some assets still pending)
+│   │   ├── impact/                # Impact page (wins in local wins-data.ts)
 │   │   ├── take-action/           # Custom join form → Action Network API (actions.ts + join-form.tsx)
 │   │   ├── donate/                # HCB donation iframe
 │   │   ├── open-letter/           # Open letter + signatories
@@ -131,7 +131,7 @@ src/
 ### Hidden/WIP Pages
 
 - `/member-portal` — password-gated (HMAC cookie); `noindex` and excluded from sitemap
-- `/impact` — live and in the sitemap; still waiting on a partner quote (section 03) and the UCSD campaign photo + organizer quote (see comments in `impact/page.tsx` and `impact/wins-data.ts`)
+- `/impact` — complete and live; the section-03 partner quote and the UCSD win (commented out in `impact/wins-data.ts`) are intentionally unused, not pending — don't treat them as gaps
 
 ### SEO & Sitemap Notes
 

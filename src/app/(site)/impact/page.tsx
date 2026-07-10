@@ -77,10 +77,9 @@ const testimonials = [
 ]
 
 // ── Section 03 · Movement infrastructure ─────────────────────────────────────
-// Real ecosystem partnerships (CCN 2025 Impact Report).
-// Section 03 is designed to also feature a partner-organization quote for
-// credibility — re-add the quote figure (see git history) once a real quote
-// from a partner org is secured.
+// Real ecosystem partnerships (CCN 2025 Impact Report). Intentionally ships
+// without a partner-organization quote (a quote figure exists in git history
+// if that ever changes).
 const studentQuotes = [
   {
     quote:

@@ -11,12 +11,9 @@ import type { StudentWin } from './wins-showcase'
 //   - `date` is supported ('2025-10-15' or bare '2025') but intentionally
 //     omitted — we don't show dates on the cards.
 //
-// ⚠️ PENDING ASSETS (reached out, waiting to hear back):
-//   - UCSD: campaign photo + organizer quote from UCSD Green New Deal — the
-//     entry is commented out at the bottom of this list until the photo
-//     arrives; restore it (and add a `quotes` entry) once received.
 // The modal only renders quote blocks when `quotes` is set, so missing
-// quotes simply don't appear.
+// quotes simply don't appear. (A UCSD win sits commented out at the bottom —
+// intentionally unused for now, not pending anything.)
 export const studentWins: StudentWin[] = [
   {
     id: 'claremont-decarbonization',
@@ -70,8 +67,8 @@ export const studentWins: StudentWin[] = [
     ],
     link: 'https://wagingnonviolence.org/2025/12/student-resistance-to-authoritarianism/',
   },
-  // Hidden until the UCSD campaign photo arrives (imageUrl / imageAlt) —
-  // uncomment to restore.
+  // Intentionally unused for now — restore (with a campaign photo via
+  // imageUrl / imageAlt) only if we decide to feature it.
   // {
   //   id: 'ucsd-climate-curriculum',
   //   title: 'Mandatory climate curriculum at UC San Diego',
