@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next'
 import { client } from '@/sanity/lib/client'
 import { POST_SLUGS_WITH_DATES_QUERY } from '@/sanity/lib/queries'
 import { SITE_URL } from '@/lib/site'
+import { programs } from '@/app/(site)/programs/programs-data'
 
 const baseUrl = SITE_URL
 
@@ -26,6 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/our-approach',
     '/impact',
     '/programs',
+    ...programs.map((program) => `/programs/${program.slug}`),
     '/campaigns',
     '/open-letter',
     '/blog',

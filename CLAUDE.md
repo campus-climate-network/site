@@ -38,6 +38,9 @@ src/
 │   │   ├── our-approach/          # Mission, stacking scroll sections
 │   │   ├── campaigns/             # Campaigns overview + carousel (local campaigns-data.ts; absorbed the former /ffr-campaign and /ffr-archive pages)
 │   │   ├── impact/                # Impact page (wins in local wins-data.ts)
+│   │   ├── programs/              # Programs landing (card grid + academic-year table; local programs-data.ts)
+│   │   │   ├── [slug]/page.tsx    # Per-program detail pages (static params from programs-data.ts; related posts via POSTS_BY_SLUGS_QUERY)
+│   │   │   └── closing-cta.tsx    # Programs CTA copy, rendered via the shared ClosingCta component
 │   │   ├── take-action/           # Custom join form → Action Network API (actions.ts + join-form.tsx)
 │   │   ├── donate/                # HCB donation iframe
 │   │   ├── open-letter/           # Open letter + signatories
@@ -60,6 +63,8 @@ src/
 │   ├── member-map-wrapper.tsx     # Dynamic import wrapper (SSR disabled)
 │   ├── timeline.tsx               # Generic vertical scroll timeline
 │   ├── json-ld.tsx                # Structured data components (Organization, Article, JobPosting, FAQ, etc.)
+│   ├── post-card.tsx              # Shared blog-post card + byline/date helpers (used by /blog and /programs/[slug])
+│   ├── closing-cta.tsx            # Shared gradient closing-CTA panel (props: heading/body/CTAs)
 │   ├── faq-section.tsx            # Visible FAQ accordion + FAQPage JSON-LD from the same data
 │   └── fancy/blocks/stacking-cards.tsx  # Scroll-triggered stacking card sections (motion)
 ├── data/
@@ -117,7 +122,7 @@ src/
 ### Data Fetching
 
 - Sanity client with `useCdn: false` for fresh ISR data
-- Blog pages use `revalidate = 60` (ISR every 60 seconds); `/hiring` uses `revalidate = 3600` (1h); `/our-network` and `/impact` have no time-based `revalidate` (fully static, refreshed only via the webhook below or redeploy)
+- Blog pages use `revalidate = 60` (ISR every 60 seconds); `/hiring` and `/programs/[slug]` use `revalidate = 3600` (1h); `/our-network` and `/impact` have no time-based `revalidate` (fully static, refreshed only via the webhook below or redeploy)
 - GROQ queries centralized in `src/sanity/lib/queries.ts`
 - Member orgs fetched server-side, geocoded client-side via Mapbox API
 
@@ -125,7 +130,7 @@ src/
 
 - `POST /api/revalidate` (`src/app/api/revalidate/route.ts`) refreshes pages the moment content is published/unpublished/deleted in Sanity. Time-based ISR above is the fallback.
 - Signature is validated with `parseBody` from `next-sanity/webhook` using `SANITY_REVALIDATE_SECRET` (server-only). Unsigned/invalid requests → 401.
-- Maps `_type` → `revalidatePath`: `jobRole` → `/hiring`; `post` → `/blog` + `/blog/{slug}`; `author`/`category` → `/blog` + all post pages (`/blog/[slug]`); `memberOrg` → `/our-network`; `movementWin` → `/impact`.
+- Maps `_type` → `revalidatePath`: `jobRole` → `/hiring`; `post` → `/blog` + `/blog/{slug}` + any `/programs/{slug}` page whose `blogSection.slugs` (in `programs-data.ts`) reference the post; `author`/`category` → `/blog` + all post pages (`/blog/[slug]`) + all program pages with a `blogSection`; `memberOrg` → `/our-network`; `movementWin` → `/impact`.
 - Sanity webhook config: URL `https://www.campusclimatenetwork.org/api/revalidate` (use `www.` — the apex 307-redirects), POST, projection `{ "_type": _type, "slug": slug.current }`, Drafts/Versions disabled, secret = `SANITY_REVALIDATE_SECRET`.
 
 ### Hidden/WIP Pages

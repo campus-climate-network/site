@@ -17,9 +17,9 @@ export const MEMBER_ORGS_QUERY = `
 }
 `
 
-// Minimal GROQ used by /blog page
-export const POSTS_QUERY = `
-*[_type == "post" && publishedAt < now()] | order(publishedAt desc){
+// Shared list projection for the post queries that feed PostListItem and
+// PostCard — keeps both queries below returning identical card data.
+const POST_LIST_PROJECTION = `{
   _id,
   title,
   "slug": slug.current,
@@ -32,8 +32,19 @@ export const POSTS_QUERY = `
     title,
     "slug": slug.current
   }
-}
+}`
+
+// Minimal GROQ used by /blog page
+export const POSTS_QUERY = `
+*[_type == "post" && publishedAt < now()] | order(publishedAt desc)${POST_LIST_PROJECTION}
 `
+
+// The POSTS_QUERY projection for a specific set of slugs (e.g. a program
+// page's related-reading section), filtering unpublished/scheduled posts
+// like every other post query. GROQ's `in` does not preserve order —
+// callers sort by their slug array.
+export const POSTS_BY_SLUGS_QUERY = `
+*[_type == "post" && publishedAt < now() && slug.current in $slugs]${POST_LIST_PROJECTION}`
 
 export const POST_SLUGS_QUERY = `
 *[_type == "post" && defined(slug.current) && publishedAt < now()]{

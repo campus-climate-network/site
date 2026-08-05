@@ -2,6 +2,8 @@ import { revalidatePath } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
 
+import { programs } from '@/app/(site)/programs/programs-data'
+
 // Sanity webhook -> on-demand revalidation.
 // Must run on the Node.js runtime and never be statically cached.
 export const runtime = 'nodejs'
@@ -16,6 +18,19 @@ type WebhookPayload = {
 
 type RevalidateTarget = { path: string; type?: 'page' | 'layout' }
 
+// Program detail pages render related blog posts (blogSection.slugs in
+// programs-data.ts), so post/author/category changes must refresh them too.
+// Without a slug, refresh every program page that has a blog section.
+function programTargetsForPostSlug(slug?: string): RevalidateTarget[] {
+  return programs
+    .filter((program) =>
+      slug
+        ? program.blogSection?.slugs.includes(slug)
+        : Boolean(program.blogSection),
+    )
+    .map((program) => ({ path: `/programs/${program.slug}` }))
+}
+
 // Map a changed Sanity document type to the public routes that render it.
 // Path-first by design (per architecture decision): lowest-risk, since each
 // content type maps cleanly to one or more routes.
@@ -27,13 +42,25 @@ function targetsForType(type: string, slug?: string): RevalidateTarget[] {
       // Refresh the listing plus this post's page. Without a slug, fall back
       // to refreshing every post page.
       return slug
-        ? [{ path: '/blog' }, { path: `/blog/${slug}` }]
-        : [{ path: '/blog' }, { path: '/blog/[slug]', type: 'page' }]
+        ? [
+            { path: '/blog' },
+            { path: `/blog/${slug}` },
+            ...programTargetsForPostSlug(slug),
+          ]
+        : [
+            { path: '/blog' },
+            { path: '/blog/[slug]', type: 'page' },
+            ...programTargetsForPostSlug(),
+          ]
     case 'author':
     case 'category':
       // These can be referenced by many posts, so refresh the listing and
       // every post page.
-      return [{ path: '/blog' }, { path: '/blog/[slug]', type: 'page' }]
+      return [
+        { path: '/blog' },
+        { path: '/blog/[slug]', type: 'page' },
+        ...programTargetsForPostSlug(),
+      ]
     case 'memberOrg':
       return [{ path: '/our-network' }]
     case 'movementWin':

@@ -1,21 +1,20 @@
-// Core CCN programs shown on the /programs page, plus the academic-year
-// programming table. Copy was written by the CCN team (August 2026) and is
-// reproduced here with grammar/typo fixes only — do not rewrite it.
+// Core CCN programs: the /programs landing page renders one card per program
+// (shortName + first photo), each linking to its /programs/[slug] detail
+// page, plus the academic-year programming table. Copy was written by the
+// CCN team (August 2026) and is reproduced here with grammar/typo fixes
+// only — do not rewrite it.
 //
 // Photos live in /public/images/programs (processed from team originals).
-// Programs without images render as single-column text sections.
+// Programs without images get a gradient placeholder card.
 //
-// TODO(dylan): four links below are '#' placeholders awaiting real URLs:
-//   1. Midwest Student Power Gathering signup (student-power-gatherings)
-//   2. Campus training application (campus-training-tour)
-//   3. Fossil Free Research Guide (research)
-//   4. Student-made research reports (research)
+// TODO(dylan): the trainings "apply for a training" link points at the
+// contact mailto until the real training-application URL exists.
 
 export type ProgramLink = {
   label: string
+  // External links (http/https) automatically open in a new tab; '#'
+  // placeholders and internal/mailto links don't.
   href: string
-  /** Renders target="_blank" once the href is a real external URL. */
-  external?: boolean
   /** High-emphasis accent treatment (used for the Midwest signup CTA). */
   highlight?: boolean
 }
@@ -26,16 +25,35 @@ export type ProgramImage = {
 }
 
 export type Program = {
-  id: string
+  /** URL segment for the detail page: /programs/<slug> */
+  slug: string
+  /** Short label shown on the landing-page card. */
+  shortName: string
+  /** Full official program name — the detail page H1. */
   name: string
   paragraphs: string[]
   links?: ProgramLink[]
   images?: ProgramImage[]
+  /**
+   * Card-only art for programs with no photos of their own — generic site
+   * imagery, deliberately NOT shown on the detail page. Cards prefer
+   * images[0] when it exists.
+   */
+  cardImage?: ProgramImage
+  /**
+   * Optional related-reading section on the detail page: renders the named
+   * blog posts as PostCards under the heading, in the order given.
+   */
+  blogSection?: {
+    heading: string
+    slugs: string[]
+  }
 }
 
 export const programs: Program[] = [
   {
-    id: 'student-power-gatherings',
+    slug: 'gatherings',
+    shortName: 'Gatherings',
     name: 'Student Power Gatherings',
     paragraphs: [
       'CCN is committed to bringing together student organizers on a regional scale to build their organizing skills and deepen their connections to peers across the region. Our Student Power Gathering (formerly College Climate Gathering) is a unique model based on deep connections where, for a weekend, students stay on a college campus, sleep in solidarity housing with local students, and are assigned to a training cohort. Local student organizers lead these events, which bring together up to 100 students from each region.',
@@ -43,27 +61,19 @@ export const programs: Program[] = [
     links: [
       {
         label:
-          'Read more about the first College Climate Gathering that brought together Northeastern college organizers at Brown University in 2023',
-        href: '/blog/reflections-on-the-fall-2023-college-climate-gathering',
-      },
-      {
-        label:
-          'Read more about the West Coast College Climate Gathering at UC Berkeley in 2024',
-        href: '/blog/reflecting-on-the-2024-west-coast-college-climate-gathering',
-      },
-      {
-        label:
-          'Read more about the Southern College Climate Gathering at UNC Chapel Hill in 2025',
-        href: '/blog/the-southern-college-climate-gathering',
-      },
-      {
-        label:
           'Sign up for the Midwest Student Power Gathering, taking place this September at the University of Kansas!',
-        href: '#',
-        external: true,
+        href: 'https://airtable.com/appqiOulPWqUSA0dX/pag0rbBdAnYPHnUJG/form',
         highlight: true,
       },
     ],
+    blogSection: {
+      heading: 'Read more about SPGs here',
+      slugs: [
+        'reflections-on-the-fall-2023-college-climate-gathering',
+        'reflecting-on-the-2024-west-coast-college-climate-gathering',
+        'the-southern-college-climate-gathering',
+      ],
+    },
     images: [
       {
         src: '/images/programs/southern-gathering-banner-painting.jpg',
@@ -80,7 +90,8 @@ export const programs: Program[] = [
     ],
   },
   {
-    id: 'organizing-fellowship',
+    slug: 'fellowship',
+    shortName: 'Fellowship',
     name: 'CCN Organizing Fellowship',
     paragraphs: [
       'Each fall, a cohort of more than 20 student organizers in CCN receives specialized support to launch and expand their campus campaigns. As Organizing Fellows, students attend a 3-day in-person retreat with student organizers from across the country. Then, they receive personalized coaching, cohort calls, and a stipend to support their campus organizing. CCN fellows have gone on to run winning campaigns, confront attacks on higher education, and build up the capacity of their student organizations.',
@@ -97,7 +108,8 @@ export const programs: Program[] = [
     ],
   },
   {
-    id: 'campus-training-tour',
+    slug: 'trainings',
+    shortName: 'In-person trainings',
     name: 'Campus Training Tour',
     paragraphs: [
       'CCN is known for transformative and experiential in-person trainings. Our core curriculum covers fundamental organizing skills such as power and self-interest, basebuilding, and burnout prevention. The content of each training is tailored to the specific needs of your campus campaign. Our experienced trainer team can visit your campus for a one-, two-, or three-day training for you and your fellow organizers to improve your organizing skills and run a winning campaign.',
@@ -106,8 +118,7 @@ export const programs: Program[] = [
       {
         label:
           'Learn more about our training program and how to apply for a training on your campus here',
-        href: '#',
-        external: true,
+        href: 'mailto:info@campusclimatenetwork.org',
       },
     ],
     images: [
@@ -122,8 +133,13 @@ export const programs: Program[] = [
     ],
   },
   {
-    id: 'student-power-hours',
+    slug: 'power-hours',
+    shortName: 'Online connection',
     name: 'Student Power Hours',
+    cardImage: {
+      src: '/images/programs/gathering-closing-group.jpg',
+      alt: '',
+    },
     paragraphs: [
       'Coaching and training are not the only way to grow. Students possess the wisdom and capacity to support the growth of their peers. Student Power Hours are a dedicated online space to connect with, learn from, and lend support to fellow student leaders across the country. Students are randomly divided into groups of three. Using a technique known as “troika consulting,” the call consists of three rounds of problem solving. Each student has the opportunity to present a challenge they are facing and receive feedback from their peers.',
     ],
@@ -136,7 +152,8 @@ export const programs: Program[] = [
     ],
   },
   {
-    id: 'coaching-for-power',
+    slug: 'coaching',
+    shortName: 'Coaching',
     name: 'Coaching for Power',
     paragraphs: [
       'We connect student organizers seeking guidance to our team of Power Coaches, recent alumni who have been steeped in the CCN curriculum, have years of experience, and are ready to support younger organizers to succeed on campus. The program runs for 1-2 semesters and is focused on bi-weekly calls to help student organizers work through issues and reach their full potential.',
@@ -149,7 +166,8 @@ export const programs: Program[] = [
     ],
   },
   {
-    id: 'trainer-development',
+    slug: 'trainer-development',
+    shortName: 'Trainer development',
     name: 'New Trainer Development',
     paragraphs: [
       'Each year, a new cohort of current and recently graduated student leaders participates in a year-long process to become CCN trainers. All CCN trainers attend a Training for Trainers (led by our partners Training For Change), participate in an in-person CCN trainer intensive (focused on applying training pedagogy to CCN’s curriculum), and shadow an experienced CCN trainer during a campus visit. There are currently 18 members of the CCN training team.',
@@ -162,27 +180,35 @@ export const programs: Program[] = [
     ],
   },
   {
-    id: 'research',
+    slug: 'research',
+    shortName: 'Research',
     name: 'Research on University Ties to Big Oil',
+    cardImage: {
+      src: '/images/campaigns/cambridge-ffr-banner.jpg',
+      alt: '',
+    },
     paragraphs: [
       'We provide students with training on key research methods (including web scraping, archival research, public records requests, and more) to reveal their campus’s ties to Big Oil through a semester-long cohort program. CCN members have uncovered hundreds of millions of dollars in fossil fuel ties to universities in addition to numerous non-financial ties through this program. Our findings have been cited by journalists, in peer-reviewed journals, and by the US Congress.',
     ],
     links: [
       {
         label: 'View the Fossil Free Research Guide here',
-        href: '#',
-        external: true,
+        href: 'https://docs.google.com/document/d/14GxlV9Msc8ILmi85DyQwjo76C_Y4xsjyL2IGopwIpik/edit?tab=t.0',
       },
       {
         label: 'View student-made research reports here',
-        href: '#',
-        external: true,
+        href: 'https://drive.google.com/drive/folders/1juvoJM3a5rFrV37o8b6QZmhv1ZtRIOQu',
       },
     ],
   },
   {
-    id: 'skills-to-win',
+    slug: 'skills-to-win',
+    shortName: 'Courses',
     name: 'Skills to Win: Student Edition',
+    cardImage: {
+      src: '/images/future-is-now-speaker.jpg',
+      alt: '',
+    },
     paragraphs: [
       'Skills to Win is an online organizing course on structure-based organizing designed by Jane McAlevey, run by the UC Berkeley Labor Center. The original course is primarily intended for union organizers. CCN partnered with the UCB Labor Center to adapt the content of the original training to the specific needs of student organizers. The inaugural run of this training took place in August 2026. Stay tuned for updates on future iterations of this exciting new program!',
     ],

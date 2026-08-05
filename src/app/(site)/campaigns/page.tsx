@@ -78,8 +78,8 @@ export default function CampaignsPage() {
               organizing. Members of Campus Climate Network run campaigns that
               build durable power. While a majority of CCN member group
               campaigns focus on climate and environmental justice, we support
-              our members in running campaigns that build student power toward
-              a more just and livable future.
+              our members in running campaigns that build student power toward a
+              more just and livable future.
             </p>
           </div>
         </ScrollReveal>
