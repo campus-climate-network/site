@@ -27,6 +27,10 @@ export const navEntries: NavEntry[] = [
     href: '/impact',
   },
   {
+    label: 'Programs',
+    href: '/programs',
+  },
+  {
     label: 'About',
     columns: [
       {
