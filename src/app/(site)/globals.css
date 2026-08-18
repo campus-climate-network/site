@@ -228,22 +228,29 @@ h1 {
 
 /* Page wrapper */
 .page-wrapper {
+  --page-gap: 2rem; /* 32px on mobile */
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* 32px on mobile */
+  gap: var(--page-gap);
   padding-bottom: var(--spacing-page-bottom);
 }
 
 @media (min-width: 640px) {
   .page-wrapper {
-    gap: 2.5rem; /* 40px */
+    --page-gap: 2.5rem; /* 40px */
   }
 }
 
 @media (min-width: 1024px) {
   .page-wrapper {
-    gap: 3rem; /* 48px */
+    --page-gap: 3rem; /* 48px */
   }
+}
+
+/* Pull a full-bleed section flush against the previous one (cancels the wrapper gap,
+   e.g. between two adjacent tinted/dark sections where the gap would show as a white band) */
+.page-wrapper > .section-flush {
+  margin-top: calc(var(--page-gap) * -1);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════

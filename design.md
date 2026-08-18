@@ -89,9 +89,10 @@ Every page follows this skeleton (see [`our-network/page.tsx`](<src/app/(site)/o
 </div>
 ```
 
-- `.page-wrapper` — flex column with responsive gap (32 → 40 → 48px) + bottom padding; the gap is what spaces sibling sections
+- `.page-wrapper` — flex column with responsive gap (32 → 40 → 48px, exposed as `--page-gap`) + bottom padding; the gap is what spaces sibling sections
 - `.page-container` — centered, `max-width: 72rem` (max-w-6xl), responsive horizontal padding
 - Tinted **light** full-bleed sections use `.section-hero` padding; **dark** sections use `.section-dark` (slightly tighter)
+- When two full-bleed tinted/dark sections are adjacent, the wrapper gap shows as a white band between them — add `.section-flush` to the second section to pull it flush (cancels `--page-gap` via negative margin; see `/impact` sections 02→03, `/our-network`). Prefer this per-seam opt-out over zeroing the whole wrapper's gap; `take-action` and `open-letter` predate it and zero the wrapper gap instead (`gap-0`) — fine there because every section manages its own padding, but don't copy that pattern to new pages
 - A `.section-dark`/`.stacking-section` as the _last_ child of `.page-wrapper` automatically cancels the wrapper's bottom padding (negative margin rule in globals.css)
 
 ### Stack system
@@ -129,6 +130,8 @@ All buttons/CTA links are pills: `rounded-full … text-sm font-semibold`, with 
 Two sizes only: **regular** `px-5 py-2` (inline/mid-page) and **large** `px-6 py-3` (hero + closing-CTA blocks, form submits). Optional trailing icon: `gap-1.5` + `<ArrowUpRight className="h-4 w-4" />`.
 
 Text-only links: `text-sm font-semibold text-brand-primary transition hover:text-brand-secondary`, optionally with the arrow icon and `group-hover:gap-2.5` for a slide effect.
+
+Callout links (program detail pages, [`programs/[slug]/page.tsx`](<src/app/(site)/programs/[slug]/page.tsx>)): a high-emphasis link presented as a tinted panel rather than a pill — `rounded-2xl bg-brand-accent/20 px-5 py-4 text-sm font-semibold text-slate-900 hover:bg-brand-accent/35`, text + `ArrowUpRight`. Optional badge variant docks circular event art beside the label (`p-4 pr-6`, 80–96px `rounded-full` image, `-rotate-3` straightening on hover). Use for multi-line signup/announcement links inside body copy, not as a general button substitute.
 
 Standing exception: the open-letter "sign" CTA ([`open-letter/page.tsx`](<src/app/(site)/open-letter/page.tsx>)) is an intentionally oversized showpiece button.
 

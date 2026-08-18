@@ -28,17 +28,28 @@ interface MemberOrg {
 }
 
 async function getMembers(): Promise<MemberOrg[]> {
-  return client.fetch(`
+  return client.fetch(
+    `
     *[_type == "memberOrg" && isActive == true] | order(name asc){
       _id,
       name,
       logo
     }
-  `)
+  `,
+    {},
+    { cache: 'force-cache', next: { tags: ['memberOrg'] } },
+  )
 }
 
 async function getMembersForMap(): Promise<MapMemberOrg[]> {
-  return client.fetch(MEMBER_ORGS_QUERY)
+  return client.fetch(
+    MEMBER_ORGS_QUERY,
+    {},
+    {
+      cache: 'force-cache',
+      next: { tags: ['memberOrg'] },
+    },
+  )
 }
 
 export default async function OurNetworkPage() {
@@ -100,7 +111,7 @@ export default async function OurNetworkPage() {
         </div>
       </section>
 
-      <section className="bg-slate-50 section-hero -mt-8 sm:-mt-10 lg:-mt-12">
+      <section className="bg-slate-50 section-hero section-flush">
         <div className="page-container stack stack-relaxed text-left">
           <ScrollReveal variant="fade-up">
             <div className="stack stack-dense">
