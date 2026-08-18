@@ -8,7 +8,7 @@ import { PostCard } from '@/components/post-card'
 import { BreadcrumbJsonLd } from '@/components/json-ld'
 import { SITE_URL } from '@/lib/site'
 import { client } from '@/sanity/lib/client'
-import { POSTS_BY_SLUGS_QUERY } from '@/sanity/lib/queries'
+import { POSTS_BY_SLUGS_QUERY, POST_TAGS } from '@/sanity/lib/queries'
 import type { PostListItem } from '@/sanity/lib/types'
 import { programs, type ProgramLink } from '../programs-data'
 import { ProgramsClosingCta } from '../closing-cta'
@@ -22,15 +22,6 @@ export function generateStaticParams() {
   return programs.map((program) => ({ slug: program.slug }))
 }
 
-// Meta description = the copy's first sentence. A boundary is .!? followed
-// by whitespace and a capital/quote (or end of text), so lowercase
-// abbreviations ("e.g. web scraping") don't truncate mid-sentence.
-function firstSentence(text: string | undefined) {
-  if (!text) return undefined
-  const match = text.match(/^[\s\S]*?[.!?](?=\s+["“A-Z]|\s*$)/)
-  return match?.[0] ?? text
-}
-
 export async function generateMetadata(
   props: PageProps<'/programs/[slug]'>,
 ): Promise<Metadata> {
@@ -40,7 +31,7 @@ export async function generateMetadata(
 
   return {
     title: program.name,
-    description: firstSentence(program.paragraphs[0]),
+    description: program.description,
     alternates: {
       canonical: `/programs/${slug}`,
     },
@@ -48,19 +39,37 @@ export async function generateMetadata(
 }
 
 function ProgramLinkItem({ link }: { link: ProgramLink }) {
-  // '#' entries are placeholders awaiting real URLs (see programs-data.ts).
-  // http(s) hrefs open in a new tab automatically once they're filled in.
+  // http(s) hrefs open in a new tab; internal and mailto links don't.
   const isExternal = /^https?:\/\//.test(link.href)
   const className = link.highlight
-    ? 'inline-flex w-fit items-start gap-2 rounded-2xl bg-brand-accent/20 px-5 py-4 text-sm font-semibold text-slate-900 transition hover:bg-brand-accent/35'
+    ? link.image
+      ? 'group inline-flex w-fit items-center gap-4 rounded-2xl bg-brand-accent/20 p-4 pr-6 text-sm font-semibold text-slate-900 transition hover:bg-brand-accent/35 sm:gap-5'
+      : 'inline-flex w-fit items-start gap-2 rounded-2xl bg-brand-accent/20 px-5 py-4 text-sm font-semibold text-slate-900 transition hover:bg-brand-accent/35'
     : 'inline-flex w-fit items-start gap-1.5 text-sm font-semibold text-brand-primary transition hover:text-brand-secondary'
-  const content = (
+  const textAndArrow = (
     <>
       <span>{link.label}</span>
       <ArrowUpRight className="mt-0.5 h-4 w-4 shrink-0" />
       {isExternal && <span className="sr-only">(opens in new tab)</span>}
     </>
   )
+  // The badge layout (padding, `group` hover) only exists on the highlight
+  // branch, so plain links ignore `image` rather than rendering it broken.
+  const content =
+    link.highlight && link.image ? (
+      <>
+        <Image
+          src={link.image.src}
+          alt={link.image.alt}
+          width={96}
+          height={96}
+          className="h-20 w-20 shrink-0 -rotate-3 rounded-full ring-1 ring-brand-primary/15 transition-transform group-hover:rotate-0 motion-reduce:transition-none sm:h-24 sm:w-24"
+        />
+        <span className="inline-flex items-start gap-2">{textAndArrow}</span>
+      </>
+    ) : (
+      textAndArrow
+    )
 
   if (link.href.startsWith('/')) {
     return (
@@ -92,9 +101,11 @@ export default async function ProgramPage(
   const blogSection = program.blogSection
   let relatedPosts: PostListItem[] = []
   if (blogSection) {
-    const posts = await client.fetch<PostListItem[]>(POSTS_BY_SLUGS_QUERY, {
-      slugs: blogSection.slugs,
-    })
+    const posts = await client.fetch<PostListItem[]>(
+      POSTS_BY_SLUGS_QUERY,
+      { slugs: blogSection.slugs },
+      { next: { revalidate: 3600, tags: POST_TAGS } },
+    )
     // GROQ `in` doesn't preserve order — restore the data file's ordering.
     relatedPosts = [...posts].sort(
       (a, b) =>

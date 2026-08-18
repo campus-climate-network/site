@@ -23,12 +23,12 @@ export type NavEntry = NavMenu | NavPage
 
 export const navEntries: NavEntry[] = [
   {
-    label: 'Impact',
-    href: '/impact',
-  },
-  {
     label: 'Programs',
     href: '/programs',
+  },
+  {
+    label: 'Impact',
+    href: '/impact',
   },
   {
     label: 'About',

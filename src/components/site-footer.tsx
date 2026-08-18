@@ -8,6 +8,7 @@ type FooterColumn = {
 }
 
 const footerColumns: FooterColumn[] = [
+  // The mega-menu columns mirror the header exactly, so they stay derived.
   ...navEntries.filter(isNavMenu).map((entry) => ({
     title: entry.label,
     links: entry.columns.flatMap((column) =>
@@ -17,11 +18,14 @@ const footerColumns: FooterColumn[] = [
       })),
     ),
   })),
+  // The remaining columns are curated independently of the header nav:
+  // adding or reordering top-level header pages shouldn't reshuffle the
+  // footer, and some links (Campaigns, the impact report) are footer-only.
   {
     title: 'Our work',
     links: [
-      { label: 'Impact', href: '/impact' },
       { label: 'Programs', href: '/programs' },
+      { label: 'Impact', href: '/impact' },
       { label: 'Campaigns', href: '/campaigns' },
       { label: '2025 Impact Report', href: '/impact-reports/2025' },
     ],

@@ -9,7 +9,7 @@ import { ProgramsClosingCta } from './closing-cta'
 export const metadata: Metadata = {
   title: 'Programs',
   description:
-    'Explore CCN’s core programs: Student Power Gatherings, the Organizing Fellowship, campus trainings, coaching, Student Power Hours, and research on university ties to Big Oil.',
+    'CCN’s core programs: Student Power Gatherings, the Organizing Fellowship, campus trainings, coaching, and research uncovering university ties to Big Oil.',
   alternates: {
     canonical: '/programs',
   },
@@ -50,23 +50,25 @@ export default function ProgramsPage() {
               <Link
                 key={program.slug}
                 href={`/programs/${program.slug}`}
-                className="group flex h-full flex-col gap-4 overflow-hidden rounded-xl bg-white pb-5 shadow-sm ring-1 ring-slate-900/10 transition hover:shadow-md hover:ring-slate-900/20"
+                className="group flex h-full flex-col gap-4 overflow-hidden rounded-2xl bg-white pb-5 shadow-sm ring-1 ring-slate-900/10 transition hover:shadow-md hover:ring-slate-900/20"
               >
                 <div className="relative aspect-[3/2] overflow-hidden bg-slate-100">
-                  {cardImage && (
+                  {cardImage ? (
                     <Image
                       src={cardImage.src}
                       alt=""
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover transition duration-300 group-hover:scale-105 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
-                      priority={index < 4}
+                      priority={index === 0}
                     />
+                  ) : (
+                    <div className="h-full w-full bg-linear-to-br from-brand-primary/10 to-brand-secondary/10" />
                   )}
                 </div>
                 <div className="grid flex-1 grid-cols-[1fr_auto] items-start gap-x-3 px-5">
                   <div className="space-y-1">
-                    <h2 className="text-base font-semibold leading-tight text-slate-900">
+                    <h2 className="text-lg font-semibold leading-tight text-slate-900">
                       {program.shortName}
                     </h2>
                     <p className="text-sm text-slate-600">{program.name}</p>
@@ -92,9 +94,11 @@ export default function ProgramsPage() {
           </ScrollReveal>
           <ScrollReveal variant="fade-up">
             <div className="overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-sm">
-              {/* Focusable so keyboard users can scroll the wide table. */}
+              {/* Focusable so keyboard users can scroll the wide table. The
+                  ring is inset because the rounded wrapper clips anything
+                  drawn outside this element's box. */}
               <div
-                className="overflow-x-auto"
+                className="overflow-x-auto rounded-3xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand-primary"
                 tabIndex={0}
                 role="region"
                 aria-labelledby="core-programming-heading"

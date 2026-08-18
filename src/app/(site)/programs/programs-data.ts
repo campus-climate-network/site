@@ -17,6 +17,12 @@ export type ProgramLink = {
   href: string
   /** High-emphasis accent treatment (used for the Midwest signup CTA). */
   highlight?: boolean
+  /**
+   * Badge/sticker art docked beside a highlight link's label (event logos,
+   * not photos). Rendered clipped to a circle, so square art with a plain
+   * background works as-is.
+   */
+  image?: ProgramImage
 }
 
 export type ProgramImage = {
@@ -31,6 +37,8 @@ export type Program = {
   shortName: string
   /** Full official program name — the detail page H1. */
   name: string
+  /** Meta description for the detail page. Keep under ~160 characters. */
+  description: string
   paragraphs: string[]
   links?: ProgramLink[]
   images?: ProgramImage[]
@@ -55,6 +63,8 @@ export const programs: Program[] = [
     slug: 'gatherings',
     shortName: 'Gatherings',
     name: 'Student Power Gatherings',
+    description:
+      'Regional weekend gatherings where up to 100 student organizers build skills, stay in solidarity housing, and deepen connections across their region.',
     paragraphs: [
       'CCN is committed to bringing together student organizers on a regional scale to build their organizing skills and deepen their connections to peers across the region. Our Student Power Gathering (formerly College Climate Gathering) is a unique model based on deep connections where, for a weekend, students stay on a college campus, sleep in solidarity housing with local students, and are assigned to a training cohort. Local student organizers lead these events, which bring together up to 100 students from each region.',
     ],
@@ -64,6 +74,12 @@ export const programs: Program[] = [
           'Sign up for the Midwest Student Power Gathering, taking place this September at the University of Kansas!',
         href: 'https://airtable.com/appqiOulPWqUSA0dX/pag0rbBdAnYPHnUJG/form',
         highlight: true,
+        image: {
+          src: '/images/programs/spg-midwest-2026-badge.png',
+          // Decorative: the label already names the event, so screen readers
+          // shouldn't hear it twice.
+          alt: '',
+        },
       },
     ],
     blogSection: {
@@ -93,6 +109,8 @@ export const programs: Program[] = [
     slug: 'fellowship',
     shortName: 'Fellowship',
     name: 'CCN Organizing Fellowship',
+    description:
+      'Each fall, 20+ student organizers receive an in-person retreat, personalized coaching, cohort calls, and a stipend to launch and expand their campus campaigns.',
     paragraphs: [
       'Each fall, a cohort of more than 20 student organizers in CCN receives specialized support to launch and expand their campus campaigns. As Organizing Fellows, students attend a 3-day in-person retreat with student organizers from across the country. Then, they receive personalized coaching, cohort calls, and a stipend to support their campus organizing. CCN fellows have gone on to run winning campaigns, confront attacks on higher education, and build up the capacity of their student organizations.',
     ],
@@ -111,6 +129,8 @@ export const programs: Program[] = [
     slug: 'trainings',
     shortName: 'In-person trainings',
     name: 'Campus Training Tour',
+    description:
+      'CCN’s trainer team visits your campus for one- to three-day experiential trainings tailored to your campaign, from basebuilding to burnout prevention.',
     paragraphs: [
       'CCN is known for transformative and experiential in-person trainings. Our core curriculum covers fundamental organizing skills such as power and self-interest, basebuilding, and burnout prevention. The content of each training is tailored to the specific needs of your campus campaign. Our experienced trainer team can visit your campus for a one-, two-, or three-day training for you and your fellow organizers to improve your organizing skills and run a winning campaign.',
     ],
@@ -136,6 +156,8 @@ export const programs: Program[] = [
     slug: 'power-hours',
     shortName: 'Online connection',
     name: 'Student Power Hours',
+    description:
+      'A dedicated online space where student leaders from across the country share organizing challenges and support each other using troika consulting.',
     cardImage: {
       src: '/images/programs/gathering-closing-group.jpg',
       alt: '',
@@ -155,6 +177,8 @@ export const programs: Program[] = [
     slug: 'coaching',
     shortName: 'Coaching',
     name: 'Coaching for Power',
+    description:
+      'Power Coaches — recent alumni steeped in the CCN curriculum — support student organizers through bi-weekly calls for one to two semesters.',
     paragraphs: [
       'We connect student organizers seeking guidance to our team of Power Coaches, recent alumni who have been steeped in the CCN curriculum, have years of experience, and are ready to support younger organizers to succeed on campus. The program runs for 1-2 semesters and is focused on bi-weekly calls to help student organizers work through issues and reach their full potential.',
     ],
@@ -169,6 +193,8 @@ export const programs: Program[] = [
     slug: 'trainer-development',
     shortName: 'Trainer development',
     name: 'New Trainer Development',
+    description:
+      'A year-long process where senior student leaders become CCN trainers through a Training for Trainers, an in-person intensive, and shadowing campus visits.',
     paragraphs: [
       'Each year, a new cohort of current and recently graduated student leaders participates in a year-long process to become CCN trainers. All CCN trainers attend a Training for Trainers (led by our partners Training For Change), participate in an in-person CCN trainer intensive (focused on applying training pedagogy to CCN’s curriculum), and shadow an experienced CCN trainer during a campus visit. There are currently 18 members of the CCN training team.',
     ],
@@ -182,7 +208,9 @@ export const programs: Program[] = [
   {
     slug: 'research',
     shortName: 'Research',
-    name: 'Research on University Ties to Big Oil',
+    name: 'Uncovering University Ties to Big Oil',
+    description:
+      'A semester-long cohort program training students in web scraping, archival research, and public records requests to reveal their campus’s ties to Big Oil.',
     cardImage: {
       src: '/images/campaigns/cambridge-ffr-banner.jpg',
       alt: '',
@@ -205,6 +233,8 @@ export const programs: Program[] = [
     slug: 'skills-to-win',
     shortName: 'Courses',
     name: 'Skills to Win: Student Edition',
+    description:
+      'Jane McAlevey’s structure-based organizing course, adapted with the UC Berkeley Labor Center for the specific needs of student organizers.',
     cardImage: {
       src: '/images/future-is-now-speaker.jpg',
       alt: '',
@@ -235,7 +265,7 @@ export const coreProgramRows: CoreProgramRow[] = [
       'Rising student leaders from seven CCN member groups (three students per group) will convene for an in-person retreat in August 2026 followed by dedicated coaching and in-person campus visits during the fall semester.',
   },
   {
-    program: 'In-Person Campus Training Tour',
+    program: 'Campus Training Tour',
     timeline: 'Year-round',
     description:
       'Members of the CCN trainer team will travel to at least 10 CCN member campuses to provide weekend-long training tailored to the specific needs of the group.',
@@ -247,7 +277,7 @@ export const coreProgramRows: CoreProgramRow[] = [
       'A 6-person CCN coaching team (mainly composed of former student organizers) will receive training on core coaching skills before being paired with 1-2 CCN member groups to provide regular coaching support over the course of the school year.',
   },
   {
-    program: 'Skills to Win Student Edition',
+    program: 'Skills to Win: Student Edition',
     timeline: 'August 2026',
     description:
       'In collaboration with the Skills to Win team (based out of the UC Berkeley Labor Center) and partner organizations in the US student movement, CCN is adapting the renowned structure-based organizing curriculum of Skills to Win (developed by Jane McAlevey) to the particular needs of student organizers.',
@@ -259,14 +289,14 @@ export const coreProgramRows: CoreProgramRow[] = [
       'These virtual calls are designed to strengthen cross-campus connectivity between organizers and to tap into the collective wisdom of the student movement. Students from across the country are randomly split into groups of three. Each student takes a turn sharing a particular organizing challenge they are facing. The other two students provide feedback and support.',
   },
   {
-    program: 'Trainer Development',
+    program: 'New Trainer Development',
     timeline: 'Year-round',
     description:
       'Each year, senior leaders from CCN member groups are proposed to become CCN trainers. New trainers undergo a year-long trainer development process including an in-person training for trainers (led by Training For Change), an in-person trainer intensive (led by CCN), and shadowing an existing CCN trainer on a campus visit.',
   },
   {
     program: 'Research',
-    timeline: 'Spring 2026, Spring 2027',
+    timeline: 'Spring 2027',
     description:
       'In collaboration with the University of Miami Climate Accountability Lab, led by Geoffrey Supran, students from CCN member groups participate in collaborative research projects on the fossil fuel industry’s influence over the higher education system.',
   },
