@@ -31,7 +31,7 @@ export default function ProgramsPage() {
               </h1>
               <p className="text-base text-slate-700">
                 View CCN’s core programming that stewards the next generation of
-                leaders.
+                climate leaders.
               </p>
             </div>
           </ScrollReveal>
