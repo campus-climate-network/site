@@ -122,7 +122,7 @@ src/
 ### Data Fetching
 
 - Sanity client with `useCdn: false` for fresh ISR data
-- Blog pages use `revalidate = 60` (ISR every 60 seconds); `/hiring` and `/programs/[slug]` use `revalidate = 3600` (1h); `/our-network` and `/impact` have no time-based `revalidate` (fully static, refreshed only via the webhook below or redeploy)
+- Blog pages use `revalidate = 60` (ISR every 60 seconds); `/hiring` and `/programs/[slug]` use `revalidate = 3600` (1h); `/our-network` and the homepage have no time-based `revalidate` (static, refreshed via the webhook's `memberOrg` tag or redeploy); `/impact` is fully static (wins live in local `wins-data.ts`)
 - GROQ queries centralized in `src/sanity/lib/queries.ts`
 - Member orgs fetched server-side, geocoded client-side via Mapbox API
 
@@ -130,8 +130,8 @@ src/
 
 - `POST /api/revalidate` (`src/app/api/revalidate/route.ts`) refreshes pages the moment content is published/unpublished/deleted in Sanity. Time-based ISR above is the fallback.
 - Signature is validated with `parseBody` from `next-sanity/webhook` using `SANITY_REVALIDATE_SECRET` (server-only). Unsigned/invalid requests → 401.
-- Maps `_type` → `revalidatePath`: `jobRole` → `/hiring`; `post` → `/blog` + `/blog/{slug}` + any `/programs/{slug}` page whose `blogSection.slugs` (in `programs-data.ts`) reference the post; `author`/`category` → `/blog` + all post pages (`/blog/[slug]`) + all program pages with a `blogSection`; `memberOrg` → `/our-network`; `movementWin` → `/impact`.
-- Sanity webhook config: URL `https://www.campusclimatenetwork.org/api/revalidate` (use `www.` — the apex 307-redirects), POST, projection `{ "_type": _type, "slug": slug.current }`, Drafts/Versions disabled, secret = `SANITY_REVALIDATE_SECRET`.
+- Tag-based: every Sanity `client.fetch` passes `next: { tags }` (or `cache: 'force-cache'` + tags on fully static pages) naming the document types its query renders — post queries carry `POST_TAGS` (`post`/`author`/`category`, since they dereference authors and categories; exported from `queries.ts`), `/hiring` tags `jobRole`, the member-org fetches (home, `/our-network`) tag `memberOrg`, and the sitemap tags `post`. The webhook calls `revalidateTag(_type)`, so a new page that renders Sanity content only needs to tag its own fetch — there is no per-page registry to update.
+- Sanity webhook config: URL `https://www.campusclimatenetwork.org/api/revalidate` (use `www.` — the apex 307-redirects), POST, projection `{ "_type": _type, "slug": slug.current }` (only `_type` is read now — tag revalidation doesn't need the slug — but the projection is fine as-is), Drafts/Versions disabled, secret = `SANITY_REVALIDATE_SECRET`.
 
 ### Hidden/WIP Pages
 

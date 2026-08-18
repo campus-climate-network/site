@@ -1,8 +1,6 @@
-import { revalidatePath } from 'next/cache'
+import { revalidateTag } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
 import { parseBody } from 'next-sanity/webhook'
-
-import { programs } from '@/app/(site)/programs/programs-data'
 
 // Sanity webhook -> on-demand revalidation.
 // Must run on the Node.js runtime and never be statically cached.
@@ -11,64 +9,21 @@ export const dynamic = 'force-dynamic'
 
 type WebhookPayload = {
   _type?: string
-  // Sent as an object when the full document is delivered, or as a string
-  // when the webhook uses a `slug.current` projection.
-  slug?: { current?: string } | string
 }
 
-type RevalidateTarget = { path: string; type?: 'page' | 'layout' }
-
-// Program detail pages render related blog posts (blogSection.slugs in
-// programs-data.ts), so post/author/category changes must refresh them too.
-// Without a slug, refresh every program page that has a blog section.
-function programTargetsForPostSlug(slug?: string): RevalidateTarget[] {
-  return programs
-    .filter((program) =>
-      slug
-        ? program.blogSection?.slugs.includes(slug)
-        : Boolean(program.blogSection),
-    )
-    .map((program) => ({ path: `/programs/${program.slug}` }))
-}
-
-// Map a changed Sanity document type to the public routes that render it.
-// Path-first by design (per architecture decision): lowest-risk, since each
-// content type maps cleanly to one or more routes.
-function targetsForType(type: string, slug?: string): RevalidateTarget[] {
-  switch (type) {
-    case 'jobRole':
-      return [{ path: '/hiring' }]
-    case 'post':
-      // Refresh the listing plus this post's page. Without a slug, fall back
-      // to refreshing every post page.
-      return slug
-        ? [
-            { path: '/blog' },
-            { path: `/blog/${slug}` },
-            ...programTargetsForPostSlug(slug),
-          ]
-        : [
-            { path: '/blog' },
-            { path: '/blog/[slug]', type: 'page' },
-            ...programTargetsForPostSlug(),
-          ]
-    case 'author':
-    case 'category':
-      // These can be referenced by many posts, so refresh the listing and
-      // every post page.
-      return [
-        { path: '/blog' },
-        { path: '/blog/[slug]', type: 'page' },
-        ...programTargetsForPostSlug(),
-      ]
-    case 'memberOrg':
-      return [{ path: '/our-network' }]
-    case 'movementWin':
-      return [{ path: '/impact' }]
-    default:
-      return []
-  }
-}
+// Tag-based by design: every Sanity client.fetch passes `next: { tags }`
+// naming the document types its query renders, so invalidating the changed
+// document's _type refreshes exactly the pages that consume it. A new page
+// that renders Sanity content opts in at its own fetch site — there is no
+// per-page registry to keep in sync here.
+const KNOWN_TYPES = new Set([
+  'post',
+  'author',
+  'category',
+  'jobRole',
+  'memberOrg',
+  'movementWin',
+])
 
 export async function POST(req: NextRequest) {
   try {
@@ -92,26 +47,22 @@ export async function POST(req: NextRequest) {
       return new NextResponse('Bad request: missing _type', { status: 400 })
     }
 
-    const slug =
-      typeof body?.slug === 'string' ? body.slug : body?.slug?.current
-
-    const targets = targetsForType(type, slug)
-    if (targets.length === 0) {
+    if (!KNOWN_TYPES.has(type)) {
       return NextResponse.json({
         revalidated: false,
         type,
-        message: 'No route mapped for this document type',
+        message: 'No cache tag for this document type',
       })
     }
 
-    for (const target of targets) {
-      revalidatePath(target.path, target.type)
-    }
+    // 'max' = the standard stale-and-regenerate profile (Next 16 requires an
+    // explicit cacheLife profile as the second argument).
+    revalidateTag(type, 'max')
 
     return NextResponse.json({
       revalidated: true,
       type,
-      paths: targets.map((t) => t.path),
+      tags: [type],
       now: Date.now(),
     })
   } catch (err) {

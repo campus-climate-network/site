@@ -68,6 +68,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const posts = await client.fetch<PostWithDates[]>(
       POST_SLUGS_WITH_DATES_QUERY,
+      {},
+      // Tagged so publishing a post refreshes the sitemap too, not just the
+      // blog pages.
+      { cache: 'force-cache', next: { tags: ['post'] } },
     )
     blogEntries = posts.map((post) => ({
       url: `${baseUrl}/blog/${post.slug}`,

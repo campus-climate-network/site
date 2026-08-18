@@ -26,7 +26,11 @@ interface JobRole {
 }
 
 async function getJobRoles(): Promise<JobRole[]> {
-  return client.fetch(JOB_ROLES_QUERY)
+  return client.fetch(
+    JOB_ROLES_QUERY,
+    {},
+    { next: { revalidate: 3600, tags: ['jobRole'] } },
+  )
 }
 
 export default async function HiringPage() {

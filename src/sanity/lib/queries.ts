@@ -17,6 +17,12 @@ export const MEMBER_ORGS_QUERY = `
 }
 `
 
+// Cache tags for on-demand revalidation: each client.fetch tags the Sanity
+// document types its query renders, and /api/revalidate invalidates the
+// changed document's _type. Post queries dereference author + categories,
+// so they carry all three tags.
+export const POST_TAGS: string[] = ['post', 'author', 'category']
+
 // Shared list projection for the post queries that feed PostListItem and
 // PostCard — keeps both queries below returning identical card data.
 const POST_LIST_PROJECTION = `{
