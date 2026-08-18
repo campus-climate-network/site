@@ -15,6 +15,9 @@ export const formatPostDate = (input?: string | null) => {
     month: 'long',
     day: 'numeric',
     year: 'numeric',
+    // publishedAt is a UTC timestamp; pin the timezone so the rendered day
+    // doesn't shift between local dev and Vercel (UTC).
+    timeZone: 'UTC',
   })
 }
 

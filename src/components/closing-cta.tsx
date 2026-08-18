@@ -6,9 +6,9 @@ type CtaLink = {
   href: string
 }
 
-// Shared gradient closing-CTA panel. The home, our-story, blog, campaigns,
-// and impact pages still inline this same shell with their own copy — they
-// can migrate here incrementally.
+// Shared gradient closing-CTA panel. Campaigns is the one page still
+// inlining the shell: its primary CTA embeds an ArrowUpRight icon that the
+// string-only CtaLink API can't express.
 export function ClosingCta({
   heading,
   body,
@@ -49,5 +49,18 @@ export function ClosingCta({
         </div>
       </ScrollReveal>
     </section>
+  )
+}
+
+// The sitewide closing CTA shared by the home, our-story, blog, and impact
+// pages — copy lives here once.
+export function JoinMovementCta() {
+  return (
+    <ClosingCta
+      heading="Be part of what’s next"
+      body="Whether you want to organize on your campus or donate to the fight, there is a place for you in the movement."
+      primaryCta={{ label: 'Join us', href: '/take-action' }}
+      secondaryCta={{ label: 'Donate', href: '/donate' }}
+    />
   )
 }

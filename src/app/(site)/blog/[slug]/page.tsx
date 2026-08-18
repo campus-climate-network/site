@@ -6,9 +6,10 @@ import { PortableText, type PortableTextComponents } from '@portabletext/react'
 
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
-import { POST_QUERY, POST_SLUGS_QUERY } from '@/sanity/lib/queries'
+import { POST_QUERY, POST_SLUGS_QUERY, POST_TAGS } from '@/sanity/lib/queries'
 import type { PostDetail } from '@/sanity/lib/types'
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/json-ld'
+import { formatPostDate } from '@/components/post-card'
 import { SITE_URL } from '@/lib/site'
 
 const siteUrl = SITE_URL
@@ -19,7 +20,11 @@ export async function generateMetadata(
   props: PageProps<'/blog/[slug]'>,
 ): Promise<Metadata> {
   const { slug } = await props.params
-  const post = await client.fetch<PostDetail | null>(POST_QUERY, { slug })
+  const post = await client.fetch<PostDetail | null>(
+    POST_QUERY,
+    { slug },
+    { next: { revalidate: 60, tags: POST_TAGS } },
+  )
 
   if (!post) {
     return { title: 'Post Not Found' }
@@ -171,9 +176,11 @@ const portableTextComponents: PortableTextComponents = {
 export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
   const { slug } = await props.params
 
-  const post = await client.fetch<PostDetail | null>(POST_QUERY, {
-    slug,
-  })
+  const post = await client.fetch<PostDetail | null>(
+    POST_QUERY,
+    { slug },
+    { next: { revalidate: 60, tags: POST_TAGS } },
+  )
 
   if (!post) {
     notFound()
@@ -259,11 +266,7 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
                     By {post.author?.name ?? 'Unknown author'}
                   </p>
                   <p className="text-sm text-slate-500">
-                    {post.publishedAt
-                      ? new Date(post.publishedAt).toLocaleDateString('en-US', {
-                          dateStyle: 'long',
-                        })
-                      : 'Unpublished'}
+                    {formatPostDate(post.publishedAt) ?? 'Unpublished'}
                   </p>
                   {post.categories && post.categories.length > 0 && (
                     <p className="text-sm text-slate-500">
