@@ -27,7 +27,7 @@
     "next-sanity": "^13.3.3",
     "notion-client": "^7.12.1",
     "notion-types": "^7.12.1",
-    "notion-utils": "^7.12.1",
+    "notion-utils": "^8.0.6",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-map-gl": "^8.1.2",
