@@ -47,10 +47,9 @@ export const POSTS_QUERY = `
 
 // The POSTS_QUERY projection for a specific set of slugs (e.g. a program
 // page's related-reading section), filtering unpublished/scheduled posts
-// like every other post query. GROQ's `in` does not preserve order —
-// callers sort by their slug array.
+// like every other post query. Newest first, regardless of slug order.
 export const POSTS_BY_SLUGS_QUERY = `
-*[_type == "post" && publishedAt < now() && slug.current in $slugs]${POST_LIST_PROJECTION}`
+*[_type == "post" && publishedAt < now() && slug.current in $slugs] | order(publishedAt desc)${POST_LIST_PROJECTION}`
 
 export const POST_SLUGS_QUERY = `
 *[_type == "post" && defined(slug.current) && publishedAt < now()]{

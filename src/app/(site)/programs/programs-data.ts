@@ -50,7 +50,8 @@ export type Program = {
   cardImage?: ProgramImage
   /**
    * Optional related-reading section on the detail page: renders the named
-   * blog posts as PostCards under the heading, in the order given.
+   * blog posts as PostCards under the heading, newest first (slug order
+   * here doesn't matter).
    */
   blogSection?: {
     heading: string
@@ -61,7 +62,7 @@ export type Program = {
 export const programs: Program[] = [
   {
     slug: 'gatherings',
-    shortName: 'Gatherings',
+    shortName: 'Regional Gatherings',
     name: 'Student Power Gatherings',
     description:
       'Regional weekend gatherings where up to 100 student organizers build skills, stay in solidarity housing, and deepen connections across their region.',
@@ -90,20 +91,10 @@ export const programs: Program[] = [
         'the-southern-college-climate-gathering',
       ],
     },
-    images: [
-      {
-        src: '/images/programs/southern-gathering-banner-painting.jpg',
-        alt: 'Students painting a College Climate Gathering banner at the Southern College Climate Gathering at UNC Chapel Hill.',
-      },
-      {
-        src: '/images/programs/west-coast-gathering-speakout.jpg',
-        alt: 'A speaker addressing seated students in front of a Campus Climate Network banner at the West Coast College Climate Gathering.',
-      },
-      {
-        src: '/images/programs/college-climate-gathering-plenary.jpg',
-        alt: 'A packed lecture hall of students at a College Climate Gathering plenary session.',
-      },
-    ],
+    cardImage: {
+      src: '/images/programs/southern-gathering-banner-painting.jpg',
+      alt: 'Students painting a College Climate Gathering banner at the Southern College Climate Gathering at UNC Chapel Hill.',
+    },
   },
   {
     slug: 'fellowship',
@@ -201,7 +192,7 @@ export const programs: Program[] = [
     images: [
       {
         src: '/images/programs/trainer-intensive-group.jpg',
-        alt: 'The CCN trainer cohort holding the Campus Climate Network banner at the in-person trainer intensive.',
+        alt: 'The CCN trainer cohort holding the Campus Climate Network banner at the Training for Trainers intensive led by Training For Change.',
       },
     ],
   },

@@ -101,15 +101,10 @@ export default async function ProgramPage(
   const blogSection = program.blogSection
   let relatedPosts: PostListItem[] = []
   if (blogSection) {
-    const posts = await client.fetch<PostListItem[]>(
+    relatedPosts = await client.fetch<PostListItem[]>(
       POSTS_BY_SLUGS_QUERY,
       { slugs: blogSection.slugs },
       { next: { revalidate: 3600, tags: POST_TAGS } },
-    )
-    // GROQ `in` doesn't preserve order — restore the data file's ordering.
-    relatedPosts = [...posts].sort(
-      (a, b) =>
-        blogSection.slugs.indexOf(a.slug) - blogSection.slugs.indexOf(b.slug),
     )
     // Surface slug drift (renamed in Studio) loudly in build/server logs.
     // Not a throw: a scheduled post is a legitimate temporary miss.
