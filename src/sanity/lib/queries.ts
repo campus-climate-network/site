@@ -111,7 +111,8 @@ export const JOB_ROLES_QUERY = `
   location,
   applicationUrl,
   postedAt,
-  applicationDeadline
+  applicationDeadline,
+  startDate
 }
 `
 
@@ -141,6 +142,7 @@ export const JOB_ROLE_QUERY = `
   applicationUrl,
   postedAt,
   applicationDeadline,
+  startDate,
   isOpen
 }
 `

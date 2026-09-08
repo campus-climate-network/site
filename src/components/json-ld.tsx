@@ -165,6 +165,8 @@ type JobPostingJsonLdProps = {
   datePosted?: string
   /** ISO 8601 end of the last day to apply (see endOfDayEastern) */
   validThrough?: string
+  /** YYYY-MM-DD the role begins, when known */
+  jobStartDate?: string
   /** schema.org EmploymentType value, e.g. FULL_TIME */
   employmentType?: string
   locationType: LocationType
@@ -202,6 +204,7 @@ export function JobPostingJsonLd({
   url,
   datePosted,
   validThrough,
+  jobStartDate,
   employmentType,
   locationType,
   location,
@@ -214,6 +217,7 @@ export function JobPostingJsonLd({
     url,
     ...(datePosted && { datePosted }),
     ...(validThrough && { validThrough }),
+    ...(jobStartDate && { jobStartDate }),
     ...(employmentType && { employmentType }),
     hiringOrganization: {
       '@id': `${siteUrl}/#organization`,

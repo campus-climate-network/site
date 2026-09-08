@@ -47,6 +47,7 @@ export type JobRoleListItem = {
   applicationUrl?: string | null
   postedAt: string
   applicationDeadline?: string | null
+  startDate?: string | null
 }
 
 export type JobRoleDetail = JobRoleListItem & {

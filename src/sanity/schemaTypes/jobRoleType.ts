@@ -161,6 +161,18 @@ export const jobRoleType = defineType({
         ),
     }),
     defineField({
+      name: 'startDate',
+      title: 'Start date',
+      type: 'date',
+      group: 'details',
+      description:
+        'When the role begins. Leave blank if the start date is flexible or still to be decided.',
+      validation: (Rule) =>
+        Rule.min(Rule.valueOfField('postedAt')).warning(
+          'Start date is before the posted date',
+        ),
+    }),
+    defineField({
       name: 'isOpen',
       title: 'Open',
       type: 'boolean',

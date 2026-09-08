@@ -117,6 +117,7 @@ export default async function JobRolePage(props: PageProps<'/hiring/[slug]'>) {
               ? endOfDayEastern(role.applicationDeadline)
               : undefined
           }
+          jobStartDate={role.startDate ?? undefined}
           employmentType={
             employmentTypeSchema(role.employmentType) ?? undefined
           }
@@ -168,6 +169,7 @@ export default async function JobRolePage(props: PageProps<'/hiring/[slug]'>) {
                 label="Apply by"
                 value={applyBy ?? (open ? 'Open until filled' : null)}
               />
+              <Fact label="Starts" value={formatPostDate(role.startDate)} />
             </dl>
             {applyHref && <ApplyLink href={applyHref} />}
           </div>
@@ -177,18 +179,20 @@ export default async function JobRolePage(props: PageProps<'/hiring/[slug]'>) {
           <OrganizationOverview />
 
           {applyHref && (
-            <div className="flex flex-col gap-4 rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-8">
-              <div className="stack stack-compact">
-                <h2 className="text-xl font-semibold text-slate-900">
+            <div className="rounded-3xl border border-slate-200/80 bg-white px-6 py-12 text-center shadow-sm sm:px-12 sm:py-16">
+              <div className="mx-auto stack stack-snug max-w-xl">
+                <h2 className="text-xl font-semibold text-slate-900 sm:text-2xl">
                   Ready to apply?
                 </h2>
-                <p className="text-sm text-slate-600">
+                <p className="text-base text-slate-600">
                   {applyBy
                     ? `Applications close ${applyBy}.`
                     : 'This role is open until filled.'}
                 </p>
+                <div className="flex justify-center pt-2">
+                  <ApplyLink href={applyHref} />
+                </div>
               </div>
-              <ApplyLink href={applyHref} />
             </div>
           )}
         </article>

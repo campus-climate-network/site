@@ -38,6 +38,13 @@ function JobRoleCard({ role }: { role: JobRoleListItem }) {
     role.compensation,
   ].filter((fact): fact is string => Boolean(fact?.trim()))
   const applyBy = formatPostDate(role.applicationDeadline)
+  const starts = formatPostDate(role.startDate)
+  const timing = [
+    applyBy ? `Apply by ${applyBy}` : 'Open until filled',
+    starts && `Starts ${starts}`,
+  ]
+    .filter(Boolean)
+    .join(' · ')
 
   return (
     <article className="group relative flex flex-col gap-4 rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:translate-y-0">
@@ -71,9 +78,7 @@ function JobRoleCard({ role }: { role: JobRoleListItem }) {
         )}
       </div>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <p className="text-sm text-slate-500">
-          {applyBy ? `Apply by ${applyBy}` : 'Open until filled'}
-        </p>
+        <p className="text-sm text-slate-500">{timing}</p>
         <span
           aria-hidden="true"
           className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-primary transition group-hover:gap-2.5 group-hover:text-brand-secondary"
