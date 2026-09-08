@@ -1,4 +1,5 @@
 import { SITE_URL } from '@/lib/site'
+import type { LocationType } from '@/sanity/lib/job-role'
 
 const siteUrl = SITE_URL
 
@@ -159,29 +160,67 @@ export function BreadcrumbJsonLd({ items }: BreadcrumbJsonLdProps) {
 type JobPostingJsonLdProps = {
   title: string
   description: string
+  /** Canonical URL of the posting page — where Google sends applicants */
+  url: string
   datePosted?: string
+  /** ISO 8601 end of the last day to apply (see endOfDayEastern) */
+  validThrough?: string
+  /** schema.org EmploymentType value, e.g. FULL_TIME */
+  employmentType?: string
+  locationType: LocationType
+  /** Free-text city/region, e.g. "New York, NY" or "Midwest US" */
   location?: string
-  applicationUrl?: string
 }
 
+// CCN hires in the US only.
+const HIRING_COUNTRY = 'US'
+
+// "New York, NY" → locality + region; any other text is kept as the locality.
+// A blank location still yields a country-only address, never a remote claim.
+function postalAddress(location?: string) {
+  const match = location?.match(/^(.+?),\s*([A-Za-z]{2})$/)
+  return {
+    '@type': 'PostalAddress',
+    ...(match
+      ? {
+          addressLocality: match[1].trim(),
+          addressRegion: match[2].toUpperCase(),
+        }
+      : location
+        ? { addressLocality: location }
+        : {}),
+    addressCountry: HIRING_COUNTRY,
+  }
+}
+
+// Emitted only on /hiring/[slug] (one posting per URL, as Google requires)
+// and only while the role is open. Applying happens off-site via the page's
+// Apply link, so there is no directApply claim.
 export function JobPostingJsonLd({
   title,
   description,
+  url,
   datePosted,
+  validThrough,
+  employmentType,
+  locationType,
   location,
-  applicationUrl,
 }: JobPostingJsonLdProps) {
-  const remote = !location || /remote/i.test(location)
   const schema = {
     '@context': 'https://schema.org',
     '@type': 'JobPosting',
     title,
     description,
+    url,
     ...(datePosted && { datePosted }),
+    ...(validThrough && { validThrough }),
+    ...(employmentType && { employmentType }),
     hiringOrganization: {
       '@id': `${siteUrl}/#organization`,
     },
-    ...(remote
+    // Remote roles are TELECOMMUTE with a country requirement; hybrid and
+    // in-person roles get a jobLocation (Google treats hybrid as located).
+    ...(locationType === 'remote'
       ? {
           jobLocationType: 'TELECOMMUTE',
           applicantLocationRequirements: {
@@ -192,10 +231,9 @@ export function JobPostingJsonLd({
       : {
           jobLocation: {
             '@type': 'Place',
-            address: location,
+            address: postalAddress(location),
           },
         }),
-    ...(applicationUrl && { directApply: true, url: applicationUrl }),
   }
 
   return (

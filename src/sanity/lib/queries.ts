@@ -90,16 +90,58 @@ export const POST_QUERY = `
 }
 `
 
-// Job roles for careers page
+// Careers. A role is open while its toggle is on and today hasn't passed its
+// optional deadline. `$today` is YYYY-MM-DD (todayInEastern() in job-role.ts),
+// passed as a param rather than using now() so the deadline day is compared
+// as a plain date and stays open through the end of that day. A slug is part
+// of being open: the listing, sitemap, and static params all link to
+// /hiring/[slug], so a slugless document is never surfaced.
+const JOB_ROLE_OPEN_FILTER = `isOpen == true && defined(slug.current) && (!defined(applicationDeadline) || applicationDeadline >= $today)`
+
+// Open roles for the /hiring listing
 export const JOB_ROLES_QUERY = `
-*[_type == "jobRole" && isOpen == true] | order(postedAt desc){
+*[_type == "jobRole" && ${JOB_ROLE_OPEN_FILTER}] | order(postedAt desc){
   _id,
   title,
-  department,
-  location,
+  "slug": slug.current,
   description,
+  compensation,
+  employmentType,
+  locationType,
+  location,
   applicationUrl,
-  postedAt
+  postedAt,
+  applicationDeadline
+}
+`
+
+// Open roles — static params and sitemap entries for /hiring/[slug]
+export const JOB_ROLE_SLUGS_QUERY = `
+*[_type == "jobRole" && ${JOB_ROLE_OPEN_FILTER}]{
+  "slug": slug.current,
+  _updatedAt
+}
+`
+
+// One role for /hiring/[slug]. Deliberately not filtered on open state: a
+// closed role still renders (with a closed notice instead of Apply) so
+// shared links keep working.
+export const JOB_ROLE_QUERY = `
+*[_type == "jobRole" && slug.current == $slug][0]{
+  _id,
+  _updatedAt,
+  title,
+  "slug": slug.current,
+  description,
+  body,
+  compensation,
+  employmentType,
+  locationType,
+  location,
+  applicationUrl,
+  postedAt,
+  applicationDeadline,
+  isOpen
 }
 `
 

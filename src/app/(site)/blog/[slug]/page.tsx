@@ -9,6 +9,7 @@ import { urlFor } from '@/sanity/lib/image'
 import { POST_QUERY, POST_SLUGS_QUERY, POST_TAGS } from '@/sanity/lib/queries'
 import type { PostDetail } from '@/sanity/lib/types'
 import { ArticleJsonLd, BreadcrumbJsonLd } from '@/components/json-ld'
+import { PortableTextBody } from '@/components/portable-text-body'
 import { formatPostDate } from '@/components/post-card'
 import { SITE_URL } from '@/lib/site'
 
@@ -302,12 +303,10 @@ export default async function PostPage(props: PageProps<'/blog/[slug]'>) {
             />
           )}
 
-          <div className="stack stack-mid text-base leading-relaxed text-slate-700 [&_h2]:mt-4 [&_h2]:text-2xl [&_h2]:font-semibold [&_h2]:text-slate-900 [&_h3]:mt-2 [&_h3]:text-xl [&_h3]:font-semibold [&_h3]:text-slate-900 [&_a]:text-brand-primary [&_a]:underline [&_blockquote]:border-l-4 [&_blockquote]:border-brand-primary/30 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-slate-600 [&_ol]:list-decimal [&_ol]:pl-6 [&_ul]:list-disc [&_ul]:pl-6">
-            <PortableText
-              value={post.body as never}
-              components={portableTextComponents}
-            />
-          </div>
+          <PortableTextBody
+            value={post.body as never}
+            components={portableTextComponents}
+          />
         </article>
       </div>
     </div>
