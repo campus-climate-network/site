@@ -41,7 +41,7 @@ src/
 │   │   ├── programs/              # Programs landing (card grid + academic-year table; local programs-data.ts)
 │   │   │   ├── [slug]/page.tsx    # Per-program detail pages (static params from programs-data.ts; related posts via POSTS_BY_SLUGS_QUERY)
 │   │   │   └── closing-cta.tsx    # Programs CTA copy, rendered via the shared ClosingCta component
-│   │   ├── take-action/           # Custom join form → Action Network API (actions.ts + join-form.tsx)
+│   │   ├── take-action/           # Custom join form → Action Network API (actions.ts + join-form.tsx; shared .edu check in school-email.ts)
 │   │   ├── donate/                # HCB donation iframe
 │   │   ├── open-letter/           # Open letter + signatories
 │   │   ├── contact-us/            # Contact page
@@ -175,7 +175,7 @@ ACTION_NETWORK_AUTORESPONSE=     # optional; set to false to skip the form's aut
 
 - The site is **open source**: https://github.com/campus-climate-network/campus-climate-network
 - Donations go through **HCB** (Hack Club Bank) iframe embed
-- Take action form is a custom-designed form that submits to the **Action Network API** (Record Submission Helper) via a server action (`take-action/actions.ts`); the API key stays server-side. Custom field names must match the Action Network form's fields exactly (e.g. `School 1`, `Campaign Interest_Divestment`)
+- Take action form is a custom-designed form that submits to the **Action Network API** (Record Submission Helper) via a server action (`take-action/actions.ts`); the API key stays server-side. Custom field names must match the Action Network form's fields exactly (e.g. `Student Organizer`)
 - Images served from `cdn.sanity.io` and `images.squarespace-cdn.com` (allowed in next.config.ts)
 - `styled-components` is a dependency (required by Sanity Studio) but not used in site code
 - Member portal content lives in **Notion**; fetched via `notion-client` and rendered with `react-notion-x` (`notion-types`/`notion-utils` for traversal). Access is gated by a server-side HMAC cookie keyed off `MEMBER_PORTAL_PASSWORD` (see `member-portal/actions.ts`)

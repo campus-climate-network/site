@@ -11,26 +11,7 @@ import type { FormEvent } from 'react'
 
 import { cn } from '@/lib/utils'
 import { submitJoinForm } from './actions'
-import {
-  CAMPAIGN_INTERESTS,
-  CAMPAIGN_STATUS_OPTIONS,
-  COUNTRY_CODES,
-  MEMBER_TYPES,
-} from './join-form-options'
-
-// Guarded so browsers without Intl.DisplayNames fall back to raw codes
-// instead of throwing during module evaluation and breaking the form.
-const regionNames =
-  typeof Intl.DisplayNames === 'undefined'
-    ? null
-    : new Intl.DisplayNames(['en'], { type: 'region' })
-
-const COUNTRIES = COUNTRY_CODES.map((code) => ({
-  code,
-  name: regionNames?.of(code) ?? code,
-  // Pin the collation locale: the module runs on both server and client, and
-  // a locale-sensitive sort would reorder options and break hydration.
-})).sort((a, b) => a.name.localeCompare(b.name, 'en'))
+import { isEduEmail } from './school-email'
 
 const fieldClasses = 'flex flex-col gap-1.5'
 
@@ -85,9 +66,13 @@ function TextField({
 
 export function JoinForm() {
   const [state, formAction, isPending] = useActionState(submitJoinForm, null)
-  const [interestError, setInterestError] = useState(false)
+  // 0 = no nudge; incrementing remounts the message (via key) so the pop-in
+  // and cap-toss animations replay on every rejected submit. Nudging only on
+  // submit (never on blur) keeps the layout stable mid-tap — a blur-mounted
+  // message shifts the Sign up button under the pointer and eats the click.
+  const [nudge, setNudge] = useState(0)
   const successHeadingRef = useRef<HTMLHeadingElement>(null)
-  const interestFieldsetRef = useRef<HTMLFieldSetElement>(null)
+  const emailRef = useRef<HTMLInputElement>(null)
 
   // The success panel replaces the form (and the focused submit button), so
   // move focus to its heading — screen readers announce it and keyboard users
@@ -103,16 +88,12 @@ export function JoinForm() {
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
-    if (formData.getAll('interest').length === 0) {
-      setInterestError(true)
-      // Put keyboard users where they can fix the problem; the role="alert"
-      // message announces itself.
-      interestFieldsetRef.current
-        ?.querySelector<HTMLInputElement>('input[type="checkbox"]')
-        ?.focus()
+    const email = formData.get('email')
+    if (typeof email === 'string' && isEduEmail(email)) {
+      setNudge((count) => count + 1)
+      emailRef.current?.focus()
       return
     }
-    setInterestError(false)
     // Forward ?source=... link attribution to Action Network's sources chart
     // (the old embed script captured this automatically).
     const source = new URLSearchParams(window.location.search).get('source')
@@ -172,7 +153,6 @@ export function JoinForm() {
       </div>
 
       <div className="flex flex-col gap-5">
-        <p className="eyebrow text-xs text-brand-secondary">About you</p>
         <div className="grid gap-5 sm:grid-cols-2">
           <TextField
             label="First name"
@@ -188,178 +168,57 @@ export function JoinForm() {
             placeholder="Last name"
             autoComplete="family-name"
           />
-          <TextField
-            label="Email"
+        </div>
+        <div className={fieldClasses}>
+          <label htmlFor="join-email" className={labelClasses}>
+            Personal email
+            <RequiredMark />
+          </label>
+          <input
+            ref={emailRef}
+            id="join-email"
             name="email"
             type="email"
             required
-            placeholder="you@school.edu"
+            placeholder="you@gmail.com"
             autoComplete="email"
+            aria-invalid={nudge > 0 || undefined}
+            aria-describedby={
+              nudge > 0 ? 'join-email-error' : 'join-email-hint'
+            }
+            onChange={(event) => {
+              if (!isEduEmail(event.currentTarget.value)) setNudge(0)
+            }}
+            className={cn(inputClasses, nudge > 0 && 'join-email-shake')}
           />
-          <TextField
-            label="Mobile number"
-            name="phone"
-            type="tel"
-            required
-            placeholder="Mobile number"
-            autoComplete="tel"
-          />
-          <TextField
-            label="Zip / postal code"
-            name="zipCode"
-            required
-            placeholder="Zip / postal code"
-            autoComplete="postal-code"
-          />
-          <div className={fieldClasses}>
-            <label htmlFor="join-country" className={labelClasses}>
-              Country
-              <RequiredMark />
-            </label>
-            <select
-              id="join-country"
-              name="country"
-              required
-              defaultValue="US"
-              autoComplete="country"
-              className={cn(inputClasses, 'appearance-auto')}
-            >
-              {COUNTRIES.map(({ code, name }) => (
-                <option key={code} value={code}>
-                  {name}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className={fieldClasses}>
-          <label htmlFor="join-memberType" className={labelClasses}>
-            I am a...
-          </label>
-          <select
-            id="join-memberType"
-            name="memberType"
-            defaultValue=""
-            className={cn(inputClasses, 'appearance-auto')}
-          >
-            <option value="">Select one (optional)</option>
-            {MEMBER_TYPES.map((type) => (
-              <option key={type} value={type}>
-                {type}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-5">
-        <p className="eyebrow text-xs text-brand-secondary">Your campus</p>
-        <div className="grid gap-5 sm:grid-cols-2">
-          <TextField
-            label="College or university"
-            name="school"
-            required
-            placeholder="College or university"
-          />
-          <TextField
-            label="Graduation year"
-            name="graduationYear"
-            required
-            placeholder="e.g. 2028"
-          />
-        </div>
-        <TextField
-          label="Organization"
-          name="organization"
-          required
-          placeholder="Your student org or climate group"
-        />
-        <TextField
-          label="How did you find us?"
-          name="referralSource"
-          placeholder="Social media, event, Sunrise reference"
-        />
-      </div>
-
-      <div className="flex flex-col gap-6">
-        <p className="eyebrow text-xs text-brand-secondary">Your campaign</p>
-        <fieldset>
-          <legend className={cn(labelClasses, 'mb-3')}>
-            Are you and your student org currently involved in a university
-            campaign?
-            <RequiredMark />
-          </legend>
-          <div className="flex flex-col gap-2.5">
-            {CAMPAIGN_STATUS_OPTIONS.map((option) => (
-              <label
-                key={option}
-                className="flex items-center gap-2.5 text-sm font-medium text-slate-700"
-              >
-                <input
-                  type="radio"
-                  name="campaignStatus"
-                  value={option}
-                  required
-                  className="h-4 w-4 accent-brand-primary"
-                />
-                {option}
-              </label>
-            ))}
-          </div>
-        </fieldset>
-
-        <fieldset
-          ref={interestFieldsetRef}
-          aria-required="true"
-          aria-invalid={interestError || undefined}
-          aria-describedby={interestError ? 'join-interest-error' : undefined}
-        >
-          <legend className={cn(labelClasses, 'mb-3')}>
-            Which campaign is your student org currently, or interested in,
-            running? (check all that apply)
-            <RequiredMark />
-            <span className="sr-only"> (required)</span>
-          </legend>
-          <div className="grid gap-2.5 sm:grid-cols-2">
-            {CAMPAIGN_INTERESTS.map((interest) => (
-              <label
-                key={interest}
-                className="flex items-center gap-2.5 text-sm font-medium text-slate-700"
-              >
-                <input
-                  type="checkbox"
-                  name="interest"
-                  value={interest}
-                  onChange={() => setInterestError(false)}
-                  className="h-4 w-4 rounded accent-brand-primary"
-                />
-                {interest}
-              </label>
-            ))}
-          </div>
-          {interestError && (
+          {nudge > 0 ? (
             <p
-              id="join-interest-error"
+              key={nudge}
+              id="join-email-error"
               role="alert"
-              className="mt-3 text-sm font-medium text-red-600"
+              className="join-email-nudge text-sm font-medium text-brand-primary"
             >
-              Please select at least one campaign.
+              <span aria-hidden="true" className="join-email-nudge-cap">
+                🎓
+              </span>{' '}
+              Whoops — that looks like a school email! We’d love a personal
+              address instead.
+            </p>
+          ) : (
+            <p id="join-email-hint" className="text-xs text-slate-500">
+              Please use a personal email, not your school email.
             </p>
           )}
-        </fieldset>
-
-        <div className={fieldClasses}>
-          <label htmlFor="join-supportNeeds" className={labelClasses}>
-            How can CCN best support you and your student organization?
-          </label>
-          <textarea
-            id="join-supportNeeds"
-            name="supportNeeds"
-            rows={5}
-            placeholder="Trainings, funding, campaign strategy, connections to other campuses..."
-            className={cn(inputClasses, 'min-h-28 resize-y rounded-2xl')}
-          />
         </div>
+        <label className="flex items-center gap-2.5 text-sm font-medium text-slate-700">
+          <input
+            type="checkbox"
+            name="studentOrganizer"
+            value="1"
+            className="h-4 w-4 rounded accent-brand-primary"
+          />
+          Are you currently a student organizer?
+        </label>
       </div>
 
       <div className="flex flex-col gap-3">
