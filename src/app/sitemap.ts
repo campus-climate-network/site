@@ -1,10 +1,19 @@
 import type { MetadataRoute } from 'next'
 import { client } from '@/sanity/lib/client'
-import { POST_SLUGS_WITH_DATES_QUERY } from '@/sanity/lib/queries'
+import {
+  JOB_ROLE_SLUGS_QUERY,
+  POST_SLUGS_WITH_DATES_QUERY,
+} from '@/sanity/lib/queries'
+import { todayInEastern } from '@/sanity/lib/job-role'
 import { SITE_URL } from '@/lib/site'
 import { programs } from '@/app/(site)/programs/programs-data'
 
 const baseUrl = SITE_URL
+
+// Regenerate daily: a role can close purely by its deadline (no Sanity
+// mutation, so no webhook), and blog posts can be scheduled into the future.
+// Tag revalidation still refreshes it immediately on publish.
+export const revalidate = 86400
 
 type PostWithDates = {
   slug: string
@@ -94,5 +103,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // If Sanity fetch fails, continue without blog entries
   }
 
-  return [...staticEntries, ...blogEntries]
+  // Open job postings. Closed roles drop out here and go noindex on their
+  // own page; the daily revalidate above bounds how long a deadline-closed
+  // role can linger.
+  let jobEntries: MetadataRoute.Sitemap = []
+  try {
+    const roles = await client.fetch<{ slug: string; _updatedAt: string }[]>(
+      JOB_ROLE_SLUGS_QUERY,
+      { today: todayInEastern() },
+      { next: { revalidate: 86400, tags: ['jobRole'] } },
+    )
+    jobEntries = roles.map((role) => ({
+      url: `${baseUrl}/hiring/${role.slug}`,
+      lastModified: new Date(role._updatedAt),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }))
+  } catch {
+    // If Sanity fetch fails, continue without job entries
+  }
+
+  return [...staticEntries, ...blogEntries, ...jobEntries]
 }

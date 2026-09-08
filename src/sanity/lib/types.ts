@@ -1,3 +1,5 @@
+import type { PortableTextBlock } from '@portabletext/react'
+
 export type PostListItem = {
   _id: string
   title: string
@@ -28,4 +30,27 @@ export type PostDetail = PostListItem & {
     title?: string
     slug?: string
   }[]
+}
+
+// Careers (jobRole documents). Sanity projections return null for unset
+// fields, hence the `| null`s. Listed roles always have a slug (the open
+// filter requires one); the detail query is by slug, so it's present there too.
+export type JobRoleListItem = {
+  _id: string
+  title: string
+  slug: string
+  description?: string | null
+  compensation?: string | null
+  employmentType?: string | null
+  locationType?: string | null
+  location?: string | null
+  applicationUrl?: string | null
+  postedAt: string
+  applicationDeadline?: string | null
+}
+
+export type JobRoleDetail = JobRoleListItem & {
+  _updatedAt?: string
+  body?: PortableTextBlock[] | null
+  isOpen?: boolean | null
 }

@@ -1,8 +1,16 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
+import { ArrowUpRight } from 'lucide-react'
 import { ScrollReveal, StaggerReveal } from '@/components/scroll-reveal'
-import { JobPostingJsonLd } from '@/components/json-ld'
+import { formatPostDate } from '@/components/post-card'
 import { client } from '@/sanity/lib/client'
+import {
+  employmentTypeLabel,
+  formatJobLocation,
+  todayInEastern,
+} from '@/sanity/lib/job-role'
 import { JOB_ROLES_QUERY } from '@/sanity/lib/queries'
+import type { JobRoleListItem } from '@/sanity/lib/types'
 
 export const revalidate = 3600
 
@@ -15,21 +23,65 @@ export const metadata: Metadata = {
   },
 }
 
-interface JobRole {
-  _id: string
-  title: string
-  department: string | null
-  location: string | null
-  description: string | null
-  applicationUrl: string | null
-  postedAt: string
-}
-
-async function getJobRoles(): Promise<JobRole[]> {
+async function getJobRoles(): Promise<JobRoleListItem[]> {
   return client.fetch(
     JOB_ROLES_QUERY,
-    {},
+    { today: todayInEastern() },
     { next: { revalidate: 3600, tags: ['jobRole'] } },
+  )
+}
+
+function JobRoleCard({ role }: { role: JobRoleListItem }) {
+  const facts = [
+    employmentTypeLabel(role.employmentType),
+    formatJobLocation(role.locationType, role.location),
+    role.compensation,
+  ].filter((fact): fact is string => Boolean(fact?.trim()))
+  const applyBy = formatPostDate(role.applicationDeadline)
+
+  return (
+    <article className="group relative flex flex-col gap-4 rounded-3xl border border-slate-200/80 bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+      <div className="stack stack-tight">
+        <h3 className="text-lg font-semibold text-slate-900">
+          {/* Stretched link: the title is the accessible link and its
+              ::after box makes the whole card the click target. */}
+          <Link
+            href={`/hiring/${role.slug}`}
+            className="transition-colors after:absolute after:inset-0 after:rounded-3xl group-hover:text-brand-primary"
+          >
+            {role.title}
+          </Link>
+        </h3>
+        {facts.length > 0 && (
+          <ul className="flex flex-wrap gap-2">
+            {facts.map((fact) => (
+              <li
+                key={fact}
+                className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700"
+              >
+                {fact}
+              </li>
+            ))}
+          </ul>
+        )}
+        {role.description && (
+          <p className="line-clamp-3 text-base text-slate-600">
+            {role.description}
+          </p>
+        )}
+      </div>
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm text-slate-500">
+          {applyBy ? `Apply by ${applyBy}` : 'Open until filled'}
+        </p>
+        <span
+          aria-hidden="true"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-primary transition group-hover:gap-2.5 group-hover:text-brand-secondary"
+        >
+          View role <ArrowUpRight className="h-4 w-4" />
+        </span>
+      </div>
+    </article>
   )
 }
 
@@ -38,16 +90,6 @@ export default async function HiringPage() {
 
   return (
     <div className="page-wrapper">
-      {roles.map((role) => (
-        <JobPostingJsonLd
-          key={role._id}
-          title={role.title}
-          description={role.description ?? role.title}
-          datePosted={role.postedAt}
-          location={role.location ?? undefined}
-          applicationUrl={role.applicationUrl ?? undefined}
-        />
-      ))}
       <section className="bg-brand-secondary/10 section-hero">
         <div className="page-container stack stack-tight text-left">
           <p className="eyebrow text-xs sm:text-sm text-brand-secondary">
@@ -72,7 +114,7 @@ export default async function HiringPage() {
             </h2>
             {roles.length > 0 ? (
               <p className="text-base text-slate-600">
-                We’re hiring! Check out our open positions below.
+                We’re hiring! Select a role to read the full posting and apply.
               </p>
             ) : (
               <p className="text-base text-slate-600">
@@ -90,40 +132,7 @@ export default async function HiringPage() {
             className="grid gap-4"
           >
             {roles.map((role) => (
-              <div
-                key={role._id}
-                className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
-              >
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                  <div className="stack stack-compact">
-                    <h3 className="text-lg font-semibold text-slate-900">
-                      {role.title}
-                    </h3>
-                    {(role.department || role.location) && (
-                      <p className="text-sm text-slate-500">
-                        {[role.department, role.location]
-                          .filter(Boolean)
-                          .join(' · ')}
-                      </p>
-                    )}
-                    {role.description && (
-                      <p className="mt-1 text-base text-slate-600">
-                        {role.description}
-                      </p>
-                    )}
-                  </div>
-                  {role.applicationUrl && (
-                    <a
-                      href={role.applicationUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex shrink-0 items-center rounded-full bg-brand-primary px-5 py-2 text-sm font-semibold text-white transition-colors hover:bg-brand-secondary"
-                    >
-                      Apply
-                    </a>
-                  )}
-                </div>
-              </div>
+              <JobRoleCard key={role._id} role={role} />
             ))}
           </StaggerReveal>
         )}

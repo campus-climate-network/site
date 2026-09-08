@@ -45,7 +45,10 @@ src/
 │   │   ├── donate/                # HCB donation iframe
 │   │   ├── open-letter/           # Open letter + signatories
 │   │   ├── contact-us/            # Contact page
-│   │   ├── hiring/                # Careers page (open roles from Sanity jobRole docs)
+│   │   ├── hiring/                # Careers listing (open jobRole docs; cards link to per-role pages)
+│   │   │   ├── [slug]/page.tsx    # Job posting: facts panel + Portable Text body + external Apply; closed roles render a notice and noindex
+│   │   │   ├── apply-link.tsx     # Shared Apply pill (new tab for http(s), in place for mailto:)
+│   │   │   └── organization-overview.tsx  # Boilerplate closing every posting (org overview, fiscal sponsor, EEO statement)
 │   │   ├── impact-reports/2025/   # 2025 impact report (animated counters, scroll header)
 │   │   └── member-portal/         # Password-gated, Notion-backed member portal (noindex)
 │   │       ├── [[...pageId]]/page.tsx  # Renders Notion pages via react-notion-x
@@ -64,6 +67,7 @@ src/
 │   ├── timeline.tsx               # Generic vertical scroll timeline
 │   ├── json-ld.tsx                # Structured data components (Organization, Article, JobPosting, FAQ, etc.)
 │   ├── post-card.tsx              # Shared blog-post card + byline/date helpers (used by /blog and /programs/[slug])
+│   ├── portable-text-body.tsx     # Shared Portable Text body wrapper + typography (blog posts and job postings)
 │   ├── closing-cta.tsx            # Shared gradient closing-CTA panel (props: heading/body/CTAs)
 │   ├── faq-section.tsx            # Visible FAQ accordion + FAQPage JSON-LD from the same data
 │   └── fancy/blocks/stacking-cards.tsx  # Scroll-triggered stacking card sections (motion)
@@ -78,6 +82,7 @@ src/
     │   ├── client.ts             # Sanity client (CDN disabled for ISR freshness)
     │   ├── queries.ts            # All GROQ queries
     │   ├── types.ts              # TypeScript types for Sanity data
+    │   ├── job-role.ts           # jobRole option lists, labels, and the open/closed rule (shared by schema + site)
     │   └── image.ts              # urlFor() image URL builder
     ├── schemaTypes/
     │   ├── index.ts              # Schema registry
@@ -87,7 +92,7 @@ src/
     │   ├── blockContentType.ts   # Rich text (Portable Text)
     │   ├── memberOrgType.ts      # Member organization (map + listing)
     │   ├── movementWinType.ts    # Movement win (timeline)
-    │   └── jobRoleType.ts        # Job role / open position (powers /hiring)
+    │   └── jobRoleType.ts        # Job role / open position (powers /hiring + /hiring/[slug]; option lists from lib/job-role.ts)
     └── structure.ts              # Sanity Studio desk structure
 ```
 
@@ -122,7 +127,8 @@ src/
 ### Data Fetching
 
 - Sanity client with `useCdn: false` for fresh ISR data
-- Blog pages use `revalidate = 60` (ISR every 60 seconds); `/hiring` and `/programs/[slug]` use `revalidate = 3600` (1h); `/our-network` and the homepage have no time-based `revalidate` (static, refreshed via the webhook's `memberOrg` tag or redeploy); `/impact` is fully static (wins live in local `wins-data.ts`)
+- Blog pages use `revalidate = 60` (ISR every 60 seconds); `/hiring`, `/hiring/[slug]`, and `/programs/[slug]` use `revalidate = 3600` (1h); `/our-network` and the homepage have no time-based `revalidate` (static, refreshed via the webhook's `memberOrg` tag or redeploy); `/impact` is fully static (wins live in local `wins-data.ts`)
+- Careers open/closed rule: a role is listed while `isOpen` is on and its optional `applicationDeadline` (inclusive) hasn't passed. The GROQ filter takes `$today` (YYYY-MM-DD in US Eastern, `todayInEastern()` in `src/sanity/lib/job-role.ts`), so expired roles drop out on the next ISR regeneration without an editor touching them. `/hiring/[slug]` fetches closed roles too and renders a "no longer accepting applications" notice with `noindex`, so shared links keep working. The filter also requires a slug, so a document without one is never listed. The sitemap regenerates daily (`revalidate = 86400`) so deadline-closed roles drop out without a webhook
 - GROQ queries centralized in `src/sanity/lib/queries.ts`
 - Member orgs fetched server-side, geocoded client-side via Mapbox API
 
@@ -130,7 +136,7 @@ src/
 
 - `POST /api/revalidate` (`src/app/api/revalidate/route.ts`) refreshes pages the moment content is published/unpublished/deleted in Sanity. Time-based ISR above is the fallback.
 - Signature is validated with `parseBody` from `next-sanity/webhook` using `SANITY_REVALIDATE_SECRET` (server-only). Unsigned/invalid requests → 401.
-- Tag-based: every Sanity `client.fetch` passes `next: { tags }` (or `cache: 'force-cache'` + tags on fully static pages) naming the document types its query renders — post queries carry `POST_TAGS` (`post`/`author`/`category`, since they dereference authors and categories; exported from `queries.ts`), `/hiring` tags `jobRole`, the member-org fetches (home, `/our-network`) tag `memberOrg`, and the sitemap tags `post`. The webhook calls `revalidateTag(_type)`, so a new page that renders Sanity content only needs to tag its own fetch — there is no per-page registry to update.
+- Tag-based: every Sanity `client.fetch` passes `next: { tags }` (or `cache: 'force-cache'` + tags on fully static pages) naming the document types its query renders — post queries carry `POST_TAGS` (`post`/`author`/`category`, since they dereference authors and categories; exported from `queries.ts`), the careers pages (`/hiring`, `/hiring/[slug]`) tag `jobRole`, the member-org fetches (home, `/our-network`) tag `memberOrg`, and the sitemap tags `post` and `jobRole`. The webhook calls `revalidateTag(_type)`, so a new page that renders Sanity content only needs to tag its own fetch — there is no per-page registry to update.
 - Sanity webhook config: URL `https://www.campusclimatenetwork.org/api/revalidate` (use `www.` — the apex 307-redirects), POST, projection `{ "_type": _type, "slug": slug.current }` (only `_type` is read now — tag revalidation doesn't need the slug — but the projection is fine as-is), Drafts/Versions disabled, secret = `SANITY_REVALIDATE_SECRET`.
 
 ### Hidden/WIP Pages
@@ -144,6 +150,7 @@ src/
 - Every public page sets `alternates.canonical`; the root layout deliberately omits og/twitter `title`/`description`/`url` so each page's own metadata flows into social cards
 - `/member-portal` and `/studio` — EXCLUDED from sitemap and noindexed. Do not robots-disallow `/member-portal`: crawlers must be able to fetch it to see the noindex
 - FAQ content: `src/components/faq-section.tsx` renders the visible FAQ accordion and its `FAQPage` JSON-LD from the same data — never emit FAQ JSON-LD without matching visible content (structured-data spam signal)
+- `JobPosting` JSON-LD is emitted only on `/hiring/[slug]` (one posting per URL, as Google requires) and only while the role is open; the listing page carries none
 - `public/llms.txt` — AI-crawler site summary; update its links when pages are added or renamed
 
 ## Environment Variables
