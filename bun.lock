@@ -16,13 +16,13 @@
         "motion": "^13.2.0",
         "next": "^16.3.4",
         "next-sanity": "^13.3.4",
-        "notion-client": "^7.12.1",
-        "notion-types": "^7.12.1",
-        "notion-utils": "^7.12.1",
+        "notion-client": "^8.0.8",
+        "notion-types": "^8.0.8",
+        "notion-utils": "^8.0.8",
         "react": "^19.2.8",
         "react-dom": "^19.2.8",
         "react-map-gl": "^8.1.3",
-        "react-notion-x": "^7.12.1",
+        "react-notion-x": "^8.0.8",
         "sanity": "^6.13.0",
         "styled-components": "^6.5.3",
         "tailwind-merge": "^3.6.0",
@@ -1856,11 +1856,11 @@
 
     "normalize-url": ["normalize-url@9.0.1", "", {}, "sha512-ARftfC5HdUNu9jJeL8pHj8debUIHA2b91FizCoMzY4lG6dDX13jdvTK0TBe24IBDRf2HvJSzzwEPvmbkQWHRSg=="],
 
-    "notion-client": ["notion-client@7.12.1", "", { "dependencies": { "notion-types": "7.12.1", "notion-utils": "7.12.1", "ofetch": "^1.5.1", "p-map": "^7.0.6" } }, "sha512-Oq2xrA31ASYxkj84+3P3EnYDqoVV6tnpY63itxjC0AP6FXAWcAc/rC5HwGndZHI2Iv9sUjudrZu7eg3FmFsdtQ=="],
+    "notion-client": ["notion-client@8.0.8", "", { "dependencies": { "notion-types": "8.0.8", "notion-utils": "8.0.8", "ofetch": "^1.5.1", "p-map": "^7.0.6" } }, "sha512-5oRaef3lxsaM7KOIKcTTlhnAI8KSj5FQH7uA0tmgLxjBMLmE40/+orwIzwIBi8PvTeTsx+Gj8k9CBAOg5XB7fg=="],
 
-    "notion-types": ["notion-types@7.12.1", "", {}, "sha512-QDeHECIR1RZJzZ+baqWTKRAHIKU05G9iNmno9I0+y/NOLmCyfqTZv7xct0JtIvXw0A7ndGoR7cYthFFPbgje+w=="],
+    "notion-types": ["notion-types@8.0.8", "", {}, "sha512-crMgFadWAa1XSOMBAKfgy1eB9RW9e1v7j61lm0/ksalz91tCJwbu1sYbkbjvB1UWjC3jHhuKfwsT4FkUZh8z9w=="],
 
-    "notion-utils": ["notion-utils@7.12.1", "", { "dependencies": { "is-url-superb": "^6.1.0", "memoize": "^11.0.0", "normalize-url": "^9.0.1", "notion-types": "7.12.1", "p-queue": "^9.3.3" } }, "sha512-Zu8jbeHBzoSjszbj6yjkkODCH7ckhMWIWbSLqrfA9smCJ/4kwhfIch26pPaxmAG/7TjH1wykMoTis1ELVHTmuQ=="],
+    "notion-utils": ["notion-utils@8.0.8", "", { "dependencies": { "is-url-superb": "^6.1.0", "memoize": "^11.0.0", "normalize-url": "^9.0.1", "notion-types": "8.0.8", "p-queue": "^9.3.3" } }, "sha512-TGOmuJqOjOXeBhi1Tab8OyuAUSDrNi8C4skRpIwRGrBGZCKtql2WB9BwcAgNQCt+bwUlyQfmPmEnI7DwibythQ=="],
 
     "npm-run-path": ["npm-run-path@6.0.0", "", { "dependencies": { "path-key": "^4.0.0", "unicorn-magic": "^0.3.0" } }, "sha512-9qny7Z9DsQU8Ou39ERsPU4OZQlSTP47ShQzuKZ6PRXpYLtIFgl/DEBYEXKlvcEa+9tHVcK8CF81Y2V72qaZhWA=="],
 
@@ -2014,8 +2014,6 @@
 
     "react-image": ["react-image@4.1.0", "", { "peerDependencies": { "@babel/runtime": ">=7", "react": ">=16.8", "react-dom": ">=16.8" } }, "sha512-qwPNlelQe9Zy14K2pGWSwoL+vHsAwmJKS6gkotekDgRpcnRuzXNap00GfibD3eEPYu3WCPlyIUUNzcyHOrLHjw=="],
 
-    "react-intersection-observer": ["react-intersection-observer@11.0.1", "", { "peerDependencies": { "react": "^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0" }, "optionalPeers": ["react-dom"] }, "sha512-BIZ1M40GPSKDIT1MJbXK7SB0BwBaTKr84QfZCs5asKer7YMOYLzMi+RI1F4VStbZLGHoosJmd+aOQDDipUV1gA=="],
-
     "react-is": ["react-is@19.2.8", "", {}, "sha512-s5un28nYxKJw5gvUHyW5PCC28CvBqLu9r3cWgzHT4Vo/5fqqkFcdRYsGcKf50WMPpjjFZS5d76fn3YCo2njKwQ=="],
 
     "react-lifecycles-compat": ["react-lifecycles-compat@3.0.4", "", {}, "sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA=="],
@@ -2024,7 +2022,7 @@
 
     "react-modal": ["react-modal@3.16.3", "", { "dependencies": { "exenv": "^1.2.0", "prop-types": "^15.7.2", "react-lifecycles-compat": "^3.0.0", "warning": "^4.0.3" }, "peerDependencies": { "react": "^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18 || ^19", "react-dom": "^0.14.0 || ^15.0.0 || ^16 || ^17 || ^18 || ^19" } }, "sha512-yCYRJB5YkeQDQlTt17WGAgFJ7jr2QYcWa1SHqZ3PluDmnKJ/7+tVU+E6uKyZ0nODaeEj+xCpK4LcSnKXLMC0Nw=="],
 
-    "react-notion-x": ["react-notion-x@7.12.1", "", { "dependencies": { "@fisch0920/medium-zoom": "^1.0.7", "@matejmazur/react-katex": "^3.1.3", "katex": "0.18.4", "notion-types": "7.12.1", "notion-utils": "7.12.1", "prismjs": "^1.30.0", "react-fast-compare": "^3.2.0", "react-hotkeys-hook": "^5.3.3", "react-image": "^4.0.3", "react-intersection-observer": "^11.0.0", "react-modal": "^3.16.3", "unionize": "^3.1.0" }, "optionalDependencies": { "react-pdf": "^10.4.1" }, "peerDependencies": { "react": ">=18", "react-dom": ">=18" } }, "sha512-AgCRIzlDWuVT2U21mUggJK2qm+KNcIBl4GDWFBjz5x2rORz0vBy1XUEzUB1c4qfpD7M5kFoPe/DOusOtxBYtTQ=="],
+    "react-notion-x": ["react-notion-x@8.0.8", "", { "dependencies": { "@fisch0920/medium-zoom": "^1.0.7", "@matejmazur/react-katex": "^3.1.3", "katex": "0.18.4", "notion-types": "8.0.8", "notion-utils": "8.0.8", "prismjs": "^1.30.0", "react-fast-compare": "^3.2.0", "react-hotkeys-hook": "^5.3.3", "react-image": "^4.0.3", "react-modal": "^3.16.3" }, "optionalDependencies": { "react-pdf": "^10.5.0" }, "peerDependencies": { "react": ">=18", "react-dom": ">=18" } }, "sha512-WkfRnDnpfVoS1H5YLlaZ6fldvGX0IqoTLA/5Rd8/sDKaLlCOb5rJZXdSyPlLMj1mIZ2vfylzNi5Ds/gBm536AQ=="],
 
     "react-pdf": ["react-pdf@10.5.0", "", { "dependencies": { "clsx": "^2.0.0", "dequal": "^2.0.3", "make-cancellable-promise": "^2.0.0", "make-event-props": "^2.0.0", "merge-refs": "^2.0.0", "pdfjs-dist": "5.4.296", "tiny-invariant": "^1.0.0", "warning": "^4.0.0" }, "peerDependencies": { "@types/react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0" }, "optionalPeers": ["@types/react"] }, "sha512-zGKb6Ph5AYn2OfO4TS8Gg0Go3eW5K/TKy0+0FTm8EwFNbpgbuaWBZoJdYkJt+cRBCkizE9dYvqtMtHRj522Q4w=="],
 
@@ -2305,8 +2303,6 @@
     "unicorn-magic": ["unicorn-magic@0.3.0", "", {}, "sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA=="],
 
     "union-value": ["union-value@1.0.1", "", { "dependencies": { "arr-union": "^3.1.0", "get-value": "^2.0.6", "is-extendable": "^0.1.1", "set-value": "^2.0.1" } }, "sha512-tJfXmxMeWYnczCVs7XAEvIV7ieppALdyepWMkHkwciRpZraG/xwT+s2JN8+pr1+8jCRf80FFzvr+MpQeeoF4Xg=="],
-
-    "unionize": ["unionize@3.1.0", "", {}, "sha512-LQZvbanzvpzvK0QYgRvnaA9VVe+g4nTbRlyoGGWDKFrZn0HJnDN5LC2Ti0+BxpKKOCrL3BQcRBVFPy/t12Y24Q=="],
 
     "unist-util-filter": ["unist-util-filter@5.0.1", "", { "dependencies": { "@types/unist": "^3.0.0", "unist-util-is": "^6.0.0", "unist-util-visit-parents": "^6.0.0" } }, "sha512-pHx7D4Zt6+TsfwylH9+lYhBhzyhEnCXs/lbq/Hstxno5z4gVdyc2WEW0asfjGKPyG4pEKrnBv5hdkO6+aRnQJw=="],
 
