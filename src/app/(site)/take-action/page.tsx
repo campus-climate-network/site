@@ -17,7 +17,12 @@ const takeActionFaqs = [
   {
     question: 'How do I join Campus Climate Network?',
     answer:
-      'Fill out our intake form on this page and our organizing team will reach out within a few days to schedule an onboarding call. We welcome students, faculty, alumni, and community members who want to fight fossil fuel influence on campus.',
+      'Sign up with your name and a personal email using the form on this page, and our organizing team will reach out within a few days to schedule an onboarding call. We welcome students, faculty, alumni, and community members who want to fight fossil fuel influence on campus.',
+  },
+  {
+    question: 'Why do you ask for a personal email instead of my school email?',
+    answer:
+      'School inboxes are usually shut off when you graduate or transfer, and we want to stay in touch beyond your time on campus. A personal address keeps you connected to the network, its trainings, and its alumni community for the long haul.',
   },
   {
     question: 'What support does Campus Climate Network provide?',
@@ -48,10 +53,10 @@ export default function TakeActionPage() {
             Join Campus Climate Network
           </h1>
           <p className="text-base text-slate-700">
-            Ready to build power on your campus? Fill out the intake form below
-            and our organizing team will reach out with next steps. Whether
-            you’re launching a new campaign or scaling an existing effort, we’re
-            here to help.
+            Ready to build power on your campus? Sign up below with your name
+            and a personal email, and our organizing team will reach out within
+            a few days to set up an onboarding call. Whether you’re launching a
+            new campaign or scaling an existing effort, we’re here to help.
           </p>
         </div>
       </section>

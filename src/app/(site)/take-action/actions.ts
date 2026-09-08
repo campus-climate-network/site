@@ -1,11 +1,7 @@
 'use server'
 
-import {
-  CAMPAIGN_INTERESTS,
-  CAMPAIGN_STATUS_OPTIONS,
-  COUNTRY_CODES,
-  MEMBER_TYPES,
-} from './join-form-options'
+import { SITE_URL } from '@/lib/site'
+import { isEduEmail } from './school-email'
 
 export type JoinFormState =
   { status: 'success' } | { status: 'error'; message: string } | null
@@ -34,40 +30,9 @@ export async function submitJoinForm(
   const firstName = field(formData, 'firstName')
   const lastName = field(formData, 'lastName')
   const email = field(formData, 'email')
-  const phone = field(formData, 'phone')
-  const zipCode = field(formData, 'zipCode')
-  const country = field(formData, 'country')
-  const memberType = field(formData, 'memberType')
-  const school = field(formData, 'school')
-  const graduationYear = field(formData, 'graduationYear')
-  const organization = field(formData, 'organization')
-  const referralSource = field(formData, 'referralSource')
-  const campaignStatus = field(formData, 'campaignStatus')
-  const supportNeeds = field(formData, 'supportNeeds')
+  const isStudentOrganizer = field(formData, 'studentOrganizer') === '1'
 
-  const interests = formData
-    .getAll('interest')
-    .filter((value): value is string => typeof value === 'string')
-    .filter((value) =>
-      (CAMPAIGN_INTERESTS as readonly string[]).includes(value),
-    )
-
-  const requiredFields = [
-    firstName,
-    lastName,
-    email,
-    phone,
-    zipCode,
-    school,
-    graduationYear,
-    organization,
-  ]
-  if (
-    requiredFields.some((value) => !value) ||
-    !(CAMPAIGN_STATUS_OPTIONS as readonly string[]).includes(campaignStatus) ||
-    !(COUNTRY_CODES as readonly string[]).includes(country) ||
-    (memberType && !(MEMBER_TYPES as readonly string[]).includes(memberType))
-  ) {
+  if (!firstName || !lastName || !email) {
     return {
       status: 'error',
       message: 'Please fill in all required fields and try again.',
@@ -76,10 +41,13 @@ export async function submitJoinForm(
   if (!EMAIL_PATTERN.test(email)) {
     return { status: 'error', message: 'Please enter a valid email address.' }
   }
-  if (interests.length === 0) {
+  // Backstop for the client-side nudge — .edu addresses are rejected so we
+  // don't lose members to expiring inboxes.
+  if (isEduEmail(email)) {
     return {
       status: 'error',
-      message: 'Please select at least one campaign.',
+      message:
+        'That looks like a school email — please sign up with a personal address instead.',
     }
   }
 
@@ -90,26 +58,6 @@ export async function submitJoinForm(
       'Action Network is not configured: missing ACTION_NETWORK_API_KEY or ACTION_NETWORK_FORM_ID',
     )
     return { status: 'error', message: GENERIC_ERROR }
-  }
-
-  const customFields: Record<string, string> = {
-    'School 1': school,
-    'Organization 1': organization,
-    'Graduation Year': graduationYear,
-    'Currently running a campaign?': campaignStatus,
-  }
-  if (memberType) {
-    customFields['Type (Student, Faculty, Alumni, Other)'] = memberType
-  }
-  if (referralSource) customFields['Come from'] = referralSource
-  if (supportNeeds) customFields['Needs for CCN Support'] = supportNeeds
-  // Write every interest as '1' or '0': Action Network merges custom_fields
-  // per person, so omitting unchecked boxes would leave stale '1's from a
-  // previous submission sticky forever.
-  for (const interest of CAMPAIGN_INTERESTS) {
-    customFields[`Campaign Interest_${interest}`] = interests.includes(interest)
-      ? '1'
-      : '0'
   }
 
   // Tags are matched by name to tags that already exist in Action Network;
@@ -125,9 +73,10 @@ export async function submitJoinForm(
       given_name: firstName,
       family_name: lastName,
       email_addresses: [{ address: email }],
-      phone_numbers: [{ number: phone }],
-      postal_addresses: [{ postal_code: zipCode, country }],
-      custom_fields: customFields,
+      // Written as '1' or '0' (not omitted when unchecked): Action Network
+      // merges custom_fields per person, so omitting the unchecked box would
+      // leave a stale '1' from a previous submission sticky forever.
+      custom_fields: { 'Student Organizer': isStudentOrganizer ? '1' : '0' },
     },
     ...(addTags.length > 0 && { add_tags: addTags }),
     triggers: {
@@ -142,7 +91,7 @@ export async function submitJoinForm(
         field(formData, 'source').slice(0, 100) ||
         process.env.ACTION_NETWORK_SOURCE ||
         'ccn-website',
-      website: 'https://www.campusclimatenetwork.org/take-action',
+      website: `${SITE_URL}/take-action`,
     },
   }
 

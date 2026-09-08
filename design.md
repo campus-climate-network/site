@@ -149,7 +149,7 @@ See [`take-action/join-form.tsx`](<src/app/(site)/take-action/join-form.tsx>):
 
 - Field: `flex flex-col gap-1.5`; label: `text-sm font-semibold text-slate-900` (required mark: `text-brand-primary` asterisk)
 - Input: `w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-brand-primary focus:bg-white focus:ring-2 focus:ring-brand-primary/20`
-- Group legends use the compact eyebrow tier
+- Hints sit under the input at `text-xs text-slate-500`; inline errors at `text-sm font-medium` (brand-primary for the playful email nudge, `text-red-600` for submit failures)
 
 ### Heroes
 
@@ -166,6 +166,7 @@ Everything respects `prefers-reduced-motion` — every animation in globals.css 
 - **gradient-drift** — slow background-position drift for gradient CTA panels
 - **Logo marquee** (`.logo-marquee`) — seamless press-logo loop, pauses on hover/focus, static scrollable row under reduced motion
 - **Member map pins** — staggered drop-in + pulse when scrolled into view
+- **Join-form email nudge** (`.join-email-*`) — springy pop-in message with 🎓 cap-toss + input head-shake when a `.edu` email is rejected (take-action)
 - **Header wordmark** — "Campus Climate Network" collapses to "CCN" on scroll (desktop nav only, ≥1080px)
 - Per-page opt-out of the sticky header: set `data-scrollable-header` on a page wrapper (used by the impact report)
 
