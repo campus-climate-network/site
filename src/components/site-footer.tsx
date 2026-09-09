@@ -45,7 +45,7 @@ export function SiteFooter() {
       <div className="page-container section-dark grid gap-10 md:gap-12 lg:grid-cols-[2fr_3fr]">
         <div className="order-2 stack stack-tight lg:order-1">
           <div>
-            <p className="eyebrow text-[10px] font-semibold text-brand-accent sm:text-xs">
+            <p className="eyebrow text-xs font-semibold text-brand-accent">
               Campus Climate Network
             </p>
             <p className="mt-3 max-w-xs text-sm text-slate-300">
