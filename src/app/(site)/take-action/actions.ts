@@ -1,5 +1,6 @@
 'use server'
 
+import { field, honeypotTripped } from '@/lib/form-action'
 import { SITE_URL } from '@/lib/site'
 import { isEduEmail } from './school-email'
 
@@ -11,18 +12,13 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const GENERIC_ERROR =
   'Something went wrong submitting the form. Please try again, or email us if the problem persists.'
 
-function field(formData: FormData, name: string): string {
-  const value = formData.get(name)
-  return typeof value === 'string' ? value.trim() : ''
-}
-
 export async function submitJoinForm(
   _prevState: JoinFormState,
   formData: FormData,
 ): Promise<JoinFormState> {
-  // Honeypot — real users never see this field. Logged so silently dropped
+  // Honeypot (see lib/form-action.ts). Logged so silently dropped
   // submissions are visible in server logs if a real user ever trips it.
-  if (field(formData, 'form_note')) {
+  if (honeypotTripped(formData)) {
     console.warn('Join form honeypot tripped — submission dropped')
     return { status: 'success' }
   }

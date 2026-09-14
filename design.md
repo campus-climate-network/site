@@ -145,11 +145,12 @@ Standing exception: the open-letter "sign" CTA ([`open-letter/page.tsx`](<src/ap
 
 ### Forms
 
-See [`take-action/join-form.tsx`](<src/app/(site)/take-action/join-form.tsx>):
+The recipe lives in [`components/form-fields.tsx`](src/components/form-fields.tsx) — `TextField`, `RequiredMark`, `HoneypotField`, `FormSuccess`, and the class constants below — used by [`take-action/join-form.tsx`](<src/app/(site)/take-action/join-form.tsx>) and the onboarding form; import from there rather than re-typing the strings:
 
 - Field: `flex flex-col gap-1.5`; label: `text-sm font-semibold text-slate-900` (required mark: `text-brand-primary` asterisk)
 - Input: `w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 outline-none transition-colors placeholder:text-slate-400 focus:border-brand-primary focus:bg-white focus:ring-2 focus:ring-brand-primary/20`
 - Hints sit under the input at `text-xs text-slate-500`; inline errors at `text-sm font-medium` (brand-primary for the playful email nudge, `text-red-600` for submit failures)
+- File inputs keep the label/hint recipe and style their button through `file:` variants (`file:rounded-full file:border-0 file:bg-brand-primary/10 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-brand-primary hover:file:bg-brand-primary/20`), with an optional `h-28 rounded-xl border border-slate-200 object-contain p-2` preview of the chosen image — see [`onboarding/org-profile-form.tsx`](<src/app/(site)/onboarding/org-profile-form.tsx>)
 
 ### Heroes
 

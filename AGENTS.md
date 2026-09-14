@@ -41,7 +41,7 @@ src/
 │   │   ├── programs/              # Programs landing (card grid + academic-year table; local programs-data.ts)
 │   │   │   ├── [slug]/page.tsx    # Per-program detail pages (static params from programs-data.ts; related posts via POSTS_BY_SLUGS_QUERY)
 │   │   │   └── closing-cta.tsx    # Programs CTA copy, rendered via the shared ClosingCta component
-│   │   ├── take-action/           # Custom join form → Action Network API (actions.ts + join-form.tsx; shared .edu check in school-email.ts)
+│   │   ├── take-action/           # Custom join form → Action Network API (actions.ts + join-form.tsx; shared .edu check in school-email.ts; form recipe from components/form-fields.tsx)
 │   │   ├── donate/                # HCB donation iframe
 │   │   ├── open-letter/           # Open letter + signatories
 │   │   ├── contact-us/            # Contact page
@@ -50,11 +50,16 @@ src/
 │   │   │   ├── apply-link.tsx     # Shared Apply pill (new tab for http(s), in place for mailto:)
 │   │   │   └── organization-overview.tsx  # Boilerplate closing every posting (org overview, fiscal sponsor, EEO statement)
 │   │   ├── impact-reports/2025/   # 2025 impact report (animated counters, scroll header)
-│   │   └── member-portal/         # Password-gated, Notion-backed member portal (noindex)
-│   │       ├── [[...pageId]]/page.tsx  # Renders Notion pages via react-notion-x
-│   │       ├── actions.ts         # Server actions: HMAC-cookie auth (MEMBER_PORTAL_PASSWORD)
+│   │   ├── member-portal/         # Password-gated, Notion-backed member portal (noindex)
+│   │   │   ├── [[...pageId]]/page.tsx  # Renders Notion pages via react-notion-x
+│   │   │   ├── actions.ts         # Server actions: HMAC-cookie auth (MEMBER_PORTAL_PASSWORD)
+│   │   │   ├── password-form.tsx  # Password gate UI
+│   │   │   └── notion-page.tsx    # NotionRenderer wrapper
+│   │   └── onboarding/            # Password-gated member onboarding form → draft memberOrg (noindex; see "Member onboarding" below)
+│   │       ├── page.tsx           # Gates on MEMBER_ONBOARDING_PASSWORD, renders the password form or the profile form
+│   │       ├── actions.ts         # Server actions: authenticate (password → HMAC cookie), submitOrgProfile (logo upload, geocode, draft memberOrg)
 │   │       ├── password-form.tsx  # Password gate UI
-│   │       └── notion-page.tsx    # NotionRenderer wrapper
+│   │       └── org-profile-form.tsx  # Profile form: the fields existing orgs carry (name, university, address, logo required; website, Instagram optional)
 │   └── studio/[[...tool]]/        # Sanity Studio at /studio
 ├── components/
 │   ├── site-header.tsx            # Sticky header with desktop mega-menu + mobile nav
@@ -69,20 +74,25 @@ src/
 │   ├── post-card.tsx              # Shared blog-post card + byline/date helpers (used by /blog and /programs/[slug])
 │   ├── portable-text-body.tsx     # Shared Portable Text body wrapper + typography (blog posts and job postings)
 │   ├── closing-cta.tsx            # Shared gradient closing-CTA panel (props: heading/body/CTAs)
+│   ├── form-fields.tsx            # Shared form recipe: TextField, RequiredMark, HoneypotField, FormSuccess + class constants (join form + onboarding)
 │   ├── faq-section.tsx            # Visible FAQ accordion + FAQPage JSON-LD from the same data
 │   └── fancy/blocks/stacking-cards.tsx  # Scroll-triggered stacking card sections (motion)
 ├── data/
 │   └── navigation.ts             # Navigation entries (shared by header + footer)
 ├── lib/
+│   ├── form-action.ts            # field() + honeypot helpers shared by the form server actions
+│   ├── mapbox.ts                 # geocodeAddress() — Mapbox forward geocoding shared by the member map and the onboarding action
 │   ├── site.ts                   # SITE_URL — canonical www origin for all absolute URLs
 │   └── utils.ts                  # cn() utility (clsx + tailwind-merge)
 └── sanity/
     ├── env.ts                    # Sanity project ID, dataset, API version from env vars
     ├── lib/
     │   ├── client.ts             # Sanity client (CDN disabled for ISR freshness)
+    │   ├── write-client.ts       # Server-only client carrying SANITY_WRITE_TOKEN (member onboarding writes)
     │   ├── queries.ts            # All GROQ queries
     │   ├── types.ts              # TypeScript types for Sanity data
     │   ├── job-role.ts           # jobRole option lists, labels, and the open/closed rule (shared by schema + site)
+    │   ├── member-org.ts         # Field + logo upload limits for the onboarding form (client hint + server check)
     │   └── image.ts              # urlFor() image URL builder
     ├── schemaTypes/
     │   ├── index.ts              # Schema registry
@@ -139,16 +149,24 @@ src/
 - Tag-based: every Sanity `client.fetch` passes `next: { tags }` (or `cache: 'force-cache'` + tags on fully static pages) naming the document types its query renders — post queries carry `POST_TAGS` (`post`/`author`/`category`, since they dereference authors and categories; exported from `queries.ts`), the careers pages (`/hiring`, `/hiring/[slug]`) tag `jobRole`, the member-org fetches (home, `/our-network`) tag `memberOrg`, and the sitemap tags `post` and `jobRole`. The webhook calls `revalidateTag(_type)`, so a new page that renders Sanity content only needs to tag its own fetch — there is no per-page registry to update.
 - Sanity webhook config: URL `https://www.campusclimatenetwork.org/api/revalidate` (use `www.` — the apex 307-redirects), POST, projection `{ "_type": _type, "slug": slug.current }` (only `_type` is read now — tag revalidation doesn't need the slug — but the projection is fine as-is), Drafts/Versions disabled, secret = `SANITY_REVALIDATE_SECRET`.
 
+#### Member onboarding (form → Sanity)
+
+- `/onboarding` is a single unlisted URL (noindex, not in the sitemap or the nav) that CCN gives newly accepted groups — in the welcome email, the onboarding PDF, and so on. It is gated by the shared `MEMBER_ONBOARDING_PASSWORD` with the member portal's construction: `authenticate` compares the password with `timingSafeEqual` and sets an HMAC cookie (keyed by the password, scoped to `/onboarding`, 7 days); `isAuthenticated` checks it on every render and again inside the submit action.
+- The form collects name, university, campus address, and logo (all required) plus optional website and Instagram — the fields existing orgs actually carry (description is unused across the dataset; region stays a staff call in Studio). Limits live in `src/sanity/lib/member-org.ts` and drive both the inputs' `maxLength` and the server checks. SVG logos are refused because `next/image` won't render them without `dangerouslyAllowSVG`.
+- `submitOrgProfile` re-checks the cookie, validates, uploads the logo, geocodes the address via `src/lib/mapbox.ts` when `MAPBOX_GEOCODING_TOKEN` is set (skipped silently otherwise — the public token is URL-restricted and 403s server-side; the map's browser-side fallback still places the pin), then creates the org as a **draft** (`drafts.<uuid>`, `isActive: true`, `location` = the address like every existing org). If the create fails, the just-uploaded logo is deleted so no orphan asset is left behind. Nothing goes live until staff publish the draft in Studio; that publish fires the `memberOrg` webhook and refreshes the map and `/our-network`.
+- There is no per-group link and no single-use tracking: anyone with the URL and the password can submit, so a duplicate or junk submission simply shows up as an extra draft for staff to delete before publishing. Writes go through `src/sanity/lib/write-client.ts` (`SANITY_WRITE_TOKEN`, server-only — never import it from client code). Logos are capped at 4 MB (`LOGO_MAX_BYTES`), and `next.config.ts` raises the server-action body limit to 5 MB to match; Vercel's function payload ceiling is 4.5 MB.
+
 ### Hidden/WIP Pages
 
 - `/member-portal` — password-gated (HMAC cookie); `noindex` and excluded from sitemap
+- `/onboarding` — password-gated member onboarding form (see "Member onboarding" above); `noindex` and excluded from sitemap; the URL is shared privately (welcome email, onboarding PDF) and never linked from the site
 - `/impact` — complete and live; the section-03 partner quote and the UCSD win (commented out in `impact/wins-data.ts`) are intentionally unused, not pending — don't treat them as gaps
 
 ### SEO & Sitemap Notes
 
 - Canonical host is `https://www.campusclimatenetwork.org` — the apex 307-redirects to `www`. All absolute URLs (metadataBase, sitemap, robots, JSON-LD) derive from the shared `SITE_URL` constant in `src/lib/site.ts`; never hardcode the origin
 - Every public page sets `alternates.canonical`; the root layout deliberately omits og/twitter `title`/`description`/`url` so each page's own metadata flows into social cards
-- `/member-portal` and `/studio` — EXCLUDED from sitemap and noindexed. Do not robots-disallow `/member-portal`: crawlers must be able to fetch it to see the noindex
+- `/member-portal`, `/onboarding`, and `/studio` — EXCLUDED from sitemap and noindexed. Do not robots-disallow `/member-portal` or `/onboarding`: crawlers must be able to fetch them to see the noindex
 - FAQ content: `src/components/faq-section.tsx` renders the visible FAQ accordion and its `FAQPage` JSON-LD from the same data — never emit FAQ JSON-LD without matching visible content (structured-data spam signal)
 - `JobPosting` JSON-LD is emitted only on `/hiring/[slug]` (one posting per URL, as Google requires) and only while the role is open; the listing page carries none
 - `public/llms.txt` — AI-crawler site summary; update its links when pages are added or renamed
@@ -162,7 +180,10 @@ NEXT_PUBLIC_SANITY_PROJECT_ID=
 NEXT_PUBLIC_SANITY_DATASET=
 NEXT_PUBLIC_SANITY_API_VERSION=  # optional, defaults to 2025-10-19
 NEXT_PUBLIC_MAPBOX_TOKEN=
+MAPBOX_GEOCODING_TOKEN=          # optional; server-side Mapbox token (geocoding scope, no URL restriction) for the onboarding form — unset means geocoding is skipped (the public token is URL-restricted and 403s from the server)
 MEMBER_PORTAL_PASSWORD=          # server-side; gates /member-portal access
+MEMBER_ONBOARDING_PASSWORD=      # server-side; the one shared password groups enter on /onboarding (to see and submit the form)
+SANITY_WRITE_TOKEN=              # server-side; Sanity write token for the onboarding form (logo upload, draft memberOrg)
 SANITY_REVALIDATE_SECRET=        # server-side; shared secret for the Sanity → /api/revalidate webhook
 ACTION_NETWORK_API_KEY=          # server-side; OSDI-API-Token for the /take-action join form
 ACTION_NETWORK_FORM_ID=          # server-side; Action Network form UUID the join form submits to

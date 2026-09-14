@@ -1,6 +1,12 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  experimental: {
+    // The member onboarding form posts a logo through a server action, and
+    // the default 1 MB body limit is too small. The form caps logos at 4 MB
+    // (member-org.ts); Vercel's function payload ceiling is 4.5 MB.
+    serverActions: { bodySizeLimit: '5mb' },
+  },
   images: {
     remotePatterns: [
       {

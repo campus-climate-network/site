@@ -10,6 +10,8 @@ import Map, {
 } from 'react-map-gl/mapbox'
 import 'mapbox-gl/dist/mapbox-gl.css'
 
+import { geocodeAddress as geocodeMapbox } from '@/lib/mapbox'
+
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || ''
 
 export interface MemberOrg {
@@ -44,24 +46,9 @@ async function geocodeAddress(
     return geocodeCache[address]
   }
 
-  try {
-    const response = await fetch(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(address)}.json?access_token=${MAPBOX_TOKEN}&limit=1`,
-    )
-    const data = await response.json()
-
-    if (data.features && data.features.length > 0) {
-      const [lng, lat] = data.features[0].center
-      const coords = { lat, lng }
-      geocodeCache[address] = coords
-      return coords
-    }
-  } catch (error) {
-    console.error('Geocoding error for:', address, error)
-  }
-
-  geocodeCache[address] = null
-  return null
+  const coords = await geocodeMapbox(address, MAPBOX_TOKEN)
+  geocodeCache[address] = coords
+  return coords
 }
 
 // Get initial zoom based on screen width (mobile needs more zoomed out view)
