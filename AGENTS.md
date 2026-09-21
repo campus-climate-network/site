@@ -83,6 +83,7 @@ src/
 │   ├── form-action.ts            # field() + honeypot helpers shared by the form server actions
 │   ├── mapbox.ts                 # geocodeAddress() — Mapbox forward geocoding shared by the member map and the onboarding action
 │   ├── site.ts                   # SITE_URL — canonical www origin for all absolute URLs
+│   ├── slack.ts                  # notifySlack() + escapeSlackText() — server-only Slack Incoming Webhook helper (join-form signups)
 │   └── utils.ts                  # cn() utility (clsx + tailwind-merge)
 └── sanity/
     ├── env.ts                    # Sanity project ID, dataset, API version from env vars
@@ -190,6 +191,7 @@ ACTION_NETWORK_FORM_ID=          # server-side; Action Network form UUID the joi
 ACTION_NETWORK_TAGS=             # optional; comma-separated tag names applied to signups — tags must already exist in Action Network (unknown tags are silently ignored)
 ACTION_NETWORK_SOURCE=           # optional; source code for the form's sources chart (defaults to ccn-website)
 ACTION_NETWORK_AUTORESPONSE=     # optional; set to false to skip the form's autoresponse email (defaults to true)
+SLACK_WEBHOOK_URL=               # optional; server-side Slack Incoming Webhook URL — each successful join-form signup posts a heads-up to its channel (unset means no Slack messages, nothing else changes)
 ```
 
 ## Important Notes
@@ -197,6 +199,7 @@ ACTION_NETWORK_AUTORESPONSE=     # optional; set to false to skip the form's aut
 - The site is **open source**: https://github.com/campus-climate-network/campus-climate-network
 - Donations go through **HCB** (Hack Club Bank) iframe embed
 - Take action form is a custom-designed form that submits to the **Action Network API** (Record Submission Helper) via a server action (`take-action/actions.ts`); the API key stays server-side. Custom field names must match the Action Network form's fields exactly (e.g. `Student Organizer`)
+- After a successful Action Network post, the join form action schedules a Slack heads-up (name, email, student-organizer flag, source) via `after()` from `next/server`, so it runs once the response is sent and can never delay or fail the signup. The helper in `src/lib/slack.ts` posts to `SLACK_WEBHOOK_URL` (a Slack Incoming Webhook; the channel should be staff-only since messages carry emails), no-ops when the variable is unset, and escapes user text so a name like `<!channel>` can't ping the room. Honeypot-tripped submissions never notify
 - Images served from `cdn.sanity.io` and `images.squarespace-cdn.com` (allowed in next.config.ts)
 - `styled-components` is a dependency (required by Sanity Studio) but not used in site code
 - Member portal content lives in **Notion**; fetched via `notion-client` and rendered with `react-notion-x` (`notion-types`/`notion-utils` for traversal). Access is gated by a server-side HMAC cookie keyed off `MEMBER_PORTAL_PASSWORD` (see `member-portal/actions.ts`)

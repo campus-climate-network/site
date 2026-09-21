@@ -1,7 +1,10 @@
 'use server'
 
+import { after } from 'next/server'
+
 import { field, honeypotTripped } from '@/lib/form-action'
 import { SITE_URL } from '@/lib/site'
+import { escapeSlackText, notifySlack } from '@/lib/slack'
 import { isEduEmail } from './school-email'
 
 export type JoinFormState =
@@ -63,6 +66,13 @@ export async function submitJoinForm(
     .map((tag) => tag.trim())
     .filter(Boolean)
 
+  // Per-link attribution (/take-action?source=...) forwarded by the form;
+  // falls back to the configured site-wide source.
+  const source =
+    field(formData, 'source').slice(0, 100) ||
+    process.env.ACTION_NETWORK_SOURCE ||
+    'ccn-website'
+
   // Record Submission Helper: https://actionnetwork.org/docs/v2/record_submission_helper
   const submission = {
     person: {
@@ -81,12 +91,7 @@ export async function submitJoinForm(
       },
     },
     'action_network:referrer_data': {
-      // Per-link attribution (/take-action?source=...) forwarded by the form;
-      // falls back to the configured site-wide source.
-      source:
-        field(formData, 'source').slice(0, 100) ||
-        process.env.ACTION_NETWORK_SOURCE ||
-        'ccn-website',
+      source,
       website: `${SITE_URL}/take-action`,
     },
   }
@@ -117,6 +122,19 @@ export async function submitJoinForm(
     console.error('Action Network submission failed:', error)
     return { status: 'error', message: GENERIC_ERROR }
   }
+
+  // Staff heads-up in Slack. Scheduled with after() so it runs once the
+  // response has been sent: a slow or down Slack can never delay or fail the
+  // signup. No-op without SLACK_WEBHOOK_URL (see lib/slack.ts).
+  after(() =>
+    notifySlack(
+      [
+        ':wave: New signup from the website join form',
+        `*${escapeSlackText(`${firstName} ${lastName}`)}* · ${escapeSlackText(email)}`,
+        `${isStudentOrganizer ? 'Student organizer' : 'Not a student organizer'} · source: ${escapeSlackText(source)}`,
+      ].join('\n'),
+    ),
+  )
 
   return { status: 'success' }
 }
