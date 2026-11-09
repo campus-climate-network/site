@@ -2,7 +2,8 @@ import type { StudentWin } from './wins-showcase'
 
 // Campaign wins powering the interactive showcase on the Impact page.
 //
-// The wins below are REAL, drawn from CCN's 2025 Impact Report.
+// The wins below are REAL — Claremont and the compact are drawn from CCN's
+// 2025 Impact Report; the University of Oregon win is from the CCN blog.
 //
 // To add a win: copy an entry below and edit the fields.
 //   - All cards render at equal size in the grid.
@@ -66,6 +67,32 @@ export const studentWins: StudentWin[] = [
       },
     ],
     link: 'https://wagingnonviolence.org/2025/12/student-resistance-to-authoritarianism/',
+  },
+  {
+    id: 'oregon-decarbonization',
+    title:
+      'A $15 million commitment toward decarbonizing the University of Oregon',
+    campaign: 'Campus decarbonization',
+    description:
+      'Climate Justice League, a CCN member group, won a historic commitment from the University of Oregon to guarantee $15 million in funding toward campus decarbonization.',
+    // Same photo as the blog post's main image (Sanity asset).
+    imageUrl:
+      'https://cdn.sanity.io/images/0l9bbr4g/production/12ae283263e870486bd6ab310acb0dc624269ffe-677x376.png',
+    imageAlt:
+      "Climate Justice League members rallying on campus steps with signs reading 'Electrify UO' and 'People over profit'.",
+    outcomes: [
+      'The single largest win for decarbonization in the history of UO',
+      'Following an initial “no” vote by the Board of Trustees, student pressure resulted in an unprecedented special meeting to approve the measure',
+      'Funding could decrease campus emissions by up to 45%',
+    ],
+    quotes: [
+      {
+        quote:
+          'CCN — and their 2025 Fall Fellowship in particular — allowed me to gain confidence in my organizing abilities, despite being new to the activism space on my campus. They gave me the tools to think critically about organizing tactics, which allowed me to develop a new outlook the past year. Our recent campus win of allocating $15 million of debt capacity towards decarbonization wouldn’t have been possible without the support and expertise of the CCN team and coaches!',
+        role: 'Climate Justice League student organizer and ’25 CCN Organizing Fellow',
+      },
+    ],
+    link: '/blog/win-decarb-oregon',
   },
   // Intentionally unused for now — restore (with a campaign photo via
   // imageUrl / imageAlt) only if we decide to feature it.
