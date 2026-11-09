@@ -921,15 +921,18 @@ function MobileNav({
       {/* Header */}
       <div className="page-container flex items-center justify-between gap-4 py-3">
         <Link href="/" onClick={onClose} className="flex items-center gap-4">
-          <div className="relative h-11 w-11 overflow-hidden rounded-full shadow-[0_4px_12px_-4px_rgba(96,55,157,0.25)]">
+          <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full shadow-[0_4px_12px_-4px_rgba(96,55,157,0.25)]">
             <Image
               src="/purple-logo.png"
-              alt="Campus Climate Network logo"
+              alt=""
               fill
               sizes="44px"
               className="object-contain"
             />
           </div>
+          <p className="font-display whitespace-nowrap text-sm uppercase leading-tight tracking-tight text-brand-primary sm:text-lg">
+            Campus Climate Network
+          </p>
         </Link>
 
         {/* Close button */}
