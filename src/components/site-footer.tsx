@@ -72,7 +72,7 @@ export function SiteFooter() {
           <p className="text-xs text-slate-400">
             This website is{' '}
             <a
-              href="https://github.com/campus-climate-network/campus-climate-network"
+              href="https://github.com/campus-climate-network/site"
               target="_blank"
               rel="noopener noreferrer"
               className="underline transition hover:text-slate-300"

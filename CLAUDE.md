@@ -196,7 +196,7 @@ SLACK_WEBHOOK_URL=               # optional; server-side Slack Incoming Webhook 
 
 ## Important Notes
 
-- The site is **open source**: https://github.com/campus-climate-network/campus-climate-network
+- The site is **open source**: https://github.com/campus-climate-network/site
 - Donations go through **HCB** (Hack Club Bank) iframe embed
 - Take action form is a custom-designed form that submits to the **Action Network API** (Record Submission Helper) via a server action (`take-action/actions.ts`); the API key stays server-side. Custom field names must match the Action Network form's fields exactly (e.g. `Student Organizer`)
 - After a successful Action Network post, the join form action schedules a Slack heads-up (name, email, student-organizer flag, source) via `after()` from `next/server`, so it runs once the response is sent and can never delay or fail the signup. The helper in `src/lib/slack.ts` posts to `SLACK_WEBHOOK_URL` (a Slack Incoming Webhook; the channel should be staff-only since messages carry emails), no-ops when the variable is unset, and escapes user text so a name like `<!channel>` can't ping the room. Honeypot-tripped submissions never notify
